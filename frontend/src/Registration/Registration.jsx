@@ -62,7 +62,6 @@ function Registration() {
   };
 
   const validatePhone = (phone) => {
-    // Basic phone number validation
     const phoneRegex = /^\+[1-9]\d{1,14}$/;
 
     if (!phoneRegex.test(phone)) {
