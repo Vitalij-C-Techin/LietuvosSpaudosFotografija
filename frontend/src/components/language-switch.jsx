@@ -14,11 +14,12 @@ const LanguageSwitch = () => {
   };
 
   return (
-    <div>
+    <div data-testid="language-switch">
       {lngs.map((lng) => (
         <button
           key={lng.code}
           onClick={() => handleLangChange(lng.code)}
+          data-testid="language-switch-button"
           style={{
             fontWeight: i18n.language === lng.code ? 'bold' : 'normal'
           }}
