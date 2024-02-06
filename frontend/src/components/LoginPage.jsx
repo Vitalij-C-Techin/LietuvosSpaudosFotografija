@@ -7,7 +7,9 @@ function LoginPage() {
          <div className="container">       
           
             <div className="left-column">
+             
                 <div className="form">
+                
                         <div className="form-header">
                             <h2>
                                 Login to your account
@@ -23,6 +25,7 @@ function LoginPage() {
 
                         <div className="field-input">
                             <input 
+                                        className="field"
                                         type="email" 
                                         name="email" />
                         </div>
@@ -36,40 +39,45 @@ function LoginPage() {
                       
                         <div className="field-input">
                             <input 
+                                className="field"
                                     type="password" 
                                     name="password" />
                         </div>
-                       
-                        <div className="button-login">
-                            <input 
-                                type="submit"
-                                value="Login" />
-                        </div>
                         <div className="link">
                             <a 
-                                href="https://www.life-framer.com/password-reset/" 
+                                href="" 
                                 >
                                 Forgot your password?</a>
                         </div>
-                    
+                        <div className="button-login" style={{display:"block"}}>
+                            <input 
+                             
+                                type="submit"
+                                value="Login" />
+                        </div>
+                   
+                     
                 </div>
             </div>
 
-                <div className ="right-column" style={{}}>
-                    <div className="text-wrapper" style={{borderStyle:"solid"}}>
-                        <div className="form-header">
-                            <p>
-                                Don't have an Account?
-                            </p>
-                        </div>
+                <div className ="right-column">
+                    <div className='background-picture' style={{borderStyle:"solid"}}>
+                        <div className="text-wrapper" >
+                            <div className="form-header">
+                                <p>
+                                    Don't have an account yet?
+                                </p>
+                            </div>
 
-                        <div className="link">
-                        <a 
-                            href="https://www.life-framer.com/password-reset/"
-                           >
-                            Register</a>
+                            <div className="link">
+                            <a 
+                                href=""
+                            >
+                                Register</a>
+                            </div>
                         </div>
                     </div>
+                  
                     
                  
                 </div>
