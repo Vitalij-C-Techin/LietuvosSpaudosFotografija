@@ -1,8 +1,12 @@
+import LoginPage from "./components/pages/LoginPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 function App() {
   return (
     <>
-      <h3>Hello World!</h3>
-    </>
+     <LoginPage/>
+      </>
   );
 }
 
