@@ -49,6 +49,12 @@ function LoginPageForm() {
                                 >
                                 Forgot your password?</a>
                         </div>
+                        <div className="link">
+                            <a 
+                                href=""
+                            >
+                                Register</a>
+                            </div>
                         <div className="button-login" style={{display:"block"}}>
                             <input 
                              
@@ -59,28 +65,6 @@ function LoginPageForm() {
                      
                 </div>
             </div>
-
-                <div className ="right-column">
-                    <div className='background-picture' style={{borderStyle:"solid"}}>
-                        <div className="text-wrapper" >
-                            <div className="form-header">
-                                <p>
-                                    Don't have an account yet?
-                                </p>
-                            </div>
-
-                            <div className="link">
-                            <a 
-                                href=""
-                            >
-                                Register</a>
-                            </div>
-                        </div>
-                    </div>
-                  
-                    
-                 
-                </div>
 
         </div>
       </>
