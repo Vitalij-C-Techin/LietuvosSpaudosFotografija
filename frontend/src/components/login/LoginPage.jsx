@@ -1,10 +1,10 @@
+import LoginPageForm from "./LoginPageForm";
 
-import './LoginPage.css'
 
 function LoginPage() {
     return (
       <>
-      <LoginPage/>
+        <LoginPageForm/>
       </>
     );
   }
