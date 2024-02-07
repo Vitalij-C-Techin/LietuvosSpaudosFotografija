@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 function LoginPageForm() {
   return (
     <>  
-         <div style={{padding:"50px"}}>
+         <div className='form' style={{padding:"50px"}}>
             <h2>Log in to your account</h2>
 
             <Form style={{margin:"auto", width: "30%", textAlign:"center"}}>    
