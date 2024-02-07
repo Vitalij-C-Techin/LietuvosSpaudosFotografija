@@ -1,6 +1,6 @@
 import Form from 'react-bootstrap/Form';
 
-function LoginFormLayout() {
+function LoginPageForm() {
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -15,4 +15,4 @@ function LoginFormLayout() {
   );
 }
 
-export default LoginFormLayout;
+export default LoginPageForm;
