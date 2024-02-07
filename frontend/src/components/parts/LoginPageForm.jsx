@@ -6,7 +6,8 @@ import Button from 'react-bootstrap/Button';
 function LoginPageForm() {
   return (
     <>  
-         <div className='form' style={{padding:"50px"}}>
+         <section style={{padding:"50px"}}>
+            
             <h2>Log in to your account</h2>
 
             <Form style={{margin:"auto", width: "30%", textAlign:"center"}}>    
@@ -46,7 +47,7 @@ function LoginPageForm() {
                     </Row>
                 </Form.Group>
             </Form>
-        </div>
+        </section>
     </>
   );
 }

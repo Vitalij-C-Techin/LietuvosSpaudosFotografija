@@ -1,0 +1,15 @@
+section {
+  padding: "50px";
+}
+
+form {
+  margin: auto;
+  width: 30%;
+  text-align: center;
+}
+form a {
+  text-align: left;
+}
+form button {
+  width: 100%;
+}/*# sourceMappingURL=style.css.map */

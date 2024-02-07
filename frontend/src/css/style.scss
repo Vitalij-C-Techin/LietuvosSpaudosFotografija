@@ -1,6 +1,18 @@
-.form{
-    
-    a h2{
+
+section{
+    padding:"50px"
+}
+
+form{
+    margin:auto;
+    width:30%;
+    text-align:center;
+
+    a {
         text-align: left;
+    }
+
+    button {
+        width: 100%
     }
 }
