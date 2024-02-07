@@ -6,11 +6,11 @@ import Button from 'react-bootstrap/Button';
 function LoginPageForm() {
   return (
     <>  
-         <section style={{padding:"50px"}}>
+         <section>
             
             <h2>Log in to your account</h2>
 
-            <Form style={{margin:"auto", width: "30%", textAlign:"center"}}>    
+            <Form>    
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email"  />
@@ -24,23 +24,22 @@ function LoginPageForm() {
                 <Form.Group  className="mb-3" controlId="formGroupLinks">
                     <Row className="align-items-center">
                         <Col>
-                        <div style={{ textAlign: "left" }}>
+                        <div className="linkText">
                             <a href="url">Forgot password?</a>
                         </div>
                         </Col>
                     </Row>
-                
                 </Form.Group>
         
                 <Form.Group className="mb-3" controlId="formGroupButton">
                     <Row className="align-items-center">
                         <Col  xs={12} md={6}>
-                            <Button  variant="light" type="login" style={{ width: "100%" }}>
+                            <Button  variant="light" type="login">
                                 Login
                             </Button>
                         </Col>
                         <Col  xs={12} md={6}>
-                            <Button  variant="light" type="login" style={{ width: "100%" }}>
+                            <Button  variant="light" type="login">
                                 Register
                             </Button>
                         </Col>

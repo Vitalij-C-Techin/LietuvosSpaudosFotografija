@@ -1,5 +1,5 @@
 section {
-  padding: "50px";
+  padding: 50px;
 }
 
 form {
@@ -7,7 +7,7 @@ form {
   width: 30%;
   text-align: center;
 }
-form a {
+form .linkText {
   text-align: left;
 }
 form button {
