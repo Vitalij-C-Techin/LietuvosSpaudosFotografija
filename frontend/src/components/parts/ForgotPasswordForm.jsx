@@ -9,7 +9,7 @@ function ForgotPasswordForm() {
          <section>
             
             <h2>Reset Password</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta iure debitis, minima aperiam dicta nobis corporis adipisci quisquam cum officia architecto a, nostrum dolorum libero dignissimos provident sequi sed labore.</p>
+            <p>Lorem ipsum dolor sit amet consectetur</p>
 
             <Form>    
                 <Form.Group className="mb-3" controlId="formGroupEmail">
