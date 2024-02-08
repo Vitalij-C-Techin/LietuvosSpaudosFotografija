@@ -14,7 +14,7 @@ function ForgotPasswordForm() {
             <Form>    
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                    
-                    <Form.Control type="email" placeholder='Enter your here' />
+                    <Form.Control type="email" placeholder='Enter your email here' />
                 </Form.Group>
         
                 <Form.Group className="mb-3" controlId="formGroupButton">
