@@ -5,9 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import './navigationBar.scss';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import LanguageSwitch from '../language-switch';
 import '../../i18n.jsx';
 import { useTranslation } from 'react-i18next';
@@ -18,11 +16,15 @@ function NavigationBar() {
   const { t } = useTranslation();
 
   return (
-    <Navbar className="bg-body-tertiary">
+    <Navbar className="bg-body-tertiary" data-testid="NavigationBar">
       <Container>
         <Nav className="ms-auto">
           <Dropdown>
-            <Dropdown.Toggle id="dropdown-basic" variant="bg-body-tertiary">
+            <Dropdown.Toggle
+              id="dropdown-basic"
+              data-testid="dropdown-menu-button"
+              variant="bg-body-tertiary"
+            >
               <span className="navbar-toggler-icon"></span>
             </Dropdown.Toggle>
             <Dropdown.Menu align="end">
@@ -41,7 +43,7 @@ function NavigationBar() {
               <Dropdown.Item
                 as="div"
                 id={`nested-dropdown`}
-                show={showNestedDropdown}
+                data-testid="change-language-menu-item"
                 onMouseEnter={() => setShowNestedDropdown(true)}
                 onMouseLeave={() => setShowNestedDropdown(false)}
               >
@@ -49,7 +51,7 @@ function NavigationBar() {
                 <NavDropdown
                   as="div"
                   id={`nested-dropdown`}
-                  show={showNestedDropdown}
+                  show={showNestedDropdown ? 'true' : undefined}
                   className="nav-dropdown-center"
                 >
                   <Container>

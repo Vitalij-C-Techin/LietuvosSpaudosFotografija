@@ -7,7 +7,7 @@ i18n
   .use(initReactI18next)
   .init({
     // TODO disable debug before production!
-    debug: true,
+    debug: false,
     lng: 'en',
     returnObjects: true,
     resources: {

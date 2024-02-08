@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Button from 'react-bootstrap/Button';
 
 const lngs = [
   { code: 'en', lang: 'English' },
@@ -16,7 +17,9 @@ const LanguageSwitch = () => {
   return (
     <div data-testid="language-switch">
       {lngs.map((lng) => (
-        <button
+        <Button
+          variant="outline"
+          bg="transparent"
           key={lng.code}
           onClick={() => handleLangChange(lng.code)}
           data-testid="language-switch-button"
@@ -25,7 +28,7 @@ const LanguageSwitch = () => {
           }}
         >
           {lng.lang}
-        </button>
+        </Button>
       ))}
     </div>
   );
