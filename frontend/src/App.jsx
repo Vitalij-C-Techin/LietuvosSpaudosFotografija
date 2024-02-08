@@ -1,15 +1,16 @@
-import { useTranslation } from 'react-i18next';
-import LanguageSwitch from './components/language-switch';
-import './i18n.jsx';
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
 import './index.scss';
 import NavigationBar from './components/Navbar/NavigationBar.jsx';
+import Layout from './components/Layout/Layout.jsx';
 
 function App() {
-  const { t } = useTranslation();
-
   return (
     <>
-      <NavigationBar />
+      <I18nextProvider i18n={i18n}>
+        <NavigationBar />
+        <Layout />
+      </I18nextProvider>
     </>
   );
 }

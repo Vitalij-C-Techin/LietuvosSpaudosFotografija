@@ -24,6 +24,9 @@ i18n
             dropDownMenuItem8: 'Manage categories(admin)',
             dropDownMenuItem9: 'Support',
             dropDownMenuItem10: 'Change Language'
+          },
+          layoutPage: {
+            h5: 'First slide label'
           }
         }
       },
@@ -38,8 +41,11 @@ i18n
             dropDownMenuItem6: 'Tvarkyti naudotojus (administratorius)',
             dropDownMenuItem7: 'Tvarkyti konkursus (administratorius)',
             dropDownMenuItem8: 'Tvarkyti kategorijas (administratorius)',
-            dropDownMenuItem9: ' Pagalba',
+            dropDownMenuItem9: 'Pagalba',
             dropDownMenuItem10: 'Keisti kalba'
+          },
+          layoutPage: {
+            h5: 'Pirmos foto pavadinimas'
           }
         }
       }
