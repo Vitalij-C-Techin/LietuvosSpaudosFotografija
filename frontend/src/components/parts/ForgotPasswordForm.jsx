@@ -19,7 +19,7 @@ function ForgotPasswordForm() {
         
                 <Form.Group className="mb-3" controlId="formGroupButton">
                     <Row className="align-items-center">
-                        <Col  xs={12} md={6}>
+                        <Col>
                             <Button  variant="light" type="recover">
                                 Recover button
                             </Button>
