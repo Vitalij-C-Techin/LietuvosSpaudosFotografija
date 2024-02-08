@@ -23,3 +23,13 @@ create database lsfotografija;
 \c lsfotografija
 grant all privileges on schema public to lsfotografija;
 ```
+
+### Database test data
+
+- norint isaugoti testinius userius atkomentuoti eilute `LietuvosSpaudosFotografijaApplication`:
+
+```
+boolean isSaving = true;
+```
+
+- paleisti is naujo aplikacija
