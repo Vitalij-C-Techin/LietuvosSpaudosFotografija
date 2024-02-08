@@ -1,0 +1,70 @@
+import React, { useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Dropdown from 'react-bootstrap/Dropdown';
+import './navigationBar.scss';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import LanguageSwitch from '../language-switch';
+import '../../i18n.jsx';
+import { useTranslation } from 'react-i18next';
+
+function NavigationBar() {
+  const [showNestedDropdown, setShowNestedDropdown] = useState(false);
+
+  const { t } = useTranslation();
+
+  return (
+    <Navbar className="bg-body-tertiary">
+      <Container>
+        <Nav className="ms-auto">
+          <Dropdown>
+            <Dropdown.Toggle id="dropdown-basic" variant="bg-body-tertiary">
+              <span className="navbar-toggler-icon"></span>
+            </Dropdown.Toggle>
+            <Dropdown.Menu align="end">
+              <Dropdown.Item href="#/action-1">{t('landingPage.dropDownMenuItem1')}</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">{t('landingPage.dropDownMenuItem2')}</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">{t('landingPage.dropDownMenuItem3')}</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#/action-4">{t('landingPage.dropDownMenuItem4')}</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#/action-5">{t('landingPage.dropDownMenuItem5')}</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#/action-6">{t('landingPage.dropDownMenuItem6')}</Dropdown.Item>
+              <Dropdown.Item href="#/action-7">{t('landingPage.dropDownMenuItem7')}</Dropdown.Item>
+              <Dropdown.Item href="#/action-8">{t('landingPage.dropDownMenuItem8')}</Dropdown.Item>
+              <Dropdown.Item href="#/action-9">{t('landingPage.dropDownMenuItem9')}</Dropdown.Item>
+              <Dropdown.Item
+                as="div"
+                id={`nested-dropdown`}
+                show={showNestedDropdown}
+                onMouseEnter={() => setShowNestedDropdown(true)}
+                onMouseLeave={() => setShowNestedDropdown(false)}
+              >
+                <span>{t('landingPage.dropDownMenuItem10')}</span>
+                <NavDropdown
+                  as="div"
+                  id={`nested-dropdown`}
+                  show={showNestedDropdown}
+                  className="nav-dropdown-center"
+                >
+                  <Container>
+                    <Row>
+                      <LanguageSwitch />
+                    </Row>
+                  </Container>
+                </NavDropdown>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Nav>
+      </Container>
+    </Navbar>
+  );
+}
+
+export default NavigationBar;
