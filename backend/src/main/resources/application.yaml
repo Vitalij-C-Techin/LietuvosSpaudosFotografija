@@ -1,0 +1,13 @@
+logging:
+  level:
+    root: WARN
+    lt.techin: DEBUG
+    org.springframework.security: WARN
+
+spring:
+  jackson:
+    defaultPropertyInclusion: non-null
+    deserialization:
+      failOnUnknownProperties: false
+    mapper:
+      accept-case-insensitive-enums: true
