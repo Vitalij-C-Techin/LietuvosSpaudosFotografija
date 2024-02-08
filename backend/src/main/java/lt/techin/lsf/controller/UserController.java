@@ -1,8 +1,11 @@
 package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
+import lt.techin.lsf.persistance.modal.User;
 import lt.techin.lsf.service.UserService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1")
@@ -51,5 +54,14 @@ public class UserController {
     @GetMapping("/test")
     public Object testUser() {
         return "Test endpoint";
+    }
+
+    @GetMapping("/test/getUser")
+    public User getUser(
+            @RequestParam UUID uuid
+    ) {
+        User user = userService.findUserByUuid(uuid);
+
+        return user;
     }
 }
