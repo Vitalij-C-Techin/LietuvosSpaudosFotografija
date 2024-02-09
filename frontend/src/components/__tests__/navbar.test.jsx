@@ -1,25 +1,37 @@
 import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { I18nextProvider } from 'react-i18next';
-import i18n from '../../i18n';
+import i18n from '../../modules/language/i18n';
 import NavigationBar from '../parts/NavigationBar';
 
-test('renders NavigationBar', () => {
-  const { getByTestId } = render(
+let component;
+
+beforeEach(() => {
+  component = render(
     <I18nextProvider i18n={i18n}>
       <NavigationBar />
     </I18nextProvider>
   );
+});
+
+test('renders NavigationBar', () => {
+  const { getByTestId } = component;
   const navbarElement = getByTestId('NavigationBar');
   expect(navbarElement).toBeInTheDocument();
 });
 
+test('displays nested dropdown menu on hover', () => {
+  const { getByTestId, queryByText } = component;
+  const burgerMenuButton = getByTestId('dropdown-menu-button');
+  fireEvent.click(burgerMenuButton);
+  const languageMenuItem = getByTestId('change-language-menu-item');
+  fireEvent.mouseEnter(languageMenuItem);
+  expect(queryByText('English')).toBeInTheDocument();
+  expect(queryByText('Lithuanian')).toBeInTheDocument();
+});
+
 test('renders change language NavigationBar dropdown menu item', () => {
-  const { getByTestId } = render(
-    <I18nextProvider i18n={i18n}>
-      <NavigationBar />
-    </I18nextProvider>
-  );
+  const { getByTestId } = component;
   const burgerMenuButton = getByTestId('dropdown-menu-button');
   fireEvent.click(burgerMenuButton);
   const languageMenuItem = getByTestId('change-language-menu-item');
@@ -27,11 +39,7 @@ test('renders change language NavigationBar dropdown menu item', () => {
 });
 
 test('renders with correct translation then switched', () => {
-  const { getByText, getByTestId, queryAllByTestId } = render(
-    <I18nextProvider i18n={i18n}>
-      <NavigationBar />
-    </I18nextProvider>
-  );
+  const { getByText, getByTestId, queryAllByTestId } = component;
 
   const burgerMenuButton = getByTestId('dropdown-menu-button');
   fireEvent.click(burgerMenuButton);

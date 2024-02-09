@@ -1,6 +1,6 @@
 import LoginPage from './components/pages/LoginPage';
 import { I18nextProvider } from 'react-i18next';
-import i18n from './i18n';
+import i18n from './modules/language/i18n.jsx';
 import './index.scss';
 import HomePage from './components/pages/HomePage';
 import NavigationBar from './components/parts/NavigationBar.jsx';

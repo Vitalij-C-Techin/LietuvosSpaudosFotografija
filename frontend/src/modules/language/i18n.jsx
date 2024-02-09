@@ -27,6 +27,9 @@ i18n
           },
           layoutPage: {
             imageHeaderText: 'Recent years contest winners'
+          },
+          homePage: {
+            constestListTitle: 'Contests'
           }
         }
       },
@@ -46,6 +49,9 @@ i18n
           },
           layoutPage: {
             imageHeaderText: 'Praeitu metu konkursu nugaletojai'
+          },
+          homePage: {
+            constestListTitle: 'Konkursai'
           }
         }
       }

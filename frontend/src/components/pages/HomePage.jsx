@@ -78,7 +78,7 @@ function HomePage() {
           </Carousel.Item>
         </Carousel>
         <div>
-          <h3 className="contest">Contests:</h3>
+          <h3 className="contest">{t('homePage.constestListTitle')}:</h3>
         </div>
         <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
@@ -88,7 +88,7 @@ function HomePage() {
               </Col>
               <Col>
                 <div>
-                  <h5>Competition</h5>
+                  <h5>{t('homePage.constestListTitle')}</h5>
                   <ul>
                     <li>Item 1</li>
                     <li>Item 2</li>
@@ -107,7 +107,7 @@ function HomePage() {
               </Col>
               <Col>
                 <div>
-                  <h5>Competition</h5>
+                  <h5>{t('homePage.constestListTitle')}</h5>
                   <ul>
                     <li>Item 1</li>
                     <li>Item 2</li>
@@ -126,7 +126,7 @@ function HomePage() {
               </Col>
               <Col>
                 <div>
-                  <h5>Competition</h5>
+                  <h5>{t('homePage.constestListTitle')}</h5>
                   <ul>
                     <li>Item 1</li>
                     <li>Item 2</li>
