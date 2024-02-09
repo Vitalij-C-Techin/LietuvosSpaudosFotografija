@@ -1,12 +1,11 @@
-import LoginPageForm from "../parts/LoginPageForm";
+import LoginForm from '../parts/LoginForm';
 
+const LoginPage = () => {
+  return (
+    <>
+      <LoginForm />
+    </>
+  );
+};
 
-function LoginPage() {
-    return (
-      <>
-        <LoginPageForm/>
-      </>
-    );
-  }
-  
-  export default LoginPage;
+export default LoginPage;

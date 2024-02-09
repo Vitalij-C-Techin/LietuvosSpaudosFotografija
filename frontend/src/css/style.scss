@@ -1,18 +1,1 @@
-
-section{
-    padding:50px;
-}
-
-form{
-    margin:auto;
-    width:30%;
-    text-align:center;
-
-    .linkText {
-        text-align: left;
-    }
-
-    button {
-        width: 100%
-    }
-}
+@import 'parts/login-form.scss';

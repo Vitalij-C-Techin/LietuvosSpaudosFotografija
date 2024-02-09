@@ -10,7 +10,6 @@ function App() {
 
   return (
     <>
-      <LoginPage />
       <LanguageSwitch />
       <h3>{t('description.part1')}</h3>
     </>
