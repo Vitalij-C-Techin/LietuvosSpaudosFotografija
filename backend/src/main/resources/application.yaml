@@ -1,0 +1,24 @@
+logging:
+  level:
+    root: WARN
+    lt.techin: DEBUG
+    org.springframework.security: WARN
+
+spring:
+  jackson:
+    defaultPropertyInclusion: non-null
+    deserialization:
+      failOnUnknownProperties: false
+    mapper:
+      accept-case-insensitive-enums: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lsfotografija
+    username: lsfotografija
+    password: qwerty
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+#      ddl-auto: create-drop
