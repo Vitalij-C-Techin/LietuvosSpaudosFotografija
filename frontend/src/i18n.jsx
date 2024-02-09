@@ -26,7 +26,7 @@ i18n
             dropDownMenuItem10: 'Change Language'
           },
           layoutPage: {
-            h5: 'First slide label'
+            imageHeaderText: 'Recent years contest winners'
           }
         }
       },
@@ -45,7 +45,7 @@ i18n
             dropDownMenuItem10: 'Keisti kalba'
           },
           layoutPage: {
-            h5: 'Pirmos foto pavadinimas'
+            imageHeaderText: 'Praeitu metu konkursu nugaletojai'
           }
         }
       }
