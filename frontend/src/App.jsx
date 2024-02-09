@@ -1,5 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import LanguageSwitch from './components/language-switch';
+import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
+import './css/style.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const { t } = useTranslation();
@@ -8,6 +11,7 @@ function App() {
     <>
       <LanguageSwitch />
       <h3>{t('description.part1')}</h3>
+      <ForgotPasswordPage />
     </>
   );
 }
