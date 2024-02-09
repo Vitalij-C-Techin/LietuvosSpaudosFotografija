@@ -6,6 +6,10 @@ section {
 form {
   margin: auto;
   width: 30%;
+  text-align: center;
+}
+form .linkText {
+  text-align: left;
 }
 form button {
   width: 100%;
