@@ -2,7 +2,7 @@ import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../../i18n';
-import NavigationBar from './NavigationBar';
+import NavigationBar from '../parts/NavigationBar';
 
 test('renders NavigationBar', () => {
   const { getByTestId } = render(
