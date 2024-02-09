@@ -1,13 +1,13 @@
 package lt.techin.lsf;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LietuvosSpaudosFotografijaApplicationTests {
+public class LietuvosSpaudosFotografijaApplicationTests {
 
 	@Test
-	void contextLoads() {
-	}
+    public void contextLoads() {
 
+	}
 }
