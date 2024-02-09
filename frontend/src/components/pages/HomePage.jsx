@@ -5,11 +5,11 @@ import thirdSlideImage from '../../images/patrick-tomasso-HM731qUoUas-unsplash.j
 import imagePlaceHolder from '../../images/image.jpg';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-import './layout.scss';
+import '../../css/parts/homePage.scss';
 import React, { useState, useEffect } from 'react';
 import { Image, Container, Card, Row, Col } from 'react-bootstrap';
 
-function Layout() {
+function HomePage() {
   const { t } = useTranslation();
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
 
@@ -142,4 +142,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default HomePage;
