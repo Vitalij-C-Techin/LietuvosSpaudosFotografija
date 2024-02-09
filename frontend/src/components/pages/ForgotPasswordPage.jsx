@@ -1,7 +1,7 @@
 import ForgotPasswordForm from "../parts/ForgotPasswordForm";
 
 
-function ForgotPasswordPage() {
+const ForgotPasswordPage = () => {
     return (
       <>
         <ForgotPasswordForm/>
