@@ -9,6 +9,7 @@ import LanguageSwitch from './language-switch.jsx';
 import '../../modules/language/i18n.jsx';
 import '../../css/parts/navigationBar.scss';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 function NavigationBar() {
   const [showNestedDropdown, setShowNestedDropdown] = useState(false);
@@ -28,8 +29,12 @@ function NavigationBar() {
               <span className="navbar-toggler-icon"></span>
             </Dropdown.Toggle>
             <Dropdown.Menu align="end">
-              <Dropdown.Item href="#/action-1">{t('landingPage.dropDownMenuItem1')}</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">{t('landingPage.dropDownMenuItem2')}</Dropdown.Item>
+              <Dropdown.Item>
+                <Link to="">{t('landingPage.dropDownMenuItem1')}</Link>
+              </Dropdown.Item>
+              <Dropdown.Item>
+                <Link to="loginpage">{t('landingPage.dropDownMenuItem2')}</Link>
+              </Dropdown.Item>
               <Dropdown.Item href="#/action-3">{t('landingPage.dropDownMenuItem3')}</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item href="#/action-4">{t('landingPage.dropDownMenuItem4')}</Dropdown.Item>

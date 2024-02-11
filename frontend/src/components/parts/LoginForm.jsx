@@ -1,15 +1,26 @@
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+
+  const navigateToRegistrationPage = () => {
+    navigate("/registration");
+  };
+
+  const handleLogin = () => {
+    event.preventDefault();
+  };
   return (
     <>
       <section>
         <h2>Log in to your account</h2>
 
-        <Form>
+        <Form onSubmit={handleLogin}>
           <Form.Group className="mb-3" controlId="formGroupEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control type="email" />
@@ -24,7 +35,7 @@ const LoginForm = () => {
             <Row className="align-items-center">
               <Col>
                 <div className="linkText">
-                  <a href="url">Forgot password?</a>
+                  <Link to="/forgotpassword">Forgot password?</Link>
                 </div>
               </Col>
             </Row>
@@ -37,8 +48,13 @@ const LoginForm = () => {
                   Login
                 </Button>
               </Col>
+
               <Col xs={12} md={6}>
-                <Button variant="light" type="login">
+                <Button
+                  variant="light"
+                  type="login"
+                  onClick={navigateToRegistrationPage}
+                >
                   Register
                 </Button>
               </Col>
