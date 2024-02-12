@@ -20,6 +20,7 @@
     "react-bootstrap": "^2.10.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^14.0.3",
+    "react-phone-number-input": "^3.3.9",
     "react-router-dom": "^6.21.3"
   },
   "devDependencies": {
@@ -45,7 +46,8 @@
   "jest": {
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
-      "\\.(css|less|scss|sss|styl)$": "<rootDir>/node_modules/jest-css-modules"},
+      "\\.(css|less|scss|sss|styl)$": "<rootDir>/node_modules/jest-css-modules"
+    },
     "setupFilesAfterEnv": [
       "<rootDir>/setupTests.js"
     ]

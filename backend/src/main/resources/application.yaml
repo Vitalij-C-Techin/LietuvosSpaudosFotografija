@@ -6,7 +6,7 @@ logging:
 
 spring:
   jackson:
-    defaultPropertyInclusion: non-null
+    #defaultPropertyInclusion: non-null
     deserialization:
       failOnUnknownProperties: false
     mapper:

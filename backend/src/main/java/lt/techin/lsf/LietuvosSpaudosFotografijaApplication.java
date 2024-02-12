@@ -1,7 +1,7 @@
 package lt.techin.lsf;
 
 import lt.techin.lsf.persistance.UserRepository;
-import lt.techin.lsf.persistance.modal.User;
+import lt.techin.lsf.persistance.model.UserRecord;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,9 +18,8 @@ public class LietuvosSpaudosFotografijaApplication {
         return runner -> {
 
             boolean isSaving = false;
-//            boolean isSaving = true;
 
-            User participant = User.builder()
+            UserRecord participant = UserRecord.builder()
                     .name("Mindaugas")
                     .surname("Karalius")
                     .birthYear(1999)
@@ -33,7 +32,7 @@ public class LietuvosSpaudosFotografijaApplication {
                 userRepository.save(participant);
             }
 
-            User moderator = User.builder()
+            UserRecord moderator = UserRecord.builder()
                     .name("Birute")
                     .surname("Bora")
                     .birthYear(1967)
@@ -46,7 +45,7 @@ public class LietuvosSpaudosFotografijaApplication {
                 userRepository.save(moderator);
             }
 
-            User jury = User.builder()
+            UserRecord jury = UserRecord.builder()
                     .name("Barbora")
                     .surname("Radvilaite")
                     .email("barbora@radvilaite.lt")
@@ -56,7 +55,7 @@ public class LietuvosSpaudosFotografijaApplication {
                 userRepository.save(jury);
             }
 
-            User admin = User.builder()
+            UserRecord admin = UserRecord.builder()
                     .name("Zygimantas")
                     .surname("Augustas")
                     .email("zygimantas@augustas.lt")

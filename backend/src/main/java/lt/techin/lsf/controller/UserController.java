@@ -1,7 +1,12 @@
 package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.persistance.modal.User;
+import lt.techin.lsf.model.User;
+import lt.techin.lsf.model.mapper.UserMapper;
+import lt.techin.lsf.model.mapper.UserRecordMapper;
+import lt.techin.lsf.model.mapper.UserResponseMapper;
+import lt.techin.lsf.model.requests.RegisterRequest;
+import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +30,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public Object register() {
-        return null;
+    public UserResponse register(
+            @RequestBody RegisterRequest registerRequest
+    ) {
+        return UserResponseMapper.map(
+                userService.register(registerRequest)
+        );
     }
 
     @PostMapping("/forget-password")
@@ -44,24 +53,12 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/user/{id}")
-    public Object getUser(
-            @PathVariable Integer id
+    @GetMapping("/user/{uuid}")
+    public UserResponse getUserByUuid(
+            @PathVariable UUID uuid
     ) {
-        return "User id: " + id;
-    }
-
-    @GetMapping("/test")
-    public Object testUser() {
-        return "Test endpoint";
-    }
-
-    @GetMapping("/test/getUser")
-    public User getUser(
-            @RequestParam UUID uuid
-    ) {
-        User user = userService.findUserByUuid(uuid);
-
-        return user;
+        return UserResponseMapper.map(
+                userService.findUserByUuid(uuid)
+        );
     }
 }
