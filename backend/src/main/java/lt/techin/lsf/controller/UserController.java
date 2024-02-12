@@ -1,9 +1,6 @@
 package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.model.User;
-import lt.techin.lsf.model.mapper.UserMapper;
-import lt.techin.lsf.model.mapper.UserRecordMapper;
 import lt.techin.lsf.model.mapper.UserResponseMapper;
 import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.model.response.UserResponse;

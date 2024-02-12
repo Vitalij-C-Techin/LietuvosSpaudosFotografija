@@ -1,9 +1,7 @@
 package lt.techin.lsf.persistance.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import lt.techin.lsf.model.User;
 
 import java.sql.Timestamp;
@@ -14,6 +12,9 @@ import static jakarta.persistence.EnumType.STRING;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "`user`")
 public class UserRecord {
@@ -53,44 +54,18 @@ public class UserRecord {
     @Enumerated(STRING)
     private User.Role role;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    //@Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
-    public UserRecord() {
-        this.uuid = UUID.randomUUID();
-        this.role = User.Role.USER;
-        this.createdAt = new Timestamp(System.currentTimeMillis());
+    @PrePersist
+    public void prePersis() {
+        setDefaultRole();
     }
 
-    @Builder
-    public UserRecord(String name, String surname, int birthYear,
-                      String phoneNumber, String email, String password,
-                      String mediaName) {
-        this();
-        this.name = name;
-        this.surname = surname;
-        this.birthYear = birthYear;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.password = password;
-        this.mediaName = mediaName;
-    }
-
-    @Builder
-    public UserRecord(String name, String surname, String email, String password) {
-        this();
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.password = password;
-    }
-
-    public UserRecord setupNewUser() {
+    public void setupNewUser() {
         generateUuid();
-        createdNow();
-        defaultRole();
-
-        return this;
+        setCreatedNow();
     }
 
     public UserRecord generateUuid() {
@@ -99,13 +74,13 @@ public class UserRecord {
         return this;
     }
 
-    public UserRecord createdNow() {
+    public UserRecord setCreatedNow() {
         this.createdAt = new Timestamp(System.currentTimeMillis());
 
         return this;
     }
 
-    public UserRecord defaultRole() {
+    public UserRecord setDefaultRole() {
         this.role = User.Role.USER;
 
         return this;

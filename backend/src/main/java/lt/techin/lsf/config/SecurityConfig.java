@@ -21,8 +21,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> {
                             authorize.requestMatchers(
                                     HttpMethod.GET,
-                                    "api/v1/login"
+                                    "api/v1/login",
                                     //"api/v1/logout"
+                                    "api/v1/test"
                             ).permitAll();
 
                             authorize.requestMatchers(
@@ -37,7 +38,8 @@ public class SecurityConfig {
                                     .authenticated();
                         }
                 )
-                .httpBasic(Customizer.withDefaults());
+                .httpBasic(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults());
 
         return http.build();
     }

@@ -46,6 +46,7 @@ public class UserService implements IUserService {
         }
 
         UserRecord userRecord = UserRecordMapper.map(registerRequest);
+        userRecord.setupNewUser();
 
         return UserMapper.map(
                 userRepository.save(userRecord)
