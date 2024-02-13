@@ -5,7 +5,7 @@ import thirdSlideImage from '../../images/patrick-tomasso-HM731qUoUas-unsplash.j
 import imagePlaceHolder from '../../images/image.jpg';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-import '../../css/parts/homePage.scss';
+import '../../css/parts/home-page.scss';
 import React, { useState, useEffect } from 'react';
 import { Image, Container, Card, Row, Col } from 'react-bootstrap';
 

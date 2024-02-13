@@ -5,9 +5,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Row from 'react-bootstrap/Row';
-import LanguageSwitch from './language-switch.jsx';
+import LanguageSwitch from './LanguageSwitch.jsx';
 import '../../modules/language/i18n.jsx';
-import '../../css/parts/navigationBar.scss';
+import '../../css/parts/navigation-bar.scss';
 import { useTranslation } from 'react-i18next';
 
 function NavigationBar() {
