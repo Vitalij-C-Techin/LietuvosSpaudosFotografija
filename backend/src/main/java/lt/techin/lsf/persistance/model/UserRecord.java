@@ -2,7 +2,12 @@ package lt.techin.lsf.persistance.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lt.techin.lsf.config.ApplicationConfig;
 import lt.techin.lsf.model.User;
+import lt.techin.lsf.service.AuthenticationService;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -18,7 +23,6 @@ import static jakarta.persistence.EnumType.STRING;
 @Entity
 @Table(name = "`user`")
 public class UserRecord {
-
     @Id
     @Column(name = "uuid", nullable = false)
     private UUID uuid;
@@ -54,8 +58,7 @@ public class UserRecord {
     @Enumerated(STRING)
     private User.Role role;
 
-    //@Column(name = "created_at", nullable = false, updatable = false)
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
     @PrePersist
@@ -63,25 +66,27 @@ public class UserRecord {
         setDefaultRole();
     }
 
-    public void setupNewUser() {
-        generateUuid();
-        setCreatedNow();
-    }
-
-    public UserRecord generateUuid() {
-        this.uuid = UUID.randomUUID();
+    public UserRecord setupNewUser() {
+        setGeneratedUuid();
+        setCreatedAtNow();
 
         return this;
     }
 
-    public UserRecord setCreatedNow() {
-        this.createdAt = new Timestamp(System.currentTimeMillis());
+    public UserRecord setGeneratedUuid() {
+        uuid = UUID.randomUUID();
+
+        return this;
+    }
+
+    public UserRecord setCreatedAtNow() {
+        createdAt = new Timestamp(System.currentTimeMillis());
 
         return this;
     }
 
     public UserRecord setDefaultRole() {
-        this.role = User.Role.USER;
+        role = User.Role.USER;
 
         return this;
     }

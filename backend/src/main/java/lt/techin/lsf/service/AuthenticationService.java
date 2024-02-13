@@ -1,8 +1,8 @@
 package lt.techin.lsf.service;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lt.techin.lsf.exception.ErrorException;
 import lt.techin.lsf.exception.UserExistsException;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.UserAuthentication;
@@ -12,16 +12,17 @@ import lt.techin.lsf.model.requests.AuthenticationRequest;
 import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.persistance.UserRepository;
 import lt.techin.lsf.persistance.model.UserRecord;
+import org.apache.coyote.BadRequestException;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService implements LogoutHandler {
+public class AuthenticationService {
     private final UserService userService;
     private final UserRepository userRepository;
     private final JwtService jwtService;
@@ -29,12 +30,14 @@ public class AuthenticationService implements LogoutHandler {
     private final AuthenticationManager authenticationManager;
 
     public UserAuthentication authentication(AuthenticationRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 request.getEmail(),
                 request.getPassword()
         ));
 
-        //Break;
+        if (!authentication.isAuthenticated()) {
+            throw new ErrorException("Credential data is incorrect");
+        }
 
         User user = userService.findUserByEmail(request.getEmail());
         String jwtToken = jwtService.generateToken(user);
@@ -48,7 +51,6 @@ public class AuthenticationService implements LogoutHandler {
     public UserAuthentication register(RegisterRequest register) {
         //TODO Sanitize data;
         //TODO validate data;
-        //passwordEncoder.encode(registerRequest.getPassword());
 
         if (userService.existsUserWithEmail(register.getEmail())) {
             throw new UserExistsException("Email is already in use");
@@ -57,7 +59,9 @@ public class AuthenticationService implements LogoutHandler {
         UserRecord userRecord = UserRecordMapper.map(register);
         userRecord.setupNewUser();
 
-        userRecord.setPassword(passwordEncoder.encode(userRecord.getPassword()));
+        userRecord.setPassword(
+                passwordEncoder.encode(userRecord.getPassword())
+        );
 
         userRecord = userRepository.save(userRecord);
 
@@ -68,10 +72,5 @@ public class AuthenticationService implements LogoutHandler {
                 .token(jwtToken)
                 .user(user)
                 .build();
-    }
-
-    @Override
-    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-
     }
 }

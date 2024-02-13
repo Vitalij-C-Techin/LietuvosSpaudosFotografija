@@ -1,10 +1,8 @@
 package lt.techin.lsf.controller;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.UserAuthentication;
-import lt.techin.lsf.model.mapper.UserMapper;
 import lt.techin.lsf.model.mapper.UserResponseMapper;
 import lt.techin.lsf.model.requests.AuthenticationRequest;
 import lt.techin.lsf.model.requests.RegisterRequest;
@@ -40,11 +38,6 @@ public class AuthenticationController {
         UserAuthentication userAuthentication = authenticationService.authentication(authenticationRequest);
 
         return userAuthentication.getUserAuthenticationResponse();
-    }
-
-    @GetMapping("/logout")
-    public void logout() {
-        SecurityContextHolder.clearContext();
     }
 
     @PostMapping("/register")
