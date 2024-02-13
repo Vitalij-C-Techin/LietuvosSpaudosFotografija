@@ -8,6 +8,8 @@ public interface IUserService {
 
     User findUserByUuid(UUID uuid);
 
+    boolean existsUserWithUuid(UUID uuid);
+
     User findUserByEmail(String email);
 
     boolean existsUserWithEmail(String email);

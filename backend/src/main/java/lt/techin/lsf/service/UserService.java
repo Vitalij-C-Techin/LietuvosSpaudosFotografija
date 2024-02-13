@@ -15,14 +15,18 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class UserService implements IUserService {
-
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
     public User findUserByUuid(UUID uuid) {
         return UserMapper.map(
                 userRepository.findByUuidAllIgnoreCase(uuid)
         );
+    }
+
+    @Override
+    public boolean existsUserWithUuid(UUID uuid) {
+        return userRepository.existsByUuid(uuid);
     }
 
     @Override
@@ -35,21 +39,5 @@ public class UserService implements IUserService {
     @Override
     public boolean existsUserWithEmail(String email) {
         return userRepository.existsByEmail(email);
-    }
-
-    public User register(RegisterRequest registerRequest) {
-        //TODO Sanitize data;
-        //TODO validate data;
-
-        if (existsUserWithEmail(registerRequest.getEmail())) {
-            throw new UserExistsException("Email is already in use");
-        }
-
-        UserRecord userRecord = UserRecordMapper.map(registerRequest);
-        userRecord.setupNewUser();
-
-        return UserMapper.map(
-                userRepository.save(userRecord)
-        );
     }
 }

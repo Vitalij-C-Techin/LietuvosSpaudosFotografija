@@ -1,45 +1,60 @@
 package lt.techin.lsf.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+    private final String[] publicGetEndpoints = {
+            "api/v1/login",
+            "api/v1/logout",
+            "api/v1/test"
+    };
+    private final String[] publicPostEndpoints = {
+            "api/v1/register",
+            "api/v1/forget-password",
+            "api/v1/change-password"
+    };
+    private final String[] publicPutEndpoints = {
+
+    };
+    private final String[] publicDeleteEndpoints = {
+
+    };
+
+    private final AuthenticationProvider authenticationProvider;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 //.csrf(Customizer.withDefaults()) // TODO blocking post request. Solve it latter.
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> {
-                            authorize.requestMatchers(
-                                    HttpMethod.GET,
-                                    "api/v1/login",
-                                    //"api/v1/logout"
-                                    "api/v1/test"
-                            ).permitAll();
-
-                            authorize.requestMatchers(
-                                    HttpMethod.POST,
-                                    "api/v1/register",
-                                    "api/v1/forget-password",
-                                    "api/v1/change-password"
-                            ).permitAll();
-
-                            authorize
-                                    .anyRequest()
-                                    .authenticated();
+                .authorizeHttpRequests(request -> {
+                            request.requestMatchers(HttpMethod.GET, publicGetEndpoints).permitAll();
+                            request.requestMatchers(HttpMethod.POST, publicPostEndpoints).permitAll();
+                            request.requestMatchers(HttpMethod.PUT, publicPutEndpoints).permitAll();
+                            request.requestMatchers(HttpMethod.DELETE, publicDeleteEndpoints).permitAll();
+                            request.anyRequest().authenticated();
                         }
                 )
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults());
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout(logout ->
+                        logout.logoutUrl("api/v1/logout"));
 
         return http.build();
     }
