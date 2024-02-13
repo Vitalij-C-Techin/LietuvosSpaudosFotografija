@@ -15,9 +15,9 @@ function App() {
       <NavigationBar />
       <I18nextProvider i18n={i18n}>
         <Routes>
-          <Route path="" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/registration" element={<RegistrationPage />} />
-          <Route path="/loginpage" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
         </Routes>
       </I18nextProvider>
