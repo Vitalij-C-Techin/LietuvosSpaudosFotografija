@@ -1,11 +1,17 @@
 package lt.techin.lsf.persistance;
 
-import lt.techin.lsf.persistance.modal.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import lt.techin.lsf.persistance.model.UserRecord;
 
 import java.util.UUID;
 
-public interface UserRepository extends JpaRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<UserRecord, UUID> {
 
-    User findByUuidAllIgnoreCase(UUID uuid);
+    UserRecord findByUuidAllIgnoreCase(UUID uuid);
+
+    boolean existsByUuid(UUID uuid);
+
+    UserRecord findByEmailIgnoreCase(String email);
+
+    boolean existsByEmail(String email);
 }
