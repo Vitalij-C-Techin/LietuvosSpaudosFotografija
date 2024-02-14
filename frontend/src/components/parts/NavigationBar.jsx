@@ -9,6 +9,7 @@ import LanguageSwitch from './language-switch.jsx';
 import '../../modules/language/i18n.jsx';
 import '../../css/parts/navigationBar.scss';
 import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
 
 function NavigationBar() {
   const [showNestedDropdown, setShowNestedDropdown] = useState(false);
@@ -28,17 +29,29 @@ function NavigationBar() {
               <span className="navbar-toggler-icon"></span>
             </Dropdown.Toggle>
             <Dropdown.Menu align="end">
-              <Dropdown.Item href="#/action-1">{t('landingPage.dropDownMenuItem1')}</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">{t('landingPage.dropDownMenuItem2')}</Dropdown.Item>
+              <Dropdown.Item>
+                <Nav.Link as={NavLink} to="/">{t('landingPage.dropDownMenuItem1')}</Nav.Link>
+              </Dropdown.Item>
+
+              <Dropdown.Item>
+                <Nav.Link as={NavLink} to="login">{t('landingPage.dropDownMenuItem2')}</Nav.Link>
+              </Dropdown.Item>
+
               <Dropdown.Item href="#/action-3">{t('landingPage.dropDownMenuItem3')}</Dropdown.Item>
               <Dropdown.Divider />
+
               <Dropdown.Item href="#/action-4">{t('landingPage.dropDownMenuItem4')}</Dropdown.Item>
               <Dropdown.Divider />
+
               <Dropdown.Item href="#/action-5">{t('landingPage.dropDownMenuItem5')}</Dropdown.Item>
               <Dropdown.Divider />
+
               <Dropdown.Item href="#/action-6">{t('landingPage.dropDownMenuItem6')}</Dropdown.Item>
+
               <Dropdown.Item href="#/action-7">{t('landingPage.dropDownMenuItem7')}</Dropdown.Item>
+
               <Dropdown.Item href="#/action-8">{t('landingPage.dropDownMenuItem8')}</Dropdown.Item>
+
               <Dropdown.Item href="#/action-9">{t('landingPage.dropDownMenuItem9')}</Dropdown.Item>
               <Dropdown.Item
                 as="div"

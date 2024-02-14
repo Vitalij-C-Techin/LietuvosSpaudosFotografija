@@ -8,10 +8,19 @@ import Button from 'react-bootstrap/Button';
 import '../../css/parts/homePage.scss';
 import React, { useState, useEffect } from 'react';
 import { Image, Container, Card, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
   const { t } = useTranslation();
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+
+  const navigate = useNavigate();
+  const navigateToRegistrationPage = () => {
+    navigate('/registration');
+  };
+  const navigateToLoginPage = () => {
+    navigate('/login');
+  };
 
   useEffect(() => {
     const image = new window.Image();
@@ -31,52 +40,79 @@ function HomePage() {
               <Image className="img-fluid" src={firstSlideImage} alt="First slide" rounded />
               <div className="position-absolute bottom-0 start-50 translate-middle-x">
                 <div className="d-flex justify-content-center">
-                  <Button variant="primary" className="btn-lg custom-button-width">
-                    Button 1
+                  <Button
+                    variant="primary"
+                    className="btn-lg custom-button-width"
+                    onClick={navigateToLoginPage}
+                  >
+                    Login
                   </Button>
                   <div className="custom-gap"></div>
-                  <Button variant="secondary" className="btn-lg custom-button-width">
-                    Button 2
+                  <Button
+                    variant="secondary"
+                    className="btn-lg custom-button-width"
+                    onClick={navigateToRegistrationPage}
+                  >
+                    Register
                   </Button>
                 </div>
               </div>
             </div>
           </Carousel.Item>
+
           <Carousel.Item>
             <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
             <div className="d-flex justify-content-center">
               <Image className="img-fluid" src={secondSlideImage} alt="First slide" rounded />
               <div className="position-absolute bottom-0 start-50 translate-middle-x">
                 <div className="d-flex justify-content-center">
-                  <Button variant="primary" className="btn-lg custom-button-width">
-                    Button 1
+                  <Button
+                    variant="primary"
+                    className="btn-lg custom-button-width"
+                    onClick={navigateToLoginPage}
+                  >
+                    Login
                   </Button>
                   <div className="custom-gap"></div>
-                  <Button variant="secondary" className="btn-lg custom-button-width">
-                    Button 2
+                  <Button
+                    variant="secondary"
+                    className="btn-lg custom-button-width"
+                    onClick={navigateToRegistrationPage}
+                  >
+                    Register
                   </Button>
                 </div>
               </div>
             </div>
           </Carousel.Item>
+
           <Carousel.Item>
             <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
             <div className="d-flex justify-content-center">
               <Image className="img-fluid" src={thirdSlideImage} alt="First slide" rounded />
               <div className="position-absolute bottom-0 start-50 translate-middle-x">
                 <div className="d-flex justify-content-center">
-                  <Button variant="primary" className="btn-lg custom-button-width">
-                    Button 1
+                  <Button
+                    variant="primary"
+                    className="btn-lg custom-button-width"
+                    onClick={navigateToLoginPage}
+                  >
+                    Login
                   </Button>
                   <div className="custom-gap"></div>
-                  <Button variant="secondary" className="btn-lg custom-button-width">
-                    Button 2
+                  <Button
+                    variant="secondary"
+                    className="btn-lg custom-button-width"
+                    onClick={navigateToRegistrationPage}
+                  >
+                    Register
                   </Button>
                 </div>
               </div>
             </div>
           </Carousel.Item>
         </Carousel>
+
         <div>
           <h3 className="contest">{t('homePage.constestListTitle')}:</h3>
         </div>
@@ -99,6 +135,7 @@ function HomePage() {
             </Row>
           </Card.Body>
         </Card>
+
         <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
@@ -118,6 +155,7 @@ function HomePage() {
             </Row>
           </Card.Body>
         </Card>
+        
         <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
