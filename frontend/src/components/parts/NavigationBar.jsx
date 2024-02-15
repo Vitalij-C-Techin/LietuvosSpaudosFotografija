@@ -7,7 +7,6 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Row from 'react-bootstrap/Row';
 import LanguageSwitch from './language-switch.jsx';
 import '../../modules/language/i18n.jsx';
-import '../../css/parts/navigationBar.scss';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 

@@ -7,7 +7,6 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from './modules/language/i18n.jsx';
 import { Routes, Route } from 'react-router-dom';
 import './css/style.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
