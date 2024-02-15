@@ -28,6 +28,18 @@ form button {
   margin-left: 3rem;
 }
 
+.carousel h3, .carousel .h3 {
+  display: inline-block;
+  width: 30%;
+  height: 50px;
+  color: white;
+  position: relative;
+  top: 2rem;
+  left: 10rem;
+  background: rgb(0, 0, 0);
+}
+
+
 .dropdown-toggle:after {
   display: none;
 }

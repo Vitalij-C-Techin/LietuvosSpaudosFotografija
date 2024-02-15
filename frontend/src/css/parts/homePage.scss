@@ -1,12 +1,29 @@
 .custom-button-width {
-    width: 200px;
-  }
-  
-  .custom-gap {
-    width: 200px;
-  }
+  width: 200px;
+}
 
-  .contest{
-    padding: 1rem;
-    margin-left: 3rem;
-  }
+.custom-gap {
+  width: 200px;
+}
+
+.contest {
+  padding: 1rem;
+  margin-left: 3rem;
+}
+
+.carousel {
+
+
+    h3 {
+      display: inline-block;
+      width: 30%;
+      height: 50px;
+      color: white;
+      position: relative;
+      top: 2rem;
+      left: 10rem;
+      background: rgb(0, 0, 0);
+    }
+    
+
+}

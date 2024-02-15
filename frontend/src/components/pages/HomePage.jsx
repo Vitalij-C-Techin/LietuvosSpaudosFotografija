@@ -34,7 +34,7 @@ function HomePage() {
       <Container>
         <Carousel data-bs-theme="dark">
           <Carousel.Item>
-            <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
+            <h3 className="text-center box">{t('layoutPage.imageHeaderText')}</h3>
             <div className="d-flex justify-content-center">
               <Image className="img-fluid" src={firstSlideImage} alt="First slide" />
               <div className="position-absolute bottom-0 start-50 translate-middle-x">
@@ -155,7 +155,7 @@ function HomePage() {
             </Row>
           </Card.Body>
         </Card>
-        
+
         <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
