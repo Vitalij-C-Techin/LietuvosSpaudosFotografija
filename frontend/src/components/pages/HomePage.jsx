@@ -36,7 +36,7 @@ function HomePage() {
           <Carousel.Item>
             <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
             <div className="d-flex justify-content-center">
-              <Image className="img-fluid" src={firstSlideImage} alt="First slide" rounded />
+              <Image className="img-fluid" src={firstSlideImage} alt="First slide" />
               <div className="position-absolute bottom-0 start-50 translate-middle-x">
                 <div className="d-flex justify-content-center">
                   <Button
@@ -62,7 +62,7 @@ function HomePage() {
           <Carousel.Item>
             <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
             <div className="d-flex justify-content-center">
-              <Image className="img-fluid" src={secondSlideImage} alt="First slide" rounded />
+              <Image className="img-fluid" src={secondSlideImage} alt="First slide" />
               <div className="position-absolute bottom-0 start-50 translate-middle-x">
                 <div className="d-flex justify-content-center">
                   <Button
@@ -88,7 +88,7 @@ function HomePage() {
           <Carousel.Item>
             <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
             <div className="d-flex justify-content-center">
-              <Image className="img-fluid" src={thirdSlideImage} alt="First slide" rounded />
+              <Image className="img-fluid" src={thirdSlideImage} alt="First slide" />
               <div className="position-absolute bottom-0 start-50 translate-middle-x">
                 <div className="d-flex justify-content-center">
                   <Button
@@ -115,6 +115,7 @@ function HomePage() {
         <div>
           <h3 className="contest">{t('homePage.constestListTitle')}:</h3>
         </div>
+
         <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
