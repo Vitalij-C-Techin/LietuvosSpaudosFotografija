@@ -65,6 +65,8 @@
   border-color: black;
   color: white;
   background-color: black;
+  position: absolute;
+  right: 1rem;
 }
 .contest-card button:hover {
   background-color: white;
