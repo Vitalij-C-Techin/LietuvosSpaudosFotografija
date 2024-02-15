@@ -27,7 +27,7 @@ form button {
 }
 
 .contest {
-  padding: 1rem;
+  /* padding: 1rem; */
   margin-left: 3rem;
 }
 
@@ -100,7 +100,7 @@ form button {
 
 .divider {
   background: black;
-  height: 1vh;
+  height: 0.5vh;
   width: 100vh;
 }
 

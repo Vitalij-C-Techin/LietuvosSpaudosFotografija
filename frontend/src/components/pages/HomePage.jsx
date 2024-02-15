@@ -78,7 +78,7 @@ function HomePage() {
           </Row>
         </Card>
 
-        <Card className="p-5">
+        <Card className="py-5">
           <h3 className="contest">{t('homePage.constestListTitle')}</h3>
           <div className='divider'></div>
         </Card>
