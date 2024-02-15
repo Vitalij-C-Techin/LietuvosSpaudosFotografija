@@ -33,6 +33,9 @@ form button {
 .card {
   border: none !important;
 }
+.card .contest {
+  font-weight: 700;
+}
 
 .image-header-text h3, .image-header-text .h3 {
   text-align: left;

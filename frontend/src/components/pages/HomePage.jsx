@@ -78,9 +78,9 @@ function HomePage() {
           </Row>
         </Card>
 
-        <div>
+        <Card>
           <h3 className="contest">{t('homePage.constestListTitle')}:</h3>
-        </div>
+        </Card>
 
         <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
