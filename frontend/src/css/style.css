@@ -52,28 +52,20 @@ form button {
   z-index: 1;
 }
 
-button {
-  border-radius: 0% !important;
-  border: solid !important;
-  border-width: medium !important;
-  border-color: black !important;
-  color: black !important;
-  background-color: white !important;
-}
-
-button:hover {
-  background-color: black !important;
-  border-color: white !important;
-  color: white !important;
-}
-
 .carousel-buttons button {
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: black;
+  background-color: white;
   position: relative;
   top: -1.5rem;
 }
-
-.contest-card button {
-  font-size: 16px;
+.carousel-buttons button:hover {
+  background-color: black;
+  border-color: white;
+  color: white;
 }
 
 .carousel-container {
@@ -86,6 +78,17 @@ button:hover {
 .contest-card button {
   font-size: 12px;
   width: 10rem;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+}
+.contest-card button:hover {
+  background-color: white;
+  border-color: white;
+  color: black;
 }
 
 .dropdown-toggle:after {
