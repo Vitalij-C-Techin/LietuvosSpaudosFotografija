@@ -23,7 +23,8 @@ i18n
             dropDownMenuItem7: 'Manage competitions(admin)',
             dropDownMenuItem8: 'Manage categories(admin)',
             dropDownMenuItem9: 'Support',
-            dropDownMenuItem10: 'Change Language'
+            dropDownMenuItem10: 'Change Language',
+            dropDownMenuItem11: 'Logout'
           },
           layoutPage: {
             imageHeaderText: 'Recent years contest winners'
@@ -45,7 +46,8 @@ i18n
             dropDownMenuItem7: 'Tvarkyti konkursus (administratorius)',
             dropDownMenuItem8: 'Tvarkyti kategorijas (administratorius)',
             dropDownMenuItem9: 'Pagalba',
-            dropDownMenuItem10: 'Keisti kalba'
+            dropDownMenuItem10: 'Keisti kalba',
+            dropDownMenuItem11: 'Atsijungti'
           },
           layoutPage: {
             imageHeaderText: 'Praeitu metu konkursu nugaletojai'

@@ -5,27 +5,41 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-//TODO add logic to existing user if he enters wrong credentials
+import axios from 'axios';
+import { useAuth } from '../../modules/AuthContext';
 
-const LoginForm = () => {
+const LoginForm = (onLogin) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const navigateToRegistrationPage = () => {
     navigate('/registration');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email && !password) {
-      setError('wrong password');
-    } else if (!email && password) {
-      setError('wrong email address');
-    } else if (!email && !password) {
-      setError('No such user');
+    if (!email || !password) {
+      setError('no such user');
+      return;
+    }
+    try {
+      const response = await axios.post(`http://localhost:8080/api/v1/login`, {
+        email: email,
+        password: password
+      });
+      if (response.status === 200) {
+        login();
+        navigate('/');
+      } else {
+        throw new Error('login failed');
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setError('Invalid email or password');
+      }
     }
   };
   return (

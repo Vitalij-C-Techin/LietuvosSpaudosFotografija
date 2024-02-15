@@ -1,22 +1,48 @@
 import { useState } from 'react';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import axios from 'axios';
 
-//TODO email verification(backend needed with DB)
-//TODO Password correction if needed
 //TODO check layout after more work is done
+//TODO check console.log if any left
 
 const RegistrationForm = () => {
   const [selectedActivity, setSelectedActivity] = useState(``);
   const [phoneError, setPhoneError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const [formData, setFormData] = useState({
+    name: '',
+    surname: '',
+    birth_year: '',
+    phone_number: '',
+    email: '',
     password: '',
-    confirmPassword: '',
-    phone: ''
+    media_name: ''
   });
 
-  const [passwordError, setPasswordError] = useState('');
+  const validatePassword = (value) => {
+    const errors = [];
+    const minPasswordLength = 6;
+    const maxPasswordLength = 20;
+    if (value !== formData.password) {
+      errors.push('Passwords do not match!');
+    }
+    if (value.length < minPasswordLength || value.length > maxPasswordLength) {
+      errors.push(
+        `Password must be between ${minPasswordLength} and ${maxPasswordLength} characters.`
+      );
+    }
+    if (!/[A-Z]/.test(value)) {
+      errors.push('Password must contain at least one uppercase letter.');
+    }
+    if (!/\d/.test(value)) {
+      errors.push('Password must contain at least one number.');
+    }
+
+    setPasswordError(errors.join(' '));
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,53 +51,48 @@ const RegistrationForm = () => {
       [name]: value
     });
 
-    if (name === 'phone') {
+    if (name === 'phone_number') {
       validatePhone(value);
     }
 
     if (name === 'confirmPassword' || (name === 'password' && formData.confirmPassword)) {
-      const { password } = formData;
-      const errors = [];
-      const minPasswordLength = 6;
-      const maxPasswordLength = 20;
-
-      if (value !== password) {
-        errors.push('Passwords do not match!');
-      }
-      if (value.length < minPasswordLength || value.length > maxPasswordLength) {
-        errors.push(
-          `Password must be between ${minPasswordLength} and ${maxPasswordLength} characters.`
-        );
-      }
-      if (!/[A-Z]/.test(value)) {
-        errors.push('Password must contain at least one uppercase letter.');
-      }
-      if (!/\d/.test(value)) {
-        errors.push('Password must contain at least one number.');
-      }
-
-      setPasswordError(errors.join(' '));
+      validatePassword(value);
     }
   };
 
-  const validatePhone = (phone) => {
+  const validatePhone = (phone_number) => {
     const phoneRegex = /^\+[1-9]\d{1,14}$/;
 
-    if (!phoneRegex.test(phone)) {
+    if (!phoneRegex.test(phone_number)) {
       setPhoneError('Invalid phone number');
     } else {
       setPhoneError('');
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const birthYear = new Date(formData.birth_year).getFullYear();
+      const response = await axios.post('http://localhost:8080/api/v1/register', {
+        ...formData,
+        birth_year: birthYear
+      });
+      alert('Registration successufull');
+      window.location.href = '/login';
+    } catch (error) {
+      if (error.response.status === 400) {
+        setEmailError('Email already exists.');
+      }
+    }
+
     if (!passwordError) {
-      console.log('Registration successfull');
+      return;
     } else {
       alert('Fill form correctly');
     }
   };
+
   const handleChangeActivity = (e) => {
     setSelectedActivity(e.target.value);
   };
@@ -80,14 +101,29 @@ const RegistrationForm = () => {
     <div>
       <h2>User Registration</h2>
       <form onSubmit={handleSubmit}>
+        {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
         {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
-        <label htmlFor="fname">Name*</label>
+        <label htmlFor="name">Name*</label>
         <br />
-        <input type="text" name="fname" id="fname" required placeholder="Enter name" />
+        <input
+          type="text"
+          name="name"
+          id="name"
+          onChange={handleChange}
+          required
+          placeholder="Enter name"
+        />
         <br />
-        <label htmlFor="lname">Surname*</label>
+        <label htmlFor="surname">Surname*</label>
         <br />
-        <input type="text" name="lname" id="lname" required placeholder="Enter surname" />
+        <input
+          type="text"
+          name="surname"
+          id="surname"
+          required
+          onChange={handleChange}
+          placeholder="Enter surname"
+        />
         <br />
         <label htmlFor="email">Email*</label>
         <br />
@@ -98,14 +134,15 @@ const RegistrationForm = () => {
           required
           placeholder="egzamle@egzample.com"
           autoComplete="email"
+          onChange={handleChange}
         />
         <br />
-        <label htmlFor="psw">Password*</label>
+        <label htmlFor="password">Password*</label>
         <br />
         <input
           type="password"
           name="password"
-          id="psw"
+          id="password"
           required
           value={formData.password}
           onChange={handleChange}
@@ -113,33 +150,41 @@ const RegistrationForm = () => {
           autoComplete="new-password"
         />
         <br />
-        <label htmlFor="spsw">Confirm Password*</label>
+        <label htmlFor="password">Confirm Password*</label>
         {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
         <br />
         <input
           type="password"
           name="confirmPassword"
-          id="spsw"
+          id="password"
           required
-          value={formData.confirmPassword}
           onChange={handleChange}
           placeholder="Confirm password"
           autoComplete="new-password"
         />
         <br />
-        <label htmlFor="byear">Birth Year*</label>
+        <label htmlFor="birth_year">Birth Year*</label>
         <br />
-        <input type="date" name="byear" id="byear" required placeholder="Enter date of Birth" />
+        <input
+          type="text"
+          name="birth_year"
+          pattern="\d{4}"
+          id="birth_year"
+          required
+          onChange={handleChange}
+          placeholder="e.g 1990"
+        />
         <br />
-        <label htmlFor="phone">Phone Number*</label>
+        <label htmlFor="phone_number">Phone Number*</label>
         <br />
         <PhoneInput
           international
-          id="phone"
+          id="phone_number"
           defaultCountry="LT"
-          value={formData.phone}
+          required
+          value={formData.phone_number}
           onChange={(value) => {
-            setFormData((prevData) => ({ ...prevData, phone: value }));
+            setFormData((prevData) => ({ ...prevData, phone_number: value }));
             validatePhone(value);
           }}
         />
@@ -160,9 +205,16 @@ const RegistrationForm = () => {
         <br />
         {selectedActivity === 'mworker' && (
           <>
-            <label htmlFor="wdyof">Who do you work for?</label>
+            <label htmlFor="media_name">Who do you work for?</label>
             <br />
-            <textarea name="message" cols="30" id="wdyof" rows="3" required></textarea>
+            <textarea
+              name="media_name"
+              cols="30"
+              id="media_name"
+              rows="3"
+              required
+              onChange={handleChange}
+            ></textarea>
           </>
         )}
         <br />
@@ -170,7 +222,7 @@ const RegistrationForm = () => {
         <label htmlFor="Uagreement">User agreement</label>
         <br />
 
-        <button>Submit</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );

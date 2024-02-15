@@ -10,9 +10,12 @@ import '../../modules/language/i18n.jsx';
 import '../../css/parts/navigationBar.scss';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import { useAuth } from '../../modules/AuthContext.jsx';
 
+//TODO add userRoles
 function NavigationBar() {
   const [showNestedDropdown, setShowNestedDropdown] = useState(false);
+  const { isLoggedIn, logout, /*userRole*/ } = useAuth();
 
   const { t } = useTranslation();
 
@@ -30,27 +33,60 @@ function NavigationBar() {
             </Dropdown.Toggle>
             <Dropdown.Menu align="end">
               <Dropdown.Item>
-                <Nav.Link as={NavLink} to="/">{t('landingPage.dropDownMenuItem1')}</Nav.Link>
+                <Nav.Link as={NavLink} to="/">
+                  {t('landingPage.dropDownMenuItem1')}
+                </Nav.Link>
               </Dropdown.Item>
 
               <Dropdown.Item>
-                <Nav.Link as={NavLink} to="login">{t('landingPage.dropDownMenuItem2')}</Nav.Link>
+                {isLoggedIn ? (
+                  <Nav.Link as={NavLink} to="/" onClick={logout}>
+                    {t('landingPage.dropDownMenuItem11')}
+                  </Nav.Link>
+                ) : (
+                  <Nav.Link as={NavLink} to="/login">
+                    {t('landingPage.dropDownMenuItem2')}
+                  </Nav.Link>
+                )}
               </Dropdown.Item>
 
-              <Dropdown.Item href="#/action-3">{t('landingPage.dropDownMenuItem3')}</Dropdown.Item>
-              <Dropdown.Divider />
+              {isLoggedIn && (
+                <>
+                  <Dropdown.Item href="#/action-3">
+                    {t('landingPage.dropDownMenuItem3')}
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item href="#/action-4">
+                    {t('landingPage.dropDownMenuItem4')}
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                </>
+              )}
 
-              <Dropdown.Item href="#/action-4">{t('landingPage.dropDownMenuItem4')}</Dropdown.Item>
-              <Dropdown.Divider />
+              {isLoggedIn && (
+                <>
+                  <Dropdown.Item href="#/action-5">
+                    {t('landingPage.dropDownMenuItem5')}
+                  </Dropdown.Item>
+                  <Dropdown.Divider />
+                </>
+              )}
 
-              <Dropdown.Item href="#/action-5">{t('landingPage.dropDownMenuItem5')}</Dropdown.Item>
-              <Dropdown.Divider />
+              {isLoggedIn && (
+                <>
+                  <Dropdown.Item href="#/action-6">
+                    {t('landingPage.dropDownMenuItem6')}
+                  </Dropdown.Item>
 
-              <Dropdown.Item href="#/action-6">{t('landingPage.dropDownMenuItem6')}</Dropdown.Item>
+                  <Dropdown.Item href="#/action-7">
+                    {t('landingPage.dropDownMenuItem7')}
+                  </Dropdown.Item>
 
-              <Dropdown.Item href="#/action-7">{t('landingPage.dropDownMenuItem7')}</Dropdown.Item>
-
-              <Dropdown.Item href="#/action-8">{t('landingPage.dropDownMenuItem8')}</Dropdown.Item>
+                  <Dropdown.Item href="#/action-8">
+                    {t('landingPage.dropDownMenuItem8')}
+                  </Dropdown.Item>
+                </>
+              )}
 
               <Dropdown.Item href="#/action-9">{t('landingPage.dropDownMenuItem9')}</Dropdown.Item>
               <Dropdown.Item

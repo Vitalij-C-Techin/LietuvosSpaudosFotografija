@@ -18,12 +18,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final String[] publicGetEndpoints = {
-            "api/v1/login",
             "api/v1/logout",
             "api/v1/test"
     };
     private final String[] publicPostEndpoints = {
             "api/v1/register",
+            "api/v1/login",
             "api/v1/forget-password",
             "api/v1/change-password"
     };

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
@@ -31,7 +32,7 @@ public class AuthenticationController {
         return UserResponseMapper.map((User) authentication.getPrincipal());
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public UserAuthenticationResponse login(
             @RequestBody AuthenticationRequest authenticationRequest
     ) {

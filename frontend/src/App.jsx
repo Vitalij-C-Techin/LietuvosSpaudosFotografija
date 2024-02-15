@@ -8,19 +8,22 @@ import i18n from './modules/language/i18n.jsx';
 import { Routes, Route } from 'react-router-dom';
 import './css/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { AuthProvider } from './modules/AuthContext.jsx';
 
 function App() {
   return (
     <>
-      <NavigationBar />
-      <I18nextProvider i18n={i18n}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/registration" element={<RegistrationPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-        </Routes>
-      </I18nextProvider>
+      <AuthProvider>
+        <NavigationBar />
+        <I18nextProvider i18n={i18n}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/registration" element={<RegistrationPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+          </Routes>
+        </I18nextProvider>
+      </AuthProvider>
     </>
   );
 }
