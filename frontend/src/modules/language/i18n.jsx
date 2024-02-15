@@ -36,7 +36,7 @@ i18n
           },
           forgotPasswordForm:{
             resetPassword: 'Reset Password',
-            serverErrorMessage: 'An error sssoccurred. Please try again later.',
+            serverErrorMessage: 'An error occurred. Please try again later.',
             formPlaceholderText: 'Enter your email here',
             recoverButton: 'Recover button',
           },

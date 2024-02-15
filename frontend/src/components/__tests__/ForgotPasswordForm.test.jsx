@@ -24,7 +24,7 @@ test('displays success message on successful email submission', async () => {
 });
 
 test('displays error message on unsuccessful email submission', async () => {
-  const errorMessage = 'Error sending password recovery email';
+  const errorMessage = 'An error occurred. Please try again later.';
   const mockError = new Error(errorMessage);
   axios.post.mockRejectedValue(mockError);
 
@@ -36,6 +36,6 @@ test('displays error message on unsuccessful email submission', async () => {
   fireEvent.click(screen.getByTestId('recover-button')); // Use data-testid
 
   await waitFor(() => {
-    expect(screen.getByText(`Error: ${errorMessage}`)).toBeInTheDocument();
+    expect(screen.getByText(errorMessage)).toBeInTheDocument();
   });
 });
