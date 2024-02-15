@@ -33,7 +33,13 @@ i18n
           },
           emailVerification: { 
             invalidEmailFormat: 'Invalid email format!' 
-          }
+          },
+          forgotPasswordForm:{
+            resetPassword: 'Reset Password',
+            serverErrorMessage: 'An error sssoccurred. Please try again later.',
+            formPlaceholderText: 'Enter your email here',
+            recoverButton: 'Recover button',
+          },
         }
       },
       lt: {
@@ -58,6 +64,12 @@ i18n
           },
           emailVerification: { 
             invalidEmailFormat: 'Netinkamas el.pašto formatas' 
+          },
+          forgotPasswordForm:{
+            resetPassword: 'Atstatyti slaptažodį',
+            serverErrorMessage: 'Įvyko klaida. Pabandykite dar kartą vėliau.',
+            formPlaceholderText: 'Įveskite savo el. pašto adresą čia',
+            recoverButton: 'Atkūrimo mygtukas',
           },
         }
       }

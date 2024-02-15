@@ -31,7 +31,7 @@ const ForgotPasswordForm = () => {
           setMessage('Error sending password recovery email');
         }
       } catch (error) {
-        setMessage(`Error: ${error.message}`);
+        setMessage(t('forgotPasswordForm.serverErrorMessage'));
       }
     }
   };
@@ -47,7 +47,7 @@ const ForgotPasswordForm = () => {
   return (
     <>
       <section>
-        <h2>Reset Password</h2>
+        <h2>{t('forgotPasswordForm.resetPassword')}</h2>
         {message && <p>{message}</p>}
 
         <Form onSubmit={handleSubmit} noValidate>
@@ -56,7 +56,7 @@ const ForgotPasswordForm = () => {
               type="email"
               value={email}
               onChange={handleEmailChange}
-              placeholder="Enter your email here"
+              placeholder={t('forgotPasswordForm.formPlaceholderText')}
               data-testid="email-input"
             />
             {errors.email && <p className="text-danger">{errors.email}</p>}
@@ -66,7 +66,7 @@ const ForgotPasswordForm = () => {
             <Row className="align-items-center">
               <Col>
                 <Button variant="light" type="submit" data-testid="recover-button">
-                  Recover button
+                  {t('forgotPasswordForm.recoverButton')}
                 </Button>
               </Col>
             </Row>
