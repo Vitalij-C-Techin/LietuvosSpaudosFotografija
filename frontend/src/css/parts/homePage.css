@@ -29,17 +29,22 @@
   z-index: 1;
 }
 
+button {
+  border-radius: 0% !important;
+  border: solid !important;
+  border-width: medium !important;
+  border-color: black !important;
+  color: black !important;
+  background-color: white !important;
+}
+
+button:hover {
+  background-color: black !important;
+  border-color: white !important;
+  color: white !important;
+}
+
 .carousel-buttons button {
-  border-radius: 0%;
-  border: solid;
-  border-width: medium;
-  border-color: black;
-  color: black;
-  background-color: white;
   position: relative;
   top: -1.5rem;
-}
-.carousel-buttons button:hover {
-  background-color: black;
-  border-color: white;
 }/*# sourceMappingURL=homePage.css.map */
