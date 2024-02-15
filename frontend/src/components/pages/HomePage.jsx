@@ -89,7 +89,10 @@ function HomePage() {
                 <Image src={imagePlaceHolder} rounded />
               </Col>
               <Col>
-              
+                <Card.Title>COMPETITION TITLE</Card.Title>
+                <Card.Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Card.Text>
+                <Card.Text>Competition ends in:</Card.Text>
+                <Button>PARTICIPATE</Button>
               </Col>
             </Row>
           </Card.Body>
@@ -99,10 +102,13 @@ function HomePage() {
           <Card.Body>
             <Row>
               <Col xs={6} md={4}>
-                <Image src={imagePlaceHolder}  />
+                <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-               
+                <Card.Title>COMPETITION TITLE</Card.Title>
+                <Card.Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Card.Text>
+                <Card.Text>Competition ends in:</Card.Text>
+                <Button>PARTICIPATE</Button>
               </Col>
             </Row>
           </Card.Body>
@@ -112,10 +118,13 @@ function HomePage() {
           <Card.Body>
             <Row>
               <Col xs={6} md={4}>
-                <Image src={imagePlaceHolder}  />
+                <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-          
+                <Card.Title>COMPETITION TITLE</Card.Title>
+                <Card.Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Card.Text>
+                <Card.Text>Competition ends in:</Card.Text>
+                <Button>PARTICIPATE</Button>
               </Col>
             </Row>
           </Card.Body>
