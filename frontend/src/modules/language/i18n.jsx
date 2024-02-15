@@ -26,10 +26,10 @@ i18n
             dropDownMenuItem10: 'Change Language'
           },
           layoutPage: {
-            imageHeaderText: 'Recent years contest winners'
+            imageHeaderText: 'WINNERS OF PREVIOUS COMPETITIONS'
           },
           homePage: {
-            constestListTitle: 'Contests'
+            constestListTitle: 'COMPETITIONS OPEN FOR ENTRY'
           },
           emailVerification: { 
             invalidEmailFormat: 'Invalid email format!' 
@@ -57,10 +57,10 @@ i18n
             dropDownMenuItem10: 'Keisti kalba'
           },
           layoutPage: {
-            imageHeaderText: 'Praeitu metu konkursu nugaletojai'
+            imageHeaderText: 'PRAEITŲ KONKURSŲ NUGALĖTOJAI'
           },
           homePage: {
-            constestListTitle: 'Konkursai'
+            constestListTitle: 'ŠIUO METU AKTYVUS KONKURSAI'
           },
           emailVerification: { 
             invalidEmailFormat: 'Netinkamas el.pašto formatas' 
