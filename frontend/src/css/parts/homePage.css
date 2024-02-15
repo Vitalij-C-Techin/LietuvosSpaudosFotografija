@@ -76,4 +76,10 @@
 }
 .contest-card .competition-end {
   font-weight: 600;
+}
+
+.divider {
+  background: black;
+  height: 1vh;
+  width: 100vh;
 }/*# sourceMappingURL=homePage.css.map */

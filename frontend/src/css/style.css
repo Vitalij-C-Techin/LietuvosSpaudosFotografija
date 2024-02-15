@@ -98,6 +98,12 @@ form button {
   font-weight: 600;
 }
 
+.divider {
+  background: black;
+  height: 1vh;
+  width: 100vh;
+}
+
 .dropdown-toggle:after {
   display: none;
 }

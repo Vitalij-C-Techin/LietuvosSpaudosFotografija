@@ -78,8 +78,9 @@ function HomePage() {
           </Row>
         </Card>
 
-        <Card>
+        <Card className="p-5">
           <h3 className="contest">{t('homePage.constestListTitle')}</h3>
+          <div className='divider'></div>
         </Card>
 
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
