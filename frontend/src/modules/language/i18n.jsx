@@ -30,6 +30,9 @@ i18n
           },
           homePage: {
             constestListTitle: 'Contests'
+          },
+          emailVerification: { 
+            invalidEmailFormat: 'Invalid email format!' 
           }
         }
       },
@@ -52,7 +55,10 @@ i18n
           },
           homePage: {
             constestListTitle: 'Konkursai'
-          }
+          },
+          emailVerification: { 
+            invalidEmailFormat: 'Netinkamas el.pašto formatas' 
+          },
         }
       }
     }
