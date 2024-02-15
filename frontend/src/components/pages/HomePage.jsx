@@ -89,14 +89,7 @@ function HomePage() {
                 <Image src={imagePlaceHolder} rounded />
               </Col>
               <Col>
-                <div>
-                  <h5>{t('homePage.constestListTitle')}</h5>
-                  <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                  </ul>
-                </div>
+              
               </Col>
             </Row>
           </Card.Body>
@@ -106,17 +99,10 @@ function HomePage() {
           <Card.Body>
             <Row>
               <Col xs={6} md={4}>
-                <Image src={imagePlaceHolder} rounded />
+                <Image src={imagePlaceHolder}  />
               </Col>
               <Col>
-                <div>
-                  <h5>{t('homePage.constestListTitle')}</h5>
-                  <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                  </ul>
-                </div>
+               
               </Col>
             </Row>
           </Card.Body>
@@ -126,17 +112,10 @@ function HomePage() {
           <Card.Body>
             <Row>
               <Col xs={6} md={4}>
-                <Image src={imagePlaceHolder} rounded />
+                <Image src={imagePlaceHolder}  />
               </Col>
               <Col>
-                <div>
-                  <h5>{t('homePage.constestListTitle')}</h5>
-                  <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                  </ul>
-                </div>
+          
               </Col>
             </Row>
           </Card.Body>
