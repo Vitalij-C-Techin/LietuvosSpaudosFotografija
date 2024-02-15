@@ -35,7 +35,7 @@ function HomePage() {
         <Card className="image-header-text">
           <h3>{t('layoutPage.imageHeaderText')}</h3>
         </Card>
-        <Carousel data-bs-theme="dark">
+        <Carousel className="carousel-container">
           <Carousel.Item>
             <div className="d-flex justify-content-center">
               <Image className="img-fluid" src={firstSlideImage} alt="First slide" />
@@ -86,7 +86,7 @@ function HomePage() {
           <Card.Body>
             <Row>
               <Col xs={6} md={4}>
-                <Image src={imagePlaceHolder} rounded />
+                <Image src={imagePlaceHolder} />
               </Col>
               <Col>
                 <Card.Title>COMPETITION TITLE</Card.Title>
