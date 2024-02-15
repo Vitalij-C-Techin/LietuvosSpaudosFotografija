@@ -11,27 +11,20 @@
   margin-left: 3rem;
 }
 
-.carousel {
-  .image-header-text {
-    display: inline-block;
-    width: 30%;
-    height: 100px;
-    color: white;
-    position: relative;
-    top: 2rem;
-    left: 10rem;
-    background: rgb(0, 0, 0);
-  }
+.card {
+  border: none !important;
 }
+
 .image-header-text {
-  display: inline-block;
-  width: 30%;
+  width: 300px;
   height: 100px;
-  color: white;
+  background: rgb(0, 0, 0) !important;
+  border-radius: 0% !important;
+  color: white !important;
   position: relative;
-  top: 2rem;
-  left: 10rem;
-  background: rgb(0, 0, 0);
+  bottom: -2rem;
+  left: 8rem; 
+   z-index: 1;
 }
 .carousel-buttons {
   button {

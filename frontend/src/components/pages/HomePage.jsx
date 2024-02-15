@@ -32,8 +32,10 @@ function HomePage() {
   return (
     <>
       <Container>
-        <Card>
-          <h3 className="text-center box">{t('layoutPage.imageHeaderText')}</h3>
+        <Card className="image-header-text">
+        
+            <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
+         
         </Card>
         <Carousel data-bs-theme="dark">
           <Carousel.Item>
@@ -54,26 +56,9 @@ function HomePage() {
             </div>
           </Carousel.Item>
         </Carousel>
-        {/* <div className="carousel-buttons d-flex justify-content-center" >
-          <Button
-            variant="primary"
-            className="btn-lg custom-button-width"
-            onClick={navigateToLoginPage}
-          >
-            Login
-          </Button>
-          <div className="custom-gap"></div>
-          <Button
-            variant="secondary"
-            className="btn-lg custom-button-width"
-            onClick={navigateToRegistrationPage}
-          >
-            Register
-          </Button>
-        </div> */}
         <Card className="carousel-buttons">
           <Row className="justify-content-md-center">
-            <Col md="auto"> 
+            <Col md="auto">
               <Button
                 variant="primary"
                 className="btn-lg custom-button-width"
@@ -94,6 +79,7 @@ function HomePage() {
             </Col>
           </Row>
         </Card>
+
         <div>
           <h3 className="contest">{t('homePage.constestListTitle')}:</h3>
         </div>
