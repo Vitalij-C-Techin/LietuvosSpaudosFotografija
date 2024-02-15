@@ -5,9 +5,9 @@ import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Row from 'react-bootstrap/Row';
-import LanguageSwitch from './language-switch.jsx';
+import LanguageSwitch from './LanguageSwitch.jsx';
 import '../../modules/language/i18n.jsx';
-import '../../css/parts/navigationBar.scss';
+import '../../css/parts/navigation-bar.scss';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
@@ -29,12 +29,12 @@ function NavigationBar() {
               <span className="navbar-toggler-icon"></span>
             </Dropdown.Toggle>
             <Dropdown.Menu align="end">
-              <Dropdown.Item>
-                <Nav.Link as={NavLink} to="/">{t('landingPage.dropDownMenuItem1')}</Nav.Link>
+              <Dropdown.Item as={NavLink} to="/">
+                {t('landingPage.dropDownMenuItem1')}
               </Dropdown.Item>
 
-              <Dropdown.Item>
-                <Nav.Link as={NavLink} to="login">{t('landingPage.dropDownMenuItem2')}</Nav.Link>
+              <Dropdown.Item as={NavLink} to="/login">
+                {t('landingPage.dropDownMenuItem2')}
               </Dropdown.Item>
 
               <Dropdown.Item href="#/action-3">{t('landingPage.dropDownMenuItem3')}</Dropdown.Item>

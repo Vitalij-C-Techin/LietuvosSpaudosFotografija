@@ -30,7 +30,16 @@ i18n
           },
           homePage: {
             constestListTitle: 'Contests'
-          }
+          },
+          emailVerification: { 
+            invalidEmailFormat: 'Invalid email format!' 
+          },
+          forgotPasswordForm:{
+            resetPassword: 'Reset Password',
+            serverErrorMessage: 'An error occurred. Please try again later.',
+            formPlaceholderText: 'Enter your email here',
+            recoverButton: 'Recover button',
+          },
         }
       },
       lt: {
@@ -52,7 +61,16 @@ i18n
           },
           homePage: {
             constestListTitle: 'Konkursai'
-          }
+          },
+          emailVerification: { 
+            invalidEmailFormat: 'Netinkamas el.pašto formatas' 
+          },
+          forgotPasswordForm:{
+            resetPassword: 'Atstatyti slaptažodį',
+            serverErrorMessage: 'Įvyko klaida. Pabandykite dar kartą vėliau.',
+            formPlaceholderText: 'Įveskite savo el. pašto adresą čia',
+            recoverButton: 'Atkūrimo mygtukas',
+          },
         }
       }
     }
