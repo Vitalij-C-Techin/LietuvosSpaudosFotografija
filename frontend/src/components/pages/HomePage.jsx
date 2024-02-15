@@ -79,7 +79,7 @@ function HomePage() {
         </Card>
 
         <Card>
-          <h3 className="contest">{t('homePage.constestListTitle')}:</h3>
+          <h3 className="contest">{t('homePage.constestListTitle')}</h3>
         </Card>
 
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
