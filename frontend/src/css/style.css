@@ -45,8 +45,13 @@ form button {
   border-width: medium;
   border-color: black;
   color: black;
+  background-color: white;
   position: relative;
   top: -1.5rem;
+}
+.carousel-buttons button:hover {
+  background-color: black;
+  border-color: white;
 }
 
 .dropdown-toggle:after {

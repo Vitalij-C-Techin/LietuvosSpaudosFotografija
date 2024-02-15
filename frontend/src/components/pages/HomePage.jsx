@@ -44,14 +44,14 @@ function HomePage() {
           </Carousel.Item>
 
           <Carousel.Item>
-            <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
+          <div className ="image-header-text"><h3 className="text-center box">{t('layoutPage.imageHeaderText')}</h3></div>
             <div className="d-flex justify-content-center">
               <Image className="img-fluid" src={secondSlideImage} alt="First slide" />
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
-            <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
+          <div className ="image-header-text"><h3 className="text-center box">{t('layoutPage.imageHeaderText')}</h3></div>
             <div className="d-flex justify-content-center">
               <Image className="img-fluid" src={thirdSlideImage} alt="First slide" />
             </div>
@@ -63,7 +63,7 @@ function HomePage() {
                     className="btn-lg custom-button-width"
                     onClick={navigateToLoginPage}
                   >
-                    Login1
+                    Login
                   </Button>
                   <div className="custom-gap"></div>
                   <Button
@@ -71,7 +71,7 @@ function HomePage() {
                     className="btn-lg custom-button-width"
                     onClick={navigateToRegistrationPage}
                   >
-                    Register2
+                    Register
                   </Button>
                 </div>
         <div>
