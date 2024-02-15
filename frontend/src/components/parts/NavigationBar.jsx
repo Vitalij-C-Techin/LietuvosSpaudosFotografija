@@ -29,12 +29,12 @@ function NavigationBar() {
               <span className="navbar-toggler-icon"></span>
             </Dropdown.Toggle>
             <Dropdown.Menu align="end">
-              <Dropdown.Item>
-                <Nav.Link as={NavLink} to="/">{t('landingPage.dropDownMenuItem1')}</Nav.Link>
+              <Dropdown.Item as={NavLink} to="/">
+                {t('landingPage.dropDownMenuItem1')}
               </Dropdown.Item>
 
-              <Dropdown.Item>
-                <Nav.Link as={NavLink} to="login">{t('landingPage.dropDownMenuItem2')}</Nav.Link>
+              <Dropdown.Item as={NavLink} to="/login">
+                {t('landingPage.dropDownMenuItem2')}
               </Dropdown.Item>
 
               <Dropdown.Item href="#/action-3">{t('landingPage.dropDownMenuItem3')}</Dropdown.Item>
