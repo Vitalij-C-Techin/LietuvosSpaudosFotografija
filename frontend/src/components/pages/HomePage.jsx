@@ -80,7 +80,7 @@ function HomePage() {
 
         <Card className="py-5">
           <h3 className="contest">{t('homePage.constestListTitle')}</h3>
-          <div className='divider'></div>
+          <div className='divider ms-4'></div>
         </Card>
 
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
