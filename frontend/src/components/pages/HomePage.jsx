@@ -33,7 +33,7 @@ function HomePage() {
     <>
       <Container>
         <Card className="image-header-text">
-          <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
+          <h3>{t('layoutPage.imageHeaderText')}</h3>
         </Card>
         <Carousel data-bs-theme="dark">
           <Carousel.Item>
