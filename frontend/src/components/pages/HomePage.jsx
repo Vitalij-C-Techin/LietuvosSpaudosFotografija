@@ -85,7 +85,7 @@ function HomePage() {
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
-              <Col xs={6} md={4}>
+              <Col md={4} className="d-flex justify-content-center">
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
@@ -108,7 +108,7 @@ function HomePage() {
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
-              <Col xs={6} md={4}>
+              <Col md={4} className="d-flex justify-content-center">
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
@@ -131,7 +131,7 @@ function HomePage() {
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
-              <Col xs={6} md={4}>
+              <Col md={4} className="d-flex justify-content-center">
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
