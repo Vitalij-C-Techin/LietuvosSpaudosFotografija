@@ -82,23 +82,23 @@ function HomePage() {
           <h3 className="contest">{t('homePage.constestListTitle')}:</h3>
         </Card>
 
-        <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
+        <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
-              <Col xs={6} md={4}>
+              <Col xs={6} md={4} >
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
                 <Card.Title>COMPETITION TITLE</Card.Title>
                 <Card.Text>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</Card.Text>
                 <Card.Text>Competition ends in:</Card.Text>
-                <Button>PARTICIPATE</Button>
+                <Button >PARTICIPATE</Button>
               </Col>
             </Row>
           </Card.Body>
         </Card>
 
-        <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
+        <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
               <Col xs={6} md={4}>
@@ -108,13 +108,13 @@ function HomePage() {
                 <Card.Title>COMPETITION TITLE</Card.Title>
                 <Card.Text>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</Card.Text>
                 <Card.Text>Competition ends in:</Card.Text>
-                <Button>PARTICIPATE</Button>
+                <Button >PARTICIPATE</Button>
               </Col>
             </Row>
           </Card.Body>
         </Card>
 
-        <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
+        <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
               <Col xs={6} md={4}>
@@ -124,7 +124,7 @@ function HomePage() {
                 <Card.Title>COMPETITION TITLE</Card.Title>
                 <Card.Text>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</Card.Text>
                 <Card.Text>Competition ends in:</Card.Text>
-                <Button>PARTICIPATE</Button>
+                <Button >PARTICIPATE</Button>
               </Col>
             </Row>
           </Card.Body>

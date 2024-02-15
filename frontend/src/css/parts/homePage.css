@@ -51,4 +51,20 @@ button:hover {
 .carousel-buttons button {
   position: relative;
   top: -1.5rem;
+}
+
+.contest-card button {
+  font-size: 16px;
+}
+
+.carousel-container {
+  height: 40vh;
+  overflow: hidden;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.contest-card button {
+  font-size: 12px;
+  width: 10rem;
 }/*# sourceMappingURL=homePage.css.map */

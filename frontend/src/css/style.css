@@ -34,6 +34,7 @@ form button {
   border: none !important;
 }
 .card .contest {
+  font-family: "Monserrat", sans-serif;
   font-weight: 700;
 }
 
@@ -69,6 +70,22 @@ button:hover {
 .carousel-buttons button {
   position: relative;
   top: -1.5rem;
+}
+
+.contest-card button {
+  font-size: 16px;
+}
+
+.carousel-container {
+  height: 40vh;
+  overflow: hidden;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.contest-card button {
+  font-size: 12px;
+  width: 10rem;
 }
 
 .dropdown-toggle:after {

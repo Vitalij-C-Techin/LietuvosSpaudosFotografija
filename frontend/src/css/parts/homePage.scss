@@ -60,3 +60,20 @@ button:hover {
   }
 }
 
+.contest-card{
+  button{
+    font-size: 16px;
+  }
+}
+
+.carousel-container{
+  height:40vh;
+  overflow: hidden;
+  object-fit: contain;
+}
+.contest-card{
+  button{
+    font-size: 12px;
+    width: 10rem;
+  }
+}
