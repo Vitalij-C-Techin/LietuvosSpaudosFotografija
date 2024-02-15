@@ -14,7 +14,7 @@
 .carousel {
 
 
-    h3 {
+    .image-header-text {
       display: inline-block;
       width: 30%;
       height: 50px;
@@ -25,5 +25,19 @@
       background: rgb(0, 0, 0);
     }
     
+ 
+
+}
+
+.carousel-buttons{
+  button{
+    border-radius: 0%;
+    border:solid;
+    border-width: medium;
+    border-color: black;
+    color: black;
+    position: relative;
+    top: -1.5rem;
+  }
 
 }

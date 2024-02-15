@@ -28,7 +28,7 @@ form button {
   margin-left: 3rem;
 }
 
-.carousel h3, .carousel .h3 {
+.carousel .image-header-text {
   display: inline-block;
   width: 30%;
   height: 50px;
@@ -39,6 +39,15 @@ form button {
   background: rgb(0, 0, 0);
 }
 
+.carousel-buttons button {
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: black;
+  position: relative;
+  top: -1.5rem;
+}
 
 .dropdown-toggle:after {
   display: none;
