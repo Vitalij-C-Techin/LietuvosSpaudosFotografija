@@ -50,7 +50,7 @@
 }
 
 .carousel-container {
-  height: 40vh;
+  height: 80vh;
   overflow: hidden;
   -o-object-fit: contain;
      object-fit: contain;
