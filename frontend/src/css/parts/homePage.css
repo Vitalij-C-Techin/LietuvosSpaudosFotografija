@@ -58,6 +58,7 @@
 
 .contest-card button {
   font-size: 12px;
+  font-weight: 600;
   width: 10rem;
   border-radius: 0%;
   border: solid;
@@ -72,4 +73,7 @@
   background-color: white;
   border-color: white;
   color: black;
+}
+.contest-card .competition-end {
+  font-weight: 600;
 }/*# sourceMappingURL=homePage.css.map */

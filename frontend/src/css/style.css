@@ -78,6 +78,7 @@ form button {
 
 .contest-card button {
   font-size: 12px;
+  font-weight: 600;
   width: 10rem;
   border-radius: 0%;
   border: solid;
@@ -92,6 +93,9 @@ form button {
   background-color: white;
   border-color: white;
   color: black;
+}
+.contest-card .competition-end {
+  font-weight: 600;
 }
 
 .dropdown-toggle:after {

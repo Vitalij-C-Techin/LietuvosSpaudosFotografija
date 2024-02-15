@@ -65,6 +65,7 @@
 .contest-card{
   button{
     font-size: 12px;
+    font-weight: 600;
     width: 10rem;
     border-radius: 0%;
     border: solid ;
@@ -74,11 +75,17 @@
     background-color: black;
     position:absolute;
     right:1rem;
+ 
 
   }
   button:hover {
     background-color: white ;
     border-color: white ;
     color: black ;
+  }
+
+  .competition-end{
+    font-weight: 600;
+
   }
 }

@@ -98,7 +98,7 @@ function HomePage() {
                   pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                   officia deserunt mollit anim id est laborum."
                 </Card.Text>
-                <Card.Text className="d-inline pe-3">Competition ends in:</Card.Text>
+                <Card.Text className="d-inline pe-3 competition-end">Competition ends in:</Card.Text>
                 <Button>PARTICIPATE</Button>
               </Col>
             </Row>
@@ -121,7 +121,7 @@ function HomePage() {
                   pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                   officia deserunt mollit anim id est laborum."
                 </Card.Text>
-                <Card.Text className="d-inline pe-3">Competition ends in:</Card.Text>
+                <Card.Text className="d-inline pe-3 competition-end">Competition ends in:</Card.Text>
                 <Button>PARTICIPATE</Button>
               </Col>
             </Row>
@@ -144,7 +144,7 @@ function HomePage() {
                   pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                   officia deserunt mollit anim id est laborum."
                 </Card.Text>
-                <Card.Text className="d-inline pe-3">Competition ends in:</Card.Text>
+                <Card.Text className="d-inline pe-3 competition-end">Competition ends in:</Card.Text>
                 <Button>PARTICIPATE</Button>
               </Col>
             </Row>
