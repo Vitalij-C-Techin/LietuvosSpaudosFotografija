@@ -31,10 +31,21 @@ form button {
 .carousel .image-header-text {
   display: inline-block;
   width: 30%;
-  height: 50px;
+  height: 100px;
   color: white;
   position: relative;
   top: 2rem;
+  left: 10rem;
+  background: rgb(0, 0, 0);
+}
+
+.image-header-text {
+  display: inline-block;
+  width: 30%;
+  height: 100px;
+  color: white;
+  position: relative;
+  bottom: -5rem;
   left: 10rem;
   background: rgb(0, 0, 0);
 }

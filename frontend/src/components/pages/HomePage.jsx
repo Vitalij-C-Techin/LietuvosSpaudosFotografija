@@ -32,35 +32,29 @@ function HomePage() {
   return (
     <>
       <Container>
+        <Card>
+          <h3 className="text-center box">{t('layoutPage.imageHeaderText')}</h3>
+        </Card>
         <Carousel data-bs-theme="dark">
           <Carousel.Item>
-            <div className="image-header-text">
-              <h3 className="text-center box">{t('layoutPage.imageHeaderText')}</h3>
-            </div>
             <div className="d-flex justify-content-center">
               <Image className="img-fluid" src={firstSlideImage} alt="First slide" />
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
-            <div className="image-header-text">
-              <h3 className="text-center box">{t('layoutPage.imageHeaderText')}</h3>
-            </div>
             <div className="d-flex justify-content-center">
               <Image className="img-fluid" src={secondSlideImage} alt="First slide" />
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
-            <div className="image-header-text">
-              <h3 className="text-center box">{t('layoutPage.imageHeaderText')}</h3>
-            </div>
             <div className="d-flex justify-content-center">
               <Image className="img-fluid" src={thirdSlideImage} alt="First slide" />
             </div>
           </Carousel.Item>
         </Carousel>
-        <div className="carousel-buttons d-flex justify-content-center" >
+        {/* <div className="carousel-buttons d-flex justify-content-center" >
           <Button
             variant="primary"
             className="btn-lg custom-button-width"
@@ -76,7 +70,30 @@ function HomePage() {
           >
             Register
           </Button>
-        </div>
+        </div> */}
+        <Card className="carousel-buttons">
+          <Row className="justify-content-md-center">
+            <Col md="auto"> 
+              <Button
+                variant="primary"
+                className="btn-lg custom-button-width"
+                onClick={navigateToLoginPage}
+              >
+                Login
+              </Button>
+            </Col>
+            <Col lg="2"></Col>
+            <Col md="auto">
+              <Button
+                variant="secondary"
+                className="btn-lg custom-button-width"
+                onClick={navigateToRegistrationPage}
+              >
+                Register
+              </Button>
+            </Col>
+          </Row>
+        </Card>
         <div>
           <h3 className="contest">{t('homePage.constestListTitle')}:</h3>
         </div>
