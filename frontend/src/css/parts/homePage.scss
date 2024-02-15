@@ -1,9 +1,11 @@
 .custom-button-width {
   width: 200px;
 }
-.body{
+
+.container {
   font-family: "Monserrat", sans-serif;
 }
+
 .contest {
   padding: 1rem;
   margin-left: 3rem;
@@ -14,15 +16,20 @@
 }
 
 .image-header-text {
-  width: 300px;
-  height: 100px;
-  background: rgb(0, 0, 0) !important;
-  border-radius: 0% !important;
-  color: white !important;
-  position: relative;
-  bottom: -2rem;
-  left: 8rem; 
-  z-index: 1;
+
+  h3 {
+    text-align: left;
+    padding: 0.5em;
+    width: fit-content;
+    background: rgb(0, 0, 0) ;
+    border-radius: 0% ;
+    color: white ;
+    position: relative;
+    bottom: -2rem;
+    left: 5rem;
+    z-index: 1;
+  }
+
 }
 .carousel-buttons {
   button {

@@ -32,35 +32,21 @@ form button {
 .card {
   border: none !important;
 }
-/* 
-.image-header-text {
-  width: 300px !important;
-  height: 100px !important;
-  background: rgb(0, 0, 0) !important;
-  border-radius: 0% !important;
-  color: white !important;
+
+.image-header-text h3, .image-header-text .h3 {
+  text-align: left;
+  padding: 0.5em;
+  width: -moz-fit-content;
+  width: fit-content;
+  background: rgb(0, 0, 0);
+  border-radius: 0%;
+  color: white;
   position: relative;
   bottom: -2rem;
-  left: 8rem;
+  left: 5rem;
   z-index: 1;
-} */
-
-.image-header-text {
-
-  h3 {
-    text-align: left;
-    padding: 0.5em;
-    width: fit-content;
-    background: rgb(0, 0, 0) ;
-    border-radius: 0% ;
-    color: white ;
-    position: relative;
-    bottom: -2rem;
-    left: 5rem;
-    z-index: 1;
-  }
-
 }
+
 .carousel-buttons button {
   border-radius: 0%;
   border: solid;
