@@ -1,6 +1,9 @@
 package lt.techin.lsf.model.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Getter
@@ -10,6 +13,9 @@ import lombok.*;
 @Builder
 public class RegisterRequest {
 
+    @NotNull
+    @NotBlank
+    @Size(min = 2, max = 50)
     private String name;
 
     private String surname;
@@ -26,4 +32,21 @@ public class RegisterRequest {
 
     @JsonProperty("media_name")
     private String mediaName;
+
+    public void validateData() {
+        if (name.length() < 2) {
+
+        }
+
+        if (name.length() > 50) {
+
+        }
+
+
+    }
+
+    public void sanitizeData() {
+
+    }
+
 }

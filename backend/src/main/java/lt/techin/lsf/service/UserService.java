@@ -1,13 +1,9 @@
 package lt.techin.lsf.service;
 
 import lombok.AllArgsConstructor;
-import lt.techin.lsf.exception.UserExistsException;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.mapper.UserMapper;
-import lt.techin.lsf.model.mapper.UserRecordMapper;
-import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.persistance.UserRepository;
-import lt.techin.lsf.persistance.model.UserRecord;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

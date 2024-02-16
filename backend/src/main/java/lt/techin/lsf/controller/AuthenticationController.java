@@ -1,6 +1,9 @@
 package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
+import lt.techin.lsf.exception.UserCredentialsIncorrectException;
+import lt.techin.lsf.exception.UserNotAuthenticatedException;
+import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.UserAuthentication;
 import lt.techin.lsf.model.mapper.UserResponseMapper;
@@ -9,9 +12,6 @@ import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.model.response.UserAuthenticationResponse;
 import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.service.AuthenticationService;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,20 +22,24 @@ public class AuthenticationController {
 
     @GetMapping("/me")
     public UserResponse getUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = authenticationService.getAuthenticatedUser();
 
-        if (authentication instanceof AnonymousAuthenticationToken) {
-            return null;
+        if (null == user) {
+            throw new UserNotAuthenticatedException("User not found");
         }
 
-        return UserResponseMapper.map((User) authentication.getPrincipal());
+        return UserResponseMapper.map(user);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public UserAuthenticationResponse login(
             @RequestBody AuthenticationRequest authenticationRequest
     ) {
         UserAuthentication userAuthentication = authenticationService.authentication(authenticationRequest);
+
+        if (null == userAuthentication) {
+            throw new UserCredentialsIncorrectException("User credentials incorrect");
+        }
 
         return userAuthentication.getUserAuthenticationResponse();
     }
@@ -45,6 +49,10 @@ public class AuthenticationController {
             @RequestBody RegisterRequest registerRequest
     ) {
         UserAuthentication userAuthentication = authenticationService.register(registerRequest);
+
+        if (null == userAuthentication) {
+            throw new UserNotRegisteredException("User not registered");
+        }
 
         return userAuthentication.getUserAuthenticationResponse();
     }
