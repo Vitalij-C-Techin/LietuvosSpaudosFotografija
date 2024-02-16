@@ -2,11 +2,13 @@ import { useState } from 'react';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 //TODO check layout after more work is done
 //TODO check console.log if any left
 
 const RegistrationForm = () => {
+  const { t } = useTranslation();
   const [selectedActivity, setSelectedActivity] = useState(``);
   const [phoneError, setPhoneError] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -27,18 +29,21 @@ const RegistrationForm = () => {
     const minPasswordLength = 6;
     const maxPasswordLength = 20;
     if (value !== formData.password) {
-      errors.push('Passwords do not match!');
+      errors.push(t('registrationPage.password1'));
     }
     if (value.length < minPasswordLength || value.length > maxPasswordLength) {
       errors.push(
-        `Password must be between ${minPasswordLength} and ${maxPasswordLength} characters.`
+        t('registrationPage.password2', {
+          min: minPasswordLength,
+          max: maxPasswordLength
+        })
       );
     }
     if (!/[A-Z]/.test(value)) {
-      errors.push('Password must contain at least one uppercase letter.');
+      errors.push(t('registrationPage.password3'));
     }
     if (!/\d/.test(value)) {
-      errors.push('Password must contain at least one number.');
+      errors.push(t('registrationPage.password4'));
     }
 
     setPasswordError(errors.join(' '));
@@ -64,7 +69,7 @@ const RegistrationForm = () => {
     const phoneRegex = /^\+[1-9]\d{1,14}$/;
 
     if (!phoneRegex.test(phone_number)) {
-      setPhoneError('Invalid phone number');
+      setPhoneError(t('registrationPage.phoneError'));
     } else {
       setPhoneError('');
     }
@@ -78,18 +83,18 @@ const RegistrationForm = () => {
         ...formData,
         birth_year: birthYear
       });
-      alert('Registration successufull');
+      alert(t('registrationPage.registerSuccessuful'));
       window.location.href = '/login';
     } catch (error) {
       if (error.response.status === 400) {
-        setEmailError('Email already exists.');
+        setEmailError(t('registerSuccessuful.emailError'));
       }
     }
 
     if (!passwordError) {
       return;
     } else {
-      alert('Fill form correctly');
+      alert(t('registrationPage.error'));
     }
   };
 
@@ -99,11 +104,11 @@ const RegistrationForm = () => {
 
   return (
     <div>
-      <h2>User Registration</h2>
+      <h2>{t('registrationPage.title')}</h2>
       <form onSubmit={handleSubmit}>
         {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
         {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
-        <label htmlFor="name">Name*</label>
+        <label htmlFor="name">{t('registrationPage.name')}</label>
         <br />
         <input
           type="text"
@@ -111,10 +116,10 @@ const RegistrationForm = () => {
           id="name"
           onChange={handleChange}
           required
-          placeholder="Enter name"
+          placeholder={t('registrationPage.namePlaceholder')}
         />
         <br />
-        <label htmlFor="surname">Surname*</label>
+        <label htmlFor="surname">{t('registrationPage.surname')}</label>
         <br />
         <input
           type="text"
@@ -122,10 +127,10 @@ const RegistrationForm = () => {
           id="surname"
           required
           onChange={handleChange}
-          placeholder="Enter surname"
+          placeholder={t('registrationPage.surnamePlaceholder')}
         />
         <br />
-        <label htmlFor="email">Email*</label>
+        <label htmlFor="email">{t('registrationPage.email')}</label>
         <br />
         <input
           type="email"
@@ -137,7 +142,7 @@ const RegistrationForm = () => {
           onChange={handleChange}
         />
         <br />
-        <label htmlFor="password">Password*</label>
+        <label htmlFor="password">{t('registrationPage.password')}</label>
         <br />
         <input
           type="password"
@@ -146,11 +151,11 @@ const RegistrationForm = () => {
           required
           value={formData.password}
           onChange={handleChange}
-          placeholder="Enter password"
+          placeholder={t('registrationPage.passwordPlaceholder')}
           autoComplete="new-password"
         />
         <br />
-        <label htmlFor="password">Confirm Password*</label>
+        <label htmlFor="password">{t('registrationPage.confirmPassword')}</label>
         {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
         <br />
         <input
@@ -159,11 +164,11 @@ const RegistrationForm = () => {
           id="password"
           required
           onChange={handleChange}
-          placeholder="Confirm password"
+          placeholder={t('registrationPage.cpasswordPlaceholder')}
           autoComplete="new-password"
         />
         <br />
-        <label htmlFor="birth_year">Birth Year*</label>
+        <label htmlFor="birth_year">{t('registrationPage.byear')}</label>
         <br />
         <input
           type="text"
@@ -172,10 +177,10 @@ const RegistrationForm = () => {
           id="birth_year"
           required
           onChange={handleChange}
-          placeholder="e.g 1990"
+          placeholder={t('registrationPage.byearPlaceholder')}
         />
         <br />
-        <label htmlFor="phone_number">Phone Number*</label>
+        <label htmlFor="phone_number">{t('registrationPage.phoneNumber')}</label>
         <br />
         <PhoneInput
           international
@@ -189,7 +194,7 @@ const RegistrationForm = () => {
           }}
         />
         <br />
-        <label htmlFor="activity">State of work </label>
+        <label htmlFor="activity">{t('registrationPage.activity')} </label>
         <br />
 
         <select
@@ -199,13 +204,13 @@ const RegistrationForm = () => {
           value={selectedActivity}
           onChange={handleChangeActivity}
         >
-          <option value="fworker">freelancer</option>
-          <option value="mworker">media worker</option>
+          <option value="fworker">{t('registrationPage.work1')}</option>
+          <option value="mworker">{t('registrationPage.work2')} </option>
         </select>
         <br />
         {selectedActivity === 'mworker' && (
           <>
-            <label htmlFor="media_name">Who do you work for?</label>
+            <label htmlFor="media_name">{t('registrationPage.textArea')}</label>
             <br />
             <textarea
               name="media_name"
@@ -219,10 +224,10 @@ const RegistrationForm = () => {
         )}
         <br />
         <input type="checkbox" id="Uagreement" name="Uagreement" required />
-        <label htmlFor="Uagreement">User agreement</label>
+        <label htmlFor="Uagreement">{t('registrationPage.Uagreement')} </label>
         <br />
 
-        <button type="submit">Register</button>
+        <button type="submit">{t('registrationPage.button')}</button>
       </form>
     </div>
   );

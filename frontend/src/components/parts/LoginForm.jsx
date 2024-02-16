@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useAuth } from '../../modules/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 const LoginForm = (onLogin) => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -22,7 +24,7 @@ const LoginForm = (onLogin) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      setError('no such user');
+      setError(t('loginPage.noUser'));
       return;
     }
     try {
@@ -34,23 +36,23 @@ const LoginForm = (onLogin) => {
         login();
         navigate('/');
       } else {
-        throw new Error('login failed');
+        throw new Error(t('loginPage.loginFail'));
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        setError('Invalid email or password');
+        setError(t('loginPage.invalidCredentials'));
       }
     }
   };
   return (
     <>
       <section>
-        <h2>Log in to your account</h2>
+        <h2>{t('loginPage.title')}</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formGroupEmail">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>{t('loginPage.email')}</Form.Label>
             <Form.Control
               type="email"
               autoComplete="email"
@@ -60,7 +62,7 @@ const LoginForm = (onLogin) => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formGroupPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{t('loginPage.password')}</Form.Label>
             <Form.Control
               type="password"
               autoComplete="new-password"
@@ -73,7 +75,7 @@ const LoginForm = (onLogin) => {
             <Row className="align-items-center">
               <Col>
                 <div className="linkText">
-                  <Link to="/forgotpassword">Forgot password?</Link>
+                  <Link to="/forgotpassword">{t('loginPage.forgotPassword')}</Link>
                 </div>
               </Col>
             </Row>
@@ -83,13 +85,13 @@ const LoginForm = (onLogin) => {
             <Row className="align-items-center">
               <Col xs={12} md={6}>
                 <Button variant="light" type="submit">
-                  Login
+                  {t('loginPage.login')}
                 </Button>
               </Col>
 
               <Col xs={12} md={6}>
                 <Button variant="light" type="button" onClick={navigateToRegistrationPage}>
-                  Register
+                  {t('loginPage.register')}
                 </Button>
               </Col>
             </Row>

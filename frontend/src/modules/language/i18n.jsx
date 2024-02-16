@@ -32,15 +32,55 @@ i18n
           homePage: {
             constestListTitle: 'Contests'
           },
-          emailVerification: { 
-            invalidEmailFormat: 'Invalid email format!' 
+          emailVerification: {
+            invalidEmailFormat: 'Invalid email format!'
           },
-          forgotPasswordForm:{
+          forgotPasswordForm: {
             resetPassword: 'Reset Password',
             serverErrorMessage: 'An error occurred. Please try again later.',
             formPlaceholderText: 'Enter your email here',
-            recoverButton: 'Recover button',
+            recoverButton: 'Recover button'
           },
+          loginPage: {
+            noUser: 'no such user',
+            invalidCredentials: 'Invalid email or password',
+            title: 'Log in to your account',
+            email: 'Email',
+            password: 'Password',
+            forgotPassword: 'Forgot password?',
+            login: 'Login',
+            register: 'Register',
+            loginFail: 'login failed'
+          },
+          registrationPage: {
+            password1: 'Passwords do not match!',
+            password2: 'Password must be between {{min}} and {{max}} characters.',
+            password3: 'Password must contain at least one uppercase letter.',
+            password4: 'Password must contain at least one number.',
+            phoneError: 'Invalid phone number,',
+            registerSuccessuful: 'Registration successufull,',
+            emailError: 'Email already exists.',
+            error: 'Fill form correctly',
+            title: 'User Registration',
+            name: 'Name',
+            surname: 'Surname',
+            email: 'Email',
+            password: 'Password',
+            confirmPassword: 'Confirm Password',
+            byear: 'Birth year',
+            phoneNumber: 'Phone number',
+            activity: 'State of work',
+            work1: 'freelancer',
+            work2: 'media worker',
+            textArea: 'Who do you work for?',
+            Uagreement: 'User agreement',
+            button: 'Register',
+            namePlaceholder: 'Enter your name',
+            surnamePlaceholder:'Enter your surname',
+            passwordPlaceholder:'Enter password',
+            cpasswordPlaceholder:'Confirm password',
+            byearPlaceholder:'Date of birth (e.g. 1990)'
+          }
         }
       },
       lt: {
@@ -64,15 +104,55 @@ i18n
           homePage: {
             constestListTitle: 'Konkursai'
           },
-          emailVerification: { 
-            invalidEmailFormat: 'Netinkamas el.pašto formatas' 
+          emailVerification: {
+            invalidEmailFormat: 'Netinkamas el.pašto formatas'
           },
-          forgotPasswordForm:{
+          forgotPasswordForm: {
             resetPassword: 'Atstatyti slaptažodį',
             serverErrorMessage: 'Įvyko klaida. Pabandykite dar kartą vėliau.',
             formPlaceholderText: 'Įveskite savo el. pašto adresą čia',
-            recoverButton: 'Atkūrimo mygtukas',
+            recoverButton: 'Atkūrimo mygtukas'
           },
+          loginPage: {
+            noUser: 'Tokio naudotojo nera',
+            invalidCredentials: 'Netaisingas El.paštas arba slaptažodis',
+            title: 'Prisijunkite prie savo paskyros',
+            email: 'El.paštas',
+            password: 'Slaptažodis',
+            forgotPassword: 'Pamiršote slaptažodi?',
+            login: 'Prisijungti',
+            register: 'Registracija',
+            loginFail: 'Prisijungti nepavyko'
+          },
+          registrationPage: {
+            password1: 'Slaptažodžiai nesutampa!',
+            password2: 'Slaptažodis turi būti nuo {{min}} iki {{max}} simbolių.',
+            password3: 'Slaptažodyje turi būti bent viena didžioji raidė.',
+            password4: 'Slaptažodyje turi būti bent vienas skaičius.',
+            phoneError: 'Netinkamas telefono numeris.',
+            registerSuccessuful: 'Registracija sėkminga.',
+            emailError: 'Toks el. paštas jau egzistuoja.',
+            error: 'Užpildykite formą teisingai.',
+            title: 'Naudotojo registracija',
+            name: 'Vardas',
+            surname: 'Pavardė',
+            email: 'El. paštas',
+            password: 'Slaptažodis',
+            confirmPassword: 'Patvirtinti slaptažodį',
+            byear: 'Gimimo metai',
+            phoneNumber: 'Telefono numeris',
+            activity: 'Veiklos sritis',
+            work1: 'Savanoris',
+            work2: 'Žiniasklaidos darbuotojas',
+            textArea: 'Kokiai žiniasklaidai priklausote',
+            Uagreement: 'Vartotojo sutartis',
+            button: 'Registruotis',
+            namePlaceholder: 'Įveskite savo vardą',
+            surnamePlaceholder:'Įveskite savo pavarde',
+            passwordPlaceholder:'Įveskite slaptažodi',
+            cpasswordPlaceholder:'Pakartokite slaptažodi',
+            byearPlaceholder:'Gimimo metai(pvz. 1990)'
+          }
         }
       }
     }
