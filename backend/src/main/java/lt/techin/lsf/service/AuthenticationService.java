@@ -59,8 +59,8 @@ public class AuthenticationService {
     }
 
     public UserAuthentication register(RegisterRequest register) {
-        register.sanitizeData();
         register.validateData();
+        register.sanitizeData();
 
         if (userService.existsUserWithEmail(register.getEmail())) {
             throw new UserExistsException("User exists");

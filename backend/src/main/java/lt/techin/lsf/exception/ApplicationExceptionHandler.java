@@ -11,13 +11,210 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 @ControllerAdvice
 public class ApplicationExceptionHandler {
+    @ExceptionHandler({UserRegistrationException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserRegistrationException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserPhoneNumberInvalidFormatException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserPhoneNumberInvalidFormatException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserSurnameInvalidFormatException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserSurnameInvalidFormatException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserSurnameIsTooLongException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserSurnameIsTooLongException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserSurnameIsTooShortException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserSurnameIsTooShortException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserNameInvalidFormatException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserNameInvalidFormatException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserNameIsTooLongException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserNameIsTooLongException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserNameIsTooShortException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserNameIsTooShortException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserIsTooOldException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserIsTooOldException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserIsTooYoungException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserIsTooYoungException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserPasswordUppercaseException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserPasswordUppercaseException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserPasswordLowercaseException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserPasswordLowercaseException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserPasswordDigitException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserPasswordDigitException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserPasswordIsTooLongException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserPasswordIsTooLongException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserPasswordIsTooShortException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserPasswordIsTooShortException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserEmailIsTooLongException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserEmailIsTooLongException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserEmailIsTooShortException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserEmailIsTooShortException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({UserEmailInvalidFormatException.class})
+    protected ResponseEntity<ErrorResponse> handle(UserEmailInvalidFormatException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
 
     @ExceptionHandler({IllegalArgumentException.class})
     protected ResponseEntity<ErrorResponse> handle(IllegalArgumentException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .code(IllegalArgumentException.class.getSimpleName())
+                                .code(exception.getClass().getSimpleName())
                                 .message(exception.getMessage())
                                 .build()
                 );
@@ -28,7 +225,7 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .code(IllegalStateException.class.getSimpleName())
+                                .code(exception.getClass().getSimpleName())
                                 .message(exception.getMessage())
                                 .build()
                 );
@@ -39,7 +236,7 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .code(MethodArgumentTypeMismatchException.class.getSimpleName())
+                                .code(exception.getClass().getSimpleName())
                                 .message(exception.getMessage())
                                 .build()
                 );
@@ -51,7 +248,7 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .code(ErrorException.class.getSimpleName())
+                                .code(exception.getClass().getSimpleName())
                                 .message(exception.getMessage())
                                 .build()
                 );
@@ -63,7 +260,7 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .code(BadRequestException.class.getSimpleName())
+                                .code(exception.getClass().getSimpleName())
                                 .message(exception.getMessage())
                                 .build()
                 );
@@ -74,7 +271,7 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body(
                         ErrorResponse.builder()
-                                .code(UserNotFoundException.class.getSimpleName())
+                                .code(exception.getClass().getSimpleName())
                                 .message(exception.getMessage())
                                 .build()
                 );
@@ -85,7 +282,7 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .code(UserExistsException.class.getSimpleName())
+                                .code(exception.getClass().getSimpleName())
                                 .message(exception.getMessage())
                                 .build()
                 );
@@ -96,7 +293,7 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .code(UserNotAuthenticatedException.class.getSimpleName())
+                                .code(exception.getClass().getSimpleName())
                                 .message(exception.getMessage())
                                 .build()
                 );
@@ -107,7 +304,7 @@ public class ApplicationExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
-                                .code(UserCredentialsIncorrectException.class.getSimpleName())
+                                .code(exception.getClass().getSimpleName())
                                 .message(exception.getMessage())
                                 .build()
                 );
