@@ -27,7 +27,9 @@ const LoginForm = () => {
   };
   return (
     <>
-      <Container className="form-container">
+      <Container className="form-container justify-content-md-center">
+        <Row className="justify-content-md-center">
+        <Col lg="4">
         <Card className="my-5">
           {/* <Card.Body> */}
             <h2>LOG IN TO </h2>
@@ -74,8 +76,11 @@ const LoginForm = () => {
                 </Button>
               </Col>
             </Row>
+            
           </Form.Group>
         </Form>
+        </Col>
+        </Row>
       </Container>
     </>
   );
