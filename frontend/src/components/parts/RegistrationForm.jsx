@@ -79,109 +79,121 @@ const RegistrationForm = () => {
 
   return (
     <>
-    <Container className="registration-form-container">
-      <Row className="justify-content-md-center">
-        <Col xs="12" sm ="8" md="6" lg="4">
-      <Card className="my-5">
-      <h2>User Registration</h2>
-      </Card>
-      <Form onSubmit={handleSubmit}>
-        {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
-        <Form.Label htmlFor="fname">Name*</Form.Label>
-   
-        <Form.Control type="text" name="fname" id="fname" required placeholder="Enter name" />
-       <Form.Label htmlFor="lname">Surname*</Form.Label>
-        
-        <Form.Control type="text" name="lname" id="lname" required placeholder="Enter surname" />
-       
-        <Form.Label htmlFor="email">Email*</Form.Label>
-    
-        <Form.Control
-          type="email"
-          name="email"
-          id="email"
-          required
-          placeholder="egzamle@egzample.com"
-          autoComplete="email"
-        />
-       
-        <Form.Label htmlFor="psw">Password*</Form.Label>
-    
-        <Form.Control
-          type="password"
-          name="password"
-          id="psw"
-          required
-          value={formData.password}
-          onChange={handleChange}
-          placeholder="Enter password"
-          autoComplete="new-password"
-        />
-       
-        <Form.Label htmlFor="spsw">Confirm Password*</Form.Label>
-        {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
-  
-        <Form.Control
-          type="password"
-          name="confirmPassword"
-          id="spsw"
-          required
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          placeholder="Confirm password"
-          autoComplete="new-password"
-        />
-       
-        <Form.Label htmlFor="byear">Birth Year*</Form.Label>
-       
-        <Form.Control type="date" name="byear" id="byear" required placeholder="Enter date of Birth" />
-       
-        <Form.Label htmlFor="phone">Phone Number*</Form.Label>
-     
-        <PhoneInput
-          international
-          id="phone"
-          defaultCountry="LT"
-          value={formData.phone}
-          onChange={(value) => {
-            setFormData((prevData) => ({ ...prevData, phone: value }));
-            validatePhone(value);
-          }}
-        />
-   
-        <Form.Label htmlFor="activity">State of work </Form.Label>
-        <br />
+      <Container className="registration-form-container">
+        <Row className="justify-content-md-center">
+          <Col xs="12" sm="8" md="6" lg="4">
+            <Card className="my-5">
+              <h2>User Registration</h2>
+            </Card>
+            <Form onSubmit={handleSubmit}>
+              {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
+              <Form.Label htmlFor="fname">Name*</Form.Label>
 
-        <select
-          name="activity"
-          id="activity"
-          size={1}
-          value={selectedActivity}
-          onChange={handleChangeActivity}
-        >
-          <option value="fworker">freelancer</option>
-          <option value="mworker">media worker</option>
-        </select>
-        <br />
-        {selectedActivity === 'mworker' && (
-          <>
-            <Form.Label htmlFor="wdyof">Who do you work for?</Form.Label>
-            <br />
-            <textarea name="message" cols="30" id="wdyof" rows="3" required></textarea>
-          </>
-        )}
-       
-        <Form.Check type="checkbox" id="Uagreement" name="Uagreement" required />
-        <Form.Label htmlFor="Uagreement">User agreement</Form.Label>
-       
+              <Form.Control type="text" name="fname" id="fname" required placeholder="Enter name" />
+              <Form.Label htmlFor="lname">Surname*</Form.Label>
 
-        <Button>SUBMIT</Button>
-      </Form>
-      </Col>
-      </Row>
+              <Form.Control
+                type="text"
+                name="lname"
+                id="lname"
+                required
+                placeholder="Enter surname"
+              />
+
+              <Form.Label htmlFor="email">Email*</Form.Label>
+
+              <Form.Control
+                type="email"
+                name="email"
+                id="email"
+                required
+                placeholder="egzamle@egzample.com"
+                autoComplete="email"
+              />
+
+              <Form.Label htmlFor="psw">Password*</Form.Label>
+
+              <Form.Control
+                type="password"
+                name="password"
+                id="psw"
+                required
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter password"
+                autoComplete="new-password"
+              />
+
+              <Form.Label htmlFor="spsw">Confirm Password*</Form.Label>
+              {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+
+              <Form.Control
+                type="password"
+                name="confirmPassword"
+                id="spsw"
+                required
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm password"
+                autoComplete="new-password"
+              />
+
+              <Form.Label htmlFor="byear">Birth Year*</Form.Label>
+
+              <Form.Control
+                type="date"
+                name="byear"
+                id="byear"
+                required
+                placeholder="Enter date of Birth"
+              />
+
+              <Form.Label htmlFor="phone">Phone Number*</Form.Label>
+
+              <PhoneInput
+                international
+                id="phone"
+                defaultCountry="LT"
+                value={formData.phone}
+                onChange={(value) => {
+                  setFormData((prevData) => ({ ...prevData, phone: value }));
+                  validatePhone(value);
+                }}
+              />
+
+              <Form.Label htmlFor="activity">State of work </Form.Label>
+
+              <Form.Select
+                name="activity"
+                id="activity"
+                size={1}
+                value={selectedActivity}
+                onChange={handleChangeActivity}
+              >
+                <option value="fworker">freelancer</option>
+                <option value="mworker">media worker</option>
+              </Form.Select>
+
+              {selectedActivity === 'mworker' && (
+                <>
+                  <Form.Label htmlFor="wdyof">Who do you work for?</Form.Label>
+                 
+                  <textarea name="message" cols="30" id="wdyof" rows="3" required></textarea>
+                </>
+              )}
+            
+               
+              <Form.Check type="checkbox" id="Uagreement" name="Uagreement" label="User agreement" required />
+           
+          
+              {/* <Form.Label htmlFor="Uagreement">User agreement</Form.Label> */}
+             
+              <Button>SUBMIT</Button>
+            </Form>
+          </Col>
+        </Row>
       </Container>
     </>
-    
   );
 };
 
