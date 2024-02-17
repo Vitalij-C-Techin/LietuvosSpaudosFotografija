@@ -7,4 +7,18 @@ form button {
 }
 .form-container h2 {
   font-weight: 700;
+}
+.form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+}
+.form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
 }/*# sourceMappingURL=login-form.css.map */
