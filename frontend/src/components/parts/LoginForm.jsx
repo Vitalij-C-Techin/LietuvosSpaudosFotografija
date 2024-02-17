@@ -30,7 +30,8 @@ const LoginForm = () => {
       <Container className="form-container">
         <Card>
           <Card.Body>
-            <h2>LOG IN TO YOUR ACCOUNT</h2>
+            <h2>LOG IN TO </h2>
+            <h2>TO YOUR ACCOUNT</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
           </Card.Body>
         </Card>
