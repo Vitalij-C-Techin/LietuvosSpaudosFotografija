@@ -68,13 +68,13 @@ const LoginForm = () => {
           <Form.Group className="mb-3" controlId="formGroupButton">
             <Row className="align-items-center">
               <Col className="mt-3" xs={12} md={6}>
-                <Button variant="light" type="submit">
+                <Button type="submit">
                   LOGIN
                 </Button>
               </Col>
 
               <Col className="mt-3" xs={12} md={6}>
-                <Button variant="light" type="button" onClick={navigateToRegistrationPage}>
+                <Button type="button" onClick={navigateToRegistrationPage}>
                   REGISTER
                 </Button>
               </Col>
