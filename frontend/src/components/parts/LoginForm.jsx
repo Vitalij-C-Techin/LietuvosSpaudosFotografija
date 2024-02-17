@@ -1,8 +1,7 @@
-
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { Container,Card,Col,Form,Row,Button } from 'react-bootstrap';
+import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
 //TODO add logic to existing user if he enters wrong credentials
 
 const LoginForm = () => {
@@ -28,12 +27,12 @@ const LoginForm = () => {
   };
   return (
     <>
-    <Container className="form-container">
-      <Card>
-        <Card.Body>
-          <h2>LOG IN TO YOUR ACCOUNT</h2>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-        </Card.Body>
+      <Container className="form-container">
+        <Card>
+          <Card.Body>
+            <h2>LOG IN TO YOUR ACCOUNT</h2>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+          </Card.Body>
         </Card>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formGroupEmail">
@@ -58,19 +57,14 @@ const LoginForm = () => {
 
           <Form.Group controlId="formGroupLinks">
             <Row className="align-items-center">
-    
-         
-                  <Link to="/forgotpassword">Forgot password?</Link>
-      
+              <Link to="/forgotpassword">Forgot password?</Link>
             </Row>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formGroupButton">
             <Row className="align-items-center">
               <Col className="mt-3" xs={12} md={6}>
-                <Button type="submit">
-                  LOGIN
-                </Button>
+                <Button type="submit">LOGIN</Button>
               </Col>
 
               <Col className="mt-3" xs={12} md={6}>
@@ -81,8 +75,7 @@ const LoginForm = () => {
             </Row>
           </Form.Group>
         </Form>
-        </Container>
-      
+      </Container>
     </>
   );
 };
