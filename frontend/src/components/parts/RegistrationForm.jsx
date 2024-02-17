@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
 
 //TODO email verification(backend needed with DB)
 //TODO Password correction if needed
