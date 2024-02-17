@@ -64,7 +64,7 @@ const ForgotPasswordForm = () => {
           <Form.Group className="mb-3" controlId="formGroupButton">
             <Row className="align-items-center">
               <Col>
-                <Button variant="light" type="submit" data-testid="recover-button">
+                <Button type="submit" data-testid="recover-button">
                   {t('forgotPasswordForm.recoverButton')}
                 </Button>
               </Col>
