@@ -16,6 +16,7 @@ form button {
   border-color: black;
   color: white;
   background-color: black;
+  width: 100%;
 }
 .form-container button:hover {
   background-color: white;

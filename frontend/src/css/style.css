@@ -2,9 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,600&display=swap");
-form button {
-  width: 100%;
-}
+
 
 .form-container {
   font-family: "Montserrat", sans-serif;
@@ -13,6 +11,7 @@ form button {
   font-weight: 700;
 }
 .form-container button {
+  width: 100%;
   font-size: 12px;
   border-radius: 0%;
   border: solid;
