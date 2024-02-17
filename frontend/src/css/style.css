@@ -2,14 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,600&display=swap");
-form {
-  margin: auto;
-  width: 30%;
-  text-align: center;
-}
-form .linkText {
-  text-align: left;
-}
 form button {
   width: 100%;
 }

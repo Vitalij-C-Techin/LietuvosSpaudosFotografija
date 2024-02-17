@@ -1,3 +1,8 @@
 form button {
   width: 100%;
+}
+
+.form-container h2 {
+  font-family: "Monserrat", sans-serif;
+  font-weight: 700;
 }/*# sourceMappingURL=login-form.css.map */
