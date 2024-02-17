@@ -70,13 +70,13 @@ const LoginForm = () => {
             <Row className="align-items-center">
               <Col xs={12} md={6}>
                 <Button variant="light" type="submit">
-                  Login
+                  LOGIN
                 </Button>
               </Col>
 
               <Col xs={12} md={6}>
                 <Button variant="light" type="button" onClick={navigateToRegistrationPage}>
-                  Register
+                  REGISTER
                 </Button>
               </Col>
             </Row>
