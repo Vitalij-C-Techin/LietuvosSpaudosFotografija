@@ -177,11 +177,12 @@ const RegistrationForm = () => {
                     />
                   </Form.Group>
                 </Col>
-                <Col md="6" lg="6">
+                <Col md="6" lg="6" >
                   <Form.Group className="mb-3" controlId="formGroupPhoneNumber">
                     <Form.Label htmlFor="phone">Phone Number*</Form.Label>
 
                     <PhoneInput
+                    className="mt-2"
                       international
                       id="phone"
                       defaultCountry="LT"
