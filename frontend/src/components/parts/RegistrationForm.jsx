@@ -79,7 +79,7 @@ const RegistrationForm = () => {
 
   return (
     <>
-      <Container className="registration-form-container">
+      <Container className="registration-form-container mb-5">
         <Row className="justify-content-md-center">
           <Col xs="12" sm="8" md="6" lg="4">
             <Card className="my-5">
