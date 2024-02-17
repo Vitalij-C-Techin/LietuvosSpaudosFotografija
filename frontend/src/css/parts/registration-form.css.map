@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"registration-form.css"}
+{"version":3,"sources":["registration-form.scss","registration-form.css"],"names":[],"mappings":"AACA;EACI,qCAAA;ACAJ;ADEI;EACI,gBAAA;ACAR;ADGI;EACI,eAAA;EACA,iBAAA;EACA,aAAA;EACA,oBAAA;EACA,mBAAA;EACA,YAAA;EACA,uBAAA;EACA,WAAA;ACDR;ADIM;EACE,uBAAA;EACA,mBAAA;EACA,YAAA;ACFR;ADKM;EACE,iBAAA;EACA,mBAAA;EACA,mBAAA;ACHR","file":"registration-form.css"}
