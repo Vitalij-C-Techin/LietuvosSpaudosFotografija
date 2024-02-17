@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { Container,Col,Form,Row,Button } from 'react-bootstrap';
+import { Container,Card,Col,Form,Row,Button } from 'react-bootstrap';
 //TODO add logic to existing user if he enters wrong credentials
 
 const LoginForm = () => {
@@ -29,10 +29,12 @@ const LoginForm = () => {
   return (
     <>
     <Container>
-      {/* <section> */}
-        <h2>Log in to your account</h2>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-
+      <Card>
+        <Card.Body>
+          <h2>Log in to your account</h2>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+        </Card.Body>
+        </Card>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formGroupEmail">
             <Form.Label>Email</Form.Label>
@@ -81,7 +83,7 @@ const LoginForm = () => {
           </Form.Group>
         </Form>
         </Container>
-      {/* </section> */}
+      
     </>
   );
 };
