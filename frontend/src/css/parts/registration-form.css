@@ -23,4 +23,9 @@
   border-radius: 0%;
   border-color: black;
   border-width: 0.2em;
+}
+.registration-form-container select {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
 }/*# sourceMappingURL=registration-form.css.map */

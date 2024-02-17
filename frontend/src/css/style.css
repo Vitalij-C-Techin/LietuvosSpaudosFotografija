@@ -158,12 +158,10 @@
   border-color: black;
   border-width: 0.2em;
 }
-.registration-form-container a {
-  text-decoration: none;
-  color: gray;
-}
-.registration-form-container a:hover {
-  color: black;
+.registration-form-container select {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
 }
 
 /*!
