@@ -4,9 +4,9 @@ import { Container } from 'react-bootstrap';
 const LoginPage = () => {
   return (
     <>
-    <Container>
+ 
       <LoginForm />
-    </Container>
+ 
      
     </>
   );

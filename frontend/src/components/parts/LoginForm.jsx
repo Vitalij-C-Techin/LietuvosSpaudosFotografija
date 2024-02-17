@@ -1,10 +1,8 @@
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
+
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { Container,Col,Form,Row,Button } from 'react-bootstrap';
 //TODO add logic to existing user if he enters wrong credentials
 
 const LoginForm = () => {
@@ -30,7 +28,8 @@ const LoginForm = () => {
   };
   return (
     <>
-      <section>
+    <Container>
+      {/* <section> */}
         <h2>Log in to your account</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
@@ -81,7 +80,8 @@ const LoginForm = () => {
             </Row>
           </Form.Group>
         </Form>
-      </section>
+        </Container>
+      {/* </section> */}
     </>
   );
 };
