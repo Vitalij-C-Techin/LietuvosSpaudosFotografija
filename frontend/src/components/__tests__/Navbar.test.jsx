@@ -1,18 +1,21 @@
 import { render, fireEvent } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../../modules/language/i18n';
 import NavigationBar from '../parts/NavigationBar';
+import { AuthProvider } from '../../modules/AuthContext';
+import { BrowserRouter } from 'react-router-dom';
 
 let component;
 
 beforeEach(() => {
   component = render(
     <I18nextProvider i18n={i18n}>
-      <BrowserRouter>
-        <NavigationBar />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <NavigationBar />
+        </BrowserRouter>
+      </AuthProvider>
     </I18nextProvider>
   );
 });
