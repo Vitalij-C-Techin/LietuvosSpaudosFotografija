@@ -29,7 +29,7 @@ const LoginForm = () => {
     <>
       <Container className="form-container justify-content-md-center">
         <Row className="justify-content-md-center">
-        <Col lg="4">
+        <Col xs="12" sm ="8" md="6" lg="4">
         <Card className="my-5">
           {/* <Card.Body> */}
             <h2>LOG IN TO </h2>
@@ -66,11 +66,11 @@ const LoginForm = () => {
 
           <Form.Group className="mb-3" controlId="formGroupButton">
             <Row className="align-items-center">
-              <Col className="mt-3" xs={12} md={6}>
+              <Col className="mt-3"  xs={12} md={6}>
                 <Button type="submit">LOGIN</Button>
               </Col>
 
-              <Col className="mt-3" xs={12} md={6}>
+              <Col className="mt-3"  xs={12} md={6} >
                 <Button type="button" onClick={navigateToRegistrationPage}>
                   REGISTER
                 </Button>
