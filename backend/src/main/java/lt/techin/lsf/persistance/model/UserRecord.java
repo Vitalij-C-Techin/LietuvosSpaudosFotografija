@@ -2,12 +2,7 @@ package lt.techin.lsf.persistance.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import lt.techin.lsf.config.ApplicationConfig;
 import lt.techin.lsf.model.User;
-import lt.techin.lsf.service.AuthenticationService;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
