@@ -21,4 +21,14 @@ form button {
   background-color: white;
   border-color: black;
   color: black;
+}
+.form-container input {
+  border-radius: 0%;
+}
+.form-container a {
+  text-decoration: none;
+  color: gray;
+}
+.form-container a:hover {
+  color: black;
 }/*# sourceMappingURL=login-form.css.map */

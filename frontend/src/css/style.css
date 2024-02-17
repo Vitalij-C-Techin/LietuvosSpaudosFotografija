@@ -26,6 +26,16 @@ form button {
   border-color: black;
   color: black;
 }
+.form-container input {
+  border-radius: 0%;
+}
+.form-container a {
+  text-decoration: none;
+  color: gray;
+}
+.form-container a:hover {
+  color: black;
+}
 
 .custom-button-width {
   width: 200px;
