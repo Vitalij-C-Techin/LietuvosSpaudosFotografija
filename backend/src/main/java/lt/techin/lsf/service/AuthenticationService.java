@@ -1,5 +1,6 @@
 package lt.techin.lsf.service;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.UserExistsException;
 import lt.techin.lsf.model.User;
@@ -34,6 +35,14 @@ public class AuthenticationService {
             return null;
         }
 
+        if (null == authentication) {
+            return null;
+        }
+
+        if (!authentication.isAuthenticated()) {
+            return null;
+        }
+
         return (User) authentication.getPrincipal();
     }
 
@@ -58,7 +67,7 @@ public class AuthenticationService {
                 .build();
     }
 
-    public UserAuthentication register(RegisterRequest register) {
+    public UserAuthentication register(@NotNull RegisterRequest register) {
         register.validateData();
         register.sanitizeData();
 

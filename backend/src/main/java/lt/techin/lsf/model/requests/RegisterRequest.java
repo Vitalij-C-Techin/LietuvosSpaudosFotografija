@@ -56,65 +56,65 @@ public class RegisterRequest {
         // Email
 
         if (email.length() < 5) {
-            throw new UserEmailIsTooShortException("User email is too short");
+            throw new UserRegistrationEmailIsTooShortException("Email is too short");
         }
 
-        if (email.length() > 30) {
-            throw new UserEmailIsTooLongException("User email is too long");
+        if (email.length() > 60) {
+            throw new UserRegistrationEmailIsTooLongException("Email is too long");
         }
 
         if (!Pattern.matches("^[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.][a-zA-Z]+$", email)) {
-            throw new UserEmailInvalidFormatException("Email invalid format");
+            throw new UserRegistrationEmailInvalidFormatException("Email invalid format");
         }
 
         // Password
 
         if (password.length() < 8) {
-            throw new UserPasswordIsTooShortException("User password is too short");
+            throw new UserRegistrationPasswordIsTooShortException("Password is too short");
         }
 
         if (password.length() > 50) {
-            throw new UserEmailIsTooLongException("User password is too long");
+            throw new UserRegistrationPasswordIsTooLongException("Password is too long");
         }
 
         if (!Pattern.matches(".*[a-z].*", password)) {
-            throw new UserPasswordLowercaseException("Password must contain lowercase letters");
+            throw new UserRegistrationPasswordLowercaseException("Password must contain lowercase letters");
         }
 
         if (!Pattern.matches(".*[A-Z].*", password)) {
-            throw new UserPasswordUppercaseException("Password must contain uppercase letters");
+            throw new UserRegistrationPasswordUppercaseException("Password must contain uppercase letters");
         }
 
         if (!Pattern.matches(".*[0-9].*", password)) {
-            throw new UserPasswordDigitException("Password must contain digits");
+            throw new UserRegistrationPasswordDigitException("Password must contain digits");
         }
 
         // Name
 
         if (name.length() < 3) {
-            throw new UserNameIsTooShortException("User name is too short");
+            throw new UserRegistrationNameIsTooShortException("User name is too short");
         }
 
         if (name.length() > 50) {
-            throw new UserNameIsTooLongException("User name is too long");
+            throw new UserRegistrationNameIsTooLongException("User name is too long");
         }
 
         if (!Pattern.matches("^[a-zA-Z]+$", name)) {
-            throw new UserNameInvalidFormatException("User Name invalid format");
+            throw new UserRegistrationNameInvalidFormatException("User Name invalid format");
         }
 
         // Surname
 
         if (surname.length() < 3) {
-            throw new UserSurnameIsTooShortException("User name is too short");
+            throw new UserRegistrationSurnameIsTooShortException("User name is too short");
         }
 
         if (surname.length() > 50) {
-            throw new UserSurnameIsTooLongException("User name is too long");
+            throw new UserRegistrationSurnameIsTooLongException("User name is too long");
         }
 
         if (!Pattern.matches("^[a-zA-Z]+$", surname)) {
-            throw new UserSurnameInvalidFormatException("Name invalid format");
+            throw new UserRegistrationSurnameInvalidFormatException("Name invalid format");
         }
 
         // Birth Year
@@ -122,25 +122,25 @@ public class RegisterRequest {
         int currentYear = LocalDate.now().getYear();
 
         if (currentYear - 100 > birthYear) {
-            throw new UserIsTooOldException("User is too old");
+            throw new UserRegistrationTooOldException("User is too old");
         }
 
         if (currentYear - 18 < birthYear) {
-            throw new UserIsTooYoungException("User is too young");
+            throw new UserRegistrationTooYoungException("User is too young");
         }
 
         //Phone Number
 
         if (phoneNumber.length() < 3) {
-            throw new UserPhoneNumberInvalidFormatException("Phone number too short");
+            throw new UserRegistrationPhoneNumberInvalidFormatException("Phone number too short");
         }
 
         if (phoneNumber.length() > 30) {
-            throw new UserPhoneNumberInvalidFormatException("Phone number too long");
+            throw new UserRegistrationPhoneNumberInvalidFormatException("Phone number too long");
         }
 
         if (!Pattern.matches("^([+])?\\d+$", phoneNumber)) {
-            throw new UserPhoneNumberInvalidFormatException("Phone number invalid format");
+            throw new UserRegistrationPhoneNumberInvalidFormatException("Phone number invalid format");
         }
     }
 

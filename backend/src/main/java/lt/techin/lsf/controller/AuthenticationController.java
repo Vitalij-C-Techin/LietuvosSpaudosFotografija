@@ -1,7 +1,7 @@
 package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.exception.UserCredentialsIncorrectException;
+import lt.techin.lsf.exception.LoginCredentialsIncorrectException;
 import lt.techin.lsf.exception.UserNotAuthenticatedException;
 import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.User;
@@ -38,7 +38,7 @@ public class AuthenticationController {
         UserAuthentication userAuthentication = authenticationService.authentication(authenticationRequest);
 
         if (null == userAuthentication) {
-            throw new UserCredentialsIncorrectException("User credentials incorrect");
+            throw new LoginCredentialsIncorrectException("User credentials incorrect");
         }
 
         return userAuthentication.getUserAuthenticationResponse();
