@@ -78,21 +78,25 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div>
+    <>
+    <Container className="registration-form-container">
+      <Row className="justify-content-md-center">
+        <Col xs="12" sm ="8" md="6" lg="4">
+      <Card className="my-5">
       <h2>User Registration</h2>
-      <form onSubmit={handleSubmit}>
+      </Card>
+      <Form onSubmit={handleSubmit}>
         {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
-        <label htmlFor="fname">Name*</label>
-        <br />
-        <input type="text" name="fname" id="fname" required placeholder="Enter name" />
-        <br />
-        <label htmlFor="lname">Surname*</label>
-        <br />
-        <input type="text" name="lname" id="lname" required placeholder="Enter surname" />
-        <br />
-        <label htmlFor="email">Email*</label>
-        <br />
-        <input
+        <Form.Label htmlFor="fname">Name*</Form.Label>
+   
+        <Form.Control type="text" name="fname" id="fname" required placeholder="Enter name" />
+       <Form.Label htmlFor="lname">Surname*</Form.Label>
+        
+        <Form.Control type="text" name="lname" id="lname" required placeholder="Enter surname" />
+       
+        <Form.Label htmlFor="email">Email*</Form.Label>
+    
+        <Form.Control
           type="email"
           name="email"
           id="email"
@@ -100,10 +104,10 @@ const RegistrationForm = () => {
           placeholder="egzamle@egzample.com"
           autoComplete="email"
         />
-        <br />
-        <label htmlFor="psw">Password*</label>
-        <br />
-        <input
+       
+        <Form.Label htmlFor="psw">Password*</Form.Label>
+    
+        <Form.Control
           type="password"
           name="password"
           id="psw"
@@ -113,11 +117,11 @@ const RegistrationForm = () => {
           placeholder="Enter password"
           autoComplete="new-password"
         />
-        <br />
-        <label htmlFor="spsw">Confirm Password*</label>
+       
+        <Form.Label htmlFor="spsw">Confirm Password*</Form.Label>
         {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
-        <br />
-        <input
+  
+        <Form.Control
           type="password"
           name="confirmPassword"
           id="spsw"
@@ -127,13 +131,13 @@ const RegistrationForm = () => {
           placeholder="Confirm password"
           autoComplete="new-password"
         />
-        <br />
-        <label htmlFor="byear">Birth Year*</label>
-        <br />
-        <input type="date" name="byear" id="byear" required placeholder="Enter date of Birth" />
-        <br />
-        <label htmlFor="phone">Phone Number*</label>
-        <br />
+       
+        <Form.Label htmlFor="byear">Birth Year*</Form.Label>
+       
+        <Form.Control type="date" name="byear" id="byear" required placeholder="Enter date of Birth" />
+       
+        <Form.Label htmlFor="phone">Phone Number*</Form.Label>
+     
         <PhoneInput
           international
           id="phone"
@@ -144,8 +148,8 @@ const RegistrationForm = () => {
             validatePhone(value);
           }}
         />
-        <br />
-        <label htmlFor="activity">State of work </label>
+   
+        <Form.Label htmlFor="activity">State of work </Form.Label>
         <br />
 
         <select
@@ -161,19 +165,23 @@ const RegistrationForm = () => {
         <br />
         {selectedActivity === 'mworker' && (
           <>
-            <label htmlFor="wdyof">Who do you work for?</label>
+            <Form.Label htmlFor="wdyof">Who do you work for?</Form.Label>
             <br />
             <textarea name="message" cols="30" id="wdyof" rows="3" required></textarea>
           </>
         )}
-        <br />
-        <input type="checkbox" id="Uagreement" name="Uagreement" required />
-        <label htmlFor="Uagreement">User agreement</label>
-        <br />
+       
+        <Form.Check type="checkbox" id="Uagreement" name="Uagreement" required />
+        <Form.Label htmlFor="Uagreement">User agreement</Form.Label>
+       
 
-        <button>Submit</button>
-      </form>
-    </div>
+        <Button>SUBMIT</Button>
+      </Form>
+      </Col>
+      </Row>
+      </Container>
+    </>
+    
   );
 };
 
