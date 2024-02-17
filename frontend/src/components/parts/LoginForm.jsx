@@ -56,13 +56,12 @@ const LoginForm = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formGroupLinks">
+          <Form.Group controlId="formGroupLinks">
             <Row className="align-items-center">
-              <Col>
-                <div className="linkText">
+    
+         
                   <Link to="/forgotpassword">Forgot password?</Link>
-                </div>
-              </Col>
+      
             </Row>
           </Form.Group>
 
