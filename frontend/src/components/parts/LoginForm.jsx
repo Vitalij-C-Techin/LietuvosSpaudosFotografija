@@ -28,12 +28,12 @@ const LoginForm = () => {
   return (
     <>
       <Container className="form-container">
-        <Card>
-          <Card.Body>
+        <Card className="my-5">
+          {/* <Card.Body> */}
             <h2>LOG IN TO </h2>
             <h2>TO YOUR ACCOUNT</h2>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-          </Card.Body>
+          {/* </Card.Body> */}
         </Card>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formGroupEmail">
