@@ -28,7 +28,7 @@ const RegistrationForm = () => {
     const errors = [];
     const minPasswordLength = 6;
     const maxPasswordLength = 20;
-    if (value !== formData.password) {
+    if (value !== formData.confirmPassword) {
       errors.push(t('registrationPage.password1'));
     }
     if (value.length < minPasswordLength || value.length > maxPasswordLength) {
@@ -156,7 +156,7 @@ const RegistrationForm = () => {
           autoComplete="new-password"
         />
         <br />
-        <label htmlFor="password">{t('registrationPage.confirmPassword')}</label>
+        <label htmlFor="confirmPassword">{t('registrationPage.confirmPassword')}</label>
         {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
         <br />
         <input
