@@ -87,28 +87,34 @@ const RegistrationForm = () => {
             </Card>
             <Form onSubmit={handleSubmit}>
               {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
-              <Form.Group className="mb-3" controlId="formGroupName">
-                <Form.Label htmlFor="fname">Name*</Form.Label>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formGroupName">
+                    <Form.Label htmlFor="fname">Name*</Form.Label>
 
-                <Form.Control
-                  type="text"
-                  name="fname"
-                  id="fname"
-                  required
-                  placeholder="Enter name"
-                />
-              </Form.Group>
-              <Form.Group className="mb-3" controlId="formGroupName">
-                <Form.Label htmlFor="lname">Surname*</Form.Label>
+                    <Form.Control
+                      type="text"
+                      name="fname"
+                      id="fname"
+                      required
+                      placeholder="Enter name"
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formGroupName">
+                    <Form.Label htmlFor="lname">Surname*</Form.Label>
 
-                <Form.Control
-                  type="text"
-                  name="lname"
-                  id="lname"
-                  required
-                  placeholder="Enter surname"
-                />
-              </Form.Group>
+                    <Form.Control
+                      type="text"
+                      name="lname"
+                      id="lname"
+                      required
+                      placeholder="Enter surname"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
               <Form.Group className="mb-3" controlId="formGroupEmail">
                 <Form.Label htmlFor="email">Email*</Form.Label>
 
@@ -121,61 +127,73 @@ const RegistrationForm = () => {
                   autoComplete="email"
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formGroupEnterPassword">
-                <Form.Label htmlFor="psw">Password*</Form.Label>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formGroupEnterPassword">
+                    <Form.Label htmlFor="psw">Password*</Form.Label>
 
-                <Form.Control
-                  type="password"
-                  name="password"
-                  id="psw"
-                  required
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Enter password"
-                  autoComplete="new-password"
-                />
-                </Form.Group>
-             <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
-              <Form.Label htmlFor="spsw">Confirm Password*</Form.Label>
-              {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      id="psw"
+                      required
+                      value={formData.password}
+                      onChange={handleChange}
+                      placeholder="Enter password"
+                      autoComplete="new-password"
+                    />
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
+                    <Form.Label htmlFor="spsw">Confirm Password*</Form.Label>
+                    {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
 
-              <Form.Control
-                type="password"
-                name="confirmPassword"
-                id="spsw"
-                required
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Confirm password"
-                autoComplete="new-password"
-              />
-               </Form.Group>
-              <Form.Group className="mb-3" controlId="formGroupBirthYear">
-                <Form.Label htmlFor="byear">Birth Year*</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="confirmPassword"
+                      id="spsw"
+                      required
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      placeholder="Confirm password"
+                      autoComplete="new-password"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
 
-                <Form.Control
-                  type="date"
-                  name="byear"
-                  id="byear"
-                  required
-                  placeholder="Enter date of Birth"
-                />
-              </Form.Group>
+              <Row>
+                <Col md="6" lg="6">
+                  <Form.Group className="mb-3" controlId="formGroupBirthYear">
+                    <Form.Label htmlFor="byear">Birth Year*</Form.Label>
 
-              <Form.Group className="mb-3" controlId="formGroupPhoneNumber">
-                <Form.Label htmlFor="phone">Phone Number*</Form.Label>
+                    <Form.Control
+                      type="date"
+                      name="byear"
+                      id="byear"
+                      required
+                      placeholder="Enter date of Birth"
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md="6" lg="6">
+                  <Form.Group className="mb-3" controlId="formGroupPhoneNumber">
+                    <Form.Label htmlFor="phone">Phone Number*</Form.Label>
 
-                <PhoneInput
-                  international
-                  id="phone"
-                  defaultCountry="LT"
-                  value={formData.phone}
-                  onChange={(value) => {
-                    setFormData((prevData) => ({ ...prevData, phone: value }));
-                    validatePhone(value);
-                  }}
-                />
-              </Form.Group>
+                    <PhoneInput
+                      international
+                      id="phone"
+                      defaultCountry="LT"
+                      value={formData.phone}
+                      onChange={(value) => {
+                        setFormData((prevData) => ({ ...prevData, phone: value }));
+                        validatePhone(value);
+                      }}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
 
               <Form.Group className="mb-3" controlId="formGroupActivity">
                 <Form.Label htmlFor="activity">State of work </Form.Label>
@@ -199,16 +217,14 @@ const RegistrationForm = () => {
                 )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formGroupUserAgreement">
-              <Form.Check
-                type="checkbox"
-                id="Uagreement"
-                name="Uagreement"
-                label="User agreement"
-                required
-              />
+                <Form.Check
+                  type="checkbox"
+                  id="Uagreement"
+                  name="Uagreement"
+                  label="User agreement"
+                  required
+                />
               </Form.Group>
-
-          
 
               <Button>SUBMIT</Button>
             </Form>
