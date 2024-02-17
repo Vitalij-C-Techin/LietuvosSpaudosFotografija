@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { validateEmail } from './EmailVerification';
 
