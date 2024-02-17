@@ -43,7 +43,7 @@ const ForgotPasswordForm = () => {
 
   return (
     <>
-      <section>
+      <Container>
         <h2>{t('forgotPasswordForm.resetPassword')}</h2>
         {message && <p>{message}</p>}
 
@@ -69,7 +69,7 @@ const ForgotPasswordForm = () => {
             </Row>
           </Form.Group>
         </Form>
-      </section>
+      </Container>
     </>
   );
 };
