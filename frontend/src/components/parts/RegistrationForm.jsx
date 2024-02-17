@@ -194,8 +194,7 @@ const RegistrationForm = () => {
                 {selectedActivity === 'mworker' && (
                   <>
                     <Form.Label htmlFor="wdyof">Who do you work for?</Form.Label>
-
-                    <textarea name="message" cols="30" id="wdyof" rows="3" required></textarea>
+                    <Form.Control id="wdyof" as="textarea" required></Form.Control>
                   </>
                 )}
               </Form.Group>
@@ -209,7 +208,7 @@ const RegistrationForm = () => {
               />
               </Form.Group>
 
-              {/* <Form.Label htmlFor="Uagreement">User agreement</Form.Label> */}
+          
 
               <Button>SUBMIT</Button>
             </Form>
