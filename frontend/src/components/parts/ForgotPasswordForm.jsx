@@ -46,9 +46,10 @@ const ForgotPasswordForm = () => {
       <Container className="fpassword-form-container justify-content-md-center">
         <Row>
           <Col>
+          <Card className="my-5">
         <h2>{t('forgotPasswordForm.resetPassword')}</h2>
         {message && <p>{message}</p>}
-
+        </Card>
         <Form onSubmit={handleSubmit} noValidate>
           <Form.Group className="mb-3" controlId="formGroupEmail">
             <Form.Control
