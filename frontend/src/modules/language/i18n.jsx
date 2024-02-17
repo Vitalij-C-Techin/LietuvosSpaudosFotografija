@@ -27,10 +27,10 @@ i18n
             dropDownMenuItem11: 'Logout'
           },
           layoutPage: {
-            imageHeaderText: 'Recent years contest winners'
+            imageHeaderText: 'WINNERS OF PREVIOUS COMPETITIONS'
           },
           homePage: {
-            constestListTitle: 'Contests'
+            constestListTitle: 'COMPETITIONS OPEN FOR ENTRY'
           },
           emailVerification: {
             invalidEmailFormat: 'Invalid email format!'
@@ -99,10 +99,10 @@ i18n
             dropDownMenuItem11: 'Atsijungti'
           },
           layoutPage: {
-            imageHeaderText: 'Praeitu metu konkursu nugaletojai'
+            imageHeaderText: 'PRAEITŲ KONKURSŲ NUGALĖTOJAI'
           },
           homePage: {
-            constestListTitle: 'Konkursai'
+            constestListTitle: 'ŠIUO METU AKTYVUS KONKURSAI'
           },
           emailVerification: {
             invalidEmailFormat: 'Netinkamas el.pašto formatas'

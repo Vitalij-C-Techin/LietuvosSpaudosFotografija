@@ -10,6 +10,7 @@ import './css/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AuthProvider } from './modules/AuthContext.jsx';
 
+
 function App() {
   return (
     <>

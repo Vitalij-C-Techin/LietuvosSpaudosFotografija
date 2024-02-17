@@ -17,7 +17,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
     private final String secretKey = "572ef227151e4f6baae943a832855dc5dfa0e29e61acd678eb4410506a273d6e";
-    private final long jwtExpiration = 1440000;
+    private final long jwtExpiration = 1000 * 60 * 60 * 24;
 
     public String generateToken(
             Map<String, Object> extraClaims,

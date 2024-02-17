@@ -5,7 +5,6 @@ import thirdSlideImage from '../../images/patrick-tomasso-HM731qUoUas-unsplash.j
 import imagePlaceHolder from '../../images/image.jpg';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-import '../../css/parts/home-page.scss';
 import React, { useState, useEffect } from 'react';
 import { Image, Container, Card, Row, Col } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -33,144 +32,121 @@ function HomePage() {
   return (
     <>
       <Container>
-        <Carousel data-bs-theme="dark">
+        <Card className="image-header-text">
+          <h3>{t('layoutPage.imageHeaderText')}</h3>
+        </Card>
+        <Carousel className="carousel-container">
           <Carousel.Item>
-            <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
             <div className="d-flex justify-content-center">
-              <Image className="img-fluid" src={firstSlideImage} alt="First slide" rounded />
-              <div className="position-absolute bottom-0 start-50 translate-middle-x">
-                <div className="d-flex justify-content-center">
-                  <Button
-                    variant="primary"
-                    className="btn-lg custom-button-width"
-                    onClick={navigateToLoginPage}
-                  >
-                    Login
-                  </Button>
-                  <div className="custom-gap"></div>
-                  <Button
-                    variant="secondary"
-                    className="btn-lg custom-button-width"
-                    onClick={navigateToRegistrationPage}
-                  >
-                    Register
-                  </Button>
-                </div>
-              </div>
+              <Image className="img-fluid" src={firstSlideImage} alt="First slide" />
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
-            <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
             <div className="d-flex justify-content-center">
-              <Image className="img-fluid" src={secondSlideImage} alt="First slide" rounded />
-              <div className="position-absolute bottom-0 start-50 translate-middle-x">
-                <div className="d-flex justify-content-center">
-                  <Button
-                    variant="primary"
-                    className="btn-lg custom-button-width"
-                    onClick={navigateToLoginPage}
-                  >
-                    Login
-                  </Button>
-                  <div className="custom-gap"></div>
-                  <Button
-                    variant="secondary"
-                    className="btn-lg custom-button-width"
-                    onClick={navigateToRegistrationPage}
-                  >
-                    Register
-                  </Button>
-                </div>
-              </div>
+              <Image className="img-fluid" src={secondSlideImage} alt="First slide" />
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
-            <h3 className="text-center">{t('layoutPage.imageHeaderText')}</h3>
             <div className="d-flex justify-content-center">
-              <Image className="img-fluid" src={thirdSlideImage} alt="First slide" rounded />
-              <div className="position-absolute bottom-0 start-50 translate-middle-x">
-                <div className="d-flex justify-content-center">
-                  <Button
-                    variant="primary"
-                    className="btn-lg custom-button-width"
-                    onClick={navigateToLoginPage}
-                  >
-                    Login
-                  </Button>
-                  <div className="custom-gap"></div>
-                  <Button
-                    variant="secondary"
-                    className="btn-lg custom-button-width"
-                    onClick={navigateToRegistrationPage}
-                  >
-                    Register
-                  </Button>
-                </div>
-              </div>
+              <Image className="img-fluid" src={thirdSlideImage} alt="First slide" />
             </div>
           </Carousel.Item>
         </Carousel>
+        <Card className="carousel-buttons">
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <Button
+                variant="primary"
+                className="btn-lg custom-button-width"
+                onClick={navigateToLoginPage}
+              >
+                Login
+              </Button>
+            </Col>
+            <Col lg="2"></Col>
+            <Col md="auto">
+              <Button
+                variant="secondary"
+                className="btn-lg custom-button-width"
+                onClick={navigateToRegistrationPage}
+              >
+                Register
+              </Button>
+            </Col>
+          </Row>
+        </Card>
 
-        <div>
-          <h3 className="contest">{t('homePage.constestListTitle')}:</h3>
-        </div>
-        <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
+        <Card className="py-5">
+          <h3 className="contest">{t('homePage.constestListTitle')}</h3>
+          <div className='divider ms-4'></div>
+        </Card>
+
+        <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
-              <Col xs={6} md={4}>
-                <Image src={imagePlaceHolder} rounded />
+              <Col md={2} className="d-flex justify-content-center">
+                <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-                <div>
-                  <h5>{t('homePage.constestListTitle')}</h5>
-                  <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                  </ul>
-                </div>
+                <Card.Title>COMPETITION TITLE</Card.Title>
+                <Card.Text>
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                  officia deserunt mollit anim id est laborum."
+                </Card.Text>
+                <Card.Text className="d-inline pe-3 competition-end">Competition ends in:</Card.Text>
+                <Button>PARTICIPATE</Button>
               </Col>
             </Row>
           </Card.Body>
         </Card>
 
-        <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
+        <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
-              <Col xs={6} md={4}>
-                <Image src={imagePlaceHolder} rounded />
+              <Col md={2} className="d-flex justify-content-center">
+                <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-                <div>
-                  <h5>{t('homePage.constestListTitle')}</h5>
-                  <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                  </ul>
-                </div>
+                <Card.Title>COMPETITION TITLE</Card.Title>
+                <Card.Text>
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                  officia deserunt mollit anim id est laborum."
+                </Card.Text>
+                <Card.Text className="d-inline pe-3 competition-end">Competition ends in:</Card.Text>
+                <Button>PARTICIPATE</Button>
               </Col>
             </Row>
           </Card.Body>
         </Card>
-        
-        <Card style={{ width: imageSize.width, maxWidth: '100%' }}>
+
+        <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
-              <Col xs={6} md={4}>
-                <Image src={imagePlaceHolder} rounded />
+              <Col md={2} className="d-flex justify-content-center">
+                <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-                <div>
-                  <h5>{t('homePage.constestListTitle')}</h5>
-                  <ul>
-                    <li>Item 1</li>
-                    <li>Item 2</li>
-                    <li>Item 3</li>
-                  </ul>
-                </div>
+                <Card.Title>COMPETITION TITLE</Card.Title>
+                <Card.Text>
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+                  officia deserunt mollit anim id est laborum."
+                </Card.Text>
+                <Card.Text className="d-inline pe-3 competition-end">Competition ends in:</Card.Text>
+                <Button>PARTICIPATE</Button>
               </Col>
             </Row>
           </Card.Body>

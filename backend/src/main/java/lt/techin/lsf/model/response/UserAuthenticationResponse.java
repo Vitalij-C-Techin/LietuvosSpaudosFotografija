@@ -1,6 +1,5 @@
 package lt.techin.lsf.model.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Getter
