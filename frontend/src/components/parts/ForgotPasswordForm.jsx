@@ -43,7 +43,9 @@ const ForgotPasswordForm = () => {
 
   return (
     <>
-      <Container>
+      <Container className="fpassword-form-container justify-content-md-center">
+        <Row>
+          <Col>
         <h2>{t('forgotPasswordForm.resetPassword')}</h2>
         {message && <p>{message}</p>}
 
@@ -69,6 +71,8 @@ const ForgotPasswordForm = () => {
             </Row>
           </Form.Group>
         </Form>
+        </Col>
+        </Row>
       </Container>
     </>
   );
