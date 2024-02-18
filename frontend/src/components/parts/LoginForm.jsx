@@ -5,51 +5,69 @@ import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-//TODO add logic to existing user if he enters wrong credentials
+import axios from 'axios';
+import { useAuth } from '../../modules/AuthContext';
+import { useTranslation } from 'react-i18next';
 
-const LoginForm = () => {
+const LoginForm = (onLogin) => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const navigateToRegistrationPage = () => {
     navigate('/registration');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (email && !password) {
-      setError('wrong password');
-    } else if (!email && password) {
-      setError('wrong email address');
-    } else if (!email && !password) {
-      setError('No such user');
+    if (!email || !password) {
+      setError(t('loginPage.noUser'));
+      return;
+    }
+    try {
+      const response = await axios.post(`http://localhost:8080/api/v1/login`, {
+        email: email,
+        password: password
+      });
+      if (response.status === 200) {
+        login();
+        navigate('/');
+      } else {
+        throw new Error(t('loginPage.loginFail'));
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        setError(t('loginPage.invalidCredentials'));
+      }
     }
   };
   return (
     <>
       <section>
-        <h2>Log in to your account</h2>
+        <h2 style={{ textAlign: 'center' }}>{t('loginPage.title')}</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formGroupEmail">
-            <Form.Label>Email</Form.Label>
+            <Form.Label>{t('loginPage.email')}</Form.Label>
             <Form.Control
               type="email"
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="egzamle@egzample.com"
             />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formGroupPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>{t('loginPage.password')}</Form.Label>
             <Form.Control
               type="password"
               autoComplete="new-password"
+              placeholder={t('registrationPage.passwordPlaceholder')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -59,7 +77,7 @@ const LoginForm = () => {
             <Row className="align-items-center">
               <Col>
                 <div className="linkText">
-                  <Link to="/forgotpassword">Forgot password?</Link>
+                  <Link to="/forgotpassword">{t('loginPage.forgotPassword')}</Link>
                 </div>
               </Col>
             </Row>
@@ -69,13 +87,13 @@ const LoginForm = () => {
             <Row className="align-items-center">
               <Col xs={12} md={6}>
                 <Button variant="light" type="submit">
-                  Login
+                  {t('loginPage.login')}
                 </Button>
               </Col>
 
               <Col xs={12} md={6}>
                 <Button variant="light" type="button" onClick={navigateToRegistrationPage}>
-                  Register
+                  {t('loginPage.register')}
                 </Button>
               </Col>
             </Row>
