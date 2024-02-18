@@ -2,20 +2,38 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,600&display=swap");
-section {
-  padding: 50px;
+.form-container {
+  font-family: "Montserrat", sans-serif;
 }
-
-form {
-  margin: auto;
-  width: 30%;
-  text-align: center;
+.form-container h2, .form-container .h2 {
+  font-weight: 700;
 }
-form .linkText {
-  text-align: left;
-}
-form button {
+.form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
   width: 100%;
+}
+.form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.form-container input {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
+}
+.form-container a {
+  text-decoration: none;
+  color: gray;
+}
+.form-container a:hover {
+  color: black;
 }
 
 .custom-button-width {
@@ -27,7 +45,7 @@ form button {
 }
 
 .contest {
-  /* padding: 1rem; */
+  padding: 1rem;
   margin-left: 3rem;
 }
 
@@ -100,18 +118,35 @@ form button {
 
 .divider {
   background: black;
-  height: 0.5vh;
+  height: 1vh;
   width: 110vh;
 }
 
-.dropdown-toggle:after {
-  display: none;
+.fpassword-form-container {
+  font-family: "Montserrat", sans-serif;
 }
-
-.nav-dropdown-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.fpassword-form-container h2, .fpassword-form-container .h2 {
+  font-weight: 700;
+}
+.fpassword-form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+.fpassword-form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.fpassword-form-container input {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
 }
 
 /*!

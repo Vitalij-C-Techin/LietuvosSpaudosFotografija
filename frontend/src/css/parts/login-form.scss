@@ -1,18 +1,39 @@
 
-section{
-    padding:50px;
+.form-container{
+  font-family: "Montserrat", sans-serif;
+
+  h2{
+      font-weight: 700;
+  }
+
+  button{
+      font-size: 12px;
+      border-radius: 0%;
+      border: solid ;
+      border-width: medium ;
+      border-color: black;
+      color: white ;
+      background-color: black;
+      width: 100%;
+  
+    }
+    button:hover {
+      background-color: white ;
+      border-color: black ;
+      color: black ;
+    }
+
+    input{
+      border-radius: 0%;
+      border-color: black;
+      border-width: 0.2em;
+    }
+
+    a{
+      text-decoration: none;
+      color: gray;
+    }
+    a:hover {
+      color: black;
 }
-
-form{
-    margin:auto;
-    width:30%;
-    text-align:center;
-
-    .linkText {
-        text-align: left;
-    }
-
-    button {
-        width: 100%
-    }
 }
