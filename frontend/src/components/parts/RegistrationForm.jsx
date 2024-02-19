@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
@@ -22,33 +22,40 @@ const RegistrationForm = () => {
     phone_number: '',
     email: '',
     password: '',
+    confirmPassword: '',
     media_name: ''
   });
 
-  const validatePassword = (value) => {
-    const errors = [];
-    const minPasswordLength = 6;
-    const maxPasswordLength = 20;
-    if (value !== formData.confirmPassword) {
-      errors.push(t('registrationPage.password1'));
+  useEffect(() => {
+    if (formData.password && formData.confirmPassword) {
+      validatePassword();
     }
-    if (value.length < minPasswordLength || value.length > maxPasswordLength) {
-      errors.push(
-        t('registrationPage.password2', {
-          min: minPasswordLength,
-          max: maxPasswordLength
-        })
-      );
-    }
-    if (!/[A-Z]/.test(value)) {
-      errors.push(t('registrationPage.password3'));
-    }
-    if (!/\d/.test(value)) {
-      errors.push(t('registrationPage.password4'));
-    }
+  }, [formData.password, formData.confirmPassword]);
 
-    setPasswordError(errors.join(' '));
-  };
+
+const validatePassword = () => {
+  const errors = [];
+  const { password, confirmPassword } = formData;
+  const minPasswordLength = 6;
+  const maxPasswordLength = 20;
+
+  if (password !== confirmPassword) {
+    errors.push(t('registrationPage.password1'));
+  }
+  if (password.length < minPasswordLength || password.length > maxPasswordLength) {
+    errors.push(t('registrationPage.password2', 
+    { min: minPasswordLength, max: maxPasswordLength }));
+  }
+  if (!/[A-Z]/.test(password)) {
+    errors.push(t('registrationPage.password3'));
+  }
+  if (!/\d/.test(password)) {
+    errors.push(t('registrationPage.password4'));
+  }
+
+  setPasswordError(errors.join(' '));
+};
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
