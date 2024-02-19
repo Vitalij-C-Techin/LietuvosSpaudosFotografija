@@ -62,7 +62,7 @@ function HomePage() {
                 className="btn-lg custom-button-width"
                 onClick={navigateToLoginPage}
               >
-                LOGIN
+                 {t('loginPage.login')}
               </Button>
             </Col>
             <Col lg="2"></Col>
@@ -72,7 +72,7 @@ function HomePage() {
                 className="btn-lg custom-button-width"
                 onClick={navigateToRegistrationPage}
               >
-                REGISTER
+                 {t('loginPage.register')}
               </Button>
             </Col>
           </Row>
