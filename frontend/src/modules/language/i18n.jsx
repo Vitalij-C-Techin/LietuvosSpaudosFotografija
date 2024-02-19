@@ -36,10 +36,10 @@ i18n
             invalidEmailFormat: 'Invalid email format!'
           },
           forgotPasswordForm: {
-            resetPassword: 'Reset Password',
+            resetPassword: 'RESET PASSWORD',
             serverErrorMessage: 'An error occurred. Please try again later.',
             formPlaceholderText: 'Enter your email here',
-            recoverButton: 'Recover button'
+            recoverButton: 'SUBMIT'
           },
           registrationPage: {
             password1: 'Passwords do not match!',
@@ -63,7 +63,7 @@ i18n
             work2: 'media worker',
             textArea: 'Who do you work for?',
             Uagreement: 'User agreement',
-            button: 'Register',
+            button: 'REGISTER',
             namePlaceholder: 'Enter your name',
             surnamePlaceholder: 'Enter your surname',
             passwordPlaceholder: 'Enter password',
@@ -77,9 +77,10 @@ i18n
             email: 'Email',
             password: 'Password',
             forgotPassword: 'Forgot password?',
-            login: 'Login',
-            register: 'Register',
-            loginFail: 'login failed'
+            login: 'LOGIN',
+            register: 'REGISTER',
+            loginFail: 'login failed',
+            participate: 'PARTICIPATE'
           }
         }
       },
@@ -87,7 +88,7 @@ i18n
         translation: {
           landingPage: {
             dropDownMenuItem1: 'Pradžia',
-            dropDownMenuItem2: 'Prisijungti, Registruotis',
+            dropDownMenuItem2: 'Prisijungti/ Registruotis',
             dropDownMenuItem3: 'Profilis',
             dropDownMenuItem4: 'Konkursų sąrašas(vartotojas)',
             dropDownMenuItem5: 'Konkursų sąrašas vertinimui (žiuri)',
@@ -111,7 +112,7 @@ i18n
             resetPassword: 'Atstatyti slaptažodį',
             serverErrorMessage: 'Įvyko klaida. Pabandykite dar kartą vėliau.',
             formPlaceholderText: 'Įveskite savo el. pašto adresą čia',
-            recoverButton: 'Atkūrimo mygtukas'
+            recoverButton: 'TOLIAU'
           },
           registrationPage: {
             password1: 'Slaptažodžiai nesutampa!',
@@ -135,7 +136,7 @@ i18n
             work2: 'Žiniasklaidos darbuotojas',
             textArea: 'Kokiai žiniasklaidai priklausote',
             Uagreement: 'Vartotojo sutartis',
-            button: 'Registruotis',
+            button: 'REGISTRUOTIS',
             namePlaceholder: 'Įveskite savo vardą',
             surnamePlaceholder: 'Įveskite savo pavarde',
             passwordPlaceholder: 'Įveskite slaptažodi',
@@ -149,9 +150,10 @@ i18n
             email: 'El.paštas',
             password: 'Slaptažodis',
             forgotPassword: 'Pamiršote slaptažodi?',
-            login: 'Prisijungti',
-            register: 'Registracija',
-            loginFail: 'Prisijungti nepavyko'
+            login: 'PRISIJUNGTI',
+            register: 'REGISTRUOTIS',
+            loginFail: 'Prisijungti nepavyko',
+            participate: 'DALYVAUTI'
           }
         }
       }
