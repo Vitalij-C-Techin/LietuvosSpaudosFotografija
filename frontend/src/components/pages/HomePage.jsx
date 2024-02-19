@@ -105,7 +105,7 @@ function HomePage() {
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
-                    <Button className="mt-2">PARTICIPATE</Button>
+                    <Button className="mt-2"> {t('loginPage.participate')}</Button>
                   </Col>
                 </Row>
               </Col>
@@ -140,7 +140,7 @@ function HomePage() {
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
-                    <Button className="mt-2">PARTICIPATE</Button>
+                    <Button className="mt-2"> {t('loginPage.participate')}</Button>
                   </Col>
                 </Row>
               </Col>
@@ -170,7 +170,7 @@ function HomePage() {
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
-                    <Button className="mt-2">PARTICIPATE</Button>
+                    <Button className="mt-2"> {t('loginPage.participate')}</Button>
                   </Col>
                 </Row>
               </Col>
