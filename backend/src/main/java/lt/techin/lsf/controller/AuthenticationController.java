@@ -1,6 +1,5 @@
 package lt.techin.lsf.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.LoginCredentialsIncorrectException;
 import lt.techin.lsf.exception.UserNotAuthenticatedException;
