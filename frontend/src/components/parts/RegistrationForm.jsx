@@ -104,214 +104,89 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div>
-      <h2 style={{ textAlign: 'center' }}>{t('registrationPage.title')}</h2>
-      <form onSubmit={handleSubmit}>
-        {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
-        {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
-        <label htmlFor="name">{t('registrationPage.name')}</label>
-        <br />
-        <input
-          type="text"
-          name="name"
-          id="name"
-          onChange={handleChange}
-          required
-          autoComplete="name"
-          placeholder={t('registrationPage.namePlaceholder')}
-        />
-        <br />
-        <label htmlFor="surname">{t('registrationPage.surname')}</label>
-        <br />
-        <input
-          type="text"
-          name="surname"
-          id="surname"
-          required
-          onChange={handleChange}
-          placeholder={t('registrationPage.surnamePlaceholder')}
-        />
-        <br />
-        <label htmlFor="email">{t('registrationPage.email')}</label>
-        <br />
-        <input
-          type="email"
-          name="email"
-          id="email"
-          required
-          placeholder="egzamle@egzample.com"
-          autoComplete="email"
-          onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="password">{t('registrationPage.password')}</label>
-        <br />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          required
-          value={formData.password}
-          onChange={handleChange}
-          placeholder={t('registrationPage.passwordPlaceholder')}
-          autoComplete="new-password"
-        />
-        <br />
-        <label htmlFor="confirmPassword">{t('registrationPage.confirmPassword')}</label>
-        {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
-        <br />
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          required
-          onChange={handleChange}
-          placeholder={t('registrationPage.cpasswordPlaceholder')}
-          autoComplete="new-password"
-        />
-        <br />
-        <label htmlFor="birth_year">{t('registrationPage.byear')}</label>
-        <br />
-        <input
-          type="text"
-          name="birth_year"
-          pattern="\d{4}"
-          id="birth_year"
-          required
-          onChange={handleChange}
-          placeholder={t('registrationPage.byearPlaceholder')}
-        />
-        <br />
-        <label htmlFor="phone_number">{t('registrationPage.phoneNumber')}</label>
-        <br />
-        <PhoneInput
-          international
-          id="phone_number"
-          name="phone_number"
-          defaultCountry="LT"
-          required
-          value={formData.phone_number}
-          onChange={(value) => {
-            setFormData((prevData) => ({ ...prevData, phone_number: value }));
-            validatePhone(value);
-          }}
-        />
-        <br />
-        <label htmlFor="activity">{t('registrationPage.activity')} </label>
-        <br />
-
-        <select
-          name="activity"
-          id="activity"
-          size={1}
-          value={selectedActivity}
-          onChange={handleChangeActivity}
-        >
-          <option value="fworker">{t('registrationPage.work1')}</option>
-          <option value="mworker">{t('registrationPage.work2')} </option>
-        </select>
-        <br />
-        {selectedActivity === 'mworker' && (
-          <>
-            <label htmlFor="media_name">{t('registrationPage.textArea')}</label>
-            <br />
-            <textarea
-              name="media_name"
-              cols="30"
-              id="media_name"
-              rows="3"
-              required
-              onChange={handleChange}
-            ></textarea>
-          </>
-        )}
-        <br />
-        <input type="checkbox" id="Uagreement" name="Uagreement" required />
-        <label htmlFor="Uagreement">{t('registrationPage.Uagreement')} </label>
-        <br />
-
-        <button type="submit">{t('registrationPage.button')}</button>
-      </form>
-    </div>
     <>
       <Container className="registration-form-container mb-5">
         <Row className="justify-content-md-center">
           <Col xs="12" sm="8" md="6" lg="4">
             <Card className="my-5">
-              <h2>User Registration</h2>
+            <h2 style={{ textAlign: 'center' }}>{t('registrationPage.title')}</h2>
             </Card>
             <Form onSubmit={handleSubmit}>
-              {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
+            {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
+            {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
               <Row>
                 <Col>
                   <Form.Group className="mb-3" controlId="formGroupName">
-                    <Form.Label htmlFor="fname">Name*</Form.Label>
+                    <Form.Label htmlFor="name">{t('registrationPage.name')}</Form.Label>
 
                     <Form.Control
-                      type="text"
-                      name="fname"
-                      id="fname"
-                      required
-                      placeholder="Enter name"
+                     type="text"
+                     name="name"
+                     id="name"
+                     onChange={handleChange}
+                     required
+                     autoComplete="name"
+                     placeholder={t('registrationPage.namePlaceholder')}
                     />
                   </Form.Group>
                 </Col>
                 <Col>
                   <Form.Group className="mb-3" controlId="formGroupName">
-                    <Form.Label htmlFor="lname">Surname*</Form.Label>
+                    <Form.Label htmlFor="surname">{t('registrationPage.surname')}</Form.Label>
 
                     <Form.Control
-                      type="text"
-                      name="lname"
-                      id="lname"
-                      required
-                      placeholder="Enter surname"
+                     type="text"
+                     name="surname"
+                     id="surname"
+                     required
+                     onChange={handleChange}
+                     placeholder={t('registrationPage.surnamePlaceholder')}
                     />
                   </Form.Group>
                 </Col>
               </Row>
               <Form.Group className="mb-3" controlId="formGroupEmail">
-                <Form.Label htmlFor="email">Email*</Form.Label>
+                <Form.Label htmlFor="email">{t('registrationPage.email')}</Form.Label>
 
                 <Form.Control
-                  type="email"
-                  name="email"
-                  id="email"
-                  required
-                  placeholder="egzamle@egzample.com"
-                  autoComplete="email"
+                type="email"
+                name="email"
+                id="email"
+                required
+                placeholder="egzamle@egzample.com"
+                autoComplete="email"
+                onChange={handleChange}
                 />
               </Form.Group>
               <Row>
                 <Col>
                   <Form.Group className="mb-3" controlId="formGroupEnterPassword">
-                    <Form.Label htmlFor="psw">Password*</Form.Label>
+                    <Form.Label htmlFor="password">{t('registrationPage.password')}</Form.Label>
 
                     <Form.Control
                       type="password"
                       name="password"
-                      id="psw"
+                      id="password"
                       required
                       value={formData.password}
                       onChange={handleChange}
-                      placeholder="Enter password"
+                      placeholder={t('registrationPage.passwordPlaceholder')}
                       autoComplete="new-password"
                     />
                   </Form.Group>
                 </Col>
                 <Col>
                   <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
-                    <Form.Label htmlFor="spsw">Confirm Password*</Form.Label>
+                    <Form.Label htmlFor="confirmPassword">{t('registrationPage.confirmPassword')}</Form.Label>
                     {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
 
                     <Form.Control
                       type="password"
                       name="confirmPassword"
-                      id="spsw"
+                      id="confirmPassword"
                       required
-                      value={formData.confirmPassword}
                       onChange={handleChange}
-                      placeholder="Confirm password"
+                      placeholder={t('registrationPage.cpasswordPlaceholder')}
                       autoComplete="new-password"
                     />
                   </Form.Group>
@@ -321,30 +196,34 @@ const RegistrationForm = () => {
               <Row>
                 <Col md="6" lg="6">
                   <Form.Group className="mb-3" controlId="formGroupBirthYear">
-                    <Form.Label htmlFor="byear">Birth Year*</Form.Label>
+                    <Form.Label htmlFor="birth_year">{t('registrationPage.byear')}</Form.Label>
 
                     <Form.Control
-                      type="date"
-                      name="byear"
-                      id="byear"
+                      type="text"
+                      name="birth_year"
+                      pattern="\d{4}"
+                      id="birth_year"
                       required
-                      placeholder="Enter date of Birth"
+                      onChange={handleChange}
+                      placeholder={t('registrationPage.byearPlaceholder')}
                     />
                   </Form.Group>
                 </Col>
                 <Col md="6" lg="6" >
                   <Form.Group className="mb-3" controlId="formGroupPhoneNumber">
-                    <Form.Label htmlFor="phone">Phone Number*</Form.Label>
+                    <Form.Label htmlFor="phone_number">{t('registrationPage.phoneNumber')}</Form.Label>
 
                     <PhoneInput
                     className="mt-2"
                       international
-                      id="phone"
-                      defaultCountry="LT"
-                      value={formData.phone}
-                      onChange={(value) => {
-                        setFormData((prevData) => ({ ...prevData, phone: value }));
-                        validatePhone(value);
+                      id="phone_number"
+          name="phone_number"
+          defaultCountry="LT"
+          required
+          value={formData.phone_number}
+          onChange={(value) => {
+            setFormData((prevData) => ({ ...prevData, phone_number: value }));
+            validatePhone(value);
                       }}
                     />
                   </Form.Group>
@@ -352,7 +231,7 @@ const RegistrationForm = () => {
               </Row>
 
               <Form.Group className="mb-3" controlId="formGroupActivity">
-                <Form.Label htmlFor="activity">State of work </Form.Label>
+                <Form.Label htmlFor="activity">{t('registrationPage.activity')}</Form.Label>
 
                 <Form.Select
                   name="activity"
@@ -361,14 +240,14 @@ const RegistrationForm = () => {
                   value={selectedActivity}
                   onChange={handleChangeActivity}
                 >
-                  <option value="fworker">freelancer</option>
-                  <option value="mworker">media worker</option>
+                  <option value="fworker">{t('registrationPage.work1')}</option>
+                  <option value="mworker">{t('registrationPage.work2')}</option>
                 </Form.Select>
 
                 {selectedActivity === 'mworker' && (
                   <>
-                    <Form.Label htmlFor="wdyof">Who do you work for?</Form.Label>
-                    <Form.Control id="wdyof" as="textarea" required></Form.Control>
+                    <Form.Label htmlFor="media_name">{t('registrationPage.textArea')}</Form.Label>
+                    <Form.Control id="media_name" as="textarea" required  onChange={handleChange}></Form.Control>
                   </>
                 )}
               </Form.Group>
@@ -377,12 +256,13 @@ const RegistrationForm = () => {
                   type="checkbox"
                   id="Uagreement"
                   name="Uagreement"
-                  label="User agreement"
+                  label={t('registrationPage.Uagreement')}
                   required
+                  htmlFor="Uagreement"
                 />
               </Form.Group>
 
-              <Button>SUBMIT</Button>
+              <Button type="submit">{t('registrationPage.button')}</Button>
             </Form>
           </Col>
         </Row>
