@@ -1,5 +1,6 @@
 package lt.techin.lsf.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.LoginCredentialsIncorrectException;
 import lt.techin.lsf.exception.UserNotAuthenticatedException;
@@ -8,6 +9,7 @@ import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.UserAuthentication;
 import lt.techin.lsf.model.mapper.UserResponseMapper;
 import lt.techin.lsf.model.requests.AuthenticationRequest;
+import lt.techin.lsf.model.requests.ForgetPasswordRequest;
 import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.model.response.UserAuthenticationResponse;
 import lt.techin.lsf.model.response.UserResponse;
@@ -30,6 +32,7 @@ public class AuthenticationController {
 
         return UserResponseMapper.map(user);
     }
+
 
     @PostMapping("/login")
     public UserAuthenticationResponse login(
@@ -57,11 +60,14 @@ public class AuthenticationController {
         return userAuthentication.getUserAuthenticationResponse();
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/forget-password")
-    public Object forgetPassword() {
-        //TODO
+    public String forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
+        forgetPasswordRequest.validateData();
+        System.out.println(forgetPasswordRequest.getEmail());
         return "forget password here";
     }
+
 
     @PostMapping("/change-password")
     public Object changePassword() {

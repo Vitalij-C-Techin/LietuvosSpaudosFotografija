@@ -122,14 +122,31 @@
   width: 110vh;
 }
 
-.dropdown-toggle:after {
-  display: none;
+.fpassword-form-container {
+  font-family: "Montserrat", sans-serif;
 }
-
-.nav-dropdown-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.fpassword-form-container h2, .fpassword-form-container .h2 {
+  font-weight: 700;
+}
+.fpassword-form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+.fpassword-form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.fpassword-form-container input {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
 }
 
 .registration-form-container {
