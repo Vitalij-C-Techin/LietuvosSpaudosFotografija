@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
@@ -60,7 +61,6 @@ public class AuthenticationController {
         return userAuthentication.getUserAuthenticationResponse();
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/forget-password")
     public String forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
         forgetPasswordRequest.validateData();

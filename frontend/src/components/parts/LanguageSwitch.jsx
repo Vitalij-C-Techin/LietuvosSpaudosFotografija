@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 
@@ -12,6 +12,8 @@ const LanguageSwitch = () => {
 
   const handleLangChange = (code) => {
     i18n.changeLanguage(code);
+
+    localStorage.setItem("language", code);
   };
 
   return (

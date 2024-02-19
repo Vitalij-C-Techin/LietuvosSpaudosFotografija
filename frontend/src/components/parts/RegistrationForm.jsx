@@ -88,7 +88,7 @@ const RegistrationForm = () => {
       window.location.href = '/login';
     } catch (error) {
       if (error.response.status === 400) {
-        setEmailError(t('registerSuccessuful.emailError'));
+        setEmailError(t('registrationPage.emailError'));
       }
     }
 
