@@ -21,7 +21,7 @@ public class ApplicationConfig {
     public UserDetailsService userDetailsService() {
         return userService::findUserByEmail;
     }
-    
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
