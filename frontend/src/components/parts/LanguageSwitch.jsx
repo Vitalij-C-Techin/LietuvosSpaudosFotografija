@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 
 const lngs = [
-  { code: 'en', lang: 'English' },
-  { code: 'lt', lang: 'Lithuanian' }
+  { code: 'en', lang: 'EN' },
+  { code: 'lt', lang: 'LT' }
 ];
 
 const LanguageSwitch = () => {
