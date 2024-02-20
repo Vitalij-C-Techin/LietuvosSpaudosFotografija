@@ -4,6 +4,7 @@ import lt.techin.lsf.model.response.ErrorResponse;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -309,8 +310,8 @@ public class ApplicationExceptionHandler {
                 );
     }
 
-    @ExceptionHandler({LoginCredentialsIncorrectException.class})
-    protected ResponseEntity<ErrorResponse> handle(LoginCredentialsIncorrectException exception) {
+    @ExceptionHandler({BadCredentialsException.class})
+    protected ResponseEntity<ErrorResponse> handle(BadCredentialsException exception) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(
                         ErrorResponse.builder()

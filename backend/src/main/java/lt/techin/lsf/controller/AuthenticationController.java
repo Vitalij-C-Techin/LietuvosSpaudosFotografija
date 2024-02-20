@@ -1,7 +1,6 @@
 package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.exception.LoginCredentialsIncorrectException;
 import lt.techin.lsf.exception.UserNotAuthenticatedException;
 import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.User;
@@ -13,6 +12,7 @@ import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.model.response.UserAuthenticationResponse;
 import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.service.AuthenticationService;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -41,7 +41,7 @@ public class AuthenticationController {
         UserAuthentication userAuthentication = authenticationService.authentication(authenticationRequest);
 
         if (null == userAuthentication) {
-            throw new LoginCredentialsIncorrectException("User credentials incorrect");
+            throw new BadCredentialsException("User credentials incorrect");
         }
 
         return userAuthentication.getUserAuthenticationResponse();

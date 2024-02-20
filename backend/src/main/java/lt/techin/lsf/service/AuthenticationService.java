@@ -1,6 +1,7 @@
 package lt.techin.lsf.service;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.UserExistsException;
 import lt.techin.lsf.model.User;
@@ -13,6 +14,7 @@ import lt.techin.lsf.persistance.UserRepository;
 import lt.techin.lsf.persistance.model.UserRecord;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,13 +48,23 @@ public class AuthenticationService {
         return (User) authentication.getPrincipal();
     }
 
-    public UserAuthentication authentication(AuthenticationRequest request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
+    public UserAuthentication authentication(@NonNull AuthenticationRequest request) {
+        Authentication authentication = null;
+
+        try {
+            authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+        } catch (InternalAuthenticationServiceException e) {
+            return null;
+        }
+
+        if (null == authentication) {
+            return null;
+        }
 
         if (!authentication.isAuthenticated()) {
             return null;

@@ -41,6 +41,13 @@ public class AuthenticationServiceLoginTests {
     }
 
     @Test
+    public void loginWithNull() {
+        Assert.assertThrows(NullPointerException.class, () -> {
+            authenticationService.authentication(null);
+        });
+    }
+
+    @Test
     public void loginInvalidCredentials() {
         Assert.assertThrows(BadCredentialsException.class, () -> {
             authenticationService.authentication(new AuthenticationRequest(email, "MyPassword"));
@@ -72,7 +79,7 @@ public class AuthenticationServiceLoginTests {
 
         System.out.println("user login authentication not working");
 
-        //TODO Context not working, fix it latter
+        // TODO Context not working, fix it latter
         // SecurityContextHolder.getContext().getAuthentication()
         //Assert.assertNotNull(user);
         //Assert.assertEquals(email, user.getEmail());
