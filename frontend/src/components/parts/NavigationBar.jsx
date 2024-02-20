@@ -38,7 +38,9 @@ const NavigationBar = () => {
               <Dropdown.Item as={NavLink} to="/">
                 {t('landingPage.dropDownMenuItem1')}
               </Dropdown.Item>
-
+              <Dropdown.Item as={NavLink} to="/registration">
+                {t('landingPage.dropDownMenuItem12')}
+              </Dropdown.Item>
               {isLoggedIn ? (
                 <Dropdown.Item as={NavLink} to="/" onClick={logout}>
                   {t('landingPage.dropDownMenuItem11')}
