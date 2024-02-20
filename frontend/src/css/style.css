@@ -190,8 +190,8 @@ nav .dropdown-menu {
 }
 nav .dropdown-item:focus,
 nav .dropdown-item.active {
-  background-color: transparent; /* Set the background color to transparent */
-  outline: none; /* Remove the default focus outline */
+  background-color: transparent !important; 
+  outline: none; 
   color: black;
 }
 
