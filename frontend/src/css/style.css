@@ -188,6 +188,12 @@ nav .dropdown-menu {
   border-radius: 0%;
   border: none;
 }
+nav .dropdown-item:focus,
+nav .dropdown-item.active {
+  background-color: transparent; /* Set the background color to transparent */
+  outline: none; /* Remove the default focus outline */
+  color: black;
+}
 
 .registration-form-container {
   font-family: "Montserrat", sans-serif;

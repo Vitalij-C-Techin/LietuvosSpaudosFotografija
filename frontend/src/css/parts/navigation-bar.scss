@@ -10,12 +10,15 @@
   justify-content: center;
 }
 
-nav{
-
-  .dropdown-menu{
-
-    border-radius: 0% ;
-    border: none ;
+nav {
+  .dropdown-menu {
+    border-radius: 0%;
+    border: none;
   }
-
+  .dropdown-item:focus,
+  .dropdown-item.active{
+    background-color: transparent; /* Set the background color to transparent */
+    outline: none; /* Remove the default focus outline */
+    color:black;
+  }
 }

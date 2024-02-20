@@ -88,18 +88,10 @@ const NavigationBar = () => {
               )}
 
               <Dropdown.Item href="#/action-9">{t('landingPage.dropDownMenuItem9')}</Dropdown.Item>
-              <Dropdown.Item
-                as="div"
-                id={`nested-dropdown`}
-                data-testid="change-language-menu-item"
-                onMouseEnter={() => setShowNestedDropdown(true)}
-                onMouseLeave={() => setShowNestedDropdown(false)}
-              >
-                <Container>
-                  <Row>
+              <Dropdown.Item>
+             
                     <LanguageSwitch />
-                  </Row>
-                </Container>
+                 
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
