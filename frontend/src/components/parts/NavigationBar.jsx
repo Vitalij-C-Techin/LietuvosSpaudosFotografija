@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../modules/AuthContext.jsx';
 import {Nav, Navbar, NavDropdown, Dropdown, Row, Container} from 'react-bootstrap'
 
-function NavigationBar() {
+const NavigationBar = () => {
   const [showNestedDropdown, setShowNestedDropdown] = useState(false);
   const { isLoggedIn, logout } = useAuth();
 
