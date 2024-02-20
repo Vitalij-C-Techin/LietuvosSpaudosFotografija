@@ -311,7 +311,7 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler({LoginCredentialsIncorrectException.class})
     protected ResponseEntity<ErrorResponse> handle(LoginCredentialsIncorrectException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(
                         ErrorResponse.builder()
                                 .code(exception.getClass().getSimpleName())
