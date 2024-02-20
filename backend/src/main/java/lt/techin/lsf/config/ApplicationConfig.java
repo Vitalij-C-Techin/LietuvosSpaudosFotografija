@@ -1,7 +1,6 @@
 package lt.techin.lsf.config;
 
 import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.model.User;
 import lt.techin.lsf.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
