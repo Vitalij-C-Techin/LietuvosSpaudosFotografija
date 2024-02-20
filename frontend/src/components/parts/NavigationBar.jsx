@@ -90,11 +90,11 @@ const NavigationBar = () => {
               )}
 
               <Dropdown.Item href="#/action-9">{t('landingPage.dropDownMenuItem9')}</Dropdown.Item>
-              <Dropdown.Item>
+              
              
                     <LanguageSwitch />
                  
-              </Dropdown.Item>
+            
             </Dropdown.Menu>
           </Dropdown>
         </Nav>
