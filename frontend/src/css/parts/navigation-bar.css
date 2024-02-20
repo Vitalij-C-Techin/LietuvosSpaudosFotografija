@@ -6,4 +6,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+nav .dropdown-menu {
+  border-radius: 0%;
+  border: none;
 }/*# sourceMappingURL=navigation-bar.css.map */

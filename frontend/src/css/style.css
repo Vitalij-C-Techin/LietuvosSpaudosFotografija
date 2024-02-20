@@ -184,6 +184,11 @@
   justify-content: center;
 }
 
+nav .dropdown-menu {
+  border-radius: 0%;
+  border: none;
+}
+
 .registration-form-container {
   font-family: "Montserrat", sans-serif;
 }
