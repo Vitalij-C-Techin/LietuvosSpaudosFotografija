@@ -20,7 +20,7 @@ const NavigationBar = () => {
     setShowDropdown(false);
   };
   return (
-    <Navbar className="bg-body-tertiary" data-testid="NavigationBar">
+    <Navbar data-testid="NavigationBar">
       <Container>
         <Nav className="ms-auto">
           <Dropdown
