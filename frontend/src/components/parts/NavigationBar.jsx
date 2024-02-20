@@ -85,18 +85,11 @@ const NavigationBar = () => {
                 onMouseEnter={() => setShowNestedDropdown(true)}
                 onMouseLeave={() => setShowNestedDropdown(false)}
               >
-                <NavDropdown
-                  as="div"
-                  id={`nested-dropdown`}
-                  show={showNestedDropdown ? 'true' : undefined}
-                  className="nav-dropdown-center"
-                >
-                  <Container>
-                    <Row>
-                      <LanguageSwitch />
-                    </Row>
-                  </Container>
-                </NavDropdown>
+                <Container>
+                  <Row>
+                    <LanguageSwitch />
+                  </Row>
+                </Container>
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
