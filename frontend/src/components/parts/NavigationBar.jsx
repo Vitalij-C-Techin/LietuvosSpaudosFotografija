@@ -4,7 +4,7 @@ import '../../modules/language/i18n.jsx';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../modules/AuthContext.jsx';
-import {Nav, Navbar, NavDropdown, Dropdown, Row, Container} from 'react-bootstrap'
+import { Nav, Navbar, NavDropdown, Dropdown, Row, Container } from 'react-bootstrap';
 
 const NavigationBar = () => {
   const [showNestedDropdown, setShowNestedDropdown] = useState(false);
@@ -85,7 +85,6 @@ const NavigationBar = () => {
                 onMouseEnter={() => setShowNestedDropdown(true)}
                 onMouseLeave={() => setShowNestedDropdown(false)}
               >
-                <span>{t('landingPage.dropDownMenuItem10')}</span>
                 <NavDropdown
                   as="div"
                   id={`nested-dropdown`}
@@ -105,6 +104,6 @@ const NavigationBar = () => {
       </Container>
     </Navbar>
   );
-}
+};
 
 export default NavigationBar;
