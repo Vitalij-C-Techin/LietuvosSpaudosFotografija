@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Dropdown from 'react-bootstrap/Dropdown';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Row from 'react-bootstrap/Row';
 import LanguageSwitch from './LanguageSwitch.jsx';
 import '../../modules/language/i18n.jsx';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { useAuth } from '../../modules/AuthContext.jsx';
+import {Nav, Navbar, NavDropdown, Dropdown, Row, Container} from 'react-bootstrap'
 
 function NavigationBar() {
   const [showNestedDropdown, setShowNestedDropdown] = useState(false);
