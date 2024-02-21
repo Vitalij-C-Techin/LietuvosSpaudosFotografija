@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import LanguageSwitch from './LanguageSwitch.jsx';
 import '../../modules/language/i18n.jsx';
 import { useTranslation } from 'react-i18next';
 import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../modules/AuthContext.jsx';
-import { Nav, Navbar, NavDropdown, Dropdown, Row, Container } from 'react-bootstrap';
+import { Nav, Navbar, Dropdown } from 'react-bootstrap';
 
 const NavigationBar = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
   const { isLoggedIn, logout } = useAuth();
 
   const { t } = useTranslation();
