@@ -16,7 +16,7 @@ i18n
         translation: {
           landingPage: {
             dropDownMenuItem1: 'Home',
-            dropDownMenuItem2: 'Login/Register',
+            dropDownMenuItem2: 'Login',
             dropDownMenuItem3: 'Profile',
             dropDownMenuItem4: 'Competition list(user)',
             dropDownMenuItem5: 'Competition list for evaluation(jury)',
@@ -25,7 +25,8 @@ i18n
             dropDownMenuItem8: 'Manage categories(admin)',
             dropDownMenuItem9: 'Support',
             dropDownMenuItem10: 'Change Language',
-            dropDownMenuItem11: 'Logout'
+            dropDownMenuItem11: 'Logout',
+            dropDownMenuItem12: 'Register'
           },
           layoutPage: {
             imageHeaderText: 'WINNERS OF PREVIOUS COMPETITIONS'
@@ -91,7 +92,7 @@ i18n
         translation: {
           landingPage: {
             dropDownMenuItem1: 'Pradžia',
-            dropDownMenuItem2: 'Prisijungti/ Registruotis',
+            dropDownMenuItem2: 'Prisijungti',
             dropDownMenuItem3: 'Profilis',
             dropDownMenuItem4: 'Konkursų sąrašas(vartotojas)',
             dropDownMenuItem5: 'Konkursų sąrašas vertinimui (žiuri)',
@@ -100,7 +101,8 @@ i18n
             dropDownMenuItem8: 'Tvarkyti kategorijas (administratorius)',
             dropDownMenuItem9: 'Pagalba',
             dropDownMenuItem10: 'Keisti kalba',
-            dropDownMenuItem11: 'Atsijungti'
+            dropDownMenuItem11: 'Atsijungti',
+            dropDownMenuItem12: 'Registruotis'
           },
           layoutPage: {
             imageHeaderText: 'PRAEITŲ KONKURSŲ NUGALĖTOJAI'
