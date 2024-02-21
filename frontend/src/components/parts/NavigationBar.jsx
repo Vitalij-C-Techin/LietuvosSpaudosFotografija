@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import LanguageSwitch from './LanguageSwitch.jsx';
 import '../../modules/language/i18n.jsx';
 import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../../modules/AuthContext.jsx';
 import { Nav, Navbar, NavDropdown, Dropdown, Row, Container } from 'react-bootstrap';
 
@@ -29,7 +29,7 @@ const NavigationBar = () => {
             </Dropdown.Item>
 
             {isLoggedIn ? (
-              <Dropdown.Item as={NavLink} to="/" onClick={logout}>
+              <Dropdown.Item as={Link} to="/" onClick={logout}>
                 {t('landingPage.dropDownMenuItem11')}
               </Dropdown.Item>
             ) : (
