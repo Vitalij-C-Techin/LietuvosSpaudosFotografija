@@ -12,7 +12,7 @@ const ProfilePage = () => {
   return (
     <>
       <Container>
-        <h3>{t('Profile')}</h3>
+        <h3>{t('profile.myProfile')}</h3>
 
         <IsNotAuthenticated>
           <>
@@ -24,31 +24,31 @@ const ProfilePage = () => {
           {null != getUserData() && (
             <>
               <p>
-                {t('ID')}: {getUserData().uuid}
+                {t('profile.id')}: {getUserData().uuid}
               </p>
               <p>
-                {t('Name')}: {getUserData().name}
+                {t('profile.name')}: {getUserData().name}
               </p>
               <p>
-                {t('Surname')}: {getUserData().surname}
+                {t('profile.surname')}: {getUserData().surname}
               </p>
               <p>
-                {t('Email')}: {getUserData().email}
+                {t('profile.email')}: {getUserData().email}
               </p>
               <p>
-                {t('Role')}: {getUserData().role}
+                {t('profile.role')}: {getUserData().role}
               </p>
               <p>
-                {t('Birth year')}: {getUserData().birth_year}
+                {t('profile.birthYear')}: {getUserData().birth_year}
               </p>
               <p>
-                {t('Phone number')}: {getUserData().phone_number}
+                {t('profile.phoneNumber')}: {getUserData().phone_number}
               </p>
               <p>
-                {t('Media')}: {getUserData().media_name}
+                {t('profile.media')}: {getUserData().media_name}
               </p>
               <p>
-                {t('Created At')}: {getUserData().created_at}
+                {t('profile.createdAt')}: {getUserData().created_at}
               </p>
             </>
           )}

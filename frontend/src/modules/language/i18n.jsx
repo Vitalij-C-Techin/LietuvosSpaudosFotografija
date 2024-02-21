@@ -87,7 +87,17 @@ i18n
             competitionTitle: 'COMPETITION TITLE'
           },
           profile: {
-            userIsNotLoggedIn: 'User is not logged in'
+            myProfile: 'Profile',
+            userIsNotLoggedIn: 'User is not logged in',
+            id: 'ID',
+            name: 'Name',
+            surname: 'Surname',
+            email: 'Email',
+            role: 'Role',
+            birthYear: 'Birth year',
+            phoneNumber: 'Phone number',
+            media: 'Media',
+            createdAt: 'Created at'
           }
         }
       },
@@ -167,7 +177,17 @@ i18n
             participate: 'DALYVAUTI'
           },
           profile: {
-            userIsNotLoggedIn: 'Vartotojas neprisijungęs'
+            myProfile: 'Profilis',
+            userIsNotLoggedIn: 'User is not logged in',
+            id: 'ID',
+            name: 'Vardas',
+            surname: 'Pavardė',
+            email: 'El. paštas',
+            role: 'Rolė',
+            birthYear: 'Gimimo metai',
+            phoneNumber: 'Telefono numeris',
+            media: 'Žiniasklaida',
+            createdAt: 'Sukurta'
           }
         }
       }

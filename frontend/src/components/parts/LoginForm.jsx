@@ -8,11 +8,11 @@ import { useTranslation } from 'react-i18next';
 
 const LoginForm = (onLogin) => {
   const { t } = useTranslation();
-  const [email, setEmail] = useState('admin@admin.com');
-  const [password, setPassword] = useState('qweQWE123');
+  const [email, setEmail] = useState('admin@admin.com'); //TODO
+  const [password, setPassword] = useState('qweQWE123'); //TODO
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { token, setUser } = useAuth();
+  const { login, setUser } = useAuth();
 
   const navigateToRegistrationPage = () => {
     navigate('/registration');
@@ -20,38 +20,30 @@ const LoginForm = (onLogin) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    e.preventDefault();
     if (!email || !password) {
       setError(t('loginPage.noUser'));
       return;
     }
-    try {
-      const response = await axios.post(`http://localhost:8080/api/v1/login`, {
-        email: email,
-        password: password
-      });
 
-      if (response.status === 200) {
-        setUser(response.data);
+    login(email, password, {
+      then: (response) => {
         navigate('/profile');
-      } else {
-        throw new Error(t('loginPage.loginFail'));
+      },
+      catch: (error) => {
+        if (error.response && error.response.status === 401) {
+          setError(t('loginPage.invalidCredentials'));
+        } else {
+          setError(t('loginPage.loginFail'));
+        }
       }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setError(t('loginPage.invalidCredentials'));
-      }else{
-        setError(t('loginPage.loginFail'));
-      }
-    }
+    });
   };
+
   return (
     <>
       <Container className="form-container justify-content-md-center">
         <Row className="justify-content-md-center">
           <Col xs="12" sm="8" md="6" lg="4">
-            {token}
             <Card className="my-5">
               {/* <Card.Body> */}
               <h2 style={{ textAlign: 'center' }}>{t('loginPage.title')}</h2>
