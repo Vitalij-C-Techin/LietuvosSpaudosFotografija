@@ -12,21 +12,22 @@ const NavigationBar = () => {
 
   const { t } = useTranslation();
 
-  const handleMouseEnter = () => {
-    setShowDropdown(true);
-  };
+  // const handleMouseEnter = () => {
+  //   setShowDropdown(true);
+  // };
 
-  const handleMouseLeave = () => {
-    setShowDropdown(false);
-  };
+  // const handleMouseLeave = () => {
+  //   setShowDropdown(false);
+  // };
   return (
-    <Navbar data-testid="NavigationBar">
-      <Container>
+    <Navbar data-testid="NavigationBar" className='px-5'>
+      {/* <Container> */}
         <Nav className="ms-auto">
           <Dropdown
-                show={showDropdown}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}>
+                // show={showDropdown}
+                // onMouseEnter={handleMouseEnter}
+                // onMouseLeave={handleMouseLeave}
+                >
             <Dropdown.Toggle
               id="dropdown-basic"
               data-testid="dropdown-menu-button"
@@ -38,19 +39,18 @@ const NavigationBar = () => {
               <Dropdown.Item as={NavLink} to="/">
                 {t('landingPage.dropDownMenuItem1')}
               </Dropdown.Item>
-              <Dropdown.Item as={NavLink} to="/registration">
-                {t('landingPage.dropDownMenuItem12')}
-              </Dropdown.Item>
               {isLoggedIn ? (
                 <Dropdown.Item as={NavLink} to="/" onClick={logout}>
                   {t('landingPage.dropDownMenuItem11')}
                 </Dropdown.Item>
+                
               ) : (
                 <Dropdown.Item as={NavLink} to="/login">
                   {t('landingPage.dropDownMenuItem2')}
                 </Dropdown.Item>
+                
               )}
-
+              
               {isLoggedIn && (
                 <>
                   <Dropdown.Item href="#/action-3">
@@ -91,14 +91,14 @@ const NavigationBar = () => {
 
               <Dropdown.Item href="#/action-9">{t('landingPage.dropDownMenuItem9')}</Dropdown.Item>
               
-             
+            < Dropdown.Item style={{backgroundColor:'transparent', color:'black'}}>
                     <LanguageSwitch />
-                 
+            </Dropdown.Item>
             
             </Dropdown.Menu>
           </Dropdown>
         </Nav>
-      </Container>
+      {/* </Container> */}
     </Navbar>
   );
 };
