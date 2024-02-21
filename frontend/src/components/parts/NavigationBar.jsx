@@ -12,21 +12,10 @@ const NavigationBar = () => {
 
   const { t } = useTranslation();
 
-  // const handleMouseEnter = () => {
-  //   setShowDropdown(true);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setShowDropdown(false);
-  // };
   return (
     <Navbar data-testid="NavigationBar" className='px-5'>
-      {/* <Container> */}
         <Nav className="ms-auto">
           <Dropdown
-                // show={showDropdown}
-                // onMouseEnter={handleMouseEnter}
-                // onMouseLeave={handleMouseLeave}
                 >
             <Dropdown.Toggle
               id="dropdown-basic"
@@ -98,7 +87,6 @@ const NavigationBar = () => {
             </Dropdown.Menu>
           </Dropdown>
         </Nav>
-      {/* </Container> */}
     </Navbar>
   );
 };
