@@ -173,8 +173,7 @@ i18n
             loginFail: 'Prisijungti nepavyko',
             participate: 'DALYVAUTI',
             competitionEnd: 'Registracija baigiasi:',
-            competitionTitle: 'KONKURSO PAVADINIMAS',
-            participate: 'DALYVAUTI'
+            competitionTitle: 'KONKURSO PAVADINIMAS'
           },
           profile: {
             myProfile: 'Profilis',
