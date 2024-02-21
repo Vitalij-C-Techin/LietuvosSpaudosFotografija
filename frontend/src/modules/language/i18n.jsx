@@ -9,6 +9,7 @@ i18n
     // TODO disable debug before production!
     debug: false,
     lng: savedLanguage || 'lt',
+    fallbackLng: 'lt',
     returnObjects: true,
     resources: {
       en: {
