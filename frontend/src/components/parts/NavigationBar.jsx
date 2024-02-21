@@ -9,7 +9,7 @@ import LanguageSwitch from './LanguageSwitch.jsx';
 import '../../modules/language/i18n.jsx';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-import { useAuth } from '../../modules/AuthContext.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
 
 function NavigationBar() {
   const [showNestedDropdown, setShowNestedDropdown] = useState(false);

@@ -3,22 +3,24 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { useAuth } from '../../modules/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
 const LoginForm = (onLogin) => {
   const { t } = useTranslation();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin@admin.com');
+  const [password, setPassword] = useState('qweQWE123');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { token, setUser } = useAuth();
 
   const navigateToRegistrationPage = () => {
     navigate('/registration');
   };
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+
     e.preventDefault();
     if (!email || !password) {
       setError(t('loginPage.noUser'));
@@ -29,9 +31,10 @@ const LoginForm = (onLogin) => {
         email: email,
         password: password
       });
+
       if (response.status === 200) {
-        login();
-        navigate('/');
+        //login();
+        //navigate('/');
       } else {
         throw new Error(t('loginPage.loginFail'));
       }
@@ -46,6 +49,7 @@ const LoginForm = (onLogin) => {
       <Container className="form-container justify-content-md-center">
         <Row className="justify-content-md-center">
           <Col xs="12" sm="8" md="6" lg="4">
+            {token}
             <Card className="my-5">
               {/* <Card.Body> */}
               <h2 style={{ textAlign: 'center' }}>{t('loginPage.title')}</h2>

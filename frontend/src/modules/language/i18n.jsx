@@ -81,6 +81,9 @@ i18n
             register: 'REGISTER',
             loginFail: 'login failed',
             participate: 'PARTICIPATE'
+          },
+          profile: {
+            userIsNotLoggedIn: 'User is not logged in'
           }
         }
       },
@@ -154,6 +157,9 @@ i18n
             register: 'REGISTRUOTIS',
             loginFail: 'Prisijungti nepavyko',
             participate: 'DALYVAUTI'
+          },
+          profile: {
+            userIsNotLoggedIn: 'Vartotojas neprisijungęs'
           }
         }
       }
