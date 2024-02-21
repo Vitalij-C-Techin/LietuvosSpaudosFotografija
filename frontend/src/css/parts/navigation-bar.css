@@ -6,4 +6,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+nav .dropdown-menu {
+  border-radius: 0%;
+  border: none;
+}
+nav .dropdown-item.active {
+  background-color: transparent;
+  outline: none;
+  color: black;
+}
+nav .dropdown-item:focus {
+  background-color: transparent;
+  outline: none;
+  color: black;
+}
+nav button {
+  border: none !important;
 }/*# sourceMappingURL=navigation-bar.css.map */

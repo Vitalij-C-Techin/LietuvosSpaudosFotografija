@@ -33,8 +33,8 @@ const LoginForm = (onLogin) => {
       });
 
       if (response.status === 200) {
-        //login();
-        //navigate('/');
+        setUser(response.data);
+        navigate('/profile');
       } else {
         throw new Error(t('loginPage.loginFail'));
       }

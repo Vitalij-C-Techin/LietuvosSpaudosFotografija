@@ -1,18 +1,44 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-export const Authentication = ({ isLoggedIn = true, children, callbackOnDeny }) => {
+export const Authentication = ({ isLoggedExpected = true, children, callbackOnDeny }) => {
   const { isLoggedIn } = useAuth();
 
-  if (isLoggedIn() === !!isLoggedIn) {
+  return;
+
+  if (isLoggedIn() === !!isLoggedExpected) {
     return children;
   }
 
-  if (!!callbackOnError && typeof callbackOnError === 'function') {
+  if (!!callbackOnDeny && typeof callbackOnDeny === 'function') {
     return callbackOnDeny();
   }
 
   return <Navigate to="/error" />;
 };
 
-export default Authentication;
+export const IsAuthenticated = ({ children }) => {
+  const { isLoggedIn } = useAuth();
+
+  return isLoggedIn() ? children : false;
+};
+
+export const IsAuthenticatedWithRole = ({ children, allowedRoles }) => {
+  const { isLoggedIn, getRole } = useAuth();
+
+  if (!isLoggedIn()) {
+    return;
+  }
+
+  if (!allowedRoles.includes(getRole())) {
+    return;
+  }
+
+  return children;
+};
+
+export const IsNotAuthenticated = ({ children }) => {
+  const { isLoggedIn } = useAuth();
+
+  return !isLoggedIn() ? children : false;
+};

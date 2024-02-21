@@ -84,7 +84,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const getRole = () => {
-    if (!!isLoggedin()) {
+    if (!!isLoggedIn()) {
       return null;
     }
 
