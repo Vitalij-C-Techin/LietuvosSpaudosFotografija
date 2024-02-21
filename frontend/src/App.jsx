@@ -13,6 +13,8 @@ import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ProfilePage from './components/pages/ProfilePage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
 
+import { Authorization } from './components/utils/Authorization.jsx';
+
 import './css/style.css';
 
 function App() {
@@ -31,7 +33,11 @@ function App() {
 
             <Route path="/profile" element={<ProfilePage />} />
 
-            <Route path="/error" element={<ErrorPage />} />
+            <Route element={<Authorization allowedRoles={['ADMIN']} />}>
+              <Route path="/p" element={<ProfilePage />} />
+            </Route>
+
+            <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </AuthProvider>
       </I18nextProvider>

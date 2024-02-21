@@ -1,21 +1,23 @@
 import { useAuth } from '../context/AuthContext';
-import Permissions from '../config/Permissions';
 import { Navigate, Outlet } from 'react-router-dom';
 
-export const Authorization = ({ pagePermission }) => {
-  const { isLoggedIn, getRole } = useAuth();
-  const userPermission = Permissions[getRole()];
+export const Authorization = ({ allowedRoles, callbackOnDeny }) => {
+  const { isLoggedIn, getRole, getUserData } = useAuth();
 
   if (!isLoggedIn()) {
-    return <Navigate to="/login" />;
+    if (!!callbackOnDeny && typeof callbackOnDeny === 'function') {
+      return callbackOnDeny();
+    }
+
+    return <Navigate to={'/login'} />;
   }
 
-  if (!!!userPermission) {
-    return <Navigate to="/error" />;
-  }
+  if (!allowedRoles.includes(getRole())) {
+    if (!!callbackOnDeny && typeof callbackOnDeny === 'function') {
+      return callbackOnDeny();
+    }
 
-  if (!!!userPermission.includes(pegePermission)) {
-    return <Navigate to="/error" />;
+    return <Navigate to={'/error'} />;
   }
 
   return <Outlet />;

@@ -1,6 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
-import Config from '../config/Config';
 import { loginRequest } from '../utils/RequestManager';
 
 const AuthContext = createContext();
@@ -85,7 +83,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const getRole = () => {
-    if (!!isLoggedIn()) {
+    if (!isLoggedIn()) {
       return null;
     }
 

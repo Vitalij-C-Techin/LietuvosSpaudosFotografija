@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 
 import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication';
+import { Authentication, IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication';
 
 const ProfilePage = () => {
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ const ProfilePage = () => {
         </IsNotAuthenticated>
 
         <IsAuthenticated>
-          {null != getUserData() && (
+          {!!getUserData() && (
             <>
               <p>
                 {t('profile.id')}: {getUserData().uuid}

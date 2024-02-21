@@ -1,10 +1,10 @@
-import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import ErrorPage from '../pages/ErrorPage';
 
-export const Authentication = ({ isLoggedExpected = true, children, callbackOnDeny }) => {
+export const Authentication = ({ children, isLoggedExpected = true, callbackOnDeny }) => {
   const { isLoggedIn } = useAuth();
 
-  if (!!isLoggedIn() === !!isLoggedExpected) {
+  if (isLoggedIn() === isLoggedExpected) {
     return children;
   }
 
@@ -12,13 +12,17 @@ export const Authentication = ({ isLoggedExpected = true, children, callbackOnDe
     return callbackOnDeny();
   }
 
-  return <Navigate to="/error" />;
+  return <ErrorPage />;
 };
 
 export const IsAuthenticated = ({ children }) => {
   const { isLoggedIn } = useAuth();
 
-  return isLoggedIn() ? children : false;
+  if (!isLoggedIn()) {
+    return;
+  }
+
+  return children;
 };
 
 export const IsAuthenticatedWithRole = ({ children, allowedRoles }) => {
@@ -38,5 +42,9 @@ export const IsAuthenticatedWithRole = ({ children, allowedRoles }) => {
 export const IsNotAuthenticated = ({ children }) => {
   const { isLoggedIn } = useAuth();
 
-  return !isLoggedIn() ? children : false;
+  if (isLoggedIn()) {
+    return;
+  }
+
+  return children;
 };
