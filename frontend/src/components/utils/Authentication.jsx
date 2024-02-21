@@ -4,9 +4,7 @@ import { useAuth } from '../context/AuthContext';
 export const Authentication = ({ isLoggedExpected = true, children, callbackOnDeny }) => {
   const { isLoggedIn } = useAuth();
 
-  return;
-
-  if (isLoggedIn() === !!isLoggedExpected) {
+  if (!!isLoggedIn() === !!isLoggedExpected) {
     return children;
   }
 
