@@ -80,7 +80,9 @@ i18n
             login: 'LOGIN',
             register: 'REGISTER',
             loginFail: 'login failed',
-            participate: 'PARTICIPATE'
+            participate: 'PARTICIPATE',
+            competitionEnd: 'Competition ends in:',
+            competitionTitle: 'COMPETITION TITLE'
           }
         }
       },
@@ -153,7 +155,9 @@ i18n
             login: 'PRISIJUNGTI',
             register: 'REGISTRUOTIS',
             loginFail: 'Prisijungti nepavyko',
-            participate: 'DALYVAUTI'
+            participate: 'DALYVAUTI',
+            competitionEnd: 'Registracija baigiasi:',
+            competitionTitle: 'KONKURSO PAVADINIMAS'
           }
         }
       }

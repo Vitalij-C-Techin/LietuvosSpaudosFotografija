@@ -90,7 +90,7 @@ function HomePage() {
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-                <Card.Title className="mt-5">COMPETITION TITLE</Card.Title>
+                <Card.Title className="mt-5">{t('loginPage.competitionTitle')}</Card.Title>
                 <Card.Text>
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -101,7 +101,7 @@ function HomePage() {
                 </Card.Text>
                 <Row className="justify-content-center">
                   <Col xs="12" lg="10">
-                    <Card.Text className="pe-3 competition-end">Competition ends in:</Card.Text>
+                    <Card.Text className="pe-3 competition-end">{t('loginPage.competitionEnd')}</Card.Text>
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
@@ -125,7 +125,7 @@ function HomePage() {
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-                <Card.Title className="mt-5">COMPETITION TITLE</Card.Title>
+                <Card.Title className="mt-5">{t('loginPage.competitionTitle')}</Card.Title>
                 <Card.Text>
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -136,7 +136,7 @@ function HomePage() {
                 </Card.Text>
                 <Row className="justify-content-center">
                   <Col xs="12" lg="10">
-                    <Card.Text className="pe-3 competition-end">Competition ends in:</Card.Text>
+                    <Card.Text className="pe-3 competition-end">{t('loginPage.competitionEnd')}</Card.Text>
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
@@ -155,7 +155,7 @@ function HomePage() {
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-                <Card.Title className="mt-5">COMPETITION TITLE</Card.Title>
+                <Card.Title className="mt-5">{t('loginPage.competitionTitle')}</Card.Title>
                 <Card.Text>
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -166,7 +166,7 @@ function HomePage() {
                 </Card.Text>
                 <Row className="justify-content-center">
                   <Col xs="12" lg="10">
-                    <Card.Text className="pe-3 competition-end">Competition ends in:</Card.Text>
+                    <Card.Text className="pe-3 competition-end">{t('loginPage.competitionEnd')}</Card.Text>
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
