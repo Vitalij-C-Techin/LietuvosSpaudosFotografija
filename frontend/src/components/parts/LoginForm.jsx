@@ -38,6 +38,8 @@ const LoginForm = (onLogin) => {
     } catch (error) {
       if (error.response && error.response.status === 401) {
         setError(t('loginPage.invalidCredentials'));
+      }else{
+        setError(t('loginPage.loginFail'));
       }
     }
   };
@@ -85,7 +87,7 @@ const LoginForm = (onLogin) => {
               <Form.Group className="mb-3" controlId="formGroupButton">
                 <Row className="align-items-center">
                   <Col className="mt-3" xs={12} md={6}>
-                    <Button variant="light" type="submit">
+                    <Button variant="light" data-testid="login" type="submit">
                       {t('loginPage.login')}
                     </Button>
                   </Col>
