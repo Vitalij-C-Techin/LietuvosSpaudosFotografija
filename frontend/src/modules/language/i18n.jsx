@@ -1,14 +1,14 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
+const savedLanguage = localStorage.getItem('i18nextLng');
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     // TODO disable debug before production!
     debug: false,
-    lng: 'en',
+    lng: savedLanguage || 'lt',
     returnObjects: true,
     resources: {
       en: {
