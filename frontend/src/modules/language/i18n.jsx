@@ -1,14 +1,15 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
+const savedLanguage = localStorage.getItem('i18nextLng');
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     // TODO disable debug before production!
     debug: false,
-    lng: 'en',
+    lng: savedLanguage || 'lt',
+    fallbackLng: 'lt',
     returnObjects: true,
     resources: {
       en: {
@@ -80,7 +81,9 @@ i18n
             login: 'LOGIN',
             register: 'REGISTER',
             loginFail: 'login failed',
-            participate: 'PARTICIPATE'
+            participate: 'PARTICIPATE',
+            competitionEnd: 'Competition ends in:',
+            competitionTitle: 'COMPETITION TITLE'
           }
         }
       },
@@ -153,7 +156,9 @@ i18n
             login: 'PRISIJUNGTI',
             register: 'REGISTRUOTIS',
             loginFail: 'Prisijungti nepavyko',
-            participate: 'DALYVAUTI'
+            participate: 'DALYVAUTI',
+            competitionEnd: 'Registracija baigiasi:',
+            competitionTitle: 'KONKURSO PAVADINIMAS'
           }
         }
       }
