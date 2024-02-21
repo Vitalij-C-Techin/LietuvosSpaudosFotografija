@@ -11,14 +11,22 @@
 }
 
 nav {
-  .dropdown-menu {
+ 
+  .dropdown-menu{
     border-radius: 0%;
     border: none;
+
   }
-  .dropdown-item:focus,
+  
   .dropdown-item.active{
-    background-color: transparent; /* Set the background color to transparent */
-    outline: none; /* Remove the default focus outline */
+    background-color: transparent;
+    outline: none; 
+    color:black;
+  }
+
+  .dropdown-item:focus{
+    background-color: transparent;
+    outline: none; 
     color:black;
   }
 }
