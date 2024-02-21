@@ -188,11 +188,18 @@ nav .dropdown-menu {
   border-radius: 0%;
   border: none;
 }
-nav .dropdown-item:focus,
 nav .dropdown-item.active {
-  background-color: transparent !important; 
-  outline: none; 
+  background-color: transparent;
+  outline: none;
   color: black;
+}
+nav .dropdown-item:focus {
+  background-color: transparent;
+  outline: none;
+  color: black;
+}
+nav button {
+  border: none !important;
 }
 
 .registration-form-container {

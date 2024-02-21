@@ -12,9 +12,16 @@ nav .dropdown-menu {
   border-radius: 0%;
   border: none;
 }
-nav .dropdown-item:focus,
 nav .dropdown-item.active {
-  background-color: transparent; /* Set the background color to transparent */
-  outline: none; /* Remove the default focus outline */
+  background-color: transparent;
+  outline: none;
   color: black;
+}
+nav .dropdown-item:focus {
+  background-color: transparent;
+  outline: none;
+  color: black;
+}
+nav button {
+  border: none !important;
 }/*# sourceMappingURL=navigation-bar.css.map */
