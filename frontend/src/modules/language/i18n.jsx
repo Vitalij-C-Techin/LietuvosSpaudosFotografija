@@ -103,7 +103,7 @@ i18n
             title: 'Competition management',
             viewParticipantRequest: 'View participant request',
             createCompetition: 'Create competition',
-            competitionDates: 'Competition dates',
+            competitionDates: 'Dates',
             competitionView: 'View',
             loading: 'Loading',
             empty: 'Empty'
@@ -200,10 +200,10 @@ i18n
           adminCompetitionPage: {
             title: 'Konkursų valdymas',
             viewParticipantRequest: 'Peržiūrėti dalyvio užklausą',
-            createCompetition: 'Sukurti konkuras',
+            createCompetition: 'Sukurti konkursą',
             competitionDates: 'Datos',
             competitionView: 'Peržiūrėti',
-            loading: 'Krovimas',
+            loading: 'Vyksta duomenų įkėlimas',
             empty: 'Tuščia'
           }
         }
