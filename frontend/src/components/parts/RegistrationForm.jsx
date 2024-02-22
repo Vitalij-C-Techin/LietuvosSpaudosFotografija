@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { Controller, useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 
 //TODO check layout after more work is done
 //TODO check console.log if any left
@@ -11,98 +14,40 @@ import { useTranslation } from 'react-i18next';
 const RegistrationForm = () => {
   const { t } = useTranslation();
   const [selectedActivity, setSelectedActivity] = useState(``);
-  const [phoneError, setPhoneError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState('');
 
-  const [formData, setFormData] = useState({
-    name: '',
-    surname: '',
-    birth_year: '',
-    phone_number: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    media_name: ''
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors }
+  } = useForm({
+    reValidateMode: 'onChange',
+    defaultValues: {
+      name: '',
+      surname: '',
+      birthYear: '',
+      phoneNumber: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      mediaName: ''
+    },
+    criteriaMode: 'all'
   });
 
-  useEffect(() => {
-    if (formData.password && formData.confirmPassword) {
-      validatePassword();
-    }
-  }, [formData.password, formData.confirmPassword]);
+  const password = watch('password');
 
-
-const validatePassword = () => {
-  const errors = [];
-  const { password, confirmPassword } = formData;
-  const minPasswordLength = 6;
-  const maxPasswordLength = 20;
-
-  if (password !== confirmPassword) {
-    errors.push(t('registrationPage.password1'));
-  }
-  if (password.length < minPasswordLength || password.length > maxPasswordLength) {
-    errors.push(t('registrationPage.password2', 
-    { min: minPasswordLength, max: maxPasswordLength }));
-  }
-  if (!/[A-Z]/.test(password)) {
-    errors.push(t('registrationPage.password3'));
-  }
-  if (!/\d/.test(password)) {
-    errors.push(t('registrationPage.password4'));
-  }
-
-  setPasswordError(errors.join(' '));
-};
-
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-
-    if (name === 'phone_number') {
-      validatePhone(value);
-    }
-
-    if (name === 'confirmPassword' || (name === 'password' && formData.confirmPassword)) {
-      validatePassword(value);
-    }
-  };
-
-  const validatePhone = (phone_number) => {
-    const phoneRegex = /^\+[1-9]\d{1,14}$/;
-
-    if (!phoneRegex.test(phone_number)) {
-      setPhoneError(t('registrationPage.phoneError'));
-    } else {
-      setPhoneError('');
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleFormSubmit = async (formData) => {
     try {
-      const birthYear = new Date(formData.birth_year).getFullYear();
-      const response = await axios.post('http://localhost:8080/api/v1/register', {
-        ...formData,
-        birth_year: birthYear
-      });
+      const response = await axios.post('http://localhost:8080/api/v1/register', formData);
       alert(t('registrationPage.registerSuccessuful'));
       window.location.href = '/login';
     } catch (error) {
       if (error.response.status === 400) {
         setEmailError(t('registrationPage.emailError'));
       }
-    }
-
-    if (!passwordError) {
-      return;
-    } else {
-      alert(t('registrationPage.error'));
     }
   };
 
@@ -116,85 +61,188 @@ const validatePassword = () => {
         <Row className="justify-content-md-center">
           <Col xs="12" sm="8" md="6" lg="4">
             <Card className="my-5">
-            <h2 style={{ textAlign: 'center' }}>{t('registrationPage.title')}</h2>
+              <h2 style={{ textAlign: 'center' }}>{t('registrationPage.title')}</h2>
             </Card>
-            <Form onSubmit={handleSubmit}>
-            {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
-            {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
+            <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
+              {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
               <Row>
                 <Col>
-                  <Form.Group className="mb-3" controlId="formGroupName">
+                  <Form.Group className="mb-3">
                     <Form.Label htmlFor="name">{t('registrationPage.name')}</Form.Label>
-
                     <Form.Control
-                     type="text"
-                     name="name"
-                     id="name"
-                     onChange={handleChange}
-                     required
-                     autoComplete="name"
-                     placeholder={t('registrationPage.namePlaceholder')}
+                      type="text"
+                      name="name"
+                      id="name"
+                      autoComplete="name"
+                      placeholder={t('registrationPage.namePlaceholder')}
+                      {...register('name', {
+                        required: t('registrationPage.required'),
+                        minLength: {
+                          value: 3,
+                          message: t('registrationPage.nameMinLegth')
+                        },
+                        maxLength: {
+                          value: 20,
+                          message: t('registrationPage.nameMaxLegth')
+                        },
+                        pattern: {
+                          value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
+                          message: t('registrationPage.namePattern')
+                        }
+                      })}
+                    />
+                    <ErrorMessage
+                      errors={errors}
+                      name="name"
+                      render={({ messages }) =>
+                        messages &&
+                        Object.entries(messages).map(([type, message]) => (
+                          <p className="text-danger mb-1 " style={{ fontSize: '14px' }} key={type}>
+                            {message}
+                          </p>
+                        ))
+                      }
                     />
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Form.Group className="mb-3" controlId="formGroupName">
+                  <Form.Group className="mb-3">
                     <Form.Label htmlFor="surname">{t('registrationPage.surname')}</Form.Label>
 
                     <Form.Control
-                     type="text"
-                     name="surname"
-                     id="surname"
-                     required
-                     onChange={handleChange}
-                     placeholder={t('registrationPage.surnamePlaceholder')}
+                      type="text"
+                      name="surname"
+                      id="surname"
+                      placeholder={t('registrationPage.surnamePlaceholder')}
+                      {...register('surname', {
+                        required: t('registrationPage.required'),
+                        minLength: {
+                          value: 3,
+                          message: t('registrationPage.surnameMinLegth')
+                        },
+                        maxLength: {
+                          value: 20,
+                          message: t('registrationPage.surnameMaxLegth')
+                        },
+                        pattern: {
+                          value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
+                          message: t('registrationPage.surnamePattern')
+                        }
+                      })}
+                    />
+                    <ErrorMessage
+                      errors={errors}
+                      name="surname"
+                      render={({ messages }) =>
+                        messages &&
+                        Object.entries(messages).map(([type, message]) => (
+                          <p className="text-danger mb-1" style={{ fontSize: '14px' }} key={type}>
+                            {message}
+                          </p>
+                        ))
+                      }
                     />
                   </Form.Group>
                 </Col>
               </Row>
-              <Form.Group className="mb-3" controlId="formGroupEmail">
+              <Form.Group className="mb-3">
                 <Form.Label htmlFor="email">{t('registrationPage.email')}</Form.Label>
 
                 <Form.Control
-                type="email"
-                name="email"
-                id="email"
-                required
-                placeholder="egzamle@egzample.com"
-                autoComplete="email"
-                onChange={handleChange}
+                  name="email"
+                  id="email"
+                  placeholder="example@example.com"
+                  autoComplete="email"
+                  {...register('email', {
+                    required: t('registrationPage.required'),
+                    pattern: {
+                      value: /\S+@\S+\.\S+/,
+                      message: t('registrationPage.emailPattern')
+                    }
+                  })}
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="email"
+                  render={({ messages }) =>
+                    messages &&
+                    Object.entries(messages).map(([type, message]) => (
+                      <p className="text-danger mb-1" style={{ fontSize: '14px' }} key={type}>
+                        {message}
+                      </p>
+                    ))
+                  }
                 />
               </Form.Group>
               <Row>
                 <Col>
-                  <Form.Group className="mb-3" controlId="formGroupEnterPassword">
+                  <Form.Group className="mb-3">
                     <Form.Label htmlFor="password">{t('registrationPage.password')}</Form.Label>
 
                     <Form.Control
                       type="password"
                       name="password"
                       id="password"
-                      required
-                      value={formData.password}
-                      onChange={handleChange}
                       placeholder={t('registrationPage.passwordPlaceholder')}
                       autoComplete="new-password"
+                      {...register('password', {
+                        required: t('registrationPage.required'),
+                        minLength: {
+                          value: 8,
+                          message: t('registrationPage.passwordMinLength')
+                        },
+                        maxLength: {
+                          value: 50,
+                          message: t('registrationPage.passwordMaxLength')
+                        },
+                        pattern: {
+                          value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).$/,
+                          message: t('registrationPage.passwordPattern')
+                        }
+                      })}
+                    />
+                    <ErrorMessage
+                      errors={errors}
+                      name="password"
+                      render={({ messages }) =>
+                        messages &&
+                        Object.entries(messages).map(([type, message]) => (
+                          <p className="text-danger mb-1" style={{ fontSize: '14px' }} key={type}>
+                            {message}
+                          </p>
+                        ))
+                      }
                     />
                   </Form.Group>
                 </Col>
                 <Col>
-                  <Form.Group className="mb-3" controlId="formGroupConfirmPassword">
-                    <Form.Label htmlFor="confirmPassword">{t('registrationPage.confirmPassword')}</Form.Label>
-                    {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
-
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="confirmPassword">
+                      {t('registrationPage.confirmPassword')}
+                    </Form.Label>
                     <Form.Control
                       type="password"
                       name="confirmPassword"
                       id="confirmPassword"
-                      required
-                      onChange={handleChange}
                       placeholder={t('registrationPage.cpasswordPlaceholder')}
                       autoComplete="new-password"
+                      {...register('confirmPassword', {
+                        required: t('registrationPage.required'),
+                        validate: (value) =>
+                          value === password || t('registrationPage.passwordMatch')
+                      })}
+                    />
+                    <ErrorMessage
+                      errors={errors}
+                      name="confirmPassword"
+                      render={({ messages }) =>
+                        messages &&
+                        Object.entries(messages).map(([type, message]) => (
+                          <p className="text-danger" style={{ fontSize: '14px' }} key={type}>
+                            {message}
+                          </p>
+                        ))
+                      }
                     />
                   </Form.Group>
                 </Col>
@@ -202,42 +250,80 @@ const validatePassword = () => {
 
               <Row>
                 <Col md="6" lg="6">
-                  <Form.Group className="mb-3" controlId="formGroupBirthYear">
-                    <Form.Label htmlFor="birth_year">{t('registrationPage.byear')}</Form.Label>
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="birthYear">{t('registrationPage.byear')}</Form.Label>
 
                     <Form.Control
-                      type="text"
-                      name="birth_year"
-                      pattern="\d{4}"
-                      id="birth_year"
-                      required
-                      onChange={handleChange}
+                      type="number"
+                      name="birthYear"
+                      id="birthYear"
                       placeholder={t('registrationPage.byearPlaceholder')}
+                      {...register('birthYear', {
+                        required: t('registrationPage.required'),
+                        max: {
+                          value: new Date().getFullYear() - 18,
+                          message: t('registrationPage.birthYearMax')
+                        },
+                        min: {
+                          value: new Date().getFullYear() - 100,
+                          message: t('registrationPage.birthYearMin')
+                        }
+                      })}
+                    />
+                    <ErrorMessage
+                      errors={errors}
+                      name="birthYear"
+                      render={({ messages }) =>
+                        messages &&
+                        Object.entries(messages).map(([type, message]) => (
+                          <p className="text-danger" style={{ fontSize: '14px' }} key={type}>
+                            {message}
+                          </p>
+                        ))
+                      }
                     />
                   </Form.Group>
                 </Col>
-                <Col md="6" lg="6" >
-                  <Form.Group className="mb-3" controlId="formGroupPhoneNumber">
-                    <Form.Label htmlFor="phone_number">{t('registrationPage.phoneNumber')}</Form.Label>
-
-                    <PhoneInput
-                    className="mt-2"
-                      international
-                      id="phone_number"
-          name="phone_number"
-          defaultCountry="LT"
-          required
-          value={formData.phone_number}
-          onChange={(value) => {
-            setFormData((prevData) => ({ ...prevData, phone_number: value }));
-            validatePhone(value);
+                <Col md="6" lg="6">
+                  <Form.Group className="mb-3">
+                    <Form.Label htmlFor="phoneNumber">
+                      {t('registrationPage.phoneNumber')}
+                    </Form.Label>
+                    <Controller
+                      name="phoneNumber"
+                      control={control}
+                      rules={{
+                        validate: (value) =>
+                          isValidPhoneNumber(`${value}`) || t('registrationPage.phoneError'),
+                        required: t('registrationPage.required')
                       }}
+                      render={({ field: { onChange, value } }) => (
+                        <PhoneInput
+                          value={value}
+                          onChange={onChange}
+                          defaultCountry="LT"
+                          international
+                          id="phoneNumber"
+                        />
+                      )}
+                    />
+                    <ErrorMessage
+                      errors={errors}
+                      name="phoneNumber"
+                      render={({ messages }) =>
+                        messages &&
+                        Object.entries(messages).map(([type, message]) => (
+                          <p className="text-danger mx-5" style={{ fontSize: '14px' }} key={type}>
+                            {message}
+                          </p>
+                        ))
+                      }
                     />
                   </Form.Group>
                 </Col>
               </Row>
 
-              <Form.Group className="mb-3" controlId="formGroupActivity">
+              <Form.Group className="mb-3">
                 <Form.Label htmlFor="activity">{t('registrationPage.activity')}</Form.Label>
 
                 <Form.Select
@@ -253,20 +339,51 @@ const validatePassword = () => {
 
                 {selectedActivity === 'mworker' && (
                   <>
-                    <Form.Label htmlFor="media_name">{t('registrationPage.textArea')}</Form.Label>
-                    <Form.Control id="media_name" as="textarea" required  onChange={handleChange}></Form.Control>
+                    <Form.Label htmlFor="mediaName" className="mt-3 ">
+                      {t('registrationPage.mediaName')}
+                    </Form.Label>
+                    <Form.Control
+                      id="mediaName"
+                      as="textarea"
+                      {...register('mediaName', {
+                        required: t('registrationPage.required'),
+                        minLength: {
+                          value: 2,
+                          message: t('registrationPage.mediaNameMinLength')
+                        },
+                        maxLength: {
+                          value: 50,
+                          message: t('registrationPage.mediaNameMaxLength')
+                        }
+                      })}
+                    ></Form.Control>
+                    <ErrorMessage
+                      errors={errors}
+                      name="mediaName"
+                      render={({ messages }) =>
+                        messages &&
+                        Object.entries(messages).map(([type, message]) => (
+                          <p className="text-danger" style={{ fontSize: '14px' }} key={type}>
+                            {message}
+                          </p>
+                        ))
+                      }
+                    />
                   </>
                 )}
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formGroupUserAgreement">
+              <Form.Group className="mb-3">
                 <Form.Check
                   type="checkbox"
                   id="Uagreement"
                   name="Uagreement"
                   label={t('registrationPage.Uagreement')}
-                  required
                   htmlFor="Uagreement"
+                  {...register('Uagreement', { required: t('registrationPage.required') })}
                 />
+                {errors.Uagreement && (
+                  <Form.Text className="text-danger">{errors.Uagreement.message}</Form.Text>
+                )}
               </Form.Group>
 
               <Button type="submit">{t('registrationPage.button')}</Button>
