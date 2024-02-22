@@ -3,11 +3,12 @@ import LanguageSwitch from './LanguageSwitch.jsx';
 import '../../modules/language/i18n.jsx';
 import { useTranslation } from 'react-i18next';
 import { NavLink, Link } from 'react-router-dom';
-import { useAuth } from '../../modules/AuthContext.jsx';
 import { Nav, Navbar, Dropdown } from 'react-bootstrap';
+import { useAuth } from '../context/AuthContext.jsx';
+import { IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication.jsx';
 
 const NavigationBar = () => {
-  const { isLoggedIn, logout } = useAuth();
+  const { logout } = useAuth();
 
   const { t } = useTranslation();
 
@@ -22,65 +23,58 @@ const NavigationBar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </Dropdown.Toggle>
+
           <Dropdown.Menu align="end">
             <Dropdown.Item as={NavLink} to="/">
               {t('landingPage.dropDownMenuItem1')}
             </Dropdown.Item>
 
-            {isLoggedIn ? (
+            <IsNotAuthenticated>
+              <Dropdown.Item as={NavLink} to="/login">
+                {t('landingPage.dropDownMenuItem2')}
+              </Dropdown.Item>
+              <Dropdown.Item as={NavLink} to="/registration">
+                {t('landingPage.dropDownMenuItem12')}
+              </Dropdown.Item>
+            </IsNotAuthenticated>
+
+            <IsAuthenticated>
+              <Dropdown.Item as={Link} to="/profile">
+                {t('landingPage.dropDownMenuItem3')}
+              </Dropdown.Item>
+
               <Dropdown.Item as={Link} to="/" onClick={logout}>
                 {t('landingPage.dropDownMenuItem11')}
               </Dropdown.Item>
-            ) : (
-              <>
-                <Dropdown.Item as={NavLink} to="/login">
-                  {t('landingPage.dropDownMenuItem2')}
-                </Dropdown.Item>
-                <Dropdown.Item as={NavLink} to="/registration">
-                  {t('landingPage.dropDownMenuItem12')}
-                </Dropdown.Item>
-              </>
-            )}
+            </IsAuthenticated>
 
-            {isLoggedIn && (
-              <>
-                <Dropdown.Item href="#/action-3">
-                  {t('landingPage.dropDownMenuItem3')}
-                </Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item href="#/action-4">
-                  {t('landingPage.dropDownMenuItem4')}
-                </Dropdown.Item>
-                <Dropdown.Divider />
-              </>
-            )}
+            <IsAuthenticated>
+              <Dropdown.Divider />
+              <Dropdown.Item href="#user-competition">
+                {t('landingPage.dropDownMenuItem4')}
+              </Dropdown.Item>
+              <Dropdown.Divider />
+            </IsAuthenticated>
 
-            {isLoggedIn && (
-              <>
-                <Dropdown.Item href="#/action-5">
-                  {t('landingPage.dropDownMenuItem5')}
-                </Dropdown.Item>
-                <Dropdown.Divider />
-              </>
-            )}
+            <IsAuthenticated>
+              <Dropdown.Item href="#jury-competition">
+                {t('landingPage.dropDownMenuItem5')}
+              </Dropdown.Item>
+              <Dropdown.Divider />
+            </IsAuthenticated>
 
-            {isLoggedIn && (
-              <>
-                <Dropdown.Item href="#/action-6">
-                  {t('landingPage.dropDownMenuItem6')}
-                </Dropdown.Item>
+            <IsAuthenticated>
+              <Dropdown.Item href="#admin-users-dashboard">
+                {t('landingPage.dropDownMenuItem6')}
+              </Dropdown.Item>
+              <Dropdown.Item href="#admin-competitions-dashboard">
+                {t('landingPage.dropDownMenuItem7')}
+              </Dropdown.Item>
+              <Dropdown.Item href="#admin-category-dashboard">
+                {t('landingPage.dropDownMenuItem8')}
+              </Dropdown.Item>
+            </IsAuthenticated>
 
-                <Dropdown.Item href="#/action-7">
-                  {t('landingPage.dropDownMenuItem7')}
-                </Dropdown.Item>
-
-                <Dropdown.Item href="#/action-8">
-                  {t('landingPage.dropDownMenuItem8')}
-                </Dropdown.Item>
-              </>
-            )}
-
-            <Dropdown.Item href="#/action-9">{t('landingPage.dropDownMenuItem9')}</Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item style={{ backgroundColor: 'transparent', color: 'black' }}>
               <LanguageSwitch />

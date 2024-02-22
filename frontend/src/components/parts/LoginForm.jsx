@@ -2,8 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
-import axios from 'axios';
-import { useAuth } from '../../modules/AuthContext';
+import { useAuth } from '../context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
 const LoginForm = (onLogin) => {
@@ -12,7 +11,7 @@ const LoginForm = (onLogin) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, setUser } = useAuth();
 
   const navigateToRegistrationPage = () => {
     navigate('/registration');
@@ -24,25 +23,21 @@ const LoginForm = (onLogin) => {
       setError(t('loginPage.noUser'));
       return;
     }
-    try {
-      const response = await axios.post(`http://localhost:8080/api/v1/login`, {
-        email: email,
-        password: password
-      });
-      if (response.status === 200) {
-        login();
-        navigate('/');
-      } else {
-        throw new Error(t('loginPage.loginFail'));
+
+    login(email, password, {
+      then: (response) => {
+        navigate('/profile');
+      },
+      catch: (error) => {
+        if (error.response && error.response.status === 401) {
+          setError(t('loginPage.invalidCredentials'));
+        } else {
+          setError(t('loginPage.loginFail'));
+        }
       }
-    } catch (error) {
-      if (error.response && error.response.status === 401) {
-        setError(t('loginPage.invalidCredentials'));
-      }else{
-        setError(t('loginPage.loginFail'));
-      }
-    }
+    });
   };
+
   return (
     <>
       <Container className="form-container justify-content-md-center">

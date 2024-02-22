@@ -85,6 +85,19 @@ i18n
             participate: 'PARTICIPATE',
             competitionEnd: 'Competition ends in:',
             competitionTitle: 'COMPETITION TITLE'
+          },
+          profile: {
+            myProfile: 'Profile',
+            userIsNotLoggedIn: 'User is not logged in',
+            id: 'ID',
+            name: 'Name',
+            surname: 'Surname',
+            email: 'Email',
+            role: 'Role',
+            birthYear: 'Birth year',
+            phoneNumber: 'Phone number',
+            media: 'Media',
+            createdAt: 'Created at'
           }
         }
       },
@@ -161,6 +174,19 @@ i18n
             participate: 'DALYVAUTI',
             competitionEnd: 'Registracija baigiasi:',
             competitionTitle: 'KONKURSO PAVADINIMAS'
+          },
+          profile: {
+            myProfile: 'Profilis',
+            userIsNotLoggedIn: 'User is not logged in',
+            id: 'ID',
+            name: 'Vardas',
+            surname: 'Pavardė',
+            email: 'El. paštas',
+            role: 'Rolė',
+            birthYear: 'Gimimo metai',
+            phoneNumber: 'Telefono numeris',
+            media: 'Žiniasklaida',
+            createdAt: 'Sukurta'
           }
         }
       }
