@@ -67,7 +67,7 @@ const NavigationBar = () => {
               <Dropdown.Item href="#admin-users-dashboard">
                 {t('landingPage.dropDownMenuItem6')}
               </Dropdown.Item>
-              <Dropdown.Item href="#admin-competitions-dashboard">
+              <Dropdown.Item href="/admin-competitions-list">
                 {t('landingPage.dropDownMenuItem7')}
               </Dropdown.Item>
               <Dropdown.Item href="#admin-category-dashboard">

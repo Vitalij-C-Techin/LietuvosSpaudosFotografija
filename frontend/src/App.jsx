@@ -11,11 +11,10 @@ import RegistrationPage from './components/pages/RegistrationPage.jsx';
 import LoginPage from './components/pages/LoginPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ProfilePage from './components/pages/ProfilePage.jsx';
+import AdminCompetitionsListPage from './components/pages/AdminCompetitionsListPage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
 
 import { Authorization } from './components/utils/Authorization.jsx';
-
-import './css/style.css';
 
 function App() {
   return (
@@ -33,7 +32,9 @@ function App() {
 
             <Route path="/profile" element={<ProfilePage />} />
 
-            <Route element={<Authorization allowedRoles={['ADMIN']} />}>
+            <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
+
+            <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
               <Route path="/p" element={<ProfilePage />} />
             </Route>
 

@@ -98,6 +98,15 @@ i18n
             phoneNumber: 'Phone number',
             media: 'Media',
             createdAt: 'Created at'
+          },
+          adminCompetitionPage: {
+            title: 'Competition management',
+            viewParticipantRequest: 'View participant request',
+            createCompetition: 'Create competition',
+            competitionDates: 'Dates',
+            competitionView: 'View',
+            loading: 'Loading',
+            empty: 'Empty'
           }
         }
       },
@@ -187,6 +196,15 @@ i18n
             phoneNumber: 'Telefono numeris',
             media: 'Žiniasklaida',
             createdAt: 'Sukurta'
+          },
+          adminCompetitionPage: {
+            title: 'Konkursų valdymas',
+            viewParticipantRequest: 'Peržiūrėti dalyvio užklausą',
+            createCompetition: 'Sukurti konkursą',
+            competitionDates: 'Datos',
+            competitionView: 'Peržiūrėti',
+            loading: 'Vyksta duomenų įkėlimas',
+            empty: 'Tuščia'
           }
         }
       }
