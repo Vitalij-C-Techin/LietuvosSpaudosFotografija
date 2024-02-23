@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 
-const TESTCompetitions = [{}, {}, {}];
+const TESTuserRequests = [{}, {}, {}];
 
-const AdminCompetitionsListPage = () => {
+const AdminUserParticipationRequestPage = () => {
   const [t] = useTranslation();
 
-  const [competitions, setCompetitions] = useState(null);
+  const [userRequests, setUserRequests] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +16,7 @@ const AdminCompetitionsListPage = () => {
     //return;
 
     setTimeout(() => {
-      setCompetitions(TESTCompetitions);
+      setUserRequests(TESTuserRequests);
       setIsLoading(false);
     }, 1500);
   }, []);
@@ -36,22 +35,22 @@ const AdminCompetitionsListPage = () => {
 
       {!!!isLoading && !!!competitions && <EmptyMessage />}
 
-      {!!!isLoading && !!competitions && <CompetitionList competitions={competitions} />}
+      {!!!isLoading && !!competitions && <UserRequestList competitions={competitions} />}
     </>
   );
 };
 
-const CompetitionList = ({ competitions }) => {
+const UserRequestList = ({ users }) => {
   const [t] = useTranslation();
 
-  const list = competitions.map((competition, i) => {
-    return <CompetitionSingle competition={competition} key={i} />;
+  const list = users.map((user, i) => {
+    return <UserRequestSingle data={user} key={i} />;
   });
 
   return <Container className="justify-content-xl-center">{list}</Container>;
 };
 
-const CompetitionSingle = ({ competition }) => {
+const UserRequestSingle = ({ data }) => {
   const [t] = useTranslation();
 
   const handleView = () => {
@@ -92,13 +91,10 @@ const CompetitionSingle = ({ competition }) => {
 };
 
 const ActionList = () => {
-  const [navigate] = useNavigate();
   const [t] = useTranslation();
 
   const handleViewRequest = () => {
     console.log('View Request');
-
-    //navigate('/admin-user-participation-requests');
   };
 
   const handleCreateCompetition = () => {
@@ -153,4 +149,4 @@ const EmptyMessage = () => {
   );
 };
 
-export default AdminCompetitionsListPage;
+export default AdminUserParticipationRequestPage;
