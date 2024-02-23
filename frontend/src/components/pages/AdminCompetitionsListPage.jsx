@@ -92,13 +92,13 @@ const CompetitionSingle = ({ competition }) => {
 };
 
 const ActionList = () => {
-  const [navigate] = useNavigate();
+  const navigate = useNavigate();
   const [t] = useTranslation();
 
   const handleViewRequest = () => {
     console.log('View Request');
 
-    //navigate('/admin-user-participation-requests');
+    navigate('/admin-user-participation-requests');
   };
 
   const handleCreateCompetition = () => {

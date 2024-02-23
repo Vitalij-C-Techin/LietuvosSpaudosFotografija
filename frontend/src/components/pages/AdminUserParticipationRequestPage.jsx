@@ -1,8 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
-const TESTuserRequests = [{}, {}, {}];
+const TESTuserRequests = [
+  { id_user: '1', name: 'Toma', surname: 'Jasius', competition_name: 'Kaciukai' },
+  {
+    id_user: '2',
+    name: 'Violeta',
+    surname: 'Lina',
+    competition_name:
+      'Suniukai mieste su drabuziais ir gamtoje. Suniukai mieste su drabuziais ir gamtoje. Suniukai mieste su drabuziais ir gamtoje. '
+  },
+  { id_user: '3', name: 'Julius', surname: 'Po', competition_name: 'Kaciukai' }
+];
 
 const AdminUserParticipationRequestPage = () => {
   const [t] = useTranslation();
@@ -29,28 +39,39 @@ const AdminUserParticipationRequestPage = () => {
         </Card>
       </Container>
 
-      <ActionList />
-
       {!!isLoading && <LoadingMessage />}
 
-      {!!!isLoading && !!!competitions && <EmptyMessage />}
+      {!!!isLoading && !!!userRequests && <EmptyMessage />}
 
-      {!!!isLoading && !!competitions && <UserRequestList competitions={competitions} />}
+      {!!!isLoading && !!userRequests && <UserRequestList userRequests={userRequests} />}
     </>
   );
 };
 
-const UserRequestList = ({ users }) => {
+const UserRequestList = ({ userRequests }) => {
   const [t] = useTranslation();
 
-  const list = users.map((user, i) => {
-    return <UserRequestSingle data={user} key={i} />;
+  const list = userRequests.map((userRequest, i) => {
+    return <UserRequestSingle userRequest={userRequest} key={i} />;
   });
 
-  return <Container className="justify-content-xl-center">{list}</Container>;
+  return (
+    <Container className="justify-content-xl-center">
+      <Table responsive hover striped className="align-middle">
+        <thead className="table-light">
+          <tr>
+            <th>Participator</th>
+            <th>Competition</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>{list}</tbody>
+      </Table>
+    </Container>
+  );
 };
 
-const UserRequestSingle = ({ data }) => {
+const UserRequestSingle = ({ userRequest }) => {
   const [t] = useTranslation();
 
   const handleView = () => {
@@ -58,66 +79,23 @@ const UserRequestSingle = ({ data }) => {
   };
 
   return (
-    <Card className="lsf-admin-competition-card my-3">
-      <Card.Body className="p-0">
-        <Row className="m-0">
-          <Col xs="12" md="4" lg="3" className="p-0 p-md-3 p-lg-3 bg-light">
-            <Image
-              src="/src/tmp/placeholder-500.jpg"
-              alt="competition photo"
-              className="lsf-image-cover"
-            />
-          </Col>
-          <Col className="d-flex flex-column p-3">
-            <Card.Title className="mb-4">Competition title</Card.Title>
-            <Card.Text className="flex-fill">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit.
-            </Card.Text>
-            <Card.Text>{t('adminCompetitionPage.competitionDates')}: 2023-2024</Card.Text>
-            <Card.Link className="d-flex justify-content-end">
-              <Col xs="12" sm="12" md="6" lg="3">
-                <Button className="lsf-button" onClick={handleView}>
-                  {t('adminCompetitionPage.competitionView')}
-                </Button>
-              </Col>
-            </Card.Link>
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
-  );
-};
-
-const ActionList = () => {
-  const [t] = useTranslation();
-
-  const handleViewRequest = () => {
-    console.log('View Request');
-  };
-
-  const handleCreateCompetition = () => {
-    console.log('Create competition button');
-  };
-
-  return (
-    <>
-      <Container className="justify-content-xl-center my-3">
-        <Row className="justify-content-end gap-2">
-          <Col xs="12" lg="3">
-            <Button className="lsf-button" onClick={handleViewRequest}>
-              {t('adminCompetitionPage.viewParticipantRequest')}
-            </Button>
-          </Col>
-          <Col xs="12" lg="3">
-            <Button className="lsf-button" onClick={handleCreateCompetition}>
-              {t('adminCompetitionPage.createCompetition')}
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-    </>
+    <tr>
+      <td>
+        {userRequest.name} {userRequest.surname}
+      </td>
+      <td>{userRequest.competition_name}</td>
+      <td align="right" className="d-flex gap-1 flex-column flex-lg-row flex-md-row">
+        <Button variant="outline-primary" className="align-content-center d-inline-flex">
+          <span className="material-icons">visibility</span>
+        </Button>
+        <Button variant="outline-success" className="align-content-center d-inline-flex">
+          <span className="material-icons">done</span>
+        </Button>
+        <Button variant="outline-danger" className="align-content-center d-inline-flex">
+          <span className="material-icons">close</span>
+        </Button>
+      </td>
+    </tr>
   );
 };
 
