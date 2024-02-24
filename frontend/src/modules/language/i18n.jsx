@@ -104,7 +104,14 @@ i18n
             viewParticipantRequest: 'View participant request',
             createCompetition: 'Create competition',
             competitionDates: 'Dates',
-            competitionView: 'View',
+            competitionView: 'View'
+          },
+          adminUserParticipationRequestPage: {
+            title: 'Participation requests',
+            participator: 'Participator',
+            competition: 'Competition'
+          },
+          notificationMessages: {
             loading: 'Loading',
             empty: 'Empty'
           }
@@ -202,7 +209,14 @@ i18n
             viewParticipantRequest: 'Peržiūrėti dalyvio užklausą',
             createCompetition: 'Sukurti konkursą',
             competitionDates: 'Datos',
-            competitionView: 'Peržiūrėti',
+            competitionView: 'Peržiūrėti'
+          },
+          adminUserParticipationRequestPage: {
+            title: 'Dalyvavimo užklausos',
+            participator: 'Dalyvis',
+            competition: 'Konkursas'
+          },
+          notificationMessages: {
             loading: 'Vyksta duomenų įkėlimas',
             empty: 'Tuščia'
           }

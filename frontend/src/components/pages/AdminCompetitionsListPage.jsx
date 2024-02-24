@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-
-const TESTCompetitions = [{}, {}, {}];
+import LoadingMessage from '../parts/LoadingMessage';
+import EmptyMessage from '../parts/EmptyMessage';
 
 const AdminCompetitionsListPage = () => {
   const [t] = useTranslation();
@@ -17,7 +17,7 @@ const AdminCompetitionsListPage = () => {
     //return;
 
     setTimeout(() => {
-      setCompetitions(TESTCompetitions);
+      setCompetitions([{}, {}, {}]);
       setIsLoading(false);
     }, 1500);
   }, []);
@@ -96,8 +96,6 @@ const ActionList = () => {
   const [t] = useTranslation();
 
   const handleViewRequest = () => {
-    console.log('View Request');
-
     navigate('/admin-user-participation-requests');
   };
 
@@ -120,34 +118,6 @@ const ActionList = () => {
             </Button>
           </Col>
         </Row>
-      </Container>
-    </>
-  );
-};
-
-const LoadingMessage = () => {
-  const [t] = useTranslation();
-
-  return (
-    <>
-      <Container className="justify-content-xl-center my-3 py-3">
-        <Card className="">
-          <h4>{t('adminCompetitionPage.loading')}...</h4>
-        </Card>
-      </Container>
-    </>
-  );
-};
-
-const EmptyMessage = () => {
-  const [t] = useTranslation();
-
-  return (
-    <>
-      <Container className="justify-content-xl-center m-3 py-3">
-        <Card>
-          <h4>{t('adminCompetitionPage.empty')}</h4>
-        </Card>
       </Container>
     </>
   );

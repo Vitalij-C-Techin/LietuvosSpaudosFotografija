@@ -29,3 +29,23 @@
 
     object-fit: cover;
 }
+
+.lsf-table {
+    border: solid medium black;
+
+    >tbody {
+        >tr {
+            width: 100%;
+
+            td {
+                height: 100%;
+
+                border: none;
+
+                a {
+                    color: black;
+                }
+            }
+        }
+    }
+}
