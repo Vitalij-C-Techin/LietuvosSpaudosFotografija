@@ -157,7 +157,7 @@ i18n
             passwordMaxLength: 'Slaptažodis turi būti sudarytas iš mažiau nei 50 simbolių.',
             passwordPattern: 'Slaptažodį turi sudaryti mažosios, didžiosios raidės ir skaičiai.',
             phoneError: 'Netinkamas telefono numeris.',
-            registerSuccessuful: 'Registracija sėkminga.',
+            registerSuccessful: 'Registracija sėkminga.',
             emailError: 'Toks el. paštas jau egzistuoja.',
             title: 'Naudotojo registracija',
             name: 'Vardas',

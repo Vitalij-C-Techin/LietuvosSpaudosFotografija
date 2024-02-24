@@ -44,7 +44,7 @@ const RegistrationForm = () => {
     axios
       .post('http://localhost:8080/api/v1/register', formData)
       .then((response) => {
-        alert(t('registrationPage.registerSuccessuful'));
+        alert(t('registrationPage.registerSuccessful'));
         navigate('/login');
       })
       .catch((error) => setEmailError(t('registrationPage.emailError')));
