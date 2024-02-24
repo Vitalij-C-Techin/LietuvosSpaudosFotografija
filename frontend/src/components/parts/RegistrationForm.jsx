@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { isValidPhoneNumber } from 'react-phone-number-input';
+import { useNavigate } from 'react-router-dom';
 
 //TODO check layout after more work is done
 //TODO check console.log if any left
@@ -15,6 +16,7 @@ const RegistrationForm = () => {
   const { t } = useTranslation();
   const [selectedActivity, setSelectedActivity] = useState(``);
   const [emailError, setEmailError] = useState('');
+  const navigate = useNavigate();
 
   const {
     register,
@@ -27,12 +29,11 @@ const RegistrationForm = () => {
     defaultValues: {
       name: '',
       surname: '',
-      birthYear: '',
-      phoneNumber: '',
+      birth_year: '',
+      phone_number: '',
       email: '',
       password: '',
-      confirmPassword: '',
-      mediaName: ''
+      media_name: ''
     },
     criteriaMode: 'all'
   });
@@ -40,15 +41,13 @@ const RegistrationForm = () => {
   const password = watch('password');
 
   const handleFormSubmit = async (formData) => {
-    try {
-      const response = await axios.post('http://localhost:8080/api/v1/register', formData);
-      alert(t('registrationPage.registerSuccessuful'));
-      window.location.href = '/login';
-    } catch (error) {
-      if (error.response.status === 400) {
-        setEmailError(t('registrationPage.emailError'));
-      }
-    }
+    axios
+      .post('http://localhost:8080/api/v1/register', formData)
+      .then((response) => {
+        alert(t('registrationPage.registerSuccessuful'));
+        navigate('/login');
+      })
+      .catch((error) => setEmailError(t('registrationPage.emailError')));
   };
 
   const handleChangeActivity = (e) => {
@@ -61,7 +60,9 @@ const RegistrationForm = () => {
         <Row className="justify-content-md-center">
           <Col xs="12" sm="8" md="6" lg="4">
             <Card className="my-5">
-              <h2 style={{ textAlign: 'center' }}>{t('registrationPage.title')}</h2>
+              <h2 data-testid="form-title" style={{ textAlign: 'center' }}>
+                {t('registrationPage.title')}
+              </h2>
             </Card>
             <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
               {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
@@ -70,6 +71,7 @@ const RegistrationForm = () => {
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="name">{t('registrationPage.name')}</Form.Label>
                     <Form.Control
+                      data-testid="name-input"
                       type="text"
                       name="name"
                       id="name"
@@ -79,11 +81,11 @@ const RegistrationForm = () => {
                         required: t('registrationPage.required'),
                         minLength: {
                           value: 3,
-                          message: t('registrationPage.nameMinLegth')
+                          message: t('registrationPage.nameMinLength')
                         },
                         maxLength: {
-                          value: 20,
-                          message: t('registrationPage.nameMaxLegth')
+                          value: 50,
+                          message: t('registrationPage.nameMaxLength')
                         },
                         pattern: {
                           value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
@@ -110,6 +112,7 @@ const RegistrationForm = () => {
                     <Form.Label htmlFor="surname">{t('registrationPage.surname')}</Form.Label>
 
                     <Form.Control
+                      data-testid="surname-input"
                       type="text"
                       name="surname"
                       id="surname"
@@ -118,11 +121,11 @@ const RegistrationForm = () => {
                         required: t('registrationPage.required'),
                         minLength: {
                           value: 3,
-                          message: t('registrationPage.surnameMinLegth')
+                          message: t('registrationPage.surnameMinLength')
                         },
                         maxLength: {
-                          value: 20,
-                          message: t('registrationPage.surnameMaxLegth')
+                          value: 50,
+                          message: t('registrationPage.surnameMaxLength')
                         },
                         pattern: {
                           value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
@@ -149,6 +152,7 @@ const RegistrationForm = () => {
                 <Form.Label htmlFor="email">{t('registrationPage.email')}</Form.Label>
 
                 <Form.Control
+                  data-testid="email-input"
                   name="email"
                   id="email"
                   placeholder="example@example.com"
@@ -156,7 +160,7 @@ const RegistrationForm = () => {
                   {...register('email', {
                     required: t('registrationPage.required'),
                     pattern: {
-                      value: /\S+@\S+\.\S+/,
+                      value: /^[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.][a-zA-Z]+$/,
                       message: t('registrationPage.emailPattern')
                     }
                   })}
@@ -180,6 +184,7 @@ const RegistrationForm = () => {
                     <Form.Label htmlFor="password">{t('registrationPage.password')}</Form.Label>
 
                     <Form.Control
+                      data-testid="password-input"
                       type="password"
                       name="password"
                       id="password"
@@ -196,7 +201,7 @@ const RegistrationForm = () => {
                           message: t('registrationPage.passwordMaxLength')
                         },
                         pattern: {
-                          value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).$/,
+                          value: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-z]).+$/,
                           message: t('registrationPage.passwordPattern')
                         }
                       })}
@@ -217,24 +222,25 @@ const RegistrationForm = () => {
                 </Col>
                 <Col>
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="confirmPassword">
+                    <Form.Label htmlFor="confirm_password">
                       {t('registrationPage.confirmPassword')}
                     </Form.Label>
                     <Form.Control
+                      data-testid="confirm-password-input"
                       type="password"
-                      name="confirmPassword"
-                      id="confirmPassword"
+                      name="confirm_password"
+                      id="confirm_password"
                       placeholder={t('registrationPage.cpasswordPlaceholder')}
                       autoComplete="new-password"
-                      {...register('confirmPassword', {
+                      {...register('confirm_password', {
                         required: t('registrationPage.required'),
                         validate: (value) =>
-                          value === password || t('registrationPage.passwordMatch')
+                          value === password || t('registrationPage.passwordNotMatch')
                       })}
                     />
                     <ErrorMessage
                       errors={errors}
-                      name="confirmPassword"
+                      name="confirm_password"
                       render={({ messages }) =>
                         messages &&
                         Object.entries(messages).map(([type, message]) => (
@@ -251,14 +257,15 @@ const RegistrationForm = () => {
               <Row>
                 <Col md="6" lg="6">
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="birthYear">{t('registrationPage.byear')}</Form.Label>
+                    <Form.Label htmlFor="birth_year">{t('registrationPage.birthYear')}</Form.Label>
 
                     <Form.Control
+                      data-testid="birth-year-input"
                       type="number"
-                      name="birthYear"
-                      id="birthYear"
-                      placeholder={t('registrationPage.byearPlaceholder')}
-                      {...register('birthYear', {
+                      name="birth_year"
+                      id="birth_year"
+                      placeholder={t('registrationPage.birthYearPlaceholder')}
+                      {...register('birth_year', {
                         required: t('registrationPage.required'),
                         max: {
                           value: new Date().getFullYear() - 18,
@@ -272,7 +279,7 @@ const RegistrationForm = () => {
                     />
                     <ErrorMessage
                       errors={errors}
-                      name="birthYear"
+                      name="birth_year"
                       render={({ messages }) =>
                         messages &&
                         Object.entries(messages).map(([type, message]) => (
@@ -286,11 +293,11 @@ const RegistrationForm = () => {
                 </Col>
                 <Col md="6" lg="6">
                   <Form.Group className="mb-3">
-                    <Form.Label htmlFor="phoneNumber">
+                    <Form.Label htmlFor="phone_number">
                       {t('registrationPage.phoneNumber')}
                     </Form.Label>
                     <Controller
-                      name="phoneNumber"
+                      name="phone_number"
                       control={control}
                       rules={{
                         validate: (value) =>
@@ -299,17 +306,18 @@ const RegistrationForm = () => {
                       }}
                       render={({ field: { onChange, value } }) => (
                         <PhoneInput
+                          data-testid="phone-input"
                           value={value}
                           onChange={onChange}
                           defaultCountry="LT"
                           international
-                          id="phoneNumber"
+                          id="phone_number"
                         />
                       )}
                     />
                     <ErrorMessage
                       errors={errors}
-                      name="phoneNumber"
+                      name="phone_number"
                       render={({ messages }) =>
                         messages &&
                         Object.entries(messages).map(([type, message]) => (
@@ -327,30 +335,28 @@ const RegistrationForm = () => {
                 <Form.Label htmlFor="activity">{t('registrationPage.activity')}</Form.Label>
 
                 <Form.Select
+                  data-testid="activity-input"
                   name="activity"
                   id="activity"
                   size={1}
                   value={selectedActivity}
                   onChange={handleChangeActivity}
                 >
-                  <option value="fworker">{t('registrationPage.work1')}</option>
-                  <option value="mworker">{t('registrationPage.work2')}</option>
+                  <option value="freelanceWorker">{t('registrationPage.work1')}</option>
+                  <option value="mediaWorker">{t('registrationPage.work2')}</option>
                 </Form.Select>
 
-                {selectedActivity === 'mworker' && (
+                {selectedActivity === 'mediaWorker' && (
                   <>
-                    <Form.Label htmlFor="mediaName" className="mt-3 ">
+                    <Form.Label htmlFor="media_name" className="mt-3">
                       {t('registrationPage.mediaName')}
                     </Form.Label>
                     <Form.Control
-                      id="mediaName"
+                      data-testid="media-name-input"
+                      id="media_name"
                       as="textarea"
-                      {...register('mediaName', {
+                      {...register('media_name', {
                         required: t('registrationPage.required'),
-                        minLength: {
-                          value: 2,
-                          message: t('registrationPage.mediaNameMinLength')
-                        },
                         maxLength: {
                           value: 50,
                           message: t('registrationPage.mediaNameMaxLength')
@@ -359,7 +365,7 @@ const RegistrationForm = () => {
                     ></Form.Control>
                     <ErrorMessage
                       errors={errors}
-                      name="mediaName"
+                      name="media_name"
                       render={({ messages }) =>
                         messages &&
                         Object.entries(messages).map(([type, message]) => (
@@ -374,19 +380,22 @@ const RegistrationForm = () => {
               </Form.Group>
               <Form.Group className="mb-3">
                 <Form.Check
+                  data-testid="agreement-input"
                   type="checkbox"
-                  id="Uagreement"
-                  name="Uagreement"
-                  label={t('registrationPage.Uagreement')}
-                  htmlFor="Uagreement"
-                  {...register('Uagreement', { required: t('registrationPage.required') })}
+                  id="user_agreement"
+                  name="user_agreement"
+                  label={t('registrationPage.userAgreement')}
+                  htmlFor="user_agreement"
+                  {...register('user_agreement', { required: t('registrationPage.required') })}
                 />
-                {errors.Uagreement && (
-                  <Form.Text className="text-danger">{errors.Uagreement.message}</Form.Text>
+                {errors.user_agreement && (
+                  <Form.Text className="text-danger">{errors.user_agreement.message}</Form.Text>
                 )}
               </Form.Group>
 
-              <Button type="submit">{t('registrationPage.button')}</Button>
+              <Button type="submit" data-testid="submit-button">
+                {t('registrationPage.button')}
+              </Button>
             </Form>
           </Col>
         </Row>
