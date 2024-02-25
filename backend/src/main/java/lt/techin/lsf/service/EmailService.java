@@ -2,45 +2,61 @@ package lt.techin.lsf.service;
 
 import com.mailjet.client.errors.MailjetException;
 import com.mailjet.client.MailjetClient;
-import com.mailjet.client.MailjetRequest;
-import com.mailjet.client.MailjetResponse;
-import com.mailjet.client.resource.Emailv31;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import com.mailjet.client.transactional.SendContact;
+import com.mailjet.client.transactional.SendEmailsRequest;
+import com.mailjet.client.transactional.TrackOpens;
+import com.mailjet.client.transactional.TransactionalEmail;
+import com.mailjet.client.transactional.response.SendEmailsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 @Service
+@PropertySource(
+        ignoreResourceNotFound = false,
+        value = "classpath:credentials.yaml")
 public class EmailService {
 
     private final MailjetClient mailjetClient;
 
+    @Value("${email}")
+    private String senderMail;
+
+    private String recipientMail;
+
+    private String subject;
+
+    private String htmlMailMessage;
     @Autowired
     public EmailService(MailjetClient mailjetClient) {
         this.mailjetClient = mailjetClient;
     }
 
-    public void sendMailUsingMailjet() {
+    public void sendMailUsingMailjet(String recipientMail) {
+        System.out.println(senderMail);
         try {
-            MailjetRequest request = new MailjetRequest(Emailv31.resource)
-                    .property(Emailv31.MESSAGES, new JSONArray()
-                            .put(new JSONObject()
-                                    .put(Emailv31.Message.FROM, new JSONObject()
-                                            .put("Email", "valdemaras.gedziunas@stud.techin.lt")
-                                            .put("Name", "Mailjet Pilot"))
-                                    .put(Emailv31.Message.TO, new JSONArray()
-                                            .put(new JSONObject()
-                                                    .put("Email", "valdemaras.ged@gmail.com")
-                                                    .put("Name", "passenger 1")))
-                                    .put(Emailv31.Message.SUBJECT, "Your email flight plan!")
-                                    .put(Emailv31.Message.TEXTPART, "Dear passenger 1, welcome to Mailjet! May the delivery force be with you!")
-                                    .put(Emailv31.Message.HTMLPART, "<h3>Dear passenger 1, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!</h3><br />May the delivery force be with you!")));
+            TransactionalEmail message1 = TransactionalEmail
+                    .builder()
+                    .to(new SendContact(recipientMail))
+                    .from(new SendContact(senderMail))
+                    .htmlPart("<h1>This is the HTML content of the mail</h1>")
+                    .subject("This is the subject")
+                    .trackOpens(TrackOpens.ENABLED)
+                    .header("test-header-key", "test-value")
+                    .customID("custom-id-value")
+                    .build();
 
-            MailjetResponse response = mailjetClient.post(request);
-            System.out.println(response.getStatus());
-            System.out.println(response.getData());
+            SendEmailsRequest request = SendEmailsRequest
+                    .builder()
+                    .message(message1)
+                    .build();
+
+
+            SendEmailsResponse response = request.sendWith(mailjetClient);
+
         } catch (MailjetException e) {
-            e.printStackTrace(); // Handle exception as needed
+            e.printStackTrace();
         }
     }
 }

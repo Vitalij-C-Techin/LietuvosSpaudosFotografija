@@ -21,9 +21,6 @@ public class MailjetConfiguration {
     @Value("${secretKey}")
     private String secretKey;
 
-    @Value("${email}")
-    private String email;
-
     @Bean
     public MailjetClient mailjetClient() {
         ClientOptions options = ClientOptions.builder()

@@ -1,6 +1,5 @@
 package lt.techin.lsf.controller;
 
-import com.mailjet.client.errors.MailjetException;
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.LoginCredentialsIncorrectException;
@@ -15,9 +14,7 @@ import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.model.response.UserAuthenticationResponse;
 import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.service.AuthenticationService;
-import lt.techin.lsf.service.EmailService;
 import lt.techin.lsf.service.PasswordResetService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +25,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final PasswordResetService passwordResetService;
-    @Autowired
-    private EmailService emailService;
+
     private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AuthenticationController.class);
 
     @GetMapping("/me")
@@ -74,18 +70,9 @@ public class AuthenticationController {
     @PostMapping("/forget-password")
     public ResponseEntity<String> forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
         try {
-            forgetPasswordRequest.validateData();
-            String userEmail = forgetPasswordRequest.getEmail();
-
-            logger.info("Request received to reset password for email: {}", userEmail);
-
-            passwordResetService.resetPassword(userEmail);
-
-            logger.info("Password reset initiated for email: {}", userEmail);
-            emailService.sendMailUsingMailjet();
+            passwordResetService.resetPassword(forgetPasswordRequest);
             return ResponseEntity.ok("Forget password request processed successfully");
         } catch (ValidationException e) {
-            logger.error("Validation error in forgetPassword request", e);
             return ResponseEntity.badRequest().body("Validation error: " + e.getMessage());
         }
     }
