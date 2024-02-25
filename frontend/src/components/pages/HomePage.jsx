@@ -31,7 +31,7 @@ function HomePage() {
 
   return (
     <>
-      <Container>
+      <Container className="pb-5">
         <Card className="image-header-text">
           <h3>{t('layoutPage.imageHeaderText')}</h3>
         </Card>
@@ -55,24 +55,24 @@ function HomePage() {
           </Carousel.Item>
         </Carousel>
         <Card className="carousel-buttons">
-          <Row className="justify-content-md-center">
-            <Col md="auto">
+          <Row className="justify-content-center">
+            <Col xs="12" sm="10" md="8" lg="2">
               <Button
                 variant="primary"
                 className="btn-lg custom-button-width"
                 onClick={navigateToLoginPage}
               >
-                Login
+                 {t('loginPage.login')}
               </Button>
             </Col>
             <Col lg="2"></Col>
-            <Col md="auto">
+            <Col xs="12" sm="10" md="8" lg="2">
               <Button
                 variant="secondary"
                 className="btn-lg custom-button-width"
                 onClick={navigateToRegistrationPage}
               >
-                Register
+                 {t('loginPage.register')}
               </Button>
             </Col>
           </Row>
@@ -80,17 +80,17 @@ function HomePage() {
 
         <Card className="py-5">
           <h3 className="contest">{t('homePage.constestListTitle')}</h3>
-          <div className='divider ms-4'></div>
+          <div className="divider"></div>
         </Card>
 
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
-            <Row>
-              <Col md={2} className="d-flex justify-content-center">
+            <Row className="justify-content-center">
+              <Col xs="" md={4} lg={2} className="card-image-container">
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-                <Card.Title>COMPETITION TITLE</Card.Title>
+                <Card.Title className="mt-5">{t('loginPage.competitionTitle')}</Card.Title>
                 <Card.Text>
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -99,8 +99,15 @@ function HomePage() {
                   pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                   officia deserunt mollit anim id est laborum."
                 </Card.Text>
-                <Card.Text className="d-inline pe-3 competition-end">Competition ends in:</Card.Text>
-                <Button>PARTICIPATE</Button>
+                <Row className="justify-content-center">
+                  <Col xs="12" lg="10">
+                    <Card.Text className="pe-3 competition-end">{t('loginPage.competitionEnd')}</Card.Text>
+                  </Col>
+                  <Col xs="12" lg="2">
+                    {' '}
+                    <Button className="mt-2"> {t('loginPage.participate')}</Button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Card.Body>
@@ -109,11 +116,16 @@ function HomePage() {
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
-              <Col md={2} className="d-flex justify-content-center">
+              <Col
+                xs=""
+                md={4}
+                lg={2}
+                className="card-image-container justify-content-center"
+              >
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-                <Card.Title>COMPETITION TITLE</Card.Title>
+                <Card.Title className="mt-5">{t('loginPage.competitionTitle')}</Card.Title>
                 <Card.Text>
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -122,8 +134,15 @@ function HomePage() {
                   pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                   officia deserunt mollit anim id est laborum."
                 </Card.Text>
-                <Card.Text className="d-inline pe-3 competition-end">Competition ends in:</Card.Text>
-                <Button>PARTICIPATE</Button>
+                <Row className="justify-content-center">
+                  <Col xs="12" lg="10">
+                    <Card.Text className="pe-3 competition-end">{t('loginPage.competitionEnd')}</Card.Text>
+                  </Col>
+                  <Col xs="12" lg="2">
+                    {' '}
+                    <Button className="mt-2"> {t('loginPage.participate')}</Button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Card.Body>
@@ -131,12 +150,12 @@ function HomePage() {
 
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
-            <Row>
-              <Col md={2} className="d-flex justify-content-center">
+            <Row className="justify-content-center">
+              <Col xs="12" md={4} lg={2} className="card-image-container">
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
-                <Card.Title>COMPETITION TITLE</Card.Title>
+                <Card.Title className="mt-5">{t('loginPage.competitionTitle')}</Card.Title>
                 <Card.Text>
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                   incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -145,8 +164,15 @@ function HomePage() {
                   pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
                   officia deserunt mollit anim id est laborum."
                 </Card.Text>
-                <Card.Text className="d-inline pe-3 competition-end">Competition ends in:</Card.Text>
-                <Button>PARTICIPATE</Button>
+                <Row className="justify-content-center">
+                  <Col xs="12" lg="10">
+                    <Card.Text className="pe-3 competition-end">{t('loginPage.competitionEnd')}</Card.Text>
+                  </Col>
+                  <Col xs="12" lg="2">
+                    {' '}
+                    <Button className="mt-2"> {t('loginPage.participate')}</Button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </Card.Body>

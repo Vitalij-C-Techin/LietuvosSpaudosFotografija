@@ -2,7 +2,6 @@ package lt.techin.lsf.controller;
 
 import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.exception.LoginCredentialsIncorrectException;
 import lt.techin.lsf.exception.UserNotAuthenticatedException;
 import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.User;
@@ -16,12 +15,14 @@ import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.service.AuthenticationService;
 import lt.techin.lsf.service.PasswordResetService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("api/v1")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final PasswordResetService passwordResetService;
@@ -47,7 +48,7 @@ public class AuthenticationController {
         UserAuthentication userAuthentication = authenticationService.authentication(authenticationRequest);
 
         if (null == userAuthentication) {
-            throw new LoginCredentialsIncorrectException("User credentials incorrect");
+            throw new BadCredentialsException("User credentials incorrect");
         }
 
         return userAuthentication.getUserAuthenticationResponse();
@@ -66,7 +67,6 @@ public class AuthenticationController {
         return userAuthentication.getUserAuthenticationResponse();
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/forget-password")
     public ResponseEntity<String> forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
         try {

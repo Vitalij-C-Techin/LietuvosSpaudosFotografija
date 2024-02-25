@@ -1,36 +1,34 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
-
-const lngs = [
-  { code: 'en', lang: 'English' },
-  { code: 'lt', lang: 'Lithuanian' }
-];
+import { Row, Col } from 'react-bootstrap';
 
 const LanguageSwitch = () => {
   const { i18n } = useTranslation();
+  const [currentLang, setCurrentLang] = useState(i18n.language);
 
   const handleLangChange = (code) => {
     i18n.changeLanguage(code);
+    setCurrentLang(code);
   };
 
   return (
-    <div data-testid="language-switch">
-      {lngs.map((lng) => (
+    <Row className='justify-content-center' data-testid="language-switch">
+      <Col >
         <Button
+          className='p-0'
           variant="outline"
           bg="transparent"
-          key={lng.code}
-          onClick={() => handleLangChange(lng.code)}
+          onClick={() => handleLangChange(currentLang === 'en' ? 'lt' : 'en')}
           data-testid="language-switch-button"
           style={{
-            fontWeight: i18n.language === lng.code ? 'bold' : 'normal'
+             fontWeight:'600', width: '100%'
           }}
         >
-          {lng.lang}
+          {currentLang === 'en' ? 'Change Language' : 'Pakeisti Kalba'}
         </Button>
-      ))}
-    </div>
+      </Col>
+    </Row>
   );
 };
 

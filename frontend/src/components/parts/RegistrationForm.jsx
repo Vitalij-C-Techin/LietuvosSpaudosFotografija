@@ -1,238 +1,407 @@
-import { useState } from 'react';
-import PhoneInput from 'react-phone-number-input';
+import {useState} from 'react';
+import PhoneInput, {isValidPhoneNumber} from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import {Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
 import axios from 'axios';
-import { useTranslation } from 'react-i18next';
-
-//TODO check layout after more work is done
-//TODO check console.log if any left
+import {useTranslation} from 'react-i18next';
+import {Controller, useForm} from 'react-hook-form';
+import {ErrorMessage} from '@hookform/error-message';
+import {useNavigate} from 'react-router-dom';
 
 const RegistrationForm = () => {
-  const { t } = useTranslation();
-  const [selectedActivity, setSelectedActivity] = useState(``);
-  const [phoneError, setPhoneError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [emailError, setEmailError] = useState('');
+    const {t} = useTranslation();
+    const [selectedActivity, setSelectedActivity] = useState(``);
+    const [emailError, setEmailError] = useState('');
+    const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    name: '',
-    surname: '',
-    birth_year: '',
-    phone_number: '',
-    email: '',
-    password: '',
-    media_name: ''
-  });
-
-  const validatePassword = (value) => {
-    const errors = [];
-    const minPasswordLength = 6;
-    const maxPasswordLength = 20;
-    if (value !== formData.confirmPassword) {
-      errors.push(t('registrationPage.password1'));
-    }
-    if (value.length < minPasswordLength || value.length > maxPasswordLength) {
-      errors.push(
-        t('registrationPage.password2', {
-          min: minPasswordLength,
-          max: maxPasswordLength
-        })
-      );
-    }
-    if (!/[A-Z]/.test(value)) {
-      errors.push(t('registrationPage.password3'));
-    }
-    if (!/\d/.test(value)) {
-      errors.push(t('registrationPage.password4'));
-    }
-
-    setPasswordError(errors.join(' '));
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
+    const {
+        register,
+        handleSubmit,
+        watch,
+        control,
+        formState: {errors}
+    } = useForm({
+        reValidateMode: 'onChange',
+        defaultValues: {
+            name: '',
+            surname: '',
+            birth_year: '',
+            phone_number: '',
+            email: '',
+            password: '',
+            media_name: ''
+        },
+        criteriaMode: 'all'
     });
 
-    if (name === 'phone_number') {
-      validatePhone(value);
-    }
+    const password = watch('password');
 
-    if (name === 'confirmPassword' || (name === 'password' && formData.confirmPassword)) {
-      validatePassword(value);
-    }
-  };
+    const handleFormSubmit = async (formData) => {
+        axios
+            .post('http://localhost:8080/api/v1/register', formData)
+            .then((response) => {
+                alert(t('registrationPage.registerSuccessful'));
+                navigate('/login');
+            })
+            .catch((error) => setEmailError(t('registrationPage.emailError')));
+    };
 
-  const validatePhone = (phone_number) => {
-    const phoneRegex = /^\+[1-9]\d{1,14}$/;
+    const handleChangeActivity = (e) => {
+        setSelectedActivity(e.target.value);
+    };
 
-    if (!phoneRegex.test(phone_number)) {
-      setPhoneError(t('registrationPage.phoneError'));
-    } else {
-      setPhoneError('');
-    }
-  };
+    return (
+        <>
+            <Container className="registration-form-container mb-5">
+                <Row className="justify-content-md-center">
+                    <Col xs="12" sm="8" md="6" lg="4">
+                        <Card className="my-5">
+                            <h2 data-testid="form-title" style={{textAlign: 'center'}}>
+                                {t('registrationPage.title')}
+                            </h2>
+                        </Card>
+                        <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
+                            {emailError && <p style={{color: 'red'}}>{emailError}</p>}
+                            <Row>
+                                <Col>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="name">{t('registrationPage.name')}</Form.Label>
+                                        <Form.Control
+                                            data-testid="name-input"
+                                            type="text"
+                                            name="name"
+                                            id="name"
+                                            autoComplete="name"
+                                            placeholder={t('registrationPage.namePlaceholder')}
+                                            {...register('name', {
+                                                required: t('registrationPage.required'),
+                                                minLength: {
+                                                    value: 3,
+                                                    message: t('registrationPage.nameMinLength')
+                                                },
+                                                maxLength: {
+                                                    value: 50,
+                                                    message: t('registrationPage.nameMaxLength')
+                                                },
+                                                pattern: {
+                                                    value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
+                                                    message: t('registrationPage.namePattern')
+                                                }
+                                            })}
+                                        />
+                                        <ErrorMessage
+                                            errors={errors}
+                                            name="name"
+                                            render={({messages}) =>
+                                                messages &&
+                                                Object.entries(messages).map(([type, message]) => (
+                                                    <p className="text-danger mb-1 " style={{fontSize: '14px'}}
+                                                       key={type}>
+                                                        {message}
+                                                    </p>
+                                                ))
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="surname">{t('registrationPage.surname')}</Form.Label>
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const birthYear = new Date(formData.birth_year).getFullYear();
-      const response = await axios.post('http://localhost:8080/api/v1/register', {
-        ...formData,
-        birth_year: birthYear
-      });
-      alert(t('registrationPage.registerSuccessuful'));
-      window.location.href = '/login';
-    } catch (error) {
-      if (error.response.status === 400) {
-        setEmailError(t('registerSuccessuful.emailError'));
-      }
-    }
+                                        <Form.Control
+                                            data-testid="surname-input"
+                                            type="text"
+                                            name="surname"
+                                            id="surname"
+                                            placeholder={t('registrationPage.surnamePlaceholder')}
+                                            {...register('surname', {
+                                                required: t('registrationPage.required'),
+                                                minLength: {
+                                                    value: 3,
+                                                    message: t('registrationPage.surnameMinLength')
+                                                },
+                                                maxLength: {
+                                                    value: 50,
+                                                    message: t('registrationPage.surnameMaxLength')
+                                                },
+                                                pattern: {
+                                                    value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
+                                                    message: t('registrationPage.surnamePattern')
+                                                }
+                                            })}
+                                        />
+                                        <ErrorMessage
+                                            errors={errors}
+                                            name="surname"
+                                            render={({messages}) =>
+                                                messages &&
+                                                Object.entries(messages).map(([type, message]) => (
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}}
+                                                       key={type}>
+                                                        {message}
+                                                    </p>
+                                                ))
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
+                            <Form.Group className="mb-3">
+                                <Form.Label htmlFor="email">{t('registrationPage.email')}</Form.Label>
 
-    if (!passwordError) {
-      return;
-    } else {
-      alert(t('registrationPage.error'));
-    }
-  };
+                                <Form.Control
+                                    data-testid="email-input"
+                                    name="email"
+                                    id="email"
+                                    placeholder="example@example.com"
+                                    autoComplete="email"
+                                    {...register('email', {
+                                        required: t('registrationPage.required'),
+                                        pattern: {
+                                            value: /^[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.][a-zA-Z]+$/,
+                                            message: t('registrationPage.emailPattern')
+                                        }
+                                    })}
+                                />
+                                <ErrorMessage
+                                    errors={errors}
+                                    name="email"
+                                    render={({messages}) =>
+                                        messages &&
+                                        Object.entries(messages).map(([type, message]) => (
+                                            <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
+                                                {message}
+                                            </p>
+                                        ))
+                                    }
+                                />
+                            </Form.Group>
+                            <Row>
+                                <Col>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="password">{t('registrationPage.password')}</Form.Label>
 
-  const handleChangeActivity = (e) => {
-    setSelectedActivity(e.target.value);
-  };
+                                        <Form.Control
+                                            data-testid="password-input"
+                                            type="password"
+                                            name="password"
+                                            id="password"
+                                            placeholder={t('registrationPage.passwordPlaceholder')}
+                                            autoComplete="new-password"
+                                            {...register('password', {
+                                                required: t('registrationPage.required'),
+                                                minLength: {
+                                                    value: 8,
+                                                    message: t('registrationPage.passwordMinLength')
+                                                },
+                                                maxLength: {
+                                                    value: 50,
+                                                    message: t('registrationPage.passwordMaxLength')
+                                                },
+                                                pattern: {
+                                                    value: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-z]).+$/,
+                                                    message: t('registrationPage.passwordPattern')
+                                                }
+                                            })}
+                                        />
+                                        <ErrorMessage
+                                            errors={errors}
+                                            name="password"
+                                            render={({messages}) =>
+                                                messages &&
+                                                Object.entries(messages).map(([type, message]) => (
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}}
+                                                       key={type}>
+                                                        {message}
+                                                    </p>
+                                                ))
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col>
+                                    <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="confirm_password">
+                                            {t('registrationPage.confirmPassword')}
+                                        </Form.Label>
+                                        <Form.Control
+                                            data-testid="confirm-password-input"
+                                            type="password"
+                                            name="confirm_password"
+                                            id="confirm_password"
+                                            placeholder={t('registrationPage.cpasswordPlaceholder')}
+                                            autoComplete="new-password"
+                                            {...register('confirm_password', {
+                                                required: t('registrationPage.required'),
+                                                validate: (value) =>
+                                                    value === password || t('registrationPage.passwordNotMatch')
+                                            })}
+                                        />
+                                        <ErrorMessage
+                                            errors={errors}
+                                            name="confirm_password"
+                                            render={({messages}) =>
+                                                messages &&
+                                                Object.entries(messages).map(([type, message]) => (
+                                                    <p className="text-danger" style={{fontSize: '14px'}} key={type}>
+                                                        {message}
+                                                    </p>
+                                                ))
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-  return (
-    <div>
-      <h2 style={{ textAlign: 'center' }}>{t('registrationPage.title')}</h2>
-      <form onSubmit={handleSubmit}>
-        {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
-        {phoneError && <p style={{ color: 'red' }}>{phoneError}</p>}
-        <label htmlFor="name">{t('registrationPage.name')}</label>
-        <br />
-        <input
-          type="text"
-          name="name"
-          id="name"
-          onChange={handleChange}
-          required
-          autoComplete="name"
-          placeholder={t('registrationPage.namePlaceholder')}
-        />
-        <br />
-        <label htmlFor="surname">{t('registrationPage.surname')}</label>
-        <br />
-        <input
-          type="text"
-          name="surname"
-          id="surname"
-          required
-          onChange={handleChange}
-          placeholder={t('registrationPage.surnamePlaceholder')}
-        />
-        <br />
-        <label htmlFor="email">{t('registrationPage.email')}</label>
-        <br />
-        <input
-          type="email"
-          name="email"
-          id="email"
-          required
-          placeholder="egzamle@egzample.com"
-          autoComplete="email"
-          onChange={handleChange}
-        />
-        <br />
-        <label htmlFor="password">{t('registrationPage.password')}</label>
-        <br />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          required
-          value={formData.password}
-          onChange={handleChange}
-          placeholder={t('registrationPage.passwordPlaceholder')}
-          autoComplete="new-password"
-        />
-        <br />
-        <label htmlFor="confirmPassword">{t('registrationPage.confirmPassword')}</label>
-        {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
-        <br />
-        <input
-          type="password"
-          name="confirmPassword"
-          id="confirmPassword"
-          required
-          onChange={handleChange}
-          placeholder={t('registrationPage.cpasswordPlaceholder')}
-          autoComplete="new-password"
-        />
-        <br />
-        <label htmlFor="birth_year">{t('registrationPage.byear')}</label>
-        <br />
-        <input
-          type="text"
-          name="birth_year"
-          pattern="\d{4}"
-          id="birth_year"
-          required
-          onChange={handleChange}
-          placeholder={t('registrationPage.byearPlaceholder')}
-        />
-        <br />
-        <label htmlFor="phone_number">{t('registrationPage.phoneNumber')}</label>
-        <br />
-        <PhoneInput
-          international
-          id="phone_number"
-          name="phone_number"
-          defaultCountry="LT"
-          required
-          value={formData.phone_number}
-          onChange={(value) => {
-            setFormData((prevData) => ({ ...prevData, phone_number: value }));
-            validatePhone(value);
-          }}
-        />
-        <br />
-        <label htmlFor="activity">{t('registrationPage.activity')} </label>
-        <br />
+                            <Row>
+                                <Col md="6" lg="6">
+                                    <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="birth_year">{t('registrationPage.birthYear')}</Form.Label>
 
-        <select
-          name="activity"
-          id="activity"
-          size={1}
-          value={selectedActivity}
-          onChange={handleChangeActivity}
-        >
-          <option value="fworker">{t('registrationPage.work1')}</option>
-          <option value="mworker">{t('registrationPage.work2')} </option>
-        </select>
-        <br />
-        {selectedActivity === 'mworker' && (
-          <>
-            <label htmlFor="media_name">{t('registrationPage.textArea')}</label>
-            <br />
-            <textarea
-              name="media_name"
-              cols="30"
-              id="media_name"
-              rows="3"
-              required
-              onChange={handleChange}
-            ></textarea>
-          </>
-        )}
-        <br />
-        <input type="checkbox" id="Uagreement" name="Uagreement" required />
-        <label htmlFor="Uagreement">{t('registrationPage.Uagreement')} </label>
-        <br />
+                                        <Form.Control
+                                            data-testid="birth-year-input"
+                                            type="number"
+                                            name="birth_year"
+                                            id="birth_year"
+                                            placeholder={t('registrationPage.birthYearPlaceholder')}
+                                            {...register('birth_year', {
+                                                required: t('registrationPage.required'),
+                                                max: {
+                                                    value: new Date().getFullYear() - 18,
+                                                    message: t('registrationPage.birthYearMax')
+                                                },
+                                                min: {
+                                                    value: new Date().getFullYear() - 100,
+                                                    message: t('registrationPage.birthYearMin')
+                                                }
+                                            })}
+                                        />
+                                        <ErrorMessage
+                                            errors={errors}
+                                            name="birth_year"
+                                            render={({messages}) =>
+                                                messages &&
+                                                Object.entries(messages).map(([type, message]) => (
+                                                    <p className="text-danger" style={{fontSize: '14px'}} key={type}>
+                                                        {message}
+                                                    </p>
+                                                ))
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                                <Col md="6" lg="6">
+                                    <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="phone_number">
+                                            {t('registrationPage.phoneNumber')}
+                                        </Form.Label>
+                                        <Controller
+                                            name="phone_number"
+                                            control={control}
+                                            rules={{
+                                                validate: (value) =>
+                                                    isValidPhoneNumber(`${value}`) || t('registrationPage.phoneError'),
+                                                required: t('registrationPage.required')
+                                            }}
+                                            render={({field: {onChange, value}}) => (
+                                                <PhoneInput
+                                                    data-testid="phone-input"
+                                                    value={value}
+                                                    onChange={onChange}
+                                                    defaultCountry="LT"
+                                                    international
+                                                    id="phone_number"
+                                                />
+                                            )}
+                                        />
+                                        <ErrorMessage
+                                            errors={errors}
+                                            name="phone_number"
+                                            render={({messages}) =>
+                                                messages &&
+                                                Object.entries(messages).map(([type, message]) => (
+                                                    <p className="text-danger mx-5" style={{fontSize: '14px'}}
+                                                       key={type}>
+                                                        {message}
+                                                    </p>
+                                                ))
+                                            }
+                                        />
+                                    </Form.Group>
+                                </Col>
+                            </Row>
 
-        <button type="submit">{t('registrationPage.button')}</button>
-      </form>
-    </div>
-  );
+                            <Form.Group className="mb-3">
+                                <Form.Label htmlFor="activity">{t('registrationPage.activity')}</Form.Label>
+
+                                <Form.Select
+                                    data-testid="activity-input"
+                                    name="activity"
+                                    id="activity"
+                                    size={1}
+                                    value={selectedActivity}
+                                    onChange={handleChangeActivity}
+                                >
+                                    <option value="freelanceWorker">{t('registrationPage.work1')}</option>
+                                    <option value="mediaWorker">{t('registrationPage.work2')}</option>
+                                </Form.Select>
+
+                                {selectedActivity === 'mediaWorker' && (
+                                    <>
+                                        <Form.Label htmlFor="media_name" className="mt-3">
+                                            {t('registrationPage.mediaName')}
+                                        </Form.Label>
+                                        <Form.Control
+                                            data-testid="media-name-input"
+                                            id="media_name"
+                                            as="textarea"
+                                            {...register('media_name', {
+                                                required: t('registrationPage.required'),
+                                                maxLength: {
+                                                    value: 50,
+                                                    message: t('registrationPage.mediaNameMaxLength')
+                                                }
+                                            })}
+                                        ></Form.Control>
+                                        <ErrorMessage
+                                            errors={errors}
+                                            name="media_name"
+                                            render={({messages}) =>
+                                                messages &&
+                                                Object.entries(messages).map(([type, message]) => (
+                                                    <p className="text-danger" style={{fontSize: '14px'}} key={type}>
+                                                        {message}
+                                                    </p>
+                                                ))
+                                            }
+                                        />
+                                    </>
+                                )}
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Check
+                                    data-testid="agreement-input"
+                                    type="checkbox"
+                                    id="user_agreement"
+                                    name="user_agreement"
+                                    label={t('registrationPage.userAgreement')}
+                                    htmlFor="user_agreement"
+                                    {...register('user_agreement', {required: t('registrationPage.required')})}
+                                />
+                                {errors.user_agreement && (
+                                    <Form.Text className="text-danger">{errors.user_agreement.message}</Form.Text>
+                                )}
+                            </Form.Group>
+
+                            <Button type="submit" data-testid="submit-button">
+                                {t('registrationPage.button')}
+                            </Button>
+                        </Form>
+                    </Col>
+                </Row>
+            </Container>
+        </>
+    );
 };
 
 export default RegistrationForm;
