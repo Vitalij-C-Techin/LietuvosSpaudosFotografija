@@ -32,7 +32,7 @@ const PasswordChangeForm = () => {
 
   const handleFormSubmit = async (formData) => {
     axios
-      .post(`http://localhost:8080/api/v1/reset-password?token=${resetToken}`, formData)
+      .post(`http://localhost:8080/api/v1/change-password?token=${resetToken}`, formData)
       .then((response) => {
         alert(t('passwordChangePage.passwordChangeSuccessful'));
         navigate('/login');

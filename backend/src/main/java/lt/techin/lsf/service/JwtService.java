@@ -34,22 +34,6 @@ public class JwtService {
                 .compact();
     }
 
-    public String generatePasswordResetToken(String userEmail, long expiration) {
-        Map<String, Object> claims = new HashMap<>();
-        // You can add custom claims for password reset, such as user email or reset type
-        claims.put("email", userEmail);
-        claims.put("resetType", "password");
-
-        return Jwts
-                .builder()
-                .setClaims(claims)
-                .setSubject(userEmail)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                .compact();
-    }
-
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails, jwtExpiration);
     }

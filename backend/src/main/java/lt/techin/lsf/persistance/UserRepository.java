@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<UserRecord, UUID> {
 
     @Transactional
     void deleteByEmail(String email);
+
+    UserRecord findByPasswordResetToken(String passwordResetToken);
 }

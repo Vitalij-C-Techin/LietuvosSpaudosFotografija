@@ -12,8 +12,11 @@ import lt.techin.lsf.model.requests.ForgetPasswordRequest;
 import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.model.response.UserAuthenticationResponse;
 import lt.techin.lsf.model.response.UserResponse;
+import lt.techin.lsf.persistance.model.UserRecord;
 import lt.techin.lsf.service.AuthenticationService;
+import lt.techin.lsf.service.ChangePasswordService;
 import lt.techin.lsf.service.PasswordResetService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final PasswordResetService passwordResetService;
+    private final ChangePasswordService changePasswordService;
 
 
     @GetMapping("/me")
@@ -77,9 +81,12 @@ public class AuthenticationController {
     }
 
         @PostMapping("/change-password")
-        public Object changePassword () {
+        public ResponseEntity<String> changePassword (@RequestParam String token, @RequestBody UserRecord userRecord) {
+            System.out.println(token);
+            System.out.println(userRecord.getPassword());
+            changePasswordService.changeUserPassword(token,userRecord.getPassword());
             //TODO
-            return "change password here";
+            return new ResponseEntity<>(token, HttpStatus.ACCEPTED);
         }
     }
 
