@@ -2,6 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import axios from 'axios';
 import ForgotPasswordForm from '../parts/ForgotPasswordForm';
+import { act } from 'react-dom/test-utils';
 
 jest.mock('axios');
 
@@ -33,9 +34,12 @@ test('displays error message on unsuccessful email submission', async () => {
   const emailInput = screen.getByTestId('email-input'); // Use data-testid
   fireEvent.change(emailInput, { target: { value: 'test@mail.com' } });
 
-  fireEvent.click(screen.getByTestId('recover-button')); // Use data-testid
-
-  await waitFor(() => {
-    expect(screen.getByText(errorMessage)).toBeInTheDocument();
+  await act(async () => {
+    fireEvent.click(screen.getByTestId('recover-button')); // Use data-testid
   });
+
+  const errorMsg = screen.getByTestId('error-message');
+
+  expect(errorMsg).toBeInTheDocument();
+  expect(screen.getByText(errorMessage)).toBeInTheDocument();
 });
