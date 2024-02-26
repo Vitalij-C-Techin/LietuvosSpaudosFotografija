@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const UserCompetitionsListPage = () => {
+const UserCompetitionsRequestPage = () => {
   const [t] = useTranslation();
 
-  const [competitions, setCompetitions] = useState([null]);
+  const [competitions, setCompetitions] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -29,8 +28,6 @@ const UserCompetitionsListPage = () => {
         </Card>
       </Container>
 
-      <ActionList />
-
       {!!!isLoading && !!competitions && <CompetitionList competitions={competitions} />}
     </>
   );
@@ -48,7 +45,8 @@ const CompetitionList = ({ competitions }) => {
       <Table responsive hover striped className="lsf-table">
         <thead className="table-light">
           <tr>
-            <th className="col-4">{t('UserCompetitionsRequestPage.competitionName')}</th>
+            <th className="col-4">{t('adminUserParticipationRequestPage.participator')}</th>
+            <th className="col-auto">{t('adminUserParticipationRequestPage.competition')}</th>
             <th></th>
           </tr>
         </thead>
@@ -61,21 +59,30 @@ const CompetitionList = ({ competitions }) => {
 const CompetitionSingle = ({ competition }) => {
   const [t] = useTranslation();
 
-  const handleSelect = () => {
+  const handleDetails = () => {
     console.log('Handle Info');
   };
 
   return (
     <tr>
-      <td className="col-12">Competition name</td>
-      <td>
+      <td className="col-4">
+        <Link to="#link-to-user?" target="_blank">
+          Competition name
+        </Link>
+      </td>
+      <td className="col-auto">
+        <Link to="#link-to-competition?" target="_blank">
+          Other info???
+        </Link>
+      </td>
+      <td className="col-1">
         <div className="d-flex gap-1 flex-column flex-lg-row flex-md-row align-end">
           <Button
             variant="outline-primary"
             className="align-content-center d-inline-flex"
-            onClick={handleSelect}
+            onClick={handleDetails}
           >
-            <span className="material-icons">visibility</span>
+            <span className="material-icons">More Details</span>
           </Button>
         </div>
       </td>
@@ -83,27 +90,4 @@ const CompetitionSingle = ({ competition }) => {
   );
 };
 
-const ActionList = () => {
-  const navigate = useNavigate();
-  const [t] = useTranslation();
-
-  const handleParticipate = () => {
-    navigate('/user-competition-request');
-  };
-
-  return (
-    <>
-      <Container className="justify-content-xl-center my-3">
-        <Row className="justify-content-end gap-2">
-          <Col xs="12" lg="3">
-            <Button className="lsf-button" onClick={handleParticipate}>
-              {t('adminCompetitionPage.viewParticipantRequest')}
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-    </>
-  );
-};
-
-export default UserCompetitionsListPage;
+export default UserCompetitionsRequestPage;

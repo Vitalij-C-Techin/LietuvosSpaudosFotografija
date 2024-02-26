@@ -39,7 +39,7 @@ const NavigationBar = () => {
             </IsNotAuthenticated>
 
             <IsAuthenticated>
-              <Dropdown.Item as={Link} to="/profile">
+              <Dropdown.Item as={NavLink} to="/profile">
                 {t('landingPage.dropDownMenuItem3')}
               </Dropdown.Item>
 
@@ -50,7 +50,7 @@ const NavigationBar = () => {
 
             <IsAuthenticated>
               <Dropdown.Divider />
-              <Dropdown.Item href="#user-competition">
+              <Dropdown.Item as={NavLink} to="user-competition-list">
                 {t('landingPage.dropDownMenuItem4')}
               </Dropdown.Item>
               <Dropdown.Divider />
