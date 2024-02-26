@@ -117,8 +117,15 @@ i18n
                         createCompetition: 'Create competition',
                         competitionDates: 'Dates',
                         competitionView: 'View',
-                        loading: 'Loading',
-                        empty: 'Empty'
+                    },
+                    adminUserParticipationRequestPage: {
+                      title: 'Participation requests',
+                      participator: 'Participator',
+                      competition: 'Competition'
+                    },
+                    notificationMessages: {
+                      loading: 'Loading',
+                      empty: 'Empty'
                     }
                 }
             },
@@ -227,8 +234,15 @@ i18n
                         createCompetition: 'Sukurti konkursą',
                         competitionDates: 'Datos',
                         competitionView: 'Peržiūrėti',
-                        loading: 'Vyksta duomenų įkėlimas',
-                        empty: 'Tuščia'
+                    },
+                    adminUserParticipationRequestPage: {
+                      title: 'Dalyvavimo užklausos',
+                      participator: 'Dalyvis',
+                      competition: 'Konkursas'
+                    },
+                    notificationMessages: {
+                      loading: 'Vyksta duomenų įkėlimas',
+                      empty: 'Tuščia'
                     }
                 }
             }

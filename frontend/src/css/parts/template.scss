@@ -13,7 +13,7 @@
     &:hover {
         background-color: white;
 
-        border: solid medium red;
+        border: solid medium black;
 
         color: black;
     }
@@ -28,4 +28,24 @@
     aspect-ratio: 1;
 
     object-fit: cover;
+}
+
+.lsf-table {
+    border: solid medium black;
+
+    >tbody {
+        >tr {
+            width: 100%;
+
+            td {
+                height: 100%;
+
+                border: none;
+
+                a {
+                    color: black;
+                }
+            }
+        }
+    }
 }
