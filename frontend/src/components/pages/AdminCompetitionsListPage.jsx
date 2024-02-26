@@ -12,10 +12,6 @@ const AdminCompetitionsListPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // TODO remove this (only for test)
-
-    //return;
-
     setTimeout(() => {
       setCompetitions([{}, {}, {}]);
       setIsLoading(false);

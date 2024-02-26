@@ -12,10 +12,6 @@ const AdminUserParticipationRequestPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // TODO remove this (only for test)
-
-    //return;
-
     setTimeout(() => {
       setUserRequests([{}, {}, {}]);
       setIsLoading(false);
