@@ -58,35 +58,37 @@ const LoginForm = (onLogin) => {
                 <Row className="justify-content-md-center">
                     <Col xs="12" sm="8" md="6" lg="4">
                         <Card className="my-5">
-                            <h2 style={{textAlign: 'center'}}>{t('loginPage.title')}</h2>
-
+                            <h2 style={{textAlign: 'center'}} data-testid="form-title">{t('loginPage.title')}</h2>
                         </Card>
-
-                        <Form onSubmit={handleSubmit(handleLoginSubmit)}>
+                        <Form noValidate onSubmit={handleSubmit(handleLoginSubmit)}>
                             {error && <p style={{color: 'red'}}>{error}</p>}
                             <Form.Group className="mb-3" controlId="formGroupEmail">
                                 <Form.Label>{t('loginPage.email')}</Form.Label>
                                 <Form.Control
+                                    data-testid="email-input"
                                     type="email"
                                     autoComplete="email"
                                     placeholder="egzamle@egzample.com"
                                     {...register('email', {required: t('loginPage.required')})}
                                 />
                                 {errors.email && (
-                                    <Form.Text className="text-danger">{errors.email.message}</Form.Text>
+                                    <Form.Text className="text-danger"
+                                               data-testid="email-error">{errors.email.message}</Form.Text>
                                 )}
                             </Form.Group>
 
                             <Form.Group className="mb-3" controlId="formGroupPassword">
                                 <Form.Label>{t('loginPage.password')}</Form.Label>
                                 <Form.Control
+                                    data-testid="password-input"
                                     type="password"
                                     autoComplete="new-password"
                                     placeholder={t('loginPage.passwordPlaceholder')}
                                     {...register('password', {required: t('loginPage.required')})}
                                 />
                                 {errors.password && (
-                                    <Form.Text className="text-danger">{errors.password.message}</Form.Text>
+                                    <Form.Text className="text-danger"
+                                               data-testid="password-error">{errors.password.message}</Form.Text>
                                 )}
                             </Form.Group>
 
@@ -99,7 +101,8 @@ const LoginForm = (onLogin) => {
                             <Form.Group className="mb-3" controlId="formGroupButton">
                                 <Row className="align-items-center">
                                     <Col className="mt-3" xs={12} md={6}>
-                                        <Button variant="light" data-testid="login" type="submit">
+                                        <Button variant="light" type="submit"
+                                                data-testid="login-button">
                                             {t('loginPage.login')}
                                         </Button>
                                     </Col>
