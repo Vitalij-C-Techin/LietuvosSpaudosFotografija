@@ -39,7 +39,8 @@ public class PasswordResetService {
             logger.info("Password reset initiated for email: {}", email);
             passwordResetUpdater.initializePasswordReset(user);
             userRepository.save(user);
-            emailService.sendMailUsingMailjet(email);
+            String emailChangeLink = "http://localhost:5173/change-password?token=" + user.getPasswordResetToken();
+            emailService.sendMailUsingMailjet(email, "email reset link", emailChangeLink);
 
             logger.info("Password reset initiated for user: {}", email);
         } else {

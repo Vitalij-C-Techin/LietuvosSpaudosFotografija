@@ -27,7 +27,6 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final PasswordResetService passwordResetService;
 
-    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AuthenticationController.class);
 
     @GetMapping("/me")
     public UserResponse getUser() {

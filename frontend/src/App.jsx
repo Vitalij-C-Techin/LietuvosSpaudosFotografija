@@ -13,8 +13,9 @@ import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ProfilePage from './components/pages/ProfilePage.jsx';
 import AdminCompetitionsListPage from './components/pages/AdminCompetitionsListPage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
-
+import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import { Authorization } from './components/utils/Authorization.jsx';
+
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
 
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/change-password" element={<PasswordChangePage />} />
 
             <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
 

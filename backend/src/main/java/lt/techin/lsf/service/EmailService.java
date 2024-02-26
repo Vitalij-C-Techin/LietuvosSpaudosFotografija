@@ -33,15 +33,15 @@ public class EmailService {
         this.mailjetClient = mailjetClient;
     }
 
-    public void sendMailUsingMailjet(String recipientMail) {
+    public void sendMailUsingMailjet(String recipientMail, String subject, String htmlMailMessage) {
         System.out.println(senderMail);
         try {
             TransactionalEmail message1 = TransactionalEmail
                     .builder()
                     .to(new SendContact(recipientMail))
                     .from(new SendContact(senderMail))
-                    .htmlPart("<h1>This is the HTML content of the mail</h1>")
-                    .subject("This is the subject")
+                    .htmlPart(htmlMailMessage)
+                    .subject(subject)
                     .trackOpens(TrackOpens.ENABLED)
                     .header("test-header-key", "test-value")
                     .customID("custom-id-value")
