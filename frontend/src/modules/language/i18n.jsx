@@ -74,7 +74,7 @@ i18n
                         nameMinLength: 'Name must contain at least 3 characters.',
                         nameMaxLength: 'Name must contain less than 50 characters.',
                         namePattern: 'Name must contain only letters.',
-                        surnameMinLength: 'Surame must contain at least 3 characters.',
+                        surnameMinLength: 'Surname must contain at least 3 characters.',
                         surnameMaxLength: 'Surname must contain less than 50 characters.',
                         surnamePattern: 'Surname must contain only letters.',
                         emailPattern: 'Email address does not mach the pattern.',
@@ -94,7 +94,9 @@ i18n
                         loginFail: 'login failed',
                         participate: 'PARTICIPATE',
                         competitionEnd: 'Competition ends in:',
-                        competitionTitle: 'COMPETITION TITLE'
+                        competitionTitle: 'COMPETITION TITLE',
+                        required: 'This field is required.',
+                        passwordPlaceholder: 'Enter password',
                     },
                     profile: {
                         myProfile: 'Profile',
@@ -199,7 +201,7 @@ i18n
                     },
                     loginPage: {
                         noUser: 'Tokio naudotojo nera',
-                        invalidCredentials: 'Netaisingas El.paštas arba slaptažodis',
+                        invalidCredentials: 'Netaisingas el.paštas arba slaptažodis',
                         title: 'Prisijunkite prie savo paskyros',
                         email: 'El.paštas',
                         password: 'Slaptažodis',
@@ -209,7 +211,9 @@ i18n
                         loginFail: 'Prisijungti nepavyko',
                         participate: 'DALYVAUTI',
                         competitionEnd: 'Registracija baigiasi:',
-                        competitionTitle: 'KONKURSO PAVADINIMAS'
+                        competitionTitle: 'KONKURSO PAVADINIMAS',
+                        required: 'Šis laukas privalomas.',
+                        passwordPlaceholder: 'Įveskite slaptažodį'
                     },
                     profile: {
                         myProfile: 'Profilis',
