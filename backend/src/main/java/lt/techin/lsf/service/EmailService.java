@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @PropertySource(
-        ignoreResourceNotFound = false,
         value = "classpath:credentials.yaml")
 public class EmailService {
 
@@ -34,7 +33,6 @@ public class EmailService {
     }
 
     public void sendMailUsingMailjet(String recipientMail, String subject, String htmlMailMessage) {
-        System.out.println(senderMail);
         try {
             TransactionalEmail message1 = TransactionalEmail
                     .builder()

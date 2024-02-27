@@ -1,8 +1,8 @@
 package lt.techin.lsf.controller;
 
-import jakarta.validation.ValidationException;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.UserNotAuthenticatedException;
+import lt.techin.lsf.exception.UserNotFoundByEmailException;
 import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.UserAuthentication;
@@ -72,21 +72,16 @@ public class AuthenticationController {
 
     @PostMapping("/forget-password")
     public ResponseEntity<String> forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
-        try {
-            passwordResetService.resetPassword(forgetPasswordRequest);
-            return ResponseEntity.ok("Forget password request processed successfully");
-        } catch (ValidationException e) {
-            return ResponseEntity.badRequest().body("Validation error: " + e.getMessage());
+        if (null == passwordResetService.userSearchByEmail(forgetPasswordRequest.getEmail())) {
+            throw new UserNotFoundByEmailException("User not found");
         }
+        return passwordResetService.resetPassword(forgetPasswordRequest);
     }
 
-        @PostMapping("/change-password")
-        public ResponseEntity<String> changePassword (@RequestParam String token, @RequestBody UserRecord userRecord) {
-            System.out.println(token);
-            System.out.println(userRecord.getPassword());
-            changePasswordService.changeUserPassword(token,userRecord.getPassword());
-            //TODO
-            return new ResponseEntity<>(token, HttpStatus.ACCEPTED);
-        }
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestParam String token, @RequestBody UserRecord userRecord) {
+        changePasswordService.changeUserPassword(token, userRecord.getPassword());
+        return new ResponseEntity<>("Password changed successfully", HttpStatus.ACCEPTED);
     }
+}
 
