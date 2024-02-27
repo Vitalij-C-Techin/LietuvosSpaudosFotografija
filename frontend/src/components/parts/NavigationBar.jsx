@@ -76,12 +76,10 @@ const NavigationBar = () => {
             </IsAuthenticated>
 
             <Dropdown.Divider />
-            <Dropdown.Item
+
+            <LanguageSwitch
               data-testid="change-language-menu-item"
-              style={{ backgroundColor: 'transparent', color: 'black' }}
-            >
-              <LanguageSwitch />
-            </Dropdown.Item>
+            />
           </Dropdown.Menu>
         </Dropdown>
       </Nav>
