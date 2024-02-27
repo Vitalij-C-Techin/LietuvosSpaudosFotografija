@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import PhoneInput, {isValidPhoneNumber} from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import {Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
@@ -9,7 +9,7 @@ import {ErrorMessage} from '@hookform/error-message';
 import {useNavigate} from 'react-router-dom';
 
 const RegistrationForm = () => {
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
     const [selectedActivity, setSelectedActivity] = useState(``);
     const [emailError, setEmailError] = useState('');
     const navigate = useNavigate();
@@ -19,7 +19,8 @@ const RegistrationForm = () => {
         handleSubmit,
         watch,
         control,
-        formState: {errors}
+        formState: {errors},
+        clearErrors
     } = useForm({
         reValidateMode: 'onChange',
         defaultValues: {
@@ -36,6 +37,8 @@ const RegistrationForm = () => {
 
     const password = watch('password');
 
+
+
     const handleFormSubmit = async (formData) => {
         axios
             .post('http://localhost:8080/api/v1/register', formData)
@@ -49,6 +52,10 @@ const RegistrationForm = () => {
     const handleChangeActivity = (e) => {
         setSelectedActivity(e.target.value);
     };
+
+    useEffect(() => {
+        clearErrors();
+    }, [i18n.language, clearErrors]);
 
     return (
         <>
