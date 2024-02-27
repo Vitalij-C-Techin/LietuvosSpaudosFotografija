@@ -81,7 +81,7 @@ const CompetitionList = ({ competitions, onDetails }) => {
         <thead className="table-light">
           <tr>
             <th className="col-4">{t('userCompetitionPage.competitionName')}</th>
-            <th className="col-auto">{t('userCompetitionPage.competitionCategories')}</th>
+            <th className="col-12">{t('userCompetitionPage.competitionCategories')}</th>
             <th></th>
           </tr>
         </thead>
@@ -94,7 +94,10 @@ const CompetitionList = ({ competitions, onDetails }) => {
 const CompetitionSingle = ({ competition, onDetails }) => {
   return (
     <tr>
-      <td className="col-4">Competition name</td>
+      <td className="col-4">
+        Competition name
+        <div>Date: 2024.01.01 - 2024.03.01 </div>
+      </td>
       <td className="col-12">Categories</td>
       <td>
         <div className="d-flex gap-1 flex-column flex-lg-row flex-md-row align-end">

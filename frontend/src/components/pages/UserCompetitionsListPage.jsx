@@ -68,7 +68,10 @@ const CompetitionSingle = ({ competition }) => {
 
   return (
     <tr>
-      <td className="col-12">Competition name</td>
+      <td className="col-12">
+        Competition name
+        <div>Date: 2024.01.01 - 2024.03.01 </div>
+      </td>
       <td>
         <div className="d-flex gap-1 flex-column flex-lg-row flex-md-row align-end">
           <Button
