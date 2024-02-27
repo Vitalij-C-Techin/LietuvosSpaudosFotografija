@@ -43,7 +43,7 @@ test('Change language button is working', () => {
   fireEvent.click(burgerMenuButton);
   const languageMenuItem = getByTestId('language-switch-button');
 
-  expect(queryByText('Pakeisti Kalba')).toBeInTheDocument();
+  expect(queryByText('Pakeisti kalbą')).toBeInTheDocument();
 
   fireEvent.click(languageMenuItem);
 

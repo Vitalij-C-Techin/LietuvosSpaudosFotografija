@@ -29,7 +29,7 @@ const LanguageSwitch = () => {
               width: '100%'
             }}
           >
-            {currentLang === 'en' ? 'Change Language' : 'Pakeisti kalba'}
+            {currentLang === 'en' ? 'Change Language' : 'Pakeisti kalbą'}
           </Button>
         </Col>
       </Row>
