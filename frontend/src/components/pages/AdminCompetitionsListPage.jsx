@@ -75,7 +75,7 @@ const CompetitionSingle = ({ competition }) => {
             <Card.Text>{t('adminCompetitionPage.competitionDates')}: 2023-2024</Card.Text>
             <Card.Link className="d-flex justify-content-end">
               <Col xs="12" sm="12" md="6" lg="3">
-                <Button className="lsf-button" onClick={handleView}>
+                <Button className="lsf-button w-100" onClick={handleView}>
                   {t('adminCompetitionPage.competitionView')}
                 </Button>
               </Col>
@@ -104,12 +104,12 @@ const ActionList = () => {
       <Container className="justify-content-xl-center my-3">
         <Row className="justify-content-end gap-2">
           <Col xs="12" lg="3">
-            <Button className="lsf-button" onClick={handleViewRequest}>
+            <Button className="lsf-button w-100" onClick={handleViewRequest}>
               {t('adminCompetitionPage.viewParticipantRequest')}
             </Button>
           </Col>
           <Col xs="12" lg="3">
-            <Button className="lsf-button" onClick={handleCreateCompetition}>
+            <Button className="lsf-button w-100" onClick={handleCreateCompetition}>
               {t('adminCompetitionPage.createCompetition')}
             </Button>
           </Col>

@@ -11,6 +11,8 @@ import RegistrationPage from './components/pages/RegistrationPage.jsx';
 import LoginPage from './components/pages/LoginPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ProfilePage from './components/pages/ProfilePage.jsx';
+import UserCompetitionsListPage from './components/pages/UserCompetitionsListPage.jsx';
+import UserCompetitionsRequestPage from './components/pages/UserCompetitionsRequestPage.jsx';
 import AdminCompetitionsListPage from './components/pages/AdminCompetitionsListPage.jsx';
 import AdminUserParticipationRequestPage from './components/pages/AdminUserParticipationRequestPage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
@@ -32,6 +34,9 @@ function App() {
             <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
 
             <Route path="/profile" element={<ProfilePage />} />
+
+            <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
+            <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
 
             <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
             <Route
