@@ -393,7 +393,7 @@ const RegistrationForm = () => {
                                 )}
                             </Form.Group>
 
-                            <Button type="submit" data-testid="submit-button">
+                            <Button variant="secondary" type="submit" data-testid="submit-button">
                                 {t('registrationPage.button')}
                             </Button>
                         </Form>
