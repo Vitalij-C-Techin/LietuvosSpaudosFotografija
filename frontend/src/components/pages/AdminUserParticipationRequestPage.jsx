@@ -48,7 +48,7 @@ const UserRequestList = ({ userRequests }) => {
         <thead className="table-light">
           <tr>
             <th className="col-4">{t('adminUserParticipationRequestPage.participator')}</th>
-            <th className="col-auto">{t('adminUserParticipationRequestPage.competition')}</th>
+            <th className="col-12">{t('adminUserParticipationRequestPage.competition')}</th>
             <th></th>
           </tr>
         </thead>
@@ -80,12 +80,12 @@ const UserRequestSingle = ({ userRequest }) => {
           Username Usersurname
         </Link>
       </td>
-      <td className="col-auto">
+      <td className="col-12">
         <Link to="#link-to-competition?" target="_blank">
           Competition name
         </Link>
       </td>
-      <td className="col-1">
+      <td>
         <div className="d-flex gap-1 flex-column flex-lg-row flex-md-row align-end">
           <Button
             variant="outline-primary"
