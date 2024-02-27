@@ -1,13 +1,13 @@
 import {useNavigate} from 'react-router-dom';
 import {Link} from 'react-router-dom';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Container, Card, Col, Form, Row, Button} from 'react-bootstrap';
 import {useAuth} from '../context/AuthContext';
 import {useTranslation} from 'react-i18next';
 import {useForm} from "react-hook-form";
 
 const LoginForm = (onLogin) => {
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
     const [error, setError] = useState('');
     const navigate = useNavigate();
     const {login, setUser} = useAuth();
@@ -15,7 +15,8 @@ const LoginForm = (onLogin) => {
     const {
         register,
         handleSubmit,
-        formState: {errors}
+        formState: {errors},
+        clearErrors
     } = useForm({
         reValidateMode: 'onChange',
         defaultValues: {
@@ -24,7 +25,6 @@ const LoginForm = (onLogin) => {
         },
         criteriaMode: 'firstError'
     });
-
 
     const navigateToRegistrationPage = () => {
         navigate('/registration');
@@ -51,6 +51,10 @@ const LoginForm = (onLogin) => {
             }
         });
     };
+
+    useEffect(() => {
+        clearErrors();
+    }, [i18n.language, clearErrors]);
 
     return (
         <>
