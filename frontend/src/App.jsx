@@ -14,6 +14,7 @@ import ProfilePage from './components/pages/ProfilePage.jsx';
 import UserCompetitionsListPage from './components/pages/UserCompetitionsListPage.jsx';
 import UserCompetitionsRequestPage from './components/pages/UserCompetitionsRequestPage.jsx';
 import AdminCompetitionsListPage from './components/pages/AdminCompetitionsListPage.jsx';
+import AdminUserParticipationRequestPage from './components/pages/AdminUserParticipationRequestPage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
 
 import { Authorization } from './components/utils/Authorization.jsx';
@@ -39,7 +40,10 @@ function App() {
             <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
 
             <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
-       
+            <Route
+              path="/admin-user-participation-requests"
+              element={<AdminUserParticipationRequestPage />}
+            />
 
             <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
               <Route path="/p" element={<ProfilePage />} />

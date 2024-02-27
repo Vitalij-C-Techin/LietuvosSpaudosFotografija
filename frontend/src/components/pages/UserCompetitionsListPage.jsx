@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import LoadingMessage from '../parts/LoadingMessage';
+import EmptyMessage from '../parts/EmptyMessage';
 
 const UserCompetitionsListPage = () => {
   const [t] = useTranslation();
@@ -11,10 +12,6 @@ const UserCompetitionsListPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // TODO remove this (only for test)
-
-    //return;
-
     setTimeout(() => {
       setCompetitions([{}, {}, {}]);
       setIsLoading(false);
@@ -25,11 +22,15 @@ const UserCompetitionsListPage = () => {
     <>
       <Container className="justify-content-xl-center my-5">
         <Card className="image-header-text">
-          <h3>{t('adminCompetitionPage.title')}</h3>
+          <h3>{t('userCompetitionPage.title')}</h3>
         </Card>
       </Container>
 
       <ActionList />
+
+      {!!isLoading && <LoadingMessage />}
+
+      {!!!isLoading && !!!competitions && <EmptyMessage />}
 
       {!!!isLoading && !!competitions && <CompetitionList competitions={competitions} />}
     </>
@@ -48,7 +49,7 @@ const CompetitionList = ({ competitions }) => {
       <Table responsive hover striped className="lsf-table">
         <thead className="table-light">
           <tr>
-            <th className="col-4">{t('UserCompetitionsRequestPage.competitionName')}</th>
+            <th className="col-4">{t('userCompetitionPage.competitionName')}</th>
             <th></th>
           </tr>
         </thead>
@@ -96,8 +97,8 @@ const ActionList = () => {
       <Container className="justify-content-xl-center my-3">
         <Row className="justify-content-end gap-2">
           <Col xs="12" lg="3">
-            <Button className="lsf-button" onClick={handleParticipate}>
-              {t('adminCompetitionPage.viewParticipantRequest')}
+            <Button className="lsf-button w-100" onClick={handleParticipate}>
+              {t('userCompetitionPage.participateCompetition')}
             </Button>
           </Col>
         </Row>

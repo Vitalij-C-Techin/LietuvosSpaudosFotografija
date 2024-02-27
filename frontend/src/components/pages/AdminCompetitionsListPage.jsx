@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-
-const TESTCompetitions = [{}, {}, {}];
+import { useNavigate } from 'react-router-dom';
+import LoadingMessage from '../parts/LoadingMessage';
+import EmptyMessage from '../parts/EmptyMessage';
 
 const AdminCompetitionsListPage = () => {
   const [t] = useTranslation();
@@ -11,12 +12,8 @@ const AdminCompetitionsListPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // TODO remove this (only for test)
-
-    //return;
-
     setTimeout(() => {
-      setCompetitions(TESTCompetitions);
+      setCompetitions([{}, {}, {}]);
       setIsLoading(false);
     }, 1500);
   }, []);
@@ -61,7 +58,7 @@ const CompetitionSingle = ({ competition }) => {
     <Card className="lsf-admin-competition-card my-3">
       <Card.Body className="p-0">
         <Row className="m-0">
-          <Col xs="12" md="4" lg="3" className="p-0 bg-light">
+          <Col xs="12" md="4" lg="3" className="p-0 p-md-3 p-lg-3 bg-light">
             <Image
               src="/src/tmp/placeholder-500.jpg"
               alt="competition photo"
@@ -78,7 +75,7 @@ const CompetitionSingle = ({ competition }) => {
             <Card.Text>{t('adminCompetitionPage.competitionDates')}: 2023-2024</Card.Text>
             <Card.Link className="d-flex justify-content-end">
               <Col xs="12" sm="12" md="6" lg="3">
-                <Button className="lsf-button" onClick={handleView}>
+                <Button className="lsf-button w-100" onClick={handleView}>
                   {t('adminCompetitionPage.competitionView')}
                 </Button>
               </Col>
@@ -91,10 +88,11 @@ const CompetitionSingle = ({ competition }) => {
 };
 
 const ActionList = () => {
+  const navigate = useNavigate();
   const [t] = useTranslation();
 
   const handleViewRequest = () => {
-    console.log('View Request');
+    navigate('/admin-user-participation-requests');
   };
 
   const handleCreateCompetition = () => {
@@ -104,46 +102,18 @@ const ActionList = () => {
   return (
     <>
       <Container className="justify-content-xl-center my-3">
-        <Row className="justify-content-end ">
+        <Row className="justify-content-end gap-2">
           <Col xs="12" lg="3">
-            <Button className="lsf-button" onClick={handleViewRequest}>
+            <Button className="lsf-button w-100" onClick={handleViewRequest}>
               {t('adminCompetitionPage.viewParticipantRequest')}
             </Button>
           </Col>
           <Col xs="12" lg="3">
-            <Button className="lsf-button" onClick={handleCreateCompetition}>
+            <Button className="lsf-button w-100" onClick={handleCreateCompetition}>
               {t('adminCompetitionPage.createCompetition')}
             </Button>
           </Col>
         </Row>
-      </Container>
-    </>
-  );
-};
-
-const LoadingMessage = () => {
-  const [t] = useTranslation();
-
-  return (
-    <>
-      <Container className="justify-content-xl-center my-3 py-3">
-        <Card className="">
-          <h4>{t('adminCompetitionPage.loading')}...</h4>
-        </Card>
-      </Container>
-    </>
-  );
-};
-
-const EmptyMessage = () => {
-  const [t] = useTranslation();
-
-  return (
-    <>
-      <Container className="justify-content-xl-center m-3 py-3">
-        <Card>
-          <h4>{t('adminCompetitionPage.empty')}</h4>
-        </Card>
       </Container>
     </>
   );

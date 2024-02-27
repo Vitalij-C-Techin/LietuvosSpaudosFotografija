@@ -1,19 +1,41 @@
 import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import ModalInfo from '../parts/ModalInfo';
+
+import LoadingMessage from '../parts/LoadingMessage';
+import EmptyMessage from '../parts/EmptyMessage';
+import ModalContentCompetitionParticipation from '../parts/ModalContentCompetitionParticipation';
 
 const UserCompetitionsRequestPage = () => {
   const [t] = useTranslation();
 
   const [competitions, setCompetitions] = useState(null);
+  const [competition, setCompetition] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const onDetails = (competition) => {
+    console.log('Competition details');
+
+    setCompetition(competition);
+  };
+
+  const onParticipate = () => {
+    console.log('Request to participate');
+
+    setCompetition(null);
+  };
+
+  const onModalClose = () => {
+    setCompetition(null);
+  };
+
+  const ModalArgs = {
+    show: !!competition,
+    onClose: onModalClose
+  };
+
   useEffect(() => {
-    // TODO remove this (only for test)
-
-    //return;
-
     setTimeout(() => {
       setCompetitions([{}, {}, {}]);
       setIsLoading(false);
@@ -24,20 +46,33 @@ const UserCompetitionsRequestPage = () => {
     <>
       <Container className="justify-content-xl-center my-5">
         <Card className="image-header-text">
-          <h3>{t('adminCompetitionPage.title')}</h3>
+          <h3>{t('userCompetitionPage.participateCompetition')}</h3>
         </Card>
       </Container>
 
-      {!!!isLoading && !!competitions && <CompetitionList competitions={competitions} />}
+      {!!isLoading && <LoadingMessage />}
+
+      {!!!isLoading && !!!competitions && <EmptyMessage />}
+
+      {!!!isLoading && !!competitions && (
+        <CompetitionList competitions={competitions} onDetails={onDetails} />
+      )}
+
+      <ModalInfo args={ModalArgs}>
+        <ModalContentCompetitionParticipation
+          competition={competition}
+          onParticipate={onParticipate}
+        />
+      </ModalInfo>
     </>
   );
 };
 
-const CompetitionList = ({ competitions }) => {
+const CompetitionList = ({ competitions, onDetails }) => {
   const [t] = useTranslation();
 
   const list = competitions.map((competition, i) => {
-    return <CompetitionSingle competition={competition} key={i} />;
+    return <CompetitionSingle competition={competition} onDetails={onDetails} key={i} />;
   });
 
   return (
@@ -45,8 +80,8 @@ const CompetitionList = ({ competitions }) => {
       <Table responsive hover striped className="lsf-table">
         <thead className="table-light">
           <tr>
-            <th className="col-4">{t('adminUserParticipationRequestPage.participator')}</th>
-            <th className="col-auto">{t('adminUserParticipationRequestPage.competition')}</th>
+            <th className="col-4">{t('userCompetitionPage.competitionName')}</th>
+            <th className="col-auto">{t('userCompetitionPage.competitionCategories')}</th>
             <th></th>
           </tr>
         </thead>
@@ -56,33 +91,19 @@ const CompetitionList = ({ competitions }) => {
   );
 };
 
-const CompetitionSingle = ({ competition }) => {
-  const [t] = useTranslation();
-
-  const handleDetails = () => {
-    console.log('Handle Info');
-  };
-
+const CompetitionSingle = ({ competition, onDetails }) => {
   return (
     <tr>
-      <td className="col-4">
-        <Link to="#link-to-user?" target="_blank">
-          Competition name
-        </Link>
-      </td>
-      <td className="col-auto">
-        <Link to="#link-to-competition?" target="_blank">
-          Other info???
-        </Link>
-      </td>
-      <td className="col-1">
+      <td className="col-4">Competition name</td>
+      <td className="col-12">Categories</td>
+      <td>
         <div className="d-flex gap-1 flex-column flex-lg-row flex-md-row align-end">
           <Button
             variant="outline-primary"
             className="align-content-center d-inline-flex"
-            onClick={handleDetails}
+            onClick={onDetails}
           >
-            <span className="material-icons">More Details</span>
+            <span className="material-icons">visibility</span>
           </Button>
         </div>
       </td>

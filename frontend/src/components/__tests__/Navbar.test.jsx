@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from '../../modules/language/i18n';
 import NavigationBar from '../parts/NavigationBar';
-import { AuthProvider } from '../../modules/AuthContext';
+import { AuthProvider } from '../context/AuthContext';
 import { BrowserRouter } from 'react-router-dom';
 
 let component;
@@ -20,45 +20,32 @@ beforeEach(() => {
   );
 });
 
-test('renders NavigationBar', () => {
+test('Renders Navigation Bar', () => {
   const { getByTestId } = component;
   const navbarElement = getByTestId('NavigationBar');
   expect(navbarElement).toBeInTheDocument();
 });
 
-test('displays nested dropdown menu on hover', () => {
-  const { getByTestId, queryByText } = component;
-  const burgerMenuButton = getByTestId('dropdown-menu-button');
-  fireEvent.click(burgerMenuButton);
-  const languageMenuItem = getByTestId('change-language-menu-item');
-  fireEvent.mouseEnter(languageMenuItem);
-  expect(queryByText('English')).toBeInTheDocument();
-  expect(queryByText('Lithuanian')).toBeInTheDocument();
-});
-
-test('renders change language NavigationBar dropdown menu item', () => {
+test('Rencders change language button', () => {
   const { getByTestId } = component;
   const burgerMenuButton = getByTestId('dropdown-menu-button');
+
   fireEvent.click(burgerMenuButton);
-  const languageMenuItem = getByTestId('change-language-menu-item');
+  const languageMenuItem = getByTestId('language-switch-button');
+
   expect(languageMenuItem).toBeInTheDocument();
 });
 
-test('renders with correct translation then switched', () => {
-  const { getByText, getByTestId, queryAllByTestId } = component;
-
+test('Change language button is working', () => {
+  const { getByTestId, queryByText } = component;
   const burgerMenuButton = getByTestId('dropdown-menu-button');
+
   fireEvent.click(burgerMenuButton);
+  const languageMenuItem = getByTestId('language-switch-button');
 
-  expect(getByText('Home')).toBeInTheDocument();
-  const languageMenuItem = getByTestId('change-language-menu-item');
-  fireEvent.mouseEnter(languageMenuItem);
+  expect(queryByText('Pakeisti Kalba')).toBeInTheDocument();
 
-  const languageSwitchButtons = queryAllByTestId('language-switch-button');
-  expect(getByText('English')).toBeInTheDocument();
-  expect(getByText('Lithuanian')).toBeInTheDocument();
-  fireEvent.click(languageSwitchButtons[1]);
-  expect(getByText('Pradžia')).toBeInTheDocument();
-  fireEvent.click(languageSwitchButtons[0]);
-  expect(getByText('Home')).toBeInTheDocument();
+  fireEvent.click(languageMenuItem);
+
+  expect(queryByText('Change Language')).toBeInTheDocument();
 });
