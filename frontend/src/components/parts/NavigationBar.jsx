@@ -50,27 +50,27 @@ const NavigationBar = () => {
 
             <IsAuthenticated>
               <Dropdown.Divider />
-              <Dropdown.Item as={NavLink} to="user-competition-list">
+              <Dropdown.Item as={NavLink} to="/user-competition-list">
                 {t('landingPage.dropDownMenuItem4')}
               </Dropdown.Item>
               <Dropdown.Divider />
             </IsAuthenticated>
 
             <IsAuthenticated>
-              <Dropdown.Item href="#jury-competition">
+              <Dropdown.Item to="#jury-competition">
                 {t('landingPage.dropDownMenuItem5')}
               </Dropdown.Item>
               <Dropdown.Divider />
             </IsAuthenticated>
 
             <IsAuthenticated>
-              <Dropdown.Item href="#admin-users-dashboard">
+              <Dropdown.Item to="#admin-users-dashboard">
                 {t('landingPage.dropDownMenuItem6')}
               </Dropdown.Item>
-              <Dropdown.Item href="/admin-competitions-list">
+              <Dropdown.Item as={NavLink} to="/admin-competitions-list">
                 {t('landingPage.dropDownMenuItem7')}
               </Dropdown.Item>
-              <Dropdown.Item href="#admin-category-dashboard">
+              <Dropdown.Item to="#admin-category-dashboard">
                 {t('landingPage.dropDownMenuItem8')}
               </Dropdown.Item>
             </IsAuthenticated>

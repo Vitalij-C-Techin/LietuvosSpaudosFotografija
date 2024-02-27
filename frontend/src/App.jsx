@@ -19,7 +19,6 @@ import ErrorPage from './components/pages/ErrorPage.jsx';
 
 import { Authorization } from './components/utils/Authorization.jsx';
 
-
 function App() {
   return (
     <>
