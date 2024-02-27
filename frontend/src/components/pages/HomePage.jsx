@@ -58,7 +58,7 @@ function HomePage() {
           <Row className="justify-content-center">
             <Col xs="12" sm="10" md="8" lg="2">
               <Button
-                variant="primary"
+                variant="secondary"
                 className="btn-lg custom-button-width"
                 onClick={navigateToLoginPage}
               >
@@ -105,7 +105,7 @@ function HomePage() {
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
-                    <Button className="mt-2"> {t('loginPage.participate')}</Button>
+                    <Button variant="secondary" className="mt-2"> {t('loginPage.participate')}</Button>
                   </Col>
                 </Row>
               </Col>
@@ -140,7 +140,7 @@ function HomePage() {
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
-                    <Button className="mt-2"> {t('loginPage.participate')}</Button>
+                    <Button variant="secondary" className="mt-2"> {t('loginPage.participate')}</Button>
                   </Col>
                 </Row>
               </Col>
@@ -170,7 +170,7 @@ function HomePage() {
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
-                    <Button className="mt-2"> {t('loginPage.participate')}</Button>
+                    <Button variant="secondary" className="mt-2"> {t('loginPage.participate')}</Button>
                   </Col>
                 </Row>
               </Col>
