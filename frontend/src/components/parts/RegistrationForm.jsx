@@ -205,7 +205,7 @@ const RegistrationForm = () => {
                                                     message: t('registrationPage.passwordMaxLength')
                                                 },
                                                 pattern: {
-                                                    value: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$/,
+                                                    value: /^(?!.*\s)(?=.*[A-Z])(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$/,
                                                     message: t('registrationPage.passwordPattern')
                                                 }
                                             })}
