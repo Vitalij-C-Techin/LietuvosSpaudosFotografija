@@ -80,6 +80,7 @@ i18n
             emailPattern: 'Email address does not mach the pattern.',
             birthYearMax: 'Only persons older than 18 years can register.',
             birthYearMin: 'Only persons younger than 100 years can register.',
+            birthYearLength: 'Birth year must contain 4 digits',
             mediaNameMaxLength: 'Must contain less than 50 characters.'
           },
           loginPage: {
@@ -210,16 +211,17 @@ i18n
             surnamePattern: 'Pavardę turi sudaryti tik raidės.',
             emailPattern: 'Elektroninio pašto adresas neatitinka formato.',
             birthYearMax: 'Gali registruotis ne jaunesni nei 18 metų asmenys.',
-            birthYearMin: 'Gali registruotis ne viresni nei 100 metų asmenys.',
+            birthYearMin: 'Gali registruotis ne vyresni nei 120 metų asmenys.',
+            birthYearLength: 'Gimimo metus turi sudaryti 4 skaitmenys',
             mediaNameMaxLength: 'Turi sudaryti ne daugiau kaip 50 simbolių.'
           },
           loginPage: {
-            noUser: 'Tokio naudotojo nera',
-            invalidCredentials: 'Netaisingas el.paštas arba slaptažodis',
+            noUser: 'Tokio naudotojo nėra',
+            invalidCredentials: 'Neteisingas el.paštas arba slaptažodis',
             title: 'Prisijunkite prie savo paskyros',
             email: 'El.paštas',
             password: 'Slaptažodis',
-            forgotPassword: 'Pamiršote slaptažodi?',
+            forgotPassword: 'Pamiršote slaptažodį?',
             login: 'PRISIJUNGTI',
             register: 'REGISTRUOTIS',
             loginFail: 'Prisijungti nepavyko',

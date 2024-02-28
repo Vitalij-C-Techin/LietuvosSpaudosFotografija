@@ -272,12 +272,20 @@ const RegistrationForm = () => {
                                             placeholder={t('registrationPage.birthYearPlaceholder')}
                                             {...register('birth_year', {
                                                 required: t('registrationPage.required'),
+                                                maxLength: {
+                                                    value: 4,
+                                                    message: t('registrationPage.birthYearLength')
+                                                },
+                                                minLength: {
+                                                    value: 4,
+                                                    message: t('registrationPage.birthYearLength')
+                                                },
                                                 max: {
                                                     value: new Date().getFullYear() - 18,
                                                     message: t('registrationPage.birthYearMax')
                                                 },
                                                 min: {
-                                                    value: new Date().getFullYear() - 100,
+                                                    value: new Date().getFullYear() - 120,
                                                     message: t('registrationPage.birthYearMin')
                                                 }
                                             })}
