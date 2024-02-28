@@ -37,8 +37,6 @@ const RegistrationForm = () => {
 
     const password = watch('password');
 
-
-
     const handleFormSubmit = async (formData) => {
         axios
             .post('http://localhost:8080/api/v1/register', formData)
@@ -206,7 +204,7 @@ const RegistrationForm = () => {
                                                     message: t('registrationPage.passwordMaxLength')
                                                 },
                                                 pattern: {
-                                                    value: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-z]).+$/,
+                                                    value: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$/,
                                                     message: t('registrationPage.passwordPattern')
                                                 }
                                             })}

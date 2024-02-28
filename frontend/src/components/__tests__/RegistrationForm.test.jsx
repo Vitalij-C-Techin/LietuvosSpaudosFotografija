@@ -182,8 +182,8 @@ describe('RegistrationForm', () => {
             birth_year: '2000',
             phone_number: '+37063547532',
             email: 'saule@string.lt',
-            password: 'Qwerty11',
-            confirm_password: 'Qwerty11',
+            password: 'Qwerty11*',
+            confirm_password: 'Qwerty11*',
             media_name: 'LRT',
             user_agreement: true
         };
