@@ -24,9 +24,6 @@ const ProfilePage = () => {
           {!!getUserData() && (
             <>
               <p>
-                {t('profile.id')}: {getUserData().uuid}
-              </p>
-              <p>
                 {t('profile.name')}: {getUserData().name}
               </p>
               <p>

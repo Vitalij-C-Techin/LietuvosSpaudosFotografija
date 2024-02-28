@@ -1,0 +1,23 @@
+.lsf-button {
+  width: 100%;
+  background-color: black;
+  border: solid medium black;
+  border-radius: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+.lsf-button:hover {
+  background-color: white;
+  border: solid medium red;
+  color: black;
+}
+
+.lsf-image-cover {
+  display: inline-block;
+  width: 100%;
+  max-height: 200px;
+  aspect-ratio: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
+}/*# sourceMappingURL=template.css.map */

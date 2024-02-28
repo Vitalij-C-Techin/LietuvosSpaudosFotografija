@@ -5,6 +5,6 @@ export const validateEmail = (email, t) => {
 
   return {
     isValid,
-    errorMessage: isValid ? null : t('emailVerification.invalidEmailFormat'),
+    errorMessage: isValid ? null : t('emailVerification.invalidEmailFormat')
   };
 };

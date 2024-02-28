@@ -17,19 +17,17 @@ const ForgotPasswordForm = () => {
     setErrors({ email: errorMessage });
 
     if (isValid) {
-      try {
-        const response = await axios.post('http://localhost:8080/api/v1/forget-password', {
+      axios
+        .post('http://localhost:8080/api/v1/forget-password', {
           email
-        });
-
-        if (response.status === 200) {
+        })
+        .then((response) => {
           setMessage('If the email exists in our database, a password reset link will be sent.');
-        } else {
+        })
+        .catch((error) => {          
           setMessage('Error sending password recovery email');
-        }
-      } catch (error) {
-        setMessage(t('forgotPasswordForm.serverErrorMessage'));
-      }
+          setErrors({ email: error.message });
+        });
     }
   };
 
@@ -59,13 +57,17 @@ const ForgotPasswordForm = () => {
                   placeholder={t('forgotPasswordForm.formPlaceholderText')}
                   data-testid="email-input"
                 />
-                {errors.email && <p className="text-danger">{errors.email}</p>}
+                {errors.email && (
+                  <p className="text-danger" data-testid="error-message">
+                    {errors.email}
+                  </p>
+                )}
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formGroupButton">
                 <Row className="align-items-center">
                   <Col>
-                    <Button type="submit" data-testid="recover-button">
+                    <Button variant="secondary" type="submit" data-testid="recover-button">
                       {t('forgotPasswordForm.recoverButton')}
                     </Button>
                   </Col>

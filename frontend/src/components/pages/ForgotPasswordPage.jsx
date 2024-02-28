@@ -1,12 +1,11 @@
-import ForgotPasswordForm from "../parts/ForgotPasswordForm";
-
+import ForgotPasswordForm from '../parts/ForgotPasswordForm';
 
 const ForgotPasswordPage = () => {
-    return (
-      <>
-        <ForgotPasswordForm/>
-      </>
-    );
-  }
-  
-  export default ForgotPasswordPage;
+  return (
+    <>
+      <ForgotPasswordForm />
+    </>
+  );
+};
+
+export default ForgotPasswordPage;

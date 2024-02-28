@@ -1,0 +1,72 @@
+.lsf-button {
+    background-color: black;
+
+    border: solid medium black;
+    border-radius: 0;
+
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+
+    &:hover {
+        background-color: white;
+
+        border: solid medium black;
+
+        color: black;
+    }
+
+    &:active {
+        background-color: black;
+
+        border: solid medium black;
+
+        color: white;
+    }
+}
+
+.lsf-image-cover {
+    display: inline-block;
+
+    width: 100%;
+    max-height: 200px;
+
+    aspect-ratio: 1;
+
+    object-fit: cover;
+}
+
+.lsf-table {
+    border: solid medium black;
+
+    >tbody {
+        >tr {
+            width: 100%;
+
+            td {
+                height: 100%;
+
+                border: none;
+
+                a {
+                    color: black;
+                }
+            }
+        }
+    }
+}
+
+.lsf-modal-info {
+    background-color: rgba($color: #ffffff, $alpha: 0.7);
+
+    .modal-content {
+        border: solid medium black;
+        border-radius: 0;
+
+        >.modal-header {
+            >.btn-close {
+                opacity: 1;
+            }
+        }
+    }
+}
