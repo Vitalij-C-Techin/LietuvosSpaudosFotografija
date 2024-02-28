@@ -79,8 +79,8 @@ i18n
             surnamePattern: 'Surname must contain only letters.',
             emailPattern: 'Email address does not mach the pattern.',
             birthYearMax: 'Only persons older than 18 years can register.',
-            birthYearMin: 'Only persons younger than 100 years can register.',
-            birthYearLength: 'Birth year must contain 4 digits',
+            birthYearMin: 'Only persons younger than 120 years can register.',
+            birthYearLength: 'Birth year must contain 4 digits.',
             mediaNameMaxLength: 'Must contain less than 50 characters.'
           },
           loginPage: {
@@ -212,7 +212,7 @@ i18n
             emailPattern: 'Elektroninio pašto adresas neatitinka formato.',
             birthYearMax: 'Gali registruotis ne jaunesni nei 18 metų asmenys.',
             birthYearMin: 'Gali registruotis ne vyresni nei 120 metų asmenys.',
-            birthYearLength: 'Gimimo metus turi sudaryti 4 skaitmenys',
+            birthYearLength: 'Gimimo metus turi sudaryti 4 skaitmenys.',
             mediaNameMaxLength: 'Turi sudaryti ne daugiau kaip 50 simbolių.'
           },
           loginPage: {
