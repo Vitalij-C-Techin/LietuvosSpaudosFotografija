@@ -80,8 +80,7 @@ public class AuthenticationController {
 
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestParam String token, @RequestBody UserRecord userRecord) {
-        changePasswordService.changeUserPassword(token, userRecord.getPassword());
-        return new ResponseEntity<>("Password changed successfully", HttpStatus.ACCEPTED);
+        return changePasswordService.changeUserPassword(token, userRecord.getPassword());
     }
 }
 

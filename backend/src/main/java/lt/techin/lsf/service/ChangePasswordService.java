@@ -5,6 +5,8 @@ import lt.techin.lsf.exception.*;
 import lt.techin.lsf.persistance.UserRepository;
 import lt.techin.lsf.persistance.model.UserRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,9 +27,9 @@ public class ChangePasswordService {
         this.userRepository = userRepository;
     }
 
-    public void changeUserPassword(String passwordResetTokenUuid, String newPassword) {
+    public ResponseEntity<String> changeUserPassword(String passwordResetTokenUuid, String newPassword) {
         UserRecord userRecord = userRepository.findByPasswordResetToken(passwordResetTokenUuid);
-        if (userRecord != null) {
+        if (userRecord != null && newPassword != null) {
             validatePasswordTokenExpiration(userRecord.getPasswordResetRequestAt());
             validatePassword(newPassword);
             userRecord.setPassword(
@@ -36,6 +38,10 @@ public class ChangePasswordService {
             userRecord.setPasswordResetToken(null);
             userRecord.setPasswordResetRequestAt(null);
             userRepository.save(userRecord);
+            return new ResponseEntity<>("Password changed successfully", HttpStatus.ACCEPTED);
+        }
+        else {
+            return new ResponseEntity<>("Failed to change password. Please try again.", HttpStatus.BAD_REQUEST);
         }
     }
 

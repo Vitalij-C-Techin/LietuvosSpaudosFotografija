@@ -31,17 +31,18 @@ const PasswordChangeForm = () => {
   const new_password = watch('new_password');
 
   const handleFormSubmit = async (formData) => {
+    const { new_password } = formData; // Extract only the new_password field
+  
     axios
-      .post(`http://localhost:8080/api/v1/change-password?token=${resetToken}`, formData)
+      .post(`http://localhost:8080/api/v1/change-password?token=${resetToken}`, { password: new_password })
       .then((response) => {
         alert(t('passwordChangePage.passwordChangeSuccessful'));
         navigate('/login');
       })
       .catch((error) => setEmailError(t('passwordChangePage.emailError')));
   };
-
+  
   useEffect(() => {
-    // Additional logic can be implemented here, such as checking the validity of the reset token.
   }, [resetToken]);
 
   return (

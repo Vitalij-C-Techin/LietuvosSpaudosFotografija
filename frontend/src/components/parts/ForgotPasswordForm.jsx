@@ -22,9 +22,13 @@ const ForgotPasswordForm = () => {
           email
         });
 
-        if (response.status === 200) {
-          setMessage('If the email exists in our database, a password reset link will be sent.');
-        } else {
+        if (response.status === 202) {
+          setMessage('Email found in our database, a password reset link will be sent.');
+        } 
+        else if (response.status === 404){
+          setMessage('User with' + email + ' not found in our database.');
+        }
+        else {
           setMessage('Error sending password recovery email');
         }
       } catch (error) {

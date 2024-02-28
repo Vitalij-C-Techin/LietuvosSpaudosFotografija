@@ -1,6 +1,7 @@
 package lt.techin.lsf.model.requests;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lt.techin.lsf.exception.*;
@@ -9,6 +10,7 @@ import java.util.regex.Pattern;
 
 @Getter
 @Setter
+@Builder
 public class ForgetPasswordRequest {
 
     private String email;
