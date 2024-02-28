@@ -28,7 +28,7 @@ const ForgotPasswordForm = () => {
           setMessage('User with ' + email + ' not found in our database.');
         } else {
           setMessage('Error sending password recovery email');
-          setErrors({ email: response.data.message }); // Assuming there's an error message in the response
+          setErrors({ email: response.data.message });
         }
       } catch (error) {
         setMessage('Error sending password recovery email');

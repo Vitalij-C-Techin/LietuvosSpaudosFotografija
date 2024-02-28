@@ -12,7 +12,7 @@ const PasswordChangeForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const resetToken = searchParams.get('token'); // Get reset token from query parameters
+  const resetToken = searchParams.get('token');
 
   const {
     register,
