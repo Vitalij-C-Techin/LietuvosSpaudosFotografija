@@ -53,6 +53,7 @@ const RegistrationForm = () => {
 
     useEffect(() => {
         clearErrors();
+        setEmailError("");
     }, [i18n.language, clearErrors]);
 
     return (

@@ -54,6 +54,7 @@ const LoginForm = (onLogin) => {
 
     useEffect(() => {
         clearErrors();
+        setError("");
     }, [i18n.language, clearErrors]);
 
     return (
