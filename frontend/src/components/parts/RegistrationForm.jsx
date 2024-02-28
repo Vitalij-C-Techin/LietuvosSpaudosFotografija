@@ -249,7 +249,7 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger" style={{fontSize: '14px'}} key={type}>
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
                                                         {message}
                                                     </p>
                                                 ))
@@ -296,7 +296,7 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger" style={{fontSize: '14px'}} key={type}>
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
                                                         {message}
                                                     </p>
                                                 ))
@@ -334,7 +334,7 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger mx-5" style={{fontSize: '14px'}}
+                                                    <p className="text-danger mx-5 mb-1 " style={{fontSize: '14px'}}
                                                        key={type}>
                                                         {message}
                                                     </p>
@@ -383,7 +383,7 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger" style={{fontSize: '14px'}} key={type}>
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
                                                         {message}
                                                     </p>
                                                 ))
