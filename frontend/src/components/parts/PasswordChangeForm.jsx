@@ -18,32 +18,33 @@ const PasswordChangeForm = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     reValidateMode: 'onChange',
     defaultValues: {
       new_password: '',
-      confirm_new_password: '',
+      confirm_new_password: ''
     },
-    criteriaMode: 'all',
+    criteriaMode: 'all'
   });
 
   const new_password = watch('new_password');
 
   const handleFormSubmit = async (formData) => {
     const { new_password } = formData; // Extract only the new_password field
-  
+
     axios
-      .post(`http://localhost:8080/api/v1/change-password?token=${resetToken}`, { password: new_password })
+      .post(`http://localhost:8080/api/v1/change-password?token=${resetToken}`, {
+        password: new_password
+      })
       .then((response) => {
         alert(t('passwordChangePage.passwordChangeSuccessful'));
         navigate('/login');
       })
       .catch((error) => setEmailError(t('passwordChangePage.emailError')));
   };
-  
-  useEffect(() => {
-  }, [resetToken]);
+
+  useEffect(() => {}, [resetToken]);
 
   return (
     <>
@@ -55,11 +56,18 @@ const PasswordChangeForm = () => {
                 {t('passwordChangePage.title')}
               </h2>
             </Card>
+
             <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
-              {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
+              {emailError && (
+                <p data-testid="validation-error" style={{ color: 'red' }}>
+                  {emailError}
+                </p>
+              )}
 
               <Form.Group className="mb-3">
-                <Form.Label htmlFor="new_password">{t('passwordChangePage.newPassword')}</Form.Label>
+                <Form.Label htmlFor="new_password">
+                  {t('passwordChangePage.newPassword')}
+                </Form.Label>
                 <Form.Control
                   data-testid="new-password-input"
                   type="password"
@@ -71,16 +79,16 @@ const PasswordChangeForm = () => {
                     required: t('passwordChangePage.required'),
                     minLength: {
                       value: 8,
-                      message: t('passwordChangePage.passwordMinLength'),
+                      message: t('passwordChangePage.passwordMinLength')
                     },
                     maxLength: {
                       value: 50,
-                      message: t('passwordChangePage.passwordMaxLength'),
+                      message: t('passwordChangePage.passwordMaxLength')
                     },
                     pattern: {
                       value: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-z]).+$/,
-                      message: t('passwordChangePage.passwordPattern'),
-                    },
+                      message: t('passwordChangePage.passwordPattern')
+                    }
                   })}
                 />
                 <ErrorMessage
@@ -89,7 +97,12 @@ const PasswordChangeForm = () => {
                   render={({ messages }) =>
                     messages &&
                     Object.entries(messages).map(([type, message]) => (
-                      <p className="text-danger mb-1" style={{ fontSize: '14px' }} key={type}>
+                      <p
+                        data-testid="new-password-error"
+                        className="text-danger mb-1"
+                        style={{ fontSize: '14px' }}
+                        key={type}
+                      >
                         {message}
                       </p>
                     ))
@@ -98,7 +111,9 @@ const PasswordChangeForm = () => {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label htmlFor="confirm_new_password">{t('passwordChangePage.confirmNewPassword')}</Form.Label>
+                <Form.Label htmlFor="confirm_new_password">
+                  {t('passwordChangePage.confirmNewPassword')}
+                </Form.Label>
                 <Form.Control
                   data-testid="confirm-new-password-input"
                   type="password"
@@ -108,7 +123,8 @@ const PasswordChangeForm = () => {
                   placeholder={t('passwordChangePage.confirmNewPasswordPlaceholder')}
                   {...register('confirm_new_password', {
                     required: t('passwordChangePage.required'),
-                    validate: (value) => value === new_password || t('passwordChangePage.passwordNotMatch'),
+                    validate: (value) =>
+                      value === new_password || t('passwordChangePage.passwordNotMatch')
                   })}
                 />
                 <ErrorMessage
@@ -117,7 +133,12 @@ const PasswordChangeForm = () => {
                   render={({ messages }) =>
                     messages &&
                     Object.entries(messages).map(([type, message]) => (
-                      <p className="text-danger" style={{ fontSize: '14px' }} key={type}>
+                      <p
+                        data-testid="confirm-new-password-error"
+                        className="text-danger"
+                        style={{ fontSize: '14px' }}
+                        key={type}
+                      >
                         {message}
                       </p>
                     ))
@@ -137,4 +158,3 @@ const PasswordChangeForm = () => {
 };
 
 export default PasswordChangeForm;
-

@@ -2,26 +2,26 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import axios from 'axios';
 import ForgotPasswordForm from '../parts/ForgotPasswordForm';
-import { act } from 'react-dom/test-utils';
 
 jest.mock('axios');
 
 test('displays success message on successful email submission', async () => {
-  const mockResponse = { status: 200 };
+  const mockResponse = { status: 202 };
   axios.post.mockResolvedValue(mockResponse);
 
   render(<ForgotPasswordForm />);
 
-  const emailInput = screen.getByTestId('email-input'); // Use data-testid
+  const emailInput = screen.getByTestId('email-input');
   fireEvent.change(emailInput, { target: { value: 'test@mail.com' } });
 
-  fireEvent.click(screen.getByTestId('recover-button')); // Use data-testid
+  fireEvent.click(screen.getByTestId('recover-button'));
 
-  await waitFor(() =>
+  // Wait for the axios call to complete
+  await waitFor(() => {
     expect(
-      screen.getByText('If the email exists in our database, a password reset link will be sent.')
-    ).toBeInTheDocument()
-  );
+      screen.getByText('Email found in our database, a password reset link will be sent.')
+    ).toBeInTheDocument();
+  });
 });
 
 test('displays error message on unsuccessful email submission', async () => {
@@ -31,15 +31,16 @@ test('displays error message on unsuccessful email submission', async () => {
 
   render(<ForgotPasswordForm />);
 
-  const emailInput = screen.getByTestId('email-input'); // Use data-testid
+  const emailInput = screen.getByTestId('email-input');
   fireEvent.change(emailInput, { target: { value: 'test@mail.com' } });
 
-  await act(async () => {
-    fireEvent.click(screen.getByTestId('recover-button')); // Use data-testid
+  fireEvent.click(screen.getByTestId('recover-button'));
+
+
+  await waitFor(() => {
+    const errorMsg = screen.getByTestId('error-message');
+    expect(errorMsg).toBeInTheDocument();
+    expect(screen.getByText(errorMessage)).toBeInTheDocument();
   });
-
-  const errorMsg = screen.getByTestId('error-message');
-
-  expect(errorMsg).toBeInTheDocument();
-  expect(screen.getByText(errorMessage)).toBeInTheDocument();
 });
+

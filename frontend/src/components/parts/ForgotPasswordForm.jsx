@@ -13,35 +13,30 @@ const ForgotPasswordForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     setErrors({ email: errorMessage });
-
+  
     if (isValid) {
-      axios
-        .post('http://localhost:8080/api/v1/forget-password', {
+      try {
+        const response = await axios.post('http://localhost:8080/api/v1/forget-password', {
           email
-<<<<<<< HEAD
         });
-
+  
         if (response.status === 202) {
           setMessage('Email found in our database, a password reset link will be sent.');
-        } 
-        else if (response.status === 404){
-          setMessage('User with' + email + ' not found in our database.');
-        }
-        else {
-=======
-        })
-        .then((response) => {
-          setMessage('If the email exists in our database, a password reset link will be sent.');
-        })
-        .catch((error) => {          
->>>>>>> development
+        } else if (response.status === 404) {
+          setMessage('User with ' + email + ' not found in our database.');
+        } else {
           setMessage('Error sending password recovery email');
-          setErrors({ email: error.message });
-        });
+          setErrors({ email: response.data.message }); // Assuming there's an error message in the response
+        }
+      } catch (error) {
+        setMessage('Error sending password recovery email');
+        setErrors({ email: error.message });
+      }
     }
   };
+  
 
   const handleEmailChange = (e) => {
     const newEmail = e.target.value;
