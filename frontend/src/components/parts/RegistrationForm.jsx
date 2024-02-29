@@ -37,8 +37,6 @@ const RegistrationForm = () => {
 
     const password = watch('password');
 
-
-
     const handleFormSubmit = async (formData) => {
         axios
             .post('http://localhost:8080/api/v1/register', formData)
@@ -55,6 +53,7 @@ const RegistrationForm = () => {
 
     useEffect(() => {
         clearErrors();
+        setEmailError("");
     }, [i18n.language, clearErrors]);
 
     return (
@@ -206,7 +205,7 @@ const RegistrationForm = () => {
                                                     message: t('registrationPage.passwordMaxLength')
                                                 },
                                                 pattern: {
-                                                    value: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-z]).+$/,
+                                                    value: /^(?!.*\s)(?=.*[A-Z])(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$/,
                                                     message: t('registrationPage.passwordPattern')
                                                 }
                                             })}
@@ -250,7 +249,7 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger" style={{fontSize: '14px'}} key={type}>
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
                                                         {message}
                                                     </p>
                                                 ))
@@ -273,12 +272,20 @@ const RegistrationForm = () => {
                                             placeholder={t('registrationPage.birthYearPlaceholder')}
                                             {...register('birth_year', {
                                                 required: t('registrationPage.required'),
+                                                maxLength: {
+                                                    value: 4,
+                                                    message: t('registrationPage.birthYearLength')
+                                                },
+                                                minLength: {
+                                                    value: 4,
+                                                    message: t('registrationPage.birthYearLength')
+                                                },
                                                 max: {
                                                     value: new Date().getFullYear() - 18,
                                                     message: t('registrationPage.birthYearMax')
                                                 },
                                                 min: {
-                                                    value: new Date().getFullYear() - 100,
+                                                    value: new Date().getFullYear() - 120,
                                                     message: t('registrationPage.birthYearMin')
                                                 }
                                             })}
@@ -289,7 +296,7 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger" style={{fontSize: '14px'}} key={type}>
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
                                                         {message}
                                                     </p>
                                                 ))
@@ -327,7 +334,7 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger mx-5" style={{fontSize: '14px'}}
+                                                    <p className="text-danger mx-5 mb-1 " style={{fontSize: '14px'}}
                                                        key={type}>
                                                         {message}
                                                     </p>
@@ -376,7 +383,7 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger" style={{fontSize: '14px'}} key={type}>
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
                                                         {message}
                                                     </p>
                                                 ))
