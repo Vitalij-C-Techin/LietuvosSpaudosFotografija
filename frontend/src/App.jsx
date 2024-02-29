@@ -1,10 +1,7 @@
 import { I18nextProvider } from 'react-i18next';
 import i18n from './modules/language/i18n.jsx';
-
 import { AuthProvider } from './components/context/AuthContext.jsx';
-
 import { Routes, Route } from 'react-router-dom';
-
 import NavigationBar from './components/parts/NavigationBar.jsx';
 import HomePage from './components/pages/HomePage';
 import RegistrationPage from './components/pages/RegistrationPage.jsx';
@@ -16,7 +13,7 @@ import UserCompetitionsRequestPage from './components/pages/UserCompetitionsRequ
 import AdminCompetitionsListPage from './components/pages/AdminCompetitionsListPage.jsx';
 import AdminUserParticipationRequestPage from './components/pages/AdminUserParticipationRequestPage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
-import ViewEditCompetition from './components/pages/CompetitionPageEdit.jsx';
+import CompetitionManagementPage from './components/pages/CompetitionManagementPage.jsx';
 import { Authorization } from './components/utils/Authorization.jsx';
 
 function App() {
@@ -47,7 +44,7 @@ function App() {
             <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
               <Route path="/p" element={<ProfilePage />} />
             </Route>
-            <Route path="/editcompetition" element={<ViewEditCompetition />} />
+            <Route path="/editcompetition" element={<CompetitionManagementPage />} />
 
             <Route path="/*" element={<ErrorPage />} />
           </Routes>

@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import LoadingMessage from '../Messages/LoadingMessage';
-import EmptyMessage from '../Messages/EmptyMessage';
+import LoadingMessage from '../parts/LoadingMessage';
+import EmptyMessage from '../parts/EmptyMessage';
 
 const AdminCompetitionsListPage = () => {
   const [t] = useTranslation();
