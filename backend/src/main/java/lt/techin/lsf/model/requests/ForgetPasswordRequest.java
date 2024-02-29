@@ -1,6 +1,9 @@
 package lt.techin.lsf.model.requests;
 
+import lombok.NoArgsConstructor;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +14,8 @@ import java.util.regex.Pattern;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ForgetPasswordRequest {
 
     private String email;

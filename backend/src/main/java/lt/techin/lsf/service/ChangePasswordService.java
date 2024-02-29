@@ -4,7 +4,6 @@ import lombok.*;
 import lt.techin.lsf.exception.*;
 import lt.techin.lsf.persistance.UserRepository;
 import lt.techin.lsf.persistance.model.UserRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,16 +15,11 @@ import java.util.regex.Pattern;
 @Getter
 @Setter
 @Service
+@RequiredArgsConstructor
 public class ChangePasswordService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-
-    @Autowired
-    public ChangePasswordService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
-    }
 
     public ResponseEntity<String> changeUserPassword(String passwordResetTokenUuid, String newPassword) {
         UserRecord userRecord = userRepository.findByPasswordResetToken(passwordResetTokenUuid);

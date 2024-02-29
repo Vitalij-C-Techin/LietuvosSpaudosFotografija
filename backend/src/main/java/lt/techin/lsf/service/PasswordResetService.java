@@ -24,14 +24,10 @@ public class PasswordResetService {
         this.passwordResetUpdater = passwordResetUpdater;
     }
 
-    public UserRecord userSearchByEmail(String email) {
-        return userRepository.findByEmailIgnoreCase(email);
-    }
-
     public ResponseEntity<String> resetPassword(ForgetPasswordRequest forgetPasswordRequest) {
         forgetPasswordRequest.validateData();
         String email = forgetPasswordRequest.getEmail();
-        UserRecord user = userSearchByEmail(email);
+        UserRecord user = userRepository.findByEmailIgnoreCase(email);
         if (user != null) {
 
             passwordResetUpdater.initializePasswordReset(user);

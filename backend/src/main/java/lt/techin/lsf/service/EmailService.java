@@ -7,7 +7,7 @@ import com.mailjet.client.transactional.SendEmailsRequest;
 import com.mailjet.client.transactional.TrackOpens;
 import com.mailjet.client.transactional.TransactionalEmail;
 import com.mailjet.client.transactional.response.SendEmailsResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 @PropertySource(
         value = "classpath:credentials.yaml")
+@RequiredArgsConstructor
 public class EmailService {
 
     private final MailjetClient mailjetClient;
@@ -27,10 +28,6 @@ public class EmailService {
     private String subject;
 
     private String htmlMailMessage;
-    @Autowired
-    public EmailService(MailjetClient mailjetClient) {
-        this.mailjetClient = mailjetClient;
-    }
 
     public void sendMailUsingMailjet(String recipientMail, String subject, String htmlMailMessage) {
         try {

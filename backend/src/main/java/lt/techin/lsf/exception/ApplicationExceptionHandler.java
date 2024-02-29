@@ -323,11 +323,12 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler({TokenExpiredException.class})
     protected ResponseEntity<ErrorResponse> handle(TokenExpiredException exception){
-        return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body(
-        ErrorResponse.builder()
-                .code(exception.getClass().getSimpleName())
-                .message(exception.getMessage())
-                .build()
+        return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT)
+                .body(
+                        ErrorResponse.builder()
+                         .code(exception.getClass().getSimpleName())
+                         .message(exception.getMessage())
+                         .build()
                 );
     }
 }
