@@ -1,39 +1,48 @@
+.registration-form-container {
+  font-family: 'Montserrat', sans-serif;
 
-.registration-form-container{
-    font-family: "Montserrat", sans-serif;
-  
-    h2{
-        font-weight: 700;
-    }
-  
-    button{
-        font-size: 12px;
-        border-radius: 0%;
-        border: solid ;
-        border-width: medium ;
-        border-color: black;
-        color: white ;
-        background-color: black;
-        width: 100%;
-    
-      }
-      button:hover {
-        background-color: white ;
-        border-color: black ;
-        color: black ;
-      }
-  
-      input{
-        border-radius: 0%;
-        border-color: black;
-        border-width: 0.2em;
-      }
-
-      select{
-        border-radius: 0%;
-        border-color: black;
-        border-width: 0.2em;
-      }
-
-  
+  h2 {
+    font-weight: 700;
   }
+
+  button {
+    font-size: 12px;
+    border-radius: 0%;
+    border: solid;
+    border-width: medium;
+    border-color: black;
+    color: white;
+    background-color: black;
+    width: 100%;
+  }
+  button:hover {
+    background-color: white;
+    border-color: black;
+    color: black;
+  }
+
+  input,
+  .PhoneInputInput {
+    border-radius: 0%;
+    border-color: black;
+    border-width: 0.2em;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus,
+  .PhoneInputInput:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgb(131, 130, 130);
+    border-color: rgb(206, 203, 203);
+  }
+  .form-check-input:checked {
+    background-color: gray;
+    border-color: rgb(206, 203, 203);
+  }
+  select {
+    border-radius: 0%;
+    border-color: black;
+    border-width: 0.2em;
+  }
+}
