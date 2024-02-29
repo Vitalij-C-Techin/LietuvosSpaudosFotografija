@@ -47,7 +47,8 @@ i18n
             passwordNotMatch: 'Passwords do not match!',
             passwordMinLength: 'Password must be at least 8 characters long.',
             passwordMaxLength: 'Password must be less than 50 characters long.',
-            passwordPattern: 'Password must contain only lowercase, uppercase latin letters, numbers and special symbols !@#$%^&*().',
+            passwordPattern:
+              'Password must contain only lowercase, uppercase latin letters, numbers and special symbols !@#$%^&*().',
             phoneError: 'Invalid phone number.',
             registerSuccessful: 'Registration successful.',
             emailError: 'Email already exists.',
@@ -141,6 +142,30 @@ i18n
             competitionDates: 'Registration is ongoing',
             competitionCategories: 'Categories',
             participate: 'Participate'
+          },
+          editcomp: {
+            header: 'View/Edit competition',
+            delete: 'Delete competition',
+            name: 'Name',
+            description: 'Description',
+            Sdate: 'Start date',
+            Plimit: 'Photo limit',
+            Status: 'Status',
+            solo: 'Solo',
+            number: 'Number',
+            group: 'Group',
+            active: 'Active',
+            closed: 'Closed',
+            visible: 'Visible',
+            Edate: 'End date',
+            active2: 'Visible',
+            closed2: 'Hidden',
+            Addcategory: 'Added categories',
+            Ccategory: 'Create category',
+            status: 'Status',
+            Acategory: 'Add category',
+            message: 'Are you sure you want to save?',
+            Save: 'Save'
           }
         }
       },
@@ -179,7 +204,8 @@ i18n
             passwordNotMatch: 'Slaptažodžiai nesutampa!',
             passwordMinLength: 'Slaptažodis turi būti sudarytas bent iš 8 simbolių.',
             passwordMaxLength: 'Slaptažodis turi būti sudarytas iš mažiau nei 50 simbolių.',
-            passwordPattern: 'Slaptažodį turi sudaryti tik mažosios, didžiosios lotyniškos raidės, skaitmenys bei specialieji simboliai !@#$%^&*().',
+            passwordPattern:
+              'Slaptažodį turi sudaryti tik mažosios, didžiosios lotyniškos raidės, skaitmenys bei specialieji simboliai !@#$%^&*().',
             phoneError: 'Netinkamas telefono numeris.',
             registerSuccessful: 'Registracija sėkminga.',
             emailError: 'Toks el. paštas jau egzistuoja.',
@@ -273,6 +299,30 @@ i18n
             competitionDates: 'Registracija vyksta',
             competitionCategories: 'Kategorijos',
             participate: 'Dalyvauti'
+          },
+          editcomp: {
+            header: 'Perziureti/Pakeisti rengyni',
+            delete: 'Istrinti rengyni',
+            name: 'Vardas',
+            description: 'Apie',
+            Sdate: 'Pradzios data',
+            Plimit: 'Foto limitas',
+            Status: 'Statusas',
+            solo: 'Paviene',
+            number: 'Kelios',
+            group: 'Grupine',
+            active: 'Vyksta',
+            closed: 'Uzdarytas',
+            visible: 'Matosi',
+            Edate: 'Pabaigos data',
+            active2: 'Matosi',
+            closed2: 'Pasleptas',
+            Addcategory: 'Pridetos kategorijos',
+            Ccategory: 'Sukurti kategorija',
+            status: 'Statusas',
+            Acategory: 'Prideti kategorija',
+            message: 'Ar tikrai norite issaugoti?',
+            Save: 'Issaugoti'
           }
         }
       }

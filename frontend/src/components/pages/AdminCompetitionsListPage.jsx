@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import LoadingMessage from '../parts/LoadingMessage';
-import EmptyMessage from '../parts/EmptyMessage';
+import LoadingMessage from '../messages/LoadingMessage'
+import EmptyMessage from '../messages/EmptyMessage';
 
 const AdminCompetitionsListPage = () => {
   const [t] = useTranslation();
@@ -96,7 +96,7 @@ const ActionList = () => {
   };
 
   const handleCreateCompetition = () => {
-    console.log('Create competition button');
+    navigate('/editcompetition')
   };
 
   return (
