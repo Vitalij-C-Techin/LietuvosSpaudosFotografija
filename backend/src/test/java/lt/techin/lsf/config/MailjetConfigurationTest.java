@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @PropertySource("classpath:test-credentials.yaml")
-public class MailJetConfigurationTest {
+public class MailjetConfigurationTest {
 
 
     @Value("${accessKey}")

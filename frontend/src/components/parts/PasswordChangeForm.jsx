@@ -86,7 +86,7 @@ const PasswordChangeForm = () => {
                       message: t('passwordChangePage.passwordMaxLength')
                     },
                     pattern: {
-                      value: /^(?=.*[A-Z])(?=.*\d)(?=.*[a-z]).+$/,
+                      value: /^(?!.*\s)(?=.*[A-Z])(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$/,
                       message: t('passwordChangePage.passwordPattern')
                     }
                   })}

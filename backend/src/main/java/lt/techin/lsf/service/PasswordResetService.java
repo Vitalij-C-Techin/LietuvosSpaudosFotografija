@@ -2,13 +2,15 @@ package lt.techin.lsf.service;
 
 import lt.techin.lsf.exception.UserNotFoundByEmailException;
 import lt.techin.lsf.model.requests.ForgetPasswordRequest;
-import lt.techin.lsf.model.updater.PasswordResetUpdater;
 import lt.techin.lsf.persistance.UserRepository;
 import lt.techin.lsf.persistance.model.UserRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Service
 public class PasswordResetService {
@@ -17,11 +19,9 @@ public class PasswordResetService {
     private EmailService emailService;
 
     private final UserRepository userRepository;
-    private final PasswordResetUpdater passwordResetUpdater;
 
-    public PasswordResetService(UserRepository userRepository, PasswordResetUpdater passwordResetUpdater) {
+    public PasswordResetService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordResetUpdater = passwordResetUpdater;
     }
 
     public ResponseEntity<String> resetPassword(ForgetPasswordRequest forgetPasswordRequest) {
@@ -30,7 +30,7 @@ public class PasswordResetService {
         UserRecord user = userRepository.findByEmailIgnoreCase(email);
         if (user != null) {
 
-            passwordResetUpdater.initializePasswordReset(user);
+            initializePasswordReset(user);
             userRepository.save(user);
             String emailChangeLink = "http://localhost:5173/change-password?token=" + user.getPasswordResetToken();
             emailService.sendMailUsingMailjet(email, "email reset link", emailChangeLink);
@@ -38,6 +38,15 @@ public class PasswordResetService {
 
         } else {
             throw new UserNotFoundByEmailException("User not found");
+        }
+    }
+
+    public void initializePasswordReset(UserRecord existingUser) {
+        if (existingUser != null) {
+            LocalDateTime now = LocalDateTime.now();
+            existingUser.setPasswordResetRequestAt(now);
+            String passwordResetToken = UUID.randomUUID().toString();
+            existingUser.setPasswordResetToken(passwordResetToken);
         }
     }
 }

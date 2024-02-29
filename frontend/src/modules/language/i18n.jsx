@@ -38,10 +38,14 @@ i18n
             invalidEmailFormat: 'Invalid email format!'
           },
           forgotPasswordForm: {
+            emailFound: 'Email found in our database, a password reset link will be sent.',
+            emailSendingError: 'Error sending password recovery email',
+            userNotFound: 'User with {{email}} not found in our database.',
             resetPassword: 'RESET PASSWORD',
             serverErrorMessage: 'An error occurred. Please try again later.',
             formPlaceholderText: 'Enter your email here',
-            recoverButton: 'SUBMIT'
+            recoverButton: 'SUBMIT',
+
           },
           passwordChangePage: {
             passwordChangeSuccessful: "Password Changed Successfully",
@@ -49,7 +53,7 @@ i18n
             title: "Password change",
             newPassword: "New password",
             newPasswordPlaceholder: "new password",
-            required: "required",
+            required: "This field is required.",
             passwordMinLength: "Password must be at least 8 characters long.",
             passwordMaxLength: "Password must not exceed 60 characters.",
             passwordPattern: `Password must contain at least one uppercase letter, 
@@ -186,10 +190,13 @@ i18n
             invalidEmailFormat: 'Netinkamas el.pašto formatas'
           },
           forgotPasswordForm: {
-            resetPassword: 'Atstatyti slaptažodį',
-            serverErrorMessage: 'Įvyko klaida. Pabandykite dar kartą vėliau.',
-            formPlaceholderText: 'Įveskite savo el. pašto adresą čia',
-            recoverButton: 'TOLIAU'
+            emailFound: 'El. paštas rastas mūsų duomenų bazėje, slaptažodžio atkūrimo nuoroda bus išsiųsta.',
+            emailSendingError: 'Klaida siunčiant slaptažodžio atkūrimo el. laišką',
+            userNotFound: 'Vartotojas su el. paštu {{email}} nerastas mūsų duomenų bazėje.',
+            resetPassword: 'ATKURTI SLAPTAŽODĮ',
+            serverErrorMessage: 'Įvyko klaida. Prašome bandyti vėliau.',
+            formPlaceholderText: 'Įveskite savo el. paštą čia',
+            recoverButton: 'PATEIKTI',
           },
           passwordChangePage: {
             passwordChangeSuccessful: "Slaptažodis pakeistas sėkmingai",
@@ -197,7 +204,7 @@ i18n
             title: "Slaptažodžio pakeitimas",
             newPassword: "Naujas slaptažodis",
             newPasswordPlaceholder: "naujas slaptažodis",
-            required: "privaloma",
+            required: "Šis laukas privalomas.",
             passwordMinLength: "Slaptažodis turi būti bent 8 simbolių ilgio.",
             passwordMaxLength: "Slaptažodis negali viršyti 60 simbolių.",
             passwordPattern: `Slaptažodis turi turėti bent vieną didžiąją raidę, 

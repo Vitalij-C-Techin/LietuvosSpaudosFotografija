@@ -1,50 +1,51 @@
-import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { validateEmail } from './EmailVerification';
 
 const ForgotPasswordForm = () => {
-  const { t } = useTranslation();
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState(null);
-  const [errors, setErrors] = useState({});
-  const { isValid, errorMessage } = validateEmail(email, t);
+  const { t, i18n } = useTranslation();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+    clearErrors
+  } = useForm();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    setErrors({ email: errorMessage });
-  
-    if (isValid) {
-      try {
-        const response = await axios.post('http://localhost:8080/api/v1/forget-password', {
-          email
-        });
-  
-        if (response.status === 202) {
-          setMessage('Email found in our database, a password reset link will be sent.');
-        } else if (response.status === 404) {
-          setMessage('User with ' + email + ' not found in our database.');
-        } else {
-          setMessage('Error sending password recovery email');
-          setErrors({ email: response.data.message });
-        }
-      } catch (error) {
-        setMessage('Error sending password recovery email');
-        setErrors({ email: error.message });
-      }
+  const onSubmit = (data) => {
+    const { email } = data;
+    const { isValid, errorMessage } = validateEmail(email, t);
+
+    if (!isValid) {
+      setError('email', { type: 'manual', message: errorMessage });
+      return;
     }
-  };
-  
 
-  const handleEmailChange = (e) => {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
-
-    const { isValid, errorMessage } = validateEmail(newEmail, t);
-    setErrors({ email: isValid ? null : errorMessage });
+    axios
+      .post('http://localhost:8080/api/v1/forget-password', { email })
+      .then((response) => {
+        if (response.status === 202) {
+        } else {
+          setError('email', { type: 'manual', message: response.data.message });
+        }
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          setError('email', {
+            type: 'manual',
+            message: t('forgotPasswordForm.userNotFound', { email })
+          });
+        } else {
+          setError('email', { type: 'manual', message: t('forgotPasswordForm.emailSendingError') });
+        }
+      });
   };
+  useEffect(() => {
+    clearErrors();
+  }, [i18n.language, clearErrors]);
 
   return (
     <>
@@ -52,23 +53,26 @@ const ForgotPasswordForm = () => {
         <Row className="justify-content-md-center">
           <Col xs="12" sm="8" md="6" lg="4">
             <Card className="my-5">
-              <h2>{t('forgotPasswordForm.resetPassword')}</h2>
-              {message && <p>{message}</p>}
+              <h2 style={{ textAlign: 'center' }}> {t('forgotPasswordForm.resetPassword')}</h2>
             </Card>
-            <Form onSubmit={handleSubmit} noValidate>
+            <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+              {errors.email && (
+                <p className="text-danger" data-testid="error-message">
+                  {errors.email.message}
+                </p>
+              )}
               <Form.Group className="mb-3" controlId="formGroupEmail">
                 <Form.Control
                   type="email"
-                  value={email}
-                  onChange={handleEmailChange}
+                  {...register('email', {
+                    required: t('forgotPasswordForm.required'),
+                    pattern: {
+                      validate: (value) => validateEmail(value)
+                    }
+                  })}
                   placeholder={t('forgotPasswordForm.formPlaceholderText')}
                   data-testid="email-input"
                 />
-                {errors.email && (
-                  <p className="text-danger" data-testid="error-message">
-                    {errors.email}
-                  </p>
-                )}
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formGroupButton">
