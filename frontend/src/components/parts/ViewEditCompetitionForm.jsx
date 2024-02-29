@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
 import CategoryModal from '../modals/CategoryModal';
-import CreateCategory from '../modals/CreateCategory';
+import ModalCreateCategory from '../modals/ModalCreateCategory';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-const ViewEditCompetition = () => {
+const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const [isFormChanged, setIsFormChanged] = useState(false);
+  const navigate = useNavigate();
   const [t] = useTranslation();
   const [formData, setFormData] = useState({
     cname: '',
@@ -20,26 +22,25 @@ const ViewEditCompetition = () => {
   });
 
   useEffect(() => {
-    const initialFormData = JSON.stringify(formData);
-    const currentFormData = JSON.stringify({
-      cname: '',
-      description: '',
-      StartDate: '',
-      photoLimit: '',
-      status: selectedStatus,
-      visibility: ''
-    });
+    const initialFormData = JSON.stringify(competitionData);
+    const currentFormData = JSON.stringify(formData);
     setIsFormChanged(initialFormData !== currentFormData);
-  }, [formData, selectedStatus]);
+  }, [competitionData, formData]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+    setIsFormChanged(true);
   };
 
   const handleSave = () => {
-    if (isFormChanged && window.confirm('Are you sure you want to save changes?')) {
-      handleSave(formData);
+    if (isFormChanged && typeof onUpdate === 'function') {
+      const confirmSave = window.confirm(t('editcomp.message'));
+      if (confirmSave) {
+        onUpdate(formData);
+        setIsFormChanged(false);
+        navigate('/admin-competitions-list');
+      }
     }
   };
 
@@ -72,7 +73,7 @@ const ViewEditCompetition = () => {
       </Container>
       <Container className="justify-content-xl-center my-5">
         <Card>
-          <h5>{t('editcomp.name')}</h5>
+          <label htmlFor="cname">{t('editcomp.name')}</label>
         </Card>
         <input
           type="text"
@@ -161,11 +162,11 @@ const ViewEditCompetition = () => {
       </Container>
       <Container className="justify-content-xl-center my-5">
         <button onClick={handleSave} disabled={!isFormChanged}>
-          Save
+          {t('editcomp.Save')}
         </button>
         <button onClick={handleCreateCategory}>{t('editcomp.Ccategory')}</button>
         <button onClick={handleAddCategory}>{t('editcomp.Acategory')}</button>
-        <CreateCategory
+        <ModalCreateCategory
           showModal={showCreateCategoryModal}
           onClose={handleCloseCreateCategoryModal}
         />
@@ -175,4 +176,4 @@ const ViewEditCompetition = () => {
   );
 };
 
-export default ViewEditCompetition;
+export default ViewEditCompetitionForm;

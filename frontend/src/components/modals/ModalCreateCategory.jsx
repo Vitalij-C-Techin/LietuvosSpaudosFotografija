@@ -1,6 +1,6 @@
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const CreateCategory = ({showModal, onClose}) => {
+const ModalCreateCategory = ({showModal, onClose}) => {
   //TODO add logic
 
   return (
@@ -20,4 +20,4 @@ const CreateCategory = ({showModal, onClose}) => {
   );
 };
 
-export default CreateCategory;
+export default ModalCreateCategory;

@@ -190,7 +190,9 @@ i18n
             Addcategory: 'Added categories',
             Ccategory: 'Create category',
             status: 'Status',
-            Acategory:'Add category'
+            Acategory:'Add category',
+            message: "Are you sure you want to save?",
+            Save: "Save"
           }
         }
       },
@@ -376,7 +378,9 @@ i18n
             Addcategory: 'Pridetos kategorijos',
             Ccategory: 'Sukurti kategorija',
             status: 'Statusas',
-            Acategory: "Prideti kategorija"
+            Acategory: "Prideti kategorija",
+            message: 'Ar tikrai norite issaugoti?',
+            Save: 'Issaugoti'
           }
         }
       }
