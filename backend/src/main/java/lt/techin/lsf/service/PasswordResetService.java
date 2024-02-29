@@ -29,7 +29,6 @@ public class PasswordResetService {
         String email = forgetPasswordRequest.getEmail();
         UserRecord user = userRepository.findByEmailIgnoreCase(email);
         if (user != null) {
-
             initializePasswordReset(user);
             userRepository.save(user);
             String emailChangeLink = "http://localhost:5173/change-password?token=" + user.getPasswordResetToken();
@@ -37,17 +36,15 @@ public class PasswordResetService {
             return new ResponseEntity<>("Forget password request processed successfully", HttpStatus.ACCEPTED);
 
         } else {
-            throw new UserNotFoundByEmailException("User not found");
+            throw new UserNotFoundByEmailException("User not found for email: " + email);
         }
     }
 
     public void initializePasswordReset(UserRecord existingUser) {
-        if (existingUser != null) {
             LocalDateTime now = LocalDateTime.now();
             existingUser.setPasswordResetRequestAt(now);
             String passwordResetToken = UUID.randomUUID().toString();
             existingUser.setPasswordResetToken(passwordResetToken);
-        }
     }
 }
 
