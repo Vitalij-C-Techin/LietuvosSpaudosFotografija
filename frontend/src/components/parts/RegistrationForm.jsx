@@ -319,7 +319,6 @@ const RegistrationForm = () => {
                                             }}
                                             render={({field: {onChange, value}}) => (
                                                 <PhoneInput
-                                                className='p-1'
                                                     data-testid="phone-input"
                                                     value={value}
                                                     onChange={onChange}

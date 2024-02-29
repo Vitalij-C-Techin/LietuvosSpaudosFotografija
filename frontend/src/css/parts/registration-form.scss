@@ -21,12 +21,17 @@
     color: black;
   }
 
-  input,
-  .PhoneInputInput {
+  input, .form-check-input {
     border-radius: 0%;
     border-color: black;
     border-width: 0.2em;
   }
+
+  .PhoneInputInput {
+    padding: 6px;
+    border:solid;
+    border-color: black;
+   }
 
   input:focus,
   textarea:focus,
@@ -39,10 +44,12 @@
   .form-check-input:checked {
     background-color: gray;
     border-color: rgb(206, 203, 203);
+    border-radius: 0%;
   }
   select {
     border-radius: 0%;
     border-color: black;
     border-width: 0.2em;
   }
+  
 }
