@@ -82,7 +82,7 @@ const RegistrationForm = () => {
                                             {...register('name', {
                                                 required: t('registrationPage.required'),
                                                 minLength: {
-                                                    value: 3,
+                                                    value: 2,
                                                     message: t('registrationPage.nameMinLength')
                                                 },
                                                 maxLength: {
@@ -123,7 +123,7 @@ const RegistrationForm = () => {
                                             {...register('surname', {
                                                 required: t('registrationPage.required'),
                                                 minLength: {
-                                                    value: 3,
+                                                    value: 2,
                                                     message: t('registrationPage.surnameMinLength')
                                                 },
                                                 maxLength: {
@@ -164,7 +164,7 @@ const RegistrationForm = () => {
                                     {...register('email', {
                                         required: t('registrationPage.required'),
                                         pattern: {
-                                            value: /^[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.][a-zA-Z]+$/,
+                                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                                             message: t('registrationPage.emailPattern')
                                         }
                                     })}
@@ -249,7 +249,8 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}}
+                                                       key={type}>
                                                         {message}
                                                     </p>
                                                 ))
@@ -296,7 +297,8 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}}
+                                                       key={type}>
                                                         {message}
                                                     </p>
                                                 ))
@@ -383,7 +385,8 @@ const RegistrationForm = () => {
                                             render={({messages}) =>
                                                 messages &&
                                                 Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}} key={type}>
+                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}}
+                                                       key={type}>
                                                         {message}
                                                     </p>
                                                 ))
