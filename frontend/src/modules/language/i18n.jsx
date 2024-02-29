@@ -93,7 +93,7 @@ i18n
             birthYearMax: 'Only persons older than 18 years can register.',
             birthYearMin: 'Only persons younger than 120 years can register.',
             birthYearLength: 'Birth year must contain 4 digits.',
-            mediaNameMaxLength: 'Must contain less than 50 characters.'
+            mediaNameMaxLength: 'Must contain less than 50 characters.',
             birthYearPlaceholder: 'e.g. 1990',
             required: 'This field is required.',
             nameMinLength: 'Name must contain at least 3 characters.',
@@ -122,7 +122,7 @@ i18n
             competitionEnd: 'Competition ends in:',
             competitionTitle: 'COMPETITION TITLE',
             required: 'This field is required.',
-            passwordPlaceholder: 'Enter password'
+            passwordPlaceholder: 'Enter password',
             competitionTitle: 'COMPETITION TITLE',
             required: 'This field is required.',
             passwordPlaceholder: 'Enter password'
@@ -273,7 +273,7 @@ i18n
             birthYearMax: 'Gali registruotis ne jaunesni nei 18 metų asmenys.',
             birthYearMin: 'Gali registruotis ne vyresni nei 120 metų asmenys.',
             birthYearLength: 'Gimimo metus turi sudaryti 4 skaitmenys.',
-            mediaNameMaxLength: 'Turi sudaryti ne daugiau kaip 50 simbolių.'
+            mediaNameMaxLength: 'Turi sudaryti ne daugiau kaip 50 simbolių.',
             surnamePlaceholder: 'Įveskite savo pavardę',
             passwordPlaceholder: 'Įveskite slaptažodį',
             cpasswordPlaceholder: 'Pakartokite slaptažodį',
@@ -308,7 +308,7 @@ i18n
             competitionEnd: 'Registracija baigiasi:',
             competitionTitle: 'KONKURSO PAVADINIMAS',
             required: 'Šis laukas privalomas.',
-            passwordPlaceholder: 'Įveskite slaptažodį'
+            passwordPlaceholder: 'Įveskite slaptažodį',
             competitionTitle: 'KONKURSO PAVADINIMAS',
             required: 'Šis laukas privalomas.',
             passwordPlaceholder: 'Įveskite slaptažodį'
