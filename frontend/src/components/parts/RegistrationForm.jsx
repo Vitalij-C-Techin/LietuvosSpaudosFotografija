@@ -38,6 +38,9 @@ const RegistrationForm = () => {
     const password = watch('password');
 
     const handleFormSubmit = async (formData) => {
+        setEmailError("");
+        clearErrors();
+
         axios
             .post('http://localhost:8080/api/v1/register', formData)
             .then((response) => {
