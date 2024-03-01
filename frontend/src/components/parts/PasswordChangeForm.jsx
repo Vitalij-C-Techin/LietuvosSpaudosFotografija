@@ -18,7 +18,8 @@ const PasswordChangeForm = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors }
+    formState: { errors },
+    clearErrors
   } = useForm({
     reValidateMode: 'onChange',
     defaultValues: {
@@ -45,6 +46,10 @@ const PasswordChangeForm = () => {
   };
 
   useEffect(() => {}, [resetToken]);
+
+  useEffect(() => {
+    clearErrors();
+  }, [i18n.language, clearErrors]);
 
   return (
     <>
@@ -86,7 +91,7 @@ const PasswordChangeForm = () => {
                       message: t('passwordChangePage.passwordMaxLength')
                     },
                     pattern: {
-                      value: /^(?!.*\s)(?=.*[A-Z])(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$/,
+                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
                       message: t('passwordChangePage.passwordPattern')
                     }
                   })}

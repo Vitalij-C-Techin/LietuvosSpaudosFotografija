@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
@@ -7,6 +7,7 @@ import { validateEmail } from './EmailVerification';
 
 const ForgotPasswordForm = () => {
   const { t, i18n } = useTranslation();
+  const [message, setMessage] = useState(null);
   const {
     register,
     handleSubmit,
@@ -28,6 +29,7 @@ const ForgotPasswordForm = () => {
       .post('http://localhost:8080/api/v1/forget-password', { email })
       .then((response) => {
         if (response.status === 202) {
+          setMessage(t('forgotPasswordForm.emailFound'));
         } else {
           setError('email', { type: 'manual', message: response.data.message });
         }
@@ -56,6 +58,7 @@ const ForgotPasswordForm = () => {
               <h2 style={{ textAlign: 'center' }}> {t('forgotPasswordForm.resetPassword')}</h2>
             </Card>
             <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+              {message && <p>{message}</p>}
               {errors.email && (
                 <p className="text-danger" data-testid="error-message">
                   {errors.email.message}
