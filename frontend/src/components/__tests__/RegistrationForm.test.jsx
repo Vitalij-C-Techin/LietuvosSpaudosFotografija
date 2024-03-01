@@ -46,7 +46,7 @@ describe('RegistrationForm', () => {
         render(<RegistrationForm/>);
 
         fireEvent.change(screen.getByTestId('name-input'), {
-            target: {value: 'sa'}
+            target: {value: 's'}
         });
         fireEvent.change(screen.getByTestId('surname-input'), {
             target: {value: 'baafdfdgfdgfhmhghghkreklklreklrkreklfkfjfjkfffdfdkjfjkffdjk'}
