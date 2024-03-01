@@ -72,7 +72,7 @@ public class AuthenticationServiceRegisterTests {
 
         reg.setPhoneNumber("1");
 
-        Assert.assertThrows(UserRegistrationEmailIsTooShortException.class, () -> {
+        Assert.assertThrows(UserRegistrationEmailInvalidFormatException.class, () -> {
             authenticationService.register(reg);
         });
     }
@@ -87,12 +87,12 @@ public class AuthenticationServiceRegisterTests {
                 .phoneNumber("")
                 .build();
 
-        Assert.assertThrows(UserRegistrationEmailIsTooShortException.class, () -> {
+        Assert.assertThrows(UserRegistrationEmailInvalidFormatException.class, () -> {
             authenticationService.register(reg);
         });
 
         reg.setEmail("01234567890123456789012345678901234567890123456789012345678901234567890123456789");
-        Assert.assertThrows(UserRegistrationEmailIsTooLongException.class, () -> {
+        Assert.assertThrows(UserRegistrationEmailInvalidFormatException.class, () -> {
             authenticationService.register(reg);
         });
 
@@ -192,22 +192,22 @@ public class AuthenticationServiceRegisterTests {
         });
 
         reg.setPassword("QWEQWEQWEQWEQWE");
-        Assert.assertThrows(UserRegistrationPasswordLowercaseException.class, () -> {
+        Assert.assertThrows(UserRegistrationPasswordFormatException.class, () -> {
             authenticationService.register(reg);
         });
 
         reg.setPassword("qweqweqweqweqwe");
-        Assert.assertThrows(UserRegistrationPasswordUppercaseException.class, () -> {
+        Assert.assertThrows(UserRegistrationPasswordFormatException.class, () -> {
             authenticationService.register(reg);
         });
 
         reg.setPassword("qweqweQWEqweqwe");
-        Assert.assertThrows(UserRegistrationPasswordDigitException.class, () -> {
+        Assert.assertThrows(UserRegistrationPasswordFormatException.class, () -> {
             authenticationService.register(reg);
         });
 
         reg.setPassword("qweqweQWEqweqwe1");
-        Assert.assertThrows(UserRegistrationNameIsTooShortException.class, () -> {
+        Assert.assertThrows(UserRegistrationPasswordFormatException.class, () -> {
             authenticationService.register(reg);
         });
     }
@@ -216,7 +216,7 @@ public class AuthenticationServiceRegisterTests {
     public void registrationNameValidation() {
         RegisterRequest reg = RegisterRequest.builder()
                 .email("name.surname@gmail.com")
-                .password("passwordPASSWORD123")
+                .password("passwordPASSWORD123*")
                 .name("")
                 .surname("")
                 .phoneNumber("")
@@ -226,7 +226,7 @@ public class AuthenticationServiceRegisterTests {
             authenticationService.register(reg);
         });
 
-        reg.setName("Na");
+        reg.setName("N");
         Assert.assertThrows(UserRegistrationNameIsTooShortException.class, () -> {
             authenticationService.register(reg);
         });
@@ -251,7 +251,7 @@ public class AuthenticationServiceRegisterTests {
     public void registrationSurnameValidation() {
         RegisterRequest reg = RegisterRequest.builder()
                 .email("name.surname@gmail.com")
-                .password("passwordPASSWORD123")
+                .password("passwordPASSWORD123*")
                 .name("Username")
                 .surname("")
                 .phoneNumber("")
@@ -261,7 +261,7 @@ public class AuthenticationServiceRegisterTests {
             authenticationService.register(reg);
         });
 
-        reg.setSurname("Su");
+        reg.setSurname("S");
         Assert.assertThrows(UserRegistrationSurnameIsTooShortException.class, () -> {
             authenticationService.register(reg);
         });
@@ -286,7 +286,7 @@ public class AuthenticationServiceRegisterTests {
     public void registrationBirthYearValidation() {
         RegisterRequest reg = RegisterRequest.builder()
                 .email("name.surname@gmail.com")
-                .password("passwordPASSWORD123")
+                .password("passwordPASSWORD123*")
                 .name("Username")
                 .surname("Usersurname")
                 .phoneNumber("")
@@ -326,7 +326,7 @@ public class AuthenticationServiceRegisterTests {
     public void registrationPhoneNumberValidation() {
         RegisterRequest reg = RegisterRequest.builder()
                 .email("name.surname@gmail.com")
-                .password("passwordPASSWORD123")
+                .password("passwordPASSWORD123*")
                 .name("Username")
                 .surname("Usersurname")
                 .birthYear(2000)
@@ -367,11 +367,12 @@ public class AuthenticationServiceRegisterTests {
 
         RegisterRequest reg = RegisterRequest.builder()
                 .email(email)
-                .password("passwordPASSWORD123")
+                .password("passwordPASSWORD123*")
                 .name("Username")
                 .surname("Usersurname")
                 .birthYear(2000)
                 .phoneNumber("+370684654684864")
+                .mediaName("")
                 .build();
 
         UserAuthentication userAuthentication = authenticationService.register(reg);
