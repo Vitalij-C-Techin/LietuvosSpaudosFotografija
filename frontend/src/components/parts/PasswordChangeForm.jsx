@@ -7,7 +7,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const PasswordChangeForm = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [emailError, setEmailError] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
