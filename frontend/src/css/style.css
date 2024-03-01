@@ -2,7 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,600&display=swap");
 .lsf-button {
-  width: 100%;
   background-color: black;
   border: solid medium black;
   border-radius: 0;
@@ -15,6 +14,11 @@
   border: solid medium black;
   color: black;
 }
+.lsf-button:active {
+  background-color: black;
+  border: solid medium black;
+  color: white;
+}
 
 .lsf-image-cover {
   display: inline-block;
@@ -23,6 +27,31 @@
   aspect-ratio: 1;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.lsf-table {
+  border: solid medium black;
+}
+.lsf-table > tbody > tr {
+  width: 100%;
+}
+.lsf-table > tbody > tr td {
+  height: 100%;
+  border: none;
+}
+.lsf-table > tbody > tr td a {
+  color: black;
+}
+
+.lsf-modal-info {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.lsf-modal-info .modal-content {
+  border: solid medium black;
+  border-radius: 0;
+}
+.lsf-modal-info .modal-content > .modal-header > .btn-close {
+  opacity: 1;
 }
 
 .form-container {
@@ -209,12 +238,13 @@
 
 nav .dropdown-menu {
   border-radius: 0%;
-  border: none;
+  border: solid 1px rgba(0, 0, 0, 0.175);
 }
 nav .dropdown-item.active {
   background-color: transparent;
   outline: none;
-  color: black;
+  background-color: black;
+  color: white;
 }
 nav .dropdown-item:focus {
   background-color: transparent;
@@ -246,10 +276,23 @@ nav button {
   border-color: black;
   color: black;
 }
-.registration-form-container input {
+.registration-form-container input,
+.registration-form-container .PhoneInputInput {
   border-radius: 0%;
   border-color: black;
   border-width: 0.2em;
+}
+.registration-form-container input:focus,
+.registration-form-container textarea:focus,
+.registration-form-container select:focus,
+.registration-form-container .PhoneInputInput:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(131, 130, 130);
+  border-color: rgb(206, 203, 203);
+}
+.registration-form-container .form-check-input:checked {
+  background-color: gray;
+  border-color: rgb(206, 203, 203);
 }
 .registration-form-container select {
   border-radius: 0%;

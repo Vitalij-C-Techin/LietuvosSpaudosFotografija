@@ -60,7 +60,7 @@ const RegistrationForm = () => {
         <>
             <Container className="registration-form-container mb-5">
                 <Row className="justify-content-md-center">
-                    <Col xs="12" sm="8" md="6" lg="4">
+                    <Col xs ="12" sm="10" md="8" lg="6">
                         <Card className="my-5">
                             <h2 data-testid="form-title" style={{textAlign: 'center'}}>
                                 {t('registrationPage.title')}
@@ -69,7 +69,7 @@ const RegistrationForm = () => {
                         <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
                             {emailError && <p style={{color: 'red'}}>{emailError}</p>}
                             <Row>
-                                <Col>
+                                <Col xs="12" sm="6">
                                     <Form.Group className="mb-3">
                                         <Form.Label htmlFor="name">{t('registrationPage.name')}</Form.Label>
                                         <Form.Control
@@ -110,7 +110,7 @@ const RegistrationForm = () => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                <Col>
+                                <Col xs="12" sm="6">
                                     <Form.Group className="mb-3">
                                         <Form.Label htmlFor="surname">{t('registrationPage.surname')}</Form.Label>
 
@@ -183,7 +183,7 @@ const RegistrationForm = () => {
                                 />
                             </Form.Group>
                             <Row>
-                                <Col>
+                                <Col xs="12" sm="6">
                                     <Form.Group className="mb-3">
                                         <Form.Label htmlFor="password">{t('registrationPage.password')}</Form.Label>
 
@@ -225,7 +225,7 @@ const RegistrationForm = () => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                <Col>
+                                <Col xs="12" sm="6">
                                     <Form.Group className="mb-3">
                                         <Form.Label htmlFor="confirm_password">
                                             {t('registrationPage.confirmPassword')}
@@ -260,7 +260,7 @@ const RegistrationForm = () => {
                             </Row>
 
                             <Row>
-                                <Col md="6" lg="6">
+                                <Col md="6">
                                     <Form.Group className="mb-3">
                                         <Form.Label htmlFor="birth_year">{t('registrationPage.birthYear')}</Form.Label>
 
@@ -304,7 +304,7 @@ const RegistrationForm = () => {
                                         />
                                     </Form.Group>
                                 </Col>
-                                <Col md="6" lg="6">
+                                <Col md="6">
                                     <Form.Group className="mb-3">
                                         <Form.Label htmlFor="phone_number">
                                             {t('registrationPage.phoneNumber')}

@@ -19,10 +19,23 @@
   border-color: black;
   color: black;
 }
-.registration-form-container input {
+.registration-form-container input,
+.registration-form-container .PhoneInputInput {
   border-radius: 0%;
   border-color: black;
   border-width: 0.2em;
+}
+.registration-form-container input:focus,
+.registration-form-container textarea:focus,
+.registration-form-container select:focus,
+.registration-form-container .PhoneInputInput:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(131, 130, 130);
+  border-color: rgb(206, 203, 203);
+}
+.registration-form-container .form-check-input:checked {
+  background-color: gray;
+  border-color: rgb(206, 203, 203);
 }
 .registration-form-container select {
   border-radius: 0%;
