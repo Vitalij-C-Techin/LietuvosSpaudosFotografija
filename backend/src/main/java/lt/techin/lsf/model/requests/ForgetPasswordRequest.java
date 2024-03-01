@@ -26,15 +26,7 @@ public class ForgetPasswordRequest {
             throw new ForgotPasswordException("Email not found");
         }
 
-        if (email.length() < 5) {
-            throw new ForgotPasswordException("Email is too short");
-        }
-
-        if (email.length() > 60) {
-            throw new ForgotPasswordException("Email is too long");
-        }
-
-        if (!Pattern.matches("^[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.][a-zA-Z]+$", email)) {
+        if (!Pattern.matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", email)) {
             throw new ForgotPasswordException("Email invalid format");
         }
     }

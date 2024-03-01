@@ -55,17 +55,11 @@ public class ChangePasswordService {
             throw new UserRegistrationPasswordIsTooLongException("Password is too long");
         }
 
-        if (!Pattern.matches(".*[a-z].*", password)) {
-            throw new UserRegistrationPasswordLowercaseException("Password must contain lowercase letters");
+        if (!Pattern.matches("^(?!.*\\s)(?=.*[A-Z])(?=.*\\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$", password)) {
+            throw new UserRegistrationPasswordFormatException("Password must contain only lowercase, " +
+                    "uppercase latin letters, numbers and special symbols !@#$%^&*()");
         }
 
-        if (!Pattern.matches(".*[A-Z].*", password)) {
-            throw new UserRegistrationPasswordUppercaseException("Password must contain uppercase letters");
-        }
-
-        if (!Pattern.matches(".*[0-9].*", password)) {
-            throw new UserRegistrationPasswordDigitException("Password must contain digits");
-        }
     }
 }
 
