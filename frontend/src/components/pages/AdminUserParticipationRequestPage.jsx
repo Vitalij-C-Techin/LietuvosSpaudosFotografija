@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import LoadingMessage from '../parts/LoadingMessage';
-import EmptyMessage from '../parts/EmptyMessage';
+import LoadingMessage from '../messages/LoadingMessage';
+import EmptyMessage from '../messages/EmptyMessage';
 
 const AdminUserParticipationRequestPage = () => {
   const [t] = useTranslation();
