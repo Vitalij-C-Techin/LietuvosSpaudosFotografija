@@ -6,6 +6,8 @@ import lt.techin.lsf.model.Competition;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static jakarta.persistence.EnumType.STRING;
@@ -54,6 +56,12 @@ public class CompetitionRecord {
     @Enumerated(STRING)
     private Competition.Visibility visibility;
 
+    @OneToMany(mappedBy = "competitionRecord",
+            cascade = {CascadeType.DETACH, CascadeType.MERGE,
+                    CascadeType.PERSIST, CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
+    private List<CategoryRecord> categoryRecordList;
+
     public CompetitionRecord setupNewCompetition() {
         setGeneratedUuid();
         setCreatedAtNow();
@@ -71,6 +79,14 @@ public class CompetitionRecord {
         createdAt = new Timestamp(System.currentTimeMillis());
 
         return this;
+    }
+
+    public void addCategory(CategoryRecord categoryRecord) {
+        if (categoryRecordList == null) {
+            categoryRecordList = new ArrayList<>();
+        }
+        categoryRecordList.add(categoryRecord);
+        categoryRecord.setCompetitionRecord(this);
     }
 
 }
