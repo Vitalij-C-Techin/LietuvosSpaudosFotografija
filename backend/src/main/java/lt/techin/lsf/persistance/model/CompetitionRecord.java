@@ -1,13 +1,14 @@
 package lt.techin.lsf.persistance.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import lt.techin.lsf.model.Competition;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
+
+import static jakarta.persistence.EnumType.STRING;
 
 @Getter
 @Setter
@@ -21,35 +22,37 @@ public class CompetitionRecord {
     @Column(name = "uuid", nullable = false)
     private UUID uuid;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "name_lt", nullable = false)
+    private String nameLt;
 
     @Column(name = "name_en", nullable = false)
     private String nameEn;
 
-    @Column(name = "description", nullable = false)
-    private String description;
+    @Column(name = "description_lt", nullable = false)
+    private String descriptionLt;
 
     @Column(name = "description_en", nullable = false)
     private String descriptionEn;
 
     @Column(name = "photo_limit", nullable = false)
-    private String photoLimit;
+    private int photoLimit;
 
     @Column(name = "start_date", nullable = false)
-    private String startDate;
+    private LocalDateTime startDate;
 
     @Column(name = "end_date", nullable = false)
-    private String endDate;
+    private LocalDateTime endDate;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(STRING)
+    private Competition.Status status;
 
     @Column(name = "visibility")
-    private String visibility;
+    @Enumerated(STRING)
+    private Competition.Visibility visibility;
 
     public CompetitionRecord setupNewCompetition() {
         setGeneratedUuid();
