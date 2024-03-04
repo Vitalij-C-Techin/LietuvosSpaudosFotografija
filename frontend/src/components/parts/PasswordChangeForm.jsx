@@ -32,7 +32,7 @@ const PasswordChangeForm = () => {
   const new_password = watch('new_password');
 
   const handleFormSubmit = async (formData) => {
-    const { new_password } = formData; // Extract only the new_password field
+    const { new_password } = formData;
 
     axios
       .post(`http://localhost:8080/api/v1/change-password?token=${resetToken}`, {

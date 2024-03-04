@@ -1,5 +1,6 @@
 package lt.techin.lsf.service;
 
+import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.UserNotFoundByEmailException;
 import lt.techin.lsf.model.requests.ForgetPasswordRequest;
 import lt.techin.lsf.persistance.UserRepository;
@@ -27,18 +28,20 @@ public class PasswordResetService {
     public ResponseEntity<String> resetPassword(ForgetPasswordRequest forgetPasswordRequest) {
         forgetPasswordRequest.validateData();
         String email = forgetPasswordRequest.getEmail();
-        UserRecord user = userRepository.findByEmailIgnoreCase(email);
-        if (user != null) {
+        if (userRepository.existsByEmail(email)) {
+            UserRecord user = userRepository.findByEmailIgnoreCase(email);
             initializePasswordReset(user);
             userRepository.save(user);
             String emailChangeLink = "http://localhost:5173/change-password?token=" + user.getPasswordResetToken();
             emailService.sendMailUsingMailjet(email, "email reset link", emailChangeLink);
-            return new ResponseEntity<>("Forget password request processed successfully", HttpStatus.ACCEPTED);
-
-        } else {
-            throw new UserNotFoundByEmailException("User not found for email: " + email);
+            return new ResponseEntity<>("Email with password reset link sent successfully", HttpStatus.ACCEPTED);
+        }
+        else {
+            return new ResponseEntity<>("User with email " + forgetPasswordRequest.getEmail() + " not found!",
+                    HttpStatus.NOT_FOUND);
         }
     }
+
 
     public void initializePasswordReset(UserRecord existingUser) {
             LocalDateTime now = LocalDateTime.now();

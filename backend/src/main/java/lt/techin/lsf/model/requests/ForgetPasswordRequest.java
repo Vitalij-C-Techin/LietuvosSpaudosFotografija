@@ -26,8 +26,9 @@ public class ForgetPasswordRequest {
             throw new ForgotPasswordException("Email not found");
         }
 
-        if (!Pattern.matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", email)) {
-            throw new ForgotPasswordException("Email invalid format");
+        if (!Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", Pattern.CASE_INSENSITIVE).matcher(email)
+                .matches()) {
+            throw new UserRegistrationEmailInvalidFormatException("Email invalid format");
         }
     }
 }

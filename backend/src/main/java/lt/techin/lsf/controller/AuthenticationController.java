@@ -2,6 +2,7 @@ package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.UserNotAuthenticatedException;
+import lt.techin.lsf.exception.UserNotFoundException;
 import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.UserAuthentication;
@@ -16,6 +17,7 @@ import lt.techin.lsf.service.AuthenticationService;
 import lt.techin.lsf.service.ChangePasswordService;
 import lt.techin.lsf.service.PasswordResetService;
 import lt.techin.lsf.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +31,6 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
     private final PasswordResetService passwordResetService;
     private final ChangePasswordService changePasswordService;
-    private final UserService userService;
 
 
     @GetMapping("/me")
@@ -72,9 +73,6 @@ public class AuthenticationController {
 
     @PostMapping("/forget-password")
     public ResponseEntity<String> forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
-        if (!userService.existsUserWithEmail(forgetPasswordRequest.getEmail())) {
-            passwordResetService.resetPassword(forgetPasswordRequest);
-        }
         return passwordResetService.resetPassword(forgetPasswordRequest);
     }
 
