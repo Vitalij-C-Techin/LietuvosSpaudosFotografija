@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CompetitionRequest {
+public class CreateCompetitionRequest {
     @JsonProperty("name_lt")
     public String nameLt;
     @JsonProperty("name_en")

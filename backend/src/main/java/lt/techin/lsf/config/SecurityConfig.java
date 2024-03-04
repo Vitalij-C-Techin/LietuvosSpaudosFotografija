@@ -1,6 +1,7 @@
 package lt.techin.lsf.config;
 
 import lombok.RequiredArgsConstructor;
+import lt.techin.lsf.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -44,12 +45,21 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
+                    //Public
                             request.requestMatchers(HttpMethod.GET, publicGetEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.POST, publicPostEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.PUT, publicPutEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.DELETE, publicDeleteEndpoints).permitAll();
+
+                    //Moderator, Admin
+                            request.requestMatchers(
+                                    "api/v1/competition",
+                                    "api/v1/competition/{uuid}"
+                            ).hasAnyAuthority("MODERATOR","ADMIN");
+
                             request.anyRequest().authenticated();
                         }
+
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

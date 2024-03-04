@@ -3,7 +3,8 @@ package lt.techin.lsf.service;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.model.Competition;
 import lt.techin.lsf.model.mapper.CompetitionRecordMapper;
-import lt.techin.lsf.model.requests.CompetitionRequest;
+import lt.techin.lsf.model.requests.CreateCompetitionRequest;
+import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
 import lt.techin.lsf.persistance.CompetitionRepository;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.UUID;
 public class CompetitionService {
     private final CompetitionRepository competitionRepository;
 
-    public Competition createCompetition(CompetitionRequest competitionData){
+    public Competition createCompetition(CreateCompetitionRequest competitionData){
         CompetitionRecord record = CompetitionRecordMapper.map(competitionData);
 
         record.setupNewCompetition();
@@ -35,7 +36,7 @@ public class CompetitionService {
         return true;
     }
 
-    public Competition updateCompetition(UUID uuid, CompetitionRequest competitionData){
+    public Competition updateCompetition(UUID uuid, UpdateCompetitionRequest competitionData){
         CompetitionRecord record = competitionRepository.findByUuid(uuid);
 
         record.setNameLt(competitionData.getNameLt());
