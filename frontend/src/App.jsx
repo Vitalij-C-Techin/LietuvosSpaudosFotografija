@@ -17,7 +17,7 @@ import AdminCompetitionsListPage from './components/pages/AdminCompetitionsListP
 import AdminUserParticipationRequestPage from './components/pages/AdminUserParticipationRequestPage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
 import CompetitionManagementPage from './components/pages/CompetitionManagementPage.jsx';
-
+import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import { Authorization } from './components/utils/Authorization.jsx';
 
 function App() {
