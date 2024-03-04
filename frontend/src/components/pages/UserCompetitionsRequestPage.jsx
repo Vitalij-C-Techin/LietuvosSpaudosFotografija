@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import ModalInfo from '../parts/ModalInfo';
+import ModalInfo from '../modals/ModalInfo';
 
-import LoadingMessage from '../parts/LoadingMessage';
-import EmptyMessage from '../parts/EmptyMessage';
-import ModalContentCompetitionParticipation from '../parts/ModalContentCompetitionParticipation';
+import LoadingMessage from '../messages/LoadingMessage';
+import EmptyMessage from '../messages/EmptyMessage';
+import ModalContentCompetitionParticipation from '../modals/ModalContentCompetitionParticipation';
 
 const UserCompetitionsRequestPage = () => {
   const [t] = useTranslation();
