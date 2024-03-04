@@ -17,7 +17,7 @@ public class CategoryRequest {
     @JsonProperty("category_name_lt")
     private String categoryNameLt;
 
-    @NotBlank (message = "Field cannot be empty")
+    @NotBlank(message = "Field cannot be empty")
     @JsonProperty("category_name_en")
     private String categoryNameEn;
 
@@ -25,11 +25,11 @@ public class CategoryRequest {
     @JsonProperty("category_description_lt")
     private  String categoryDescriptionLt;
 
-    @NotBlank (message = "Field cannot be empty")
+    @NotBlank(message = "Field cannot be empty")
     @JsonProperty("category_description_en")
     private String categoryDescriptionEn;
 
-    @NotBlank (message = "Field cannot be empty")
+    @NotBlank(message = "Field cannot be empty")
     @JsonProperty("album_type")
     private String albumType;
 
@@ -38,7 +38,7 @@ public class CategoryRequest {
     @JsonProperty("photo_limit")
     private int photoLimit;
 
-    @NotBlank (message = "Field cannot be empty")
+    @NotBlank(message = "Field cannot be empty")
     @JsonProperty("photo_format_type")
     private String photoFormatType;
 

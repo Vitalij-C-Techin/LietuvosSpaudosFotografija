@@ -5,13 +5,31 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.util.stream.Collectors;
+
 
 @ControllerAdvice
 public class ApplicationExceptionHandler {
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    protected ResponseEntity<ErrorResponse> handle(MethodArgumentNotValidException exception) {
+        String errorMessage = exception.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
+                .collect(Collectors.joining("; "));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorResponse.builder()
+                        .code(exception.getClass().getSimpleName())
+                        .message(errorMessage)
+                        .build());
+    }
+
     @ExceptionHandler({NullPointerException.class})
     protected ResponseEntity<ErrorResponse> handle(NullPointerException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
