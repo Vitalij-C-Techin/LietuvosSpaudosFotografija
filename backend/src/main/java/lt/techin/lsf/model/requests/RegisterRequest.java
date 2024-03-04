@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 @AllArgsConstructor
 @Builder
 public class RegisterRequest {
+
     private String name;
 
     private String surname;
@@ -55,15 +56,7 @@ public class RegisterRequest {
 
         // Email
 
-        if (email.length() < 5) {
-            throw new UserRegistrationEmailIsTooShortException("Email is too short");
-        }
-
-        if (email.length() > 60) {
-            throw new UserRegistrationEmailIsTooLongException("Email is too long");
-        }
-
-        if (!Pattern.matches("^[a-zA-Z0-9.]+[@][a-zA-Z0-9]+[.][a-zA-Z]+$", email)) {
+        if (!Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", Pattern.CASE_INSENSITIVE).matcher(email).matches()) {
             throw new UserRegistrationEmailInvalidFormatException("Email invalid format");
         }
 
@@ -77,21 +70,14 @@ public class RegisterRequest {
             throw new UserRegistrationPasswordIsTooLongException("Password is too long");
         }
 
-        if (!Pattern.matches(".*[a-z].*", password)) {
-            throw new UserRegistrationPasswordLowercaseException("Password must contain lowercase letters");
-        }
-
-        if (!Pattern.matches(".*[A-Z].*", password)) {
-            throw new UserRegistrationPasswordUppercaseException("Password must contain uppercase letters");
-        }
-
-        if (!Pattern.matches(".*[0-9].*", password)) {
-            throw new UserRegistrationPasswordDigitException("Password must contain digits");
+        if (!Pattern.matches("^(?!.*\\s)(?=.*[A-Z])(?=.*\\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$", password)) {
+            throw new UserRegistrationPasswordFormatException("Password must contain only lowercase, " +
+                    "uppercase latin letters, numbers and special symbols !@#$%^&*()");
         }
 
         // Name
 
-        if (name.length() < 3) {
+        if (name.length() < 2) {
             throw new UserRegistrationNameIsTooShortException("User name is too short");
         }
 
@@ -99,21 +85,21 @@ public class RegisterRequest {
             throw new UserRegistrationNameIsTooLongException("User name is too long");
         }
 
-        if (!Pattern.matches("^[a-zA-Z]+$", name)) {
+        if (!Pattern.matches("^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$", name)) {
             throw new UserRegistrationNameInvalidFormatException("User Name invalid format");
         }
 
         // Surname
 
-        if (surname.length() < 3) {
-            throw new UserRegistrationSurnameIsTooShortException("User name is too short");
+        if (surname.length() < 2) {
+            throw new UserRegistrationSurnameIsTooShortException("User surname is too short");
         }
 
         if (surname.length() > 50) {
-            throw new UserRegistrationSurnameIsTooLongException("User name is too long");
+            throw new UserRegistrationSurnameIsTooLongException("User surname is too long");
         }
 
-        if (!Pattern.matches("^[a-zA-Z]+$", surname)) {
+        if (!Pattern.matches("^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$", surname)) {
             throw new UserRegistrationSurnameInvalidFormatException("Name invalid format");
         }
 
@@ -121,7 +107,7 @@ public class RegisterRequest {
 
         int currentYear = LocalDate.now().getYear();
 
-        if (currentYear - 100 > birthYear) {
+        if (currentYear - 120 > birthYear) {
             throw new UserRegistrationTooOldException("User is too old");
         }
 
@@ -131,7 +117,7 @@ public class RegisterRequest {
 
         //Phone Number
 
-        if (phoneNumber.length() < 3) {
+        if (phoneNumber.length() < 6) {
             throw new UserRegistrationPhoneNumberInvalidFormatException("Phone number too short");
         }
 
@@ -141,6 +127,12 @@ public class RegisterRequest {
 
         if (!Pattern.matches("^([+])?\\d+$", phoneNumber)) {
             throw new UserRegistrationPhoneNumberInvalidFormatException("Phone number invalid format");
+        }
+
+        //Media Name
+
+        if (mediaName.length() > 50) {
+            throw new UserRegistrationMediaNameIsTooLongException("Media name is too long");
         }
     }
 

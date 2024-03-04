@@ -1,5 +1,4 @@
 .lsf-button {
-  width: 100%;
   background-color: black;
   border: solid medium black;
   border-radius: 0;
@@ -9,8 +8,13 @@
 }
 .lsf-button:hover {
   background-color: white;
-  border: solid medium red;
+  border: solid medium black;
   color: black;
+}
+.lsf-button:active {
+  background-color: black;
+  border: solid medium black;
+  color: white;
 }
 
 .lsf-image-cover {
@@ -20,4 +24,29 @@
   aspect-ratio: 1;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.lsf-table {
+  border: solid medium black;
+}
+.lsf-table > tbody > tr {
+  width: 100%;
+}
+.lsf-table > tbody > tr td {
+  height: 100%;
+  border: none;
+}
+.lsf-table > tbody > tr td a {
+  color: black;
+}
+
+.lsf-modal-info {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.lsf-modal-info .modal-content {
+  border: solid medium black;
+  border-radius: 0;
+}
+.lsf-modal-info .modal-content > .modal-header > .btn-close {
+  opacity: 1;
 }/*# sourceMappingURL=template.css.map */
