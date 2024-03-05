@@ -26,7 +26,7 @@ public class AuthenticationServiceLoginTests {
     public UserRepository userRepository;
 
     private String email = "name.surname.test.login@gmail.com";
-    private String password = "passwordPASSWORD123";
+    private String password = "passwordPASSWORD123*";
 
     @Before
     public void setup() {
@@ -93,6 +93,7 @@ public class AuthenticationServiceLoginTests {
                 .surname("Usersurname")
                 .birthYear(2000)
                 .phoneNumber("+370684654684864")
+                .mediaName("media")
                 .build();
 
         return authenticationService.register(reg);
