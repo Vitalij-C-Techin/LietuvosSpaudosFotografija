@@ -10,8 +10,7 @@ import java.util.UUID;
 
 import static jakarta.persistence.EnumType.STRING;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

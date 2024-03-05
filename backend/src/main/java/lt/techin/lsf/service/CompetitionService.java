@@ -7,6 +7,8 @@ import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
 import lt.techin.lsf.persistance.CompetitionRepository;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -14,6 +16,8 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class CompetitionService {
+    private static final int recordsPerPage = 5;
+
     private final CompetitionRepository competitionRepository;
 
     public Competition createCompetition(CreateCompetitionRequest competitionData){
@@ -58,5 +62,21 @@ public class CompetitionService {
         return new Competition(
                 competitionRepository.findByUuid(uuid)
         );
+    }
+
+    public Page<CompetitionRecord> getAllCompetitionsWithPagination(int page){
+        return competitionRepository.findAll(PageRequest.of(page, recordsPerPage));
+    }
+
+    public Page<CompetitionRecord> getUserCompetitionsWithPagination(int page) {
+        //TOOD
+
+        return null;
+    }
+
+    public Page<CompetitionRecord> getUserNotParticipatedCompetitionsWithPagination(int page){
+        //TODO
+
+        return null;
     }
 }
