@@ -1,6 +1,7 @@
 package lt.techin.lsf.config;
 
 import lombok.RequiredArgsConstructor;
+import lt.techin.lsf.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -54,8 +55,8 @@ public class SecurityConfig {
                             request.requestMatchers(
                                     "api/v1/competition",
                                     "api/v1/competition/{uuid}",
-                                    "api/v1/competition/all/{page}"
-                            ).hasAnyAuthority("MODERATOR","ADMIN");
+                                    "api/v1/category"
+                            ).hasAnyAuthority("MODERATOR", "ADMIN");
 
                             request.anyRequest().authenticated();
                         }
