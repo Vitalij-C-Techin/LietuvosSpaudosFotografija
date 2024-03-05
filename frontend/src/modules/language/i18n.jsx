@@ -38,10 +38,32 @@ i18n
             invalidEmailFormat: 'Invalid email format!'
           },
           forgotPasswordForm: {
+            emailFound: 'Email found in our database, a password reset link will be sent.',
+            emailSendingError: 'Error sending password recovery email',
+            userNotFound: 'User with {{email}} not found in our database.',
+            required: 'This field is required.',
             resetPassword: 'RESET PASSWORD',
             serverErrorMessage: 'An error occurred. Please try again later.',
             formPlaceholderText: 'Enter your email here',
-            recoverButton: 'SUBMIT'
+            recoverButton: 'SUBMIT',
+
+          },
+          passwordChangePage: {
+            passwordChangeSuccessful: "Password Changed Successfully",
+            emailError: "An error occurred. Please try again later.",
+            title: "Password change",
+            newPassword: "New password",
+            newPasswordPlaceholder: "new password",
+            required: "This field is required.",
+            passwordMinLength: "Password must be at least 8 characters long.",
+            passwordMaxLength: "Password must not exceed 60 characters.",
+            passwordPattern: `Password must contain at least one uppercase letter, 
+                            one lowercase letter, 
+                            one digit, and can include special characters.`,
+            confirmNewPassword: "Confirm Password",
+            confirmNewPasswordPlaceholder : "confirm",
+            passwordNotMatch: "The entered passwords do not match. Please make sure both passwords are identical.",
+            button: "Change Password"
           },
           registrationPage: {
             passwordNotMatch: 'Passwords do not match!',
@@ -195,10 +217,31 @@ i18n
             invalidEmailFormat: 'Netinkamas el.pašto formatas'
           },
           forgotPasswordForm: {
-            resetPassword: 'Atstatyti slaptažodį',
-            serverErrorMessage: 'Įvyko klaida. Pabandykite dar kartą vėliau.',
-            formPlaceholderText: 'Įveskite savo el. pašto adresą čia',
-            recoverButton: 'TOLIAU'
+            emailFound: 'El. paštas rastas mūsų duomenų bazėje, slaptažodžio atkūrimo nuoroda bus išsiųsta.',
+            emailSendingError: 'Klaida siunčiant slaptažodžio atkūrimo el. laišką',
+            userNotFound: 'Vartotojas su el. paštu {{email}} nerastas mūsų duomenų bazėje.',
+            resetPassword: 'ATKURTI SLAPTAŽODĮ',
+            required: 'Šis laukas privalomas.',
+            serverErrorMessage: 'Įvyko klaida. Prašome bandyti vėliau.',
+            formPlaceholderText: 'Įveskite savo el. paštą čia',
+            recoverButton: 'PATEIKTI',
+          },
+          passwordChangePage: {
+            passwordChangeSuccessful: "Slaptažodis pakeistas sėkmingai",
+            emailError: "Įvyko klaida. Prašome bandyti vėliau.",
+            title: "Slaptažodžio pakeitimas",
+            newPassword: "Naujas slaptažodis",
+            newPasswordPlaceholder: "naujas slaptažodis",
+            required: "Šis laukas privalomas.",
+            passwordMinLength: "Slaptažodis turi būti bent 8 simbolių ilgio.",
+            passwordMaxLength: "Slaptažodis negali viršyti 60 simbolių.",
+            passwordPattern: `Slaptažodis turi turėti bent vieną didžiąją raidę, 
+                              vieną mažąją raidę, 
+                              vieną skaitmenį ir gali būti su specialiais simboliais.`,
+            confirmNewPassword: "Patvirtinti",
+            confirmNewPasswordPlaceholder: "patvirtinti",
+            passwordNotMatch: "Įvesti slaptažodžiai nesutampa. Prašome įsitikinti, kad abu slaptažodžiai yra identiški.",
+            button: "Pakeisti slaptažodį"
           },
           registrationPage: {
             passwordNotMatch: 'Slaptažodžiai nesutampa!',

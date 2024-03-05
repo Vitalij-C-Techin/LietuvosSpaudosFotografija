@@ -2,6 +2,7 @@ package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.UserNotAuthenticatedException;
+import lt.techin.lsf.exception.UserNotFoundException;
 import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.UserAuthentication;
@@ -11,9 +12,16 @@ import lt.techin.lsf.model.requests.ForgetPasswordRequest;
 import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.model.response.UserAuthenticationResponse;
 import lt.techin.lsf.model.response.UserResponse;
+import lt.techin.lsf.persistance.model.UserRecord;
 import lt.techin.lsf.service.AuthenticationService;
+import lt.techin.lsf.service.ChangePasswordService;
+import lt.techin.lsf.service.PasswordResetService;
+import lt.techin.lsf.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("api/v1")
@@ -21,6 +29,9 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
+    private final PasswordResetService passwordResetService;
+    private final ChangePasswordService changePasswordService;
+
 
     @GetMapping("/me")
     public UserResponse getUser() {
@@ -61,16 +72,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("/forget-password")
-    public String forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
-        forgetPasswordRequest.validateData();
-        System.out.println(forgetPasswordRequest.getEmail());
-        return "forget password here";
+    public ResponseEntity<String> forgetPassword(@RequestBody ForgetPasswordRequest forgetPasswordRequest) {
+        return passwordResetService.resetPassword(forgetPasswordRequest);
     }
-
 
     @PostMapping("/change-password")
-    public Object changePassword() {
-        //TODO
-        return "change password here";
+    public ResponseEntity<String> changePassword(@RequestParam String token, @RequestBody UserRecord userRecord) {
+        return changePasswordService.changeUserPassword(token, userRecord.getPassword());
     }
 }
+
