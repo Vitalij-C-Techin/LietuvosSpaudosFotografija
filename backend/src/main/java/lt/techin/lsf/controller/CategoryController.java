@@ -2,11 +2,13 @@ package lt.techin.lsf.controller;
 
 import jakarta.validation.Valid;
 import lt.techin.lsf.model.Category;
-import lt.techin.lsf.model.requests.CreateCategoryRequest;
+import lt.techin.lsf.model.requests.CategoryRequest;
 import lt.techin.lsf.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/v1/category")
@@ -23,8 +25,30 @@ public class CategoryController {
 
     @PostMapping
     public Category createCategory(
-            @RequestBody @Valid CreateCategoryRequest category) {
+            @RequestBody @Valid CategoryRequest category) {
 
         return categoryService.createCategory(category);
+    }
+
+    @GetMapping("/{uuid}")
+    public Category getCategory(
+            @PathVariable UUID uuid
+    ) {
+        return categoryService.getCategory(uuid);
+    }
+
+    @PutMapping("/{uuid}")
+    public Category updateCategory(
+            @PathVariable UUID uuid,
+            @RequestBody CategoryRequest category
+    ) {
+        return categoryService.updateCategory(uuid, category);
+    }
+
+    @DeleteMapping("/{uuid}")
+    public void deleteCategory(
+            @PathVariable UUID uuid
+    ) {
+        categoryService.deleteCategory(uuid);
     }
 }
