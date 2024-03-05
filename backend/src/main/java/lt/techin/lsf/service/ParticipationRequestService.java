@@ -74,7 +74,7 @@ public class ParticipationRequestService {
         );
     }
 
-    public ParticipationRequest getRequestByUserUuidAndCompetitionUuid(UUID userUuid, UUID competitionUuid){
+    public ParticipationRequest getRequestByUserAndCompetition(UUID userUuid, UUID competitionUuid){
         return new ParticipationRequest(
                 requestRepository.findByUserUuidAndCompetitionUuid(userUuid, competitionUuid)
         );

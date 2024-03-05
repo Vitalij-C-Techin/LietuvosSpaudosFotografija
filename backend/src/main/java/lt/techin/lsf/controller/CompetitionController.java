@@ -54,7 +54,7 @@ public class CompetitionController {
         //TODO
     }
 
-    @GetMapping("/user/participate")
+    @GetMapping("/user/participate/{page}")
     public void getUserParticipateCompetitionsWithPagination(
             @PathVariable int page
     ) {

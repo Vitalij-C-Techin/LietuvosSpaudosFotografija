@@ -39,7 +39,6 @@ public class ParticipationRequestRecord{
     @Column(name = "approved_at")
     private Timestamp approvedAt;
 
-
     public void setupNewRequest(){
         setGeneratedUuid();
         setCreatedAtNow();
