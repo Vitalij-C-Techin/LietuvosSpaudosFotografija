@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class CategoryRequest {
+public class CreateCategoryRequest {
 
     @NotBlank (message = "Field cannot be empty")
     @JsonProperty("category_name_lt")

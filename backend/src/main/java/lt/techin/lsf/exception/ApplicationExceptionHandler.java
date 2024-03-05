@@ -12,7 +12,6 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.util.stream.Collectors;
 
-
 @ControllerAdvice
 public class ApplicationExceptionHandler {
 

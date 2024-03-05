@@ -1,15 +1,15 @@
 package lt.techin.lsf.controller;
 
 import jakarta.validation.Valid;
-import lt.techin.lsf.model.requests.CategoryRequest;
-import lt.techin.lsf.model.response.CategoryResponse;
+import lt.techin.lsf.model.Category;
+import lt.techin.lsf.model.requests.CreateCategoryRequest;
 import lt.techin.lsf.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/category")
 @CrossOrigin(origins = "http://localhost:5173")
 @Validated
 public class CategoryController {
@@ -21,12 +21,10 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping("/categories")
-    public CategoryResponse createCategory(
-            @RequestBody @Valid CategoryRequest categoryRequest) {
+    @PostMapping
+    public Category createCategory(
+            @RequestBody @Valid CreateCategoryRequest category) {
 
-        CategoryResponse response = categoryService.createCategory(categoryRequest);
-
-        return response;
+        return categoryService.createCategory(category);
     }
 }

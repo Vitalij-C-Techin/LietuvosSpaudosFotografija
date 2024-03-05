@@ -1,11 +1,11 @@
 package lt.techin.lsf.model.mapper;
 
-import lt.techin.lsf.model.requests.CategoryRequest;
+import lt.techin.lsf.model.requests.CreateCategoryRequest;
 import lt.techin.lsf.persistance.model.CategoryRecord;
 
-public class CategoryMapper {
+public class CategoryRecordMapper {
 
-    public static CategoryRecord categoryRequestToRecord (CategoryRequest categoryRequest) {
+    public static CategoryRecord categoryRequestToRecord (CreateCategoryRequest categoryRequest) {
 
         return CategoryRecord.builder()
                 .nameLt(categoryRequest.getCategoryNameLt())

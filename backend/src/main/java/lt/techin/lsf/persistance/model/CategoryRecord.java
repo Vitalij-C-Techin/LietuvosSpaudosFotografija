@@ -53,7 +53,6 @@ public class CategoryRecord {
     @JoinColumn(name = "competition_uuid")
     private CompetitionRecord competitionRecord;
 
-
     public CategoryRecord setupNewCategory() {
         setGeneratedUuid();
         setCreatedAtNow();

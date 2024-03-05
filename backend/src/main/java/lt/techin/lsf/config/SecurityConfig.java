@@ -1,7 +1,6 @@
 package lt.techin.lsf.config;
 
 import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,7 +28,6 @@ public class SecurityConfig {
             "api/v1/logout",
             "api/v1/forget-password",
             "api/v1/change-password",
-            "api/v1/categories"
     };
     private final String[] publicPutEndpoints = {
 
@@ -46,17 +44,18 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
-                    //Public
+                            //Public
                             request.requestMatchers(HttpMethod.GET, publicGetEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.POST, publicPostEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.PUT, publicPutEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.DELETE, publicDeleteEndpoints).permitAll();
 
-                    //Moderator, Admin
+                            //Moderator, Admin
                             request.requestMatchers(
                                     "api/v1/competition",
-                                    "api/v1/competition/{uuid}"
-                            ).hasAnyAuthority("MODERATOR","ADMIN");
+                                    "api/v1/competition/{uuid}",
+                                    "api/v1/category"
+                            ).hasAnyAuthority("MODERATOR", "ADMIN");
 
                             request.anyRequest().authenticated();
                         }
