@@ -30,11 +30,19 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'photoLimit' && (value < 1 || value > 50)) {
+    if (name === 'photoLimit') {
+      if (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 50)) {
+        setFormData({
+          ...formData,
+          [name]: value
+        });
+      }
       setError('Photo limit must be between 1 and 50');
     } else {
-      setFormData({ ...formData, [name]: value });
-      setIsFormChanged(true);
+      setFormData({
+        ...formData,
+        [name]: value
+      });
     }
   };
 
