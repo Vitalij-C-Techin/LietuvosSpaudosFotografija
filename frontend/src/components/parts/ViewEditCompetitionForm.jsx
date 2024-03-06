@@ -100,16 +100,16 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
             onChange={handleInputChange}
           ></Form.Control>
 
-          <Form.Label htmlFor="photoLimit">{t('editcomp.Plimit')}</Form.Label>
+          <Form.Label htmlFor="photoLimit">{t('editcomp.type')}</Form.Label>
           <Form.Select
             name="photoLimit"
             id="photoLimit"
             value={formData.photoLimit}
             onChange={handleInputChange}
           >
-            <option value="1">{t('editcomp.solo')}</option>
-            <option value="2">{t('editcomp.number')}</option>
-            <option value="3">{t('editcomp.group')}</option>
+            <option value="1">{t('editcomp.single')}</option>
+            <option value="2">{t('editcomp.series')}</option>
+
           </Form.Select>
           <Form.Label htmlFor="status">{t('editcomp.status')}</Form.Label>
           <Form.Select
