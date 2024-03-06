@@ -23,11 +23,11 @@ public class UpdateUserRequest {
 
     @Min(value = 1900, message = "Birth year must be after 1900")
     @Max(value = 2024, message = "Birth year must be before 2024")
-    @JsonProperty("birthYear")
+    @JsonProperty("birth_year")
     private int birthYear;
 
     @NotBlank (message = "Field cannot be empty")
-    @JsonProperty("phoneNumber")
+    @JsonProperty("phone_number")
     private String phoneNumber;
 
     @NotBlank (message = "Field cannot be empty")
@@ -35,7 +35,7 @@ public class UpdateUserRequest {
     private String email;
 
     @NotBlank (message = "Field cannot be empty")
-    @JsonProperty("mediaName")
+    @JsonProperty("media_name")
     private String mediaName;
 
 }
