@@ -6,17 +6,23 @@ const ModalCreateCategory = ({ showModal, onClose }) => {
   //TODO add logic
   const [t] = useTranslation();
 
-  const [formData, setFormData] = useState({
-    photoLimit: '',
+  const [formDat, setFormDat] = useState({
+    photoLimitCat: ''
   });
 
-  const handleInputChange = (event) => {
+  const handleInputChange2 = (event) => {
     const { name, value } = event.target;
-
-    if (name === 'photoLimit' && (value < 1 || value > 50)) {
+    if (name === 'photoLimitCat') {
+      if (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 50)) {
+        setFormDat({
+          ...formDat,
+          [name]: value
+        });
+      }
+      setError('Photo limit must be between 1 and 15');
     } else {
-      setFormData({
-        ...formData,
+      setFormDat({
+        ...formDat,
         [name]: value
       });
     }
@@ -36,10 +42,10 @@ const ModalCreateCategory = ({ showModal, onClose }) => {
         </Form.Select>
         <Form.Label>{t('modalCategory.photoLimit')}</Form.Label>
         <Form.Control
-          name="photoLimit"
-          id="photoLimit"
-          value={formData.photoLimit}
-          onChange={handleInputChange}
+          name="photoLimitCat"
+          id="photoLimitCat"
+          value={formDat.photoLimitCat}
+          onChange={handleInputChange2}
           min="1"
           max="15"
         ></Form.Control>
