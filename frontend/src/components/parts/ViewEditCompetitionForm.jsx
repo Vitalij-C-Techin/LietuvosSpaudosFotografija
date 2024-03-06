@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Container, Card, Row, Col, Image, Button, Form } from 'react-bootstrap';
+import { Container, Card, Image, Button, Form } from 'react-bootstrap';
 import ModalCategory from '../modals/ModalCategory';
 import ModalCreateCategory from '../modals/ModalCreateCategory';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import imagePlaceHolder from '../../images/image.jpg';
 
 const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
   const [selectedStatus, setSelectedStatus] = useState('');
@@ -73,6 +74,10 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
         </Container>
         <div className="divider"></div>
         <Container className="justify-content-xl-center my-5">
+          <Container className='image-container'>
+            <Image src={imagePlaceHolder}></Image>
+            <Button variant="secondary">Add picture</Button>
+          </Container>
           <Form.Label htmlFor="cname">{t('editcomp.name')}</Form.Label>
 
           <Form.Control
