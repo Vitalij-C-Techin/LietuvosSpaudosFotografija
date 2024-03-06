@@ -189,13 +189,14 @@ i18n
             pLimit: 'Photo limit'
           },
           modalCategory: {
+            titleCat: 'Title',
             titleAdd: 'Add category',
             titleEdit: 'Edit category',
             closeButton: 'Close',
             type: 'Type',
             single: 'Single',
             series: 'Series',
-            photolimit: 'Photo limit',
+            photolimit: 'Photo limit'
           }
         }
       },
@@ -373,17 +374,18 @@ i18n
             status: 'Būsena',
             message: 'Ar tikrai norite išsaugoti?',
             Save: 'Išsaugoti',
-            compPicButton: 'Pridėti nuotrauką',
+            compPicButton: 'Pridėti nuotrauką'
     
           },
           modalCategory: {
+            titleCat: 'Pavadinimas',
             titleAdd: 'Pridėti kategoriją',
             titleEdit: 'Redaguoti kategoriją',
             closeButton: 'Uždaryti',
             type: 'Tipas',
             single: 'Viena nuotrauka',
             series: 'Nuotraukų serija',
-            photoLimit:'Nuotraukų kiekis',
+            photoLimit:'Nuotraukų kiekis'
           }
         }
       }
