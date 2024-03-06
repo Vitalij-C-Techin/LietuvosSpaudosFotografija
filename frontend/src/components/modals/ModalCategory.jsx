@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 
 //TODO add correct api link
@@ -13,16 +13,19 @@ const ModalCategory = ({ showModal, onClose }) => {
         <Modal.Title>{t('modalCategory.titleEdit')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      <Form.Label></Form.Label>
-      <Form.Select
-          >
-            <option value="1">{t('modalCategory.single')}</option>
-            <option value="2">{t('modalCategory.series')}</option>
-          </Form.Select>
+        <Form.Label> {t('modalCategory.titleCat')}</Form.Label>
+        <Form.Control></Form.Control>
+        <Form.Label> {t('modalCategory.type')}</Form.Label>
+        <Form.Select>
+          <option value="1">{t('modalCategory.single')}</option>
+          <option value="2">{t('modalCategory.series')}</option>
+        </Form.Select>
+        <Form.Label>{t('modalCategory.photoLimit')}</Form.Label>
+        <Form.Control min="1" max="15"></Form.Control>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>
-        {t('modalCategory.closeButton')}
+          {t('modalCategory.closeButton')}
         </Button>
       </Modal.Footer>
     </Modal>

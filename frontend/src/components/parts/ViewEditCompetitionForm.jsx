@@ -30,8 +30,12 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-    setIsFormChanged(true);
+    if (name === 'photoLimit' && (value < 1 || value > 50)) {
+      setError('Photo limit must be between 1 and 50');
+    } else {
+      setFormData({ ...formData, [name]: value });
+      setIsFormChanged(true);
+    }
   };
 
   const handleSave = () => {
@@ -106,9 +110,9 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
             id="photoLimit"
             value={formData.photoLimit}
             onChange={handleInputChange}
-          >
-
-          </Form.Control>
+            min="1"
+            max="50"
+          ></Form.Control>
           <Form.Label htmlFor="status">{t('editcomp.status')}</Form.Label>
           <Form.Select
             id="status"
