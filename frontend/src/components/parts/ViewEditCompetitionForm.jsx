@@ -89,9 +89,9 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           value={formData.description}
           onChange={handleInputChange}
         ></Form.Control>
-        <Form.Label htmlFor="StartDate">{t('editcomp.Sdate')}</Form.Label>
-        <Form.Label htmlFor="photoLimit">{t('editcomp.Plimit')}</Form.Label>
+
         <Form.Label htmlFor="status">{t('editcomp.status')}</Form.Label>
+
         <Form.Control
           type="date"
           id="StartDate"
@@ -99,6 +99,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           value={formData.StartDate}
           onChange={handleInputChange}
         />
+        <Form.Label htmlFor="photoLimit">{t('editcomp.Plimit')}</Form.Label>
         <Form.Select
           name="photoLimit"
           id="photoLimit"
@@ -109,6 +110,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <option value="2">{t('editcomp.number')}</option>
           <option value="3">{t('editcomp.group')}</option>
         </Form.Select>
+        <Form.Label htmlFor="StartDate">{t('editcomp.Sdate')}</Form.Label>
         <Form.Select
           id="status"
           name="status"
@@ -120,7 +122,6 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <option value="closed">{t('editcomp.closed')}</option>
         </Form.Select>
         <Form.Label htmlFor="visibility">{t('editcomp.visible')}</Form.Label>
-        <Form.Label htmlFor="EndDate">{t('editcomp.Edate')}</Form.Label>
         <Form.Select
           name="visibility"
           id="visibility"
@@ -130,6 +131,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <option value="1">{t('editcomp.active2')}</option>
           <option value="2">{t('editcomp.closed2')}</option>
         </Form.Select>
+        <Form.Label htmlFor="EndDate">{t('editcomp.Edate')}</Form.Label>
         <Form.Control type="date" id="EndDate" name="EndDate" />
       </Container>
       <Container className="justify-content-xl-center my-5">
