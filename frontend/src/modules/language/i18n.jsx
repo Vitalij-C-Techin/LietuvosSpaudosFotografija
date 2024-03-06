@@ -187,7 +187,14 @@ i18n
             Acategory: 'Add category',
             message: 'Are you sure you want to save?',
             Save: 'Save competition',
-            compPicButton:'Add photo'
+            compPicButton: 'Add photo',
+            pLimit: 'Photo limit'
+          },
+          modalAddCategory: {
+            title: 'Add category'
+          },
+          modalEditCategory: {
+            title: 'Edit category'
           }
         }
       },
@@ -367,7 +374,14 @@ i18n
             Acategory: 'Pridėti kategoriją',
             message: 'Ar tikrai norite išsaugoti?',
             Save: 'Išsaugoti',
-            compPicButton:'Pridėti nuotrauką'
+            compPicButton: 'Pridėti nuotrauką',
+            pLimit: 'Nuotraukų limitas'
+          },
+          modalAddCategory: {
+            title: 'Pridėti kategoriją'
+          },
+          modalEditCategory: {
+            title: 'Redaguoti kategoriją'
           }
         }
       }
