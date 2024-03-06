@@ -21,11 +21,9 @@ public class UserController {
 
     @GetMapping("/user/{uuid}")
     public UserResponse getUserByUuid(
-            @PathVariable String uuid
+            @PathVariable UUID uuid
     ) {
-        User user = userService.findUserByUuid(
-                UUID.fromString(uuid)
-        );
+        User user = userService.findUserByUuid(uuid);
 
         if (null == user) {
             throw new UserNotFoundByUuidException("User not found");
@@ -36,9 +34,9 @@ public class UserController {
 
     @PutMapping("/user/{uuid}/profile")
     public ResponseEntity<String> updateUserProfile(
-            @Valid @RequestBody UpdateUserRequest updateUserRequest, @PathVariable String uuid
+            @Valid @RequestBody UpdateUserRequest updateUserRequest, @PathVariable UUID uuid
     )
     {
-        return userService.updateUserProfile(updateUserRequest, UUID.fromString(uuid));
+        return userService.updateUserProfile(updateUserRequest,uuid);
     }
 }
