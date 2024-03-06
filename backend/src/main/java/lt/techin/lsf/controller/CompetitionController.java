@@ -47,7 +47,7 @@ public class CompetitionController {
         return competitionService.updateCompetition(uuid, data);
     }
 
-    @GetMapping("/admin/{page}")
+    @GetMapping("/all/{page}")
     public Page<CompetitionRecord> getAdminAllCompetitionsWithPagination(
             @PathVariable int page
     ) {

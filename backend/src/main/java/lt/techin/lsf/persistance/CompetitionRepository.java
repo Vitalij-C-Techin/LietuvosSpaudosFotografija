@@ -20,6 +20,10 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
     @Transactional
     void deleteByUuid(UUID uuid);
 
+    @Query("SELECT c " +
+            "FROM CompetitionRecord c " +
+            "ORDER BY c.endDate DESC "
+    )
     Page<CompetitionRecord> findAll(Pageable pageable);
 
     @Query("SELECT c " +
