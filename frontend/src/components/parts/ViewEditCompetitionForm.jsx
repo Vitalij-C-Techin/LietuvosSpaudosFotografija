@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Card, Row, Col, Image, Button, Form} from 'react-bootstrap';
 import ModalCategory from '../modals/ModalCategory';
 import ModalCreateCategory from '../modals/ModalCreateCategory';
 import { useTranslation } from 'react-i18next';
@@ -66,52 +66,48 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
         <Card className="image-header-text">
           <h2>{t('editcomp.header')}</h2>
         </Card>
-        <Button className="lsf-button w-40" style={{ marginRight: 'auto' }}>
+        <Button variant="secondary" className="lsf-Button w-40" style={{ marginRight: 'auto' }}>
           {t('editcomp.delete')}
         </Button>
         <hr style={{ inlineSize: '500px' }} />
       </Container>
       <Container className="justify-content-xl-center my-5">
         <Card>
-        <label htmlFor="cname">{t('editcomp.name')}</label>
+        <Form.Label htmlFor="cname">{t('editcomp.name')}</Form.Label>
         </Card>
-        <input
+        <Form.Control
           type="text"
           id="cname"
           name="cname"
           value={formData.cname}
           onChange={handleInputChange}
         />
-        <br />
-        <label htmlFor="description">{t('editcomp.description')}</label>
-        <br />
-        <textarea
+        <Form.Label htmlFor="description">{t('editcomp.description')}</Form.Label>
+        <Form.Control as="textarea"
           name="description"
           id="description"
           cols="50"
           rows="5"
           value={formData.description}
           onChange={handleInputChange}
-        ></textarea>
-        <br />
-        <label style={{ paddingLeft: '2rem' }} htmlFor="StartDate">
+        ></Form.Control>
+        <Form.Label style={{ paddingLeft: '2rem' }} htmlFor="StartDate">
           {t('editcomp.Sdate')}
-        </label>
-        <label style={{ paddingLeft: '4rem' }} htmlFor="photoLimit">
+        </Form.Label>
+        <Form.Label style={{ paddingLeft: '4rem' }} htmlFor="photoLimit">
           {t('editcomp.Plimit')}
-        </label>
-        <label style={{ paddingLeft: '4rem' }} htmlFor="status">
+        </Form.Label>
+        <Form.Label style={{ paddingLeft: '4rem' }} htmlFor="status">
           {t('editcomp.status')}
-        </label>
-        <br />
-        <input
+        </Form.Label>
+        <Form.Control
           type="date"
           id="StartDate"
           name="StartDate"
           value={formData.StartDate}
           onChange={handleInputChange}
         />
-        <select
+        <Form.Select
           style={{ marginLeft: '2rem' }}
           name="photoLimit"
           id="photoLimit"
@@ -121,8 +117,8 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <option value="1">{t('editcomp.solo')}</option>
           <option value="2">{t('editcomp.number')}</option>
           <option value="3">{t('editcomp.group')}</option>
-        </select>
-        <select
+        </Form.Select>
+        <Form.Select
           style={{ marginLeft: '3rem' }}
           id="status"
           name="status"
@@ -132,17 +128,14 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <option value=""></option>
           <option value="active">{t('editcomp.active')}</option>
           <option value="closed">{t('editcomp.closed')}</option>
-        </select>
-        <br />
-        <br />
-        <label style={{ paddingLeft: '4rem' }} htmlFor="visibility">
+        </Form.Select>
+        <Form.Label style={{ paddingLeft: '4rem' }} htmlFor="visibility">
           {t('editcomp.visible')}
-        </label>
-        <label style={{ paddingLeft: '4rem' }} htmlFor="EndDate">
+        </Form.Label>
+        <Form.Label style={{ paddingLeft: '4rem' }} htmlFor="EndDate">
           {t('editcomp.Edate')}
-        </label>
-        <br />
-        <select
+        </Form.Label>
+        <Form.Select
           style={{ marginLeft: '3rem' }}
           name="visibility"
           id="visibility"
@@ -151,9 +144,8 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
         >
           <option value="1">{t('editcomp.active2')}</option>
           <option value="2">{t('editcomp.closed2')}</option>
-        </select>
-        <input style={{ marginLeft: '2rem' }} type="date" id="EndDate" name="EndDate" />
-        <br />
+        </Form.Select>
+        <Form.Control style={{ marginLeft: '2rem' }} type="date" id="EndDate" name="EndDate" />
         <hr style={{ inlineSize: '500px' }} />
       </Container>
       <Container className="justify-content-xl-center my-5">
@@ -161,11 +153,11 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
         <hr style={{ inlineSize: '500px' }} />
       </Container>
       <Container className="justify-content-xl-center my-5">
-        <button onClick={handleSave} disabled={!isFormChanged}>
+        <Button variant="secondary" onClick={handleSave} disabled={!isFormChanged}>
         {t('editcomp.Save')}
-        </button>
-        <button onClick={handleCreateCategory}>{t('editcomp.Ccategory')}</button>
-        <button onClick={handleAddCategory}>{t('editcomp.Acategory')}</button>
+        </Button>
+        <Button variant="secondary" onClick={handleCreateCategory}>{t('editcomp.Ccategory')}</Button>
+        <Button variant="secondary" onClick={handleAddCategory}>{t('editcomp.Acategory')}</Button>
         <ModalCreateCategory
           showModal={showCreateCategoryModal}
           onClose={handleCloseCreateCategoryModal}
