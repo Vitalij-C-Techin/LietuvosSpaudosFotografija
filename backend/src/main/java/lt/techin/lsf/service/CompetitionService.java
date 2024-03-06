@@ -84,4 +84,8 @@ public class CompetitionService {
                 PageRequest.of(page, recordsPerPage)
         );
     }
+
+    public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(int page){
+        return competitionRepository.findJuryActiveCompetitions(PageRequest.of(page, recordsPerPage));
+    }
 }

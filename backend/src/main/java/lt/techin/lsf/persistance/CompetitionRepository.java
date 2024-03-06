@@ -28,7 +28,8 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
             "WHERE r.userUuid = :userUuid " +
             "AND r.status = 'PERMIT' " +
             "AND c.startDate < CURRENT_TIMESTAMP " +
-            "AND c.endDate > CURRENT_TIMESTAMP"
+            "AND c.endDate > CURRENT_TIMESTAMP " +
+            "AND c.visibility = 'PUBLIC' "
     )
     Page<CompetitionRecord> findUserActiveCompetitions(@Param("userUuid") UUID userUuid, Pageable pageable);
 
@@ -39,7 +40,16 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
             "OR r.userUuid IS NULL " +
             "AND r.userUuid IS NULL " +
             "AND c.startDate < CURRENT_TIMESTAMP " +
-            "AND c.endDate > CURRENT_TIMESTAMP"
+            "AND c.endDate > CURRENT_TIMESTAMP " +
+            "AND c.visibility = 'PUBLIC' "
     )
     Page<CompetitionRecord> findUserParticipateCompetitions(@Param("userUuid") UUID userUuid, Pageable pageable);
+
+    @Query("SELECT c " +
+            "FROM CompetitionRecord c " +
+            "WHERE c.endDate < CURRENT_TIMESTAMP " +
+            //"AND c.status = 'EVALUATES' " + //TODO
+            "AND c.visibility = 'PUBLIC' "
+    )
+    Page<CompetitionRecord> findJuryActiveCompetitions(Pageable pageable);
 }

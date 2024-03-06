@@ -25,6 +25,13 @@ public class CompetitionController {
         return competitionService.createCompetition(competition);
     }
 
+    @DeleteMapping("/{uuid}")
+    public void deleteCompetition(
+            @PathVariable UUID uuid
+    ){
+        competitionService.deleteCompetition(uuid);
+    }
+
     @GetMapping("/{uuid}")
     public Competition getCompetition(
             @PathVariable UUID uuid
@@ -40,7 +47,7 @@ public class CompetitionController {
         return competitionService.updateCompetition(uuid, data);
     }
 
-    @GetMapping("/all/{page}")
+    @GetMapping("/admin/{page}")
     public Page<CompetitionRecord> getAdminAllCompetitionsWithPagination(
             @PathVariable int page
     ) {
@@ -59,5 +66,12 @@ public class CompetitionController {
             @PathVariable int page
     ) {
         return competitionService.getUserNotParticipatedCompetitionsWithPagination(page);
+    }
+
+    @GetMapping("/jury/{page}")
+    public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(
+            @PathVariable int page
+    ){
+        return competitionService.getJuryActiveCompetitionsWithPagination(page);
     }
 }
