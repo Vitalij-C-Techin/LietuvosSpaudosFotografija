@@ -174,6 +174,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
               <Row>
                 <Col>
                   <Form.Label htmlFor="photoLimit">{t('editcomp.Plimit')}</Form.Label>
+                  {photoLimitError && <p className="text-danger">{photoLimitError}</p>}
                   <Form.Control
                     name="photoLimit"
                     id="photoLimit"
@@ -181,6 +182,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                     onChange={handleInputChange}
                     min="1"
                     max="50"
+                    placeholder={t('editcomp.error2')}
                   ></Form.Control>
                 </Col>
                 <Col>
