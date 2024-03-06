@@ -171,7 +171,7 @@ i18n
             name: 'Title',
             description: 'Description',
             Sdate: 'Start date',
-            type: 'Type',
+            Plimit: 'Photo limit',
             Status: 'Status',
             single: 'Single',
             series: 'Series',
@@ -182,9 +182,7 @@ i18n
             active2: 'Visible',
             closed2: 'Hidden',
             Addcategory: 'Added categories',
-            // Ccategory: 'Create category',
             status: 'Status',
-            // Acategory: 'Add category',
             message: 'Are you sure you want to save?',
             Save: 'Save competition',
             compPicButton: 'Add photo',
@@ -193,7 +191,11 @@ i18n
           modalCategory: {
             titleAdd: 'Add category',
             titleEdit: 'Edit category',
-            closeButton: 'Close'
+            closeButton: 'Close',
+            type: 'Type',
+            single: 'Single',
+            series: 'Series',
+            photolimit: 'Photo limit',
           }
         }
       },
@@ -357,7 +359,7 @@ i18n
             name: 'Pavadinimas',
             description: 'Apie',
             Sdate: 'Pradžia',
-            type: 'Tipas',
+            Plimit: 'Nuotraukų kiekis',
             Status: 'Status',
             single: 'Viena nuotrauka',
             series: 'Nuotraukų serija',
@@ -368,18 +370,20 @@ i18n
             active2: 'Matomas',
             closed2: 'Paslėptas',
             Addcategory: 'Pridėtos kategorijos',
-            // Ccategory: 'Sukurti kategoriją',
             status: 'Būsena',
-            // Acategory: 'Pridėti kategoriją',
             message: 'Ar tikrai norite išsaugoti?',
             Save: 'Išsaugoti',
             compPicButton: 'Pridėti nuotrauką',
-            pLimit: 'Nuotraukų limitas'
+    
           },
           modalCategory: {
             titleAdd: 'Pridėti kategoriją',
             titleEdit: 'Redaguoti kategoriją',
-            closeButton: 'Uždaryti'
+            closeButton: 'Uždaryti',
+            type: 'Tipas',
+            single: 'Viena nuotrauka',
+            series: 'Nuotraukų serija',
+            photoLimit:'Nuotraukų kiekis',
           }
         }
       }
