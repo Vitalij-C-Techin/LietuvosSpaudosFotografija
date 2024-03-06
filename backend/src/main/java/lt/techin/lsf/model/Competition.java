@@ -7,7 +7,7 @@ import lt.techin.lsf.persistance.model.CompetitionRecord;
 @Getter
 @AllArgsConstructor
 public class Competition {
-    private CompetitionRecord data;
+    private final CompetitionRecord data;
 
     public enum Status{
         NONE,
