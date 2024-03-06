@@ -80,7 +80,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
         <Container className="justify-content-xl-center my-5">
           <Container className="image-container mb-3">
             <Image src={imagePlaceHolder}></Image>
-            <Button variant="secondary">Add picture</Button>
+            <Button variant="secondary"> {t('editcomp.compPicButton')}</Button>
           </Container>
           <Form.Label htmlFor="cname">{t('editcomp.name')}</Form.Label>
 
@@ -109,7 +109,6 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           >
             <option value="1">{t('editcomp.single')}</option>
             <option value="2">{t('editcomp.series')}</option>
-
           </Form.Select>
           <Form.Label htmlFor="status">{t('editcomp.status')}</Form.Label>
           <Form.Select

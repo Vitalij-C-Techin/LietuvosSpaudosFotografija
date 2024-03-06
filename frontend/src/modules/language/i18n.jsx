@@ -186,7 +186,8 @@ i18n
             status: 'Status',
             Acategory: 'Add category',
             message: 'Are you sure you want to save?',
-            Save: 'Save competition'
+            Save: 'Save competition',
+            compPicButton:'Add photo'
           }
         }
       },
@@ -365,7 +366,8 @@ i18n
             status: 'Būsena',
             Acategory: 'Pridėti kategoriją',
             message: 'Ar tikrai norite išsaugoti?',
-            Save: 'Išsaugoti'
+            Save: 'Išsaugoti',
+            compPicButton:'Pridėti nuotrauką'
           }
         }
       }
