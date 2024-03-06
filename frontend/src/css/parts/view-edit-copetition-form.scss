@@ -75,4 +75,11 @@
     width: 50%;
     opacity: 50%;
   }
+
+  @media screen and (min-width: 992px) {
+    .image-container {
+      position: relative;
+      width: 40%;
+    }
+  }
 }

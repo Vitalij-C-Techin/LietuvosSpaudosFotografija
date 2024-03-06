@@ -62,7 +62,7 @@ function HomePage() {
                 className="btn-lg custom-button-width"
                 onClick={navigateToLoginPage}
               >
-                 {t('loginPage.login')}
+                {t('loginPage.login')}
               </Button>
             </Col>
             <Col lg="2"></Col>
@@ -72,7 +72,7 @@ function HomePage() {
                 className="btn-lg custom-button-width"
                 onClick={navigateToRegistrationPage}
               >
-                 {t('loginPage.register')}
+                {t('loginPage.register')}
               </Button>
             </Col>
           </Row>
@@ -101,11 +101,16 @@ function HomePage() {
                 </Card.Text>
                 <Row className="justify-content-center">
                   <Col xs="12" lg="10">
-                    <Card.Text className="pe-3 competition-end">{t('loginPage.competitionEnd')}</Card.Text>
+                    <Card.Text className="pe-3 competition-end">
+                      {t('loginPage.competitionEnd')}
+                    </Card.Text>
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
-                    <Button variant="secondary" className="mt-2"> {t('loginPage.participate')}</Button>
+                    <Button variant="secondary" className="mt-2">
+                      {' '}
+                      {t('loginPage.participate')}
+                    </Button>
                   </Col>
                 </Row>
               </Col>
@@ -116,12 +121,7 @@ function HomePage() {
         <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
           <Card.Body>
             <Row>
-              <Col
-                xs=""
-                md={4}
-                lg={2}
-                className="card-image-container justify-content-center"
-              >
+              <Col xs="" md={4} lg={2} className="card-image-container justify-content-center">
                 <Image src={imagePlaceHolder} />
               </Col>
               <Col>
@@ -136,11 +136,16 @@ function HomePage() {
                 </Card.Text>
                 <Row className="justify-content-center">
                   <Col xs="12" lg="10">
-                    <Card.Text className="pe-3 competition-end">{t('loginPage.competitionEnd')}</Card.Text>
+                    <Card.Text className="pe-3 competition-end">
+                      {t('loginPage.competitionEnd')}
+                    </Card.Text>
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
-                    <Button variant="secondary" className="mt-2"> {t('loginPage.participate')}</Button>
+                    <Button variant="secondary" className="mt-2">
+                      {' '}
+                      {t('loginPage.participate')}
+                    </Button>
                   </Col>
                 </Row>
               </Col>
@@ -166,11 +171,16 @@ function HomePage() {
                 </Card.Text>
                 <Row className="justify-content-center">
                   <Col xs="12" lg="10">
-                    <Card.Text className="pe-3 competition-end">{t('loginPage.competitionEnd')}</Card.Text>
+                    <Card.Text className="pe-3 competition-end">
+                      {t('loginPage.competitionEnd')}
+                    </Card.Text>
                   </Col>
                   <Col xs="12" lg="2">
                     {' '}
-                    <Button variant="secondary" className="mt-2"> {t('loginPage.participate')}</Button>
+                    <Button variant="secondary" className="mt-2">
+                      {' '}
+                      {t('loginPage.participate')}
+                    </Button>
                   </Col>
                 </Row>
               </Col>
