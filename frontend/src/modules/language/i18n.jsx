@@ -187,7 +187,7 @@ i18n
             status: 'Status',
             Acategory: 'Add category',
             message: 'Are you sure you want to save?',
-            Save: 'Save'
+            Save: 'Save competition'
           }
         }
       },
