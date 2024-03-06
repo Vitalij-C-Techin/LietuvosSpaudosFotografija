@@ -65,11 +65,13 @@ public class CompetitionService {
     }
 
     public Page<CompetitionRecord> getAllCompetitionsWithPagination(int page){
-        return competitionRepository.findAll(PageRequest.of(page, recordsPerPage));
+        return competitionRepository.findAll(
+                PageRequest.of(page, recordsPerPage)
+        );
     }
 
     public Page<CompetitionRecord> getUserCompetitionsWithPagination(int page) {
-        //TOOD
+        //TODO
 
         return null;
     }
