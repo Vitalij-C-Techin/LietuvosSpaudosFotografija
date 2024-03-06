@@ -3,9 +3,11 @@ package lt.techin.lsf.persistance;
 import jakarta.transaction.Transactional;
 import lt.techin.lsf.persistance.model.UserRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+@Repository
 public interface UserRepository extends JpaRepository<UserRecord, UUID> {
 
     UserRecord findByUuidAllIgnoreCase(UUID uuid);

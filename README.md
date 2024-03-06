@@ -86,6 +86,34 @@ cmd: npm run dev
 
 Url: http://localhost:5173
 
+## Setting Up Mailjet Email Sending Service
+
+To get started with using Mailjet for sending emails, follow these steps:
+
+1. **Create a Mailjet Account**: Visit [Mailjet Signup](https://app.mailjet.com/signup) and sign up for an account. Make sure to confirm your email address.
+
+2. **Access API Credentials**:
+   - Go to your Mailjet Account Settings.
+   - Navigate to the "Senders and Domains" section and choose "[SMTP and SEND API settings](https://app.mailjet.com/account/relay)".
+   - In the opened menu, click on the "See all API credentials" button.
+
+3. **Generate Secret Key**:
+   - In the API Key Management section, click on the "Generate secret key" button.
+
+4. **Update Credentials**:
+   - Copy the generated secret key.
+   - Paste the copied secret key into the `backend/src/main/resources/credentials.yaml` file under the following format:
+     ```yaml
+     accessKey: API Key
+     secretKey: Secret Key
+     email: [Your registered email address]
+     ```
+   - Ensure that the email used for registration is confirmed.
+
+**Note**: It's essential to prioritize the security of your API keys. While we provide instructions for storing credentials in the YAML file, 
+it's crucial to understand that the security of these keys is ultimately your responsibility.
+We strongly recommend adding the `credentials.yaml` file to your project's `.gitignore` to prevent accidental exposure of sensitive information.
+
 ## Endpoints
 
 Swagger url: /swagger-ui/index.html
