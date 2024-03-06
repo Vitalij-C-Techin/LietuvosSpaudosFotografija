@@ -1,15 +1,15 @@
 package lt.techin.lsf.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.UserNotFoundByUuidException;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.mapper.UserResponseMapper;
+import lt.techin.lsf.model.requests.UpdateUserRequest;
 import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -32,5 +32,13 @@ public class UserController {
         }
 
         return UserResponseMapper.map(user);
+    }
+
+    @PutMapping("/user/{uuid}/profile")
+    public ResponseEntity<String> updateUserProfile(
+            @Valid @RequestBody UpdateUserRequest updateUserRequest, @PathVariable String uuid
+    )
+    {
+        return userService.updateUserProfile(updateUserRequest, UUID.fromString(uuid));
     }
 }
