@@ -9,7 +9,14 @@ const ModalCreateCategory = ({ showModal, onClose }) => {
       <Modal.Header closeButton>
         <Modal.Title>{t('modalCategory.titleAdd')}</Modal.Title>
       </Modal.Header>
-      <Modal.Body></Modal.Body>
+      <Modal.Body>
+      <Form.Label></Form.Label>
+      <Form.Select
+          >
+            <option value="1">{t('modalCategory.single')}</option>
+            <option value="2">{t('modalCategory.series')}</option>
+          </Form.Select>
+      </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>
           {t('modalCategory.closeButton')}
