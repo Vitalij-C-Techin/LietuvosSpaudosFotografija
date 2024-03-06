@@ -5,7 +5,9 @@ import lt.techin.lsf.model.Category;
 import lt.techin.lsf.model.mapper.CategoryRecordMapper;
 import lt.techin.lsf.model.requests.CategoryRequest;
 import lt.techin.lsf.persistance.CategoryRepository;
+import lt.techin.lsf.persistance.CompetitionRepository;
 import lt.techin.lsf.persistance.model.CategoryRecord;
+import lt.techin.lsf.persistance.model.CompetitionRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +17,19 @@ import java.util.UUID;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
-    private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found by uuid - ";
+    private final CompetitionRepository competitionRepository;
+    private static final String CATEGORY_NOT_FOUND_MESSAGE = "Category not found.";
+    private static final String COMPETITION_NOT_FOUND_MESSAGE = "Competition not found.";
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, CompetitionRepository competitionRepository) {
         this.categoryRepository = categoryRepository;
+        this.competitionRepository = competitionRepository;
     }
 
-    public Category createCategory(CategoryRequest categoryRequest) {
-        CategoryRecord categoryRecord = CategoryRecordMapper.categoryRequestToRecord(categoryRequest);
-
-        categoryRecord.setupNewCategory();
+    public Category createCategoryAndAddToCompetition(UUID competitionUuid, CategoryRequest categoryRequest) {
+        CompetitionRecord competitionRecord = getCompetitionByUuid(competitionUuid);
+        CategoryRecord categoryRecord = createCategoryRecord(categoryRequest, competitionRecord);
 
         return new Category(
                 categoryRepository.save(categoryRecord)
@@ -33,21 +37,53 @@ public class CategoryService {
     }
 
     public Category getCategory(UUID uuid) {
-
-        Category category = new Category(
-                categoryRepository
-                        .findById(uuid)
-                        .orElseThrow(() -> new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE + uuid))
-        );
+        Category category = new Category(getCategoryByUuid(uuid));
 
         return category;
     }
 
-    public Category updateCategory(UUID uuid, CategoryRequest categoryRequest) {
-        CategoryRecord categoryRecord = categoryRepository
-                .findById(uuid)
-                .orElseThrow(() -> new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE + uuid));
+    public Category updateCategory(UUID categoryUuid, CategoryRequest categoryRequest) {
+        CategoryRecord categoryRecordToUpdate = getCategoryByUuid(categoryUuid);
+        CategoryRecord updatedCategoryRecord = updateCategoryRecord(categoryRequest, categoryRecordToUpdate);
 
+        return new Category(
+                categoryRepository.save(updatedCategoryRecord)
+        );
+    }
+
+    public void deleteCategoryAndUpdateCompetition(UUID categoryUuid) {
+        CategoryRecord categoryRecordToDelete = getCategoryByUuid(categoryUuid);
+        CompetitionRecord competitionRecordToUpdate = categoryRecordToDelete.getCompetitionRecord();
+        competitionRecordToUpdate.getCategoryRecordList().remove(categoryRecordToDelete);
+        categoryRepository.deleteById(categoryUuid);
+    }
+
+    private CompetitionRecord getCompetitionByUuid(UUID competitionUuid) {
+
+        return competitionRepository
+                .findById(competitionUuid)
+                .orElseThrow(() -> new EntityNotFoundException(COMPETITION_NOT_FOUND_MESSAGE));
+    }
+
+    private CategoryRecord getCategoryByUuid(UUID categoryUuid) {
+
+        return categoryRepository
+                .findById(categoryUuid)
+                .orElseThrow(() -> new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE));
+    }
+
+    private CategoryRecord createCategoryRecord(CategoryRequest categoryRequest,
+                                                CompetitionRecord competitionRecord) {
+        CategoryRecord categoryRecord = CategoryRecordMapper.categoryRequestToRecord(categoryRequest);
+        categoryRecord.setupNewCategory();
+        categoryRecord.setCompetitionRecord(competitionRecord);
+        competitionRecord.addCategory(categoryRecord);
+
+        return categoryRecord;
+    }
+
+    private CategoryRecord updateCategoryRecord(CategoryRequest categoryRequest,
+                                                CategoryRecord categoryRecord) {
         categoryRecord.setNameLt(categoryRequest.getCategoryNameLt());
         categoryRecord.setNameEn(categoryRequest.getCategoryNameEn());
         categoryRecord.setDescriptionLt(categoryRequest.getCategoryDescriptionLt());
@@ -57,16 +93,6 @@ public class CategoryService {
         categoryRecord.setPhotoFormat(categoryRequest.getPhotoFormatType());
         categoryRecord.setPhotoSize(categoryRequest.getPhotoSize());
 
-        return new Category(
-                categoryRepository.save(categoryRecord)
-        );
-    }
-
-    public void deleteCategory(UUID uuid) {
-        if (!categoryRepository.existsById(uuid)) {
-            throw new EntityNotFoundException(CATEGORY_NOT_FOUND_MESSAGE + uuid);
-        }
-
-        categoryRepository.deleteById(uuid);
+        return categoryRecord;
     }
 }

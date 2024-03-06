@@ -1,6 +1,7 @@
 package lt.techin.lsf.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import lt.techin.lsf.model.Category;
 import lt.techin.lsf.model.requests.CategoryRequest;
 import lt.techin.lsf.service.CategoryService;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @RequestMapping("api/v1/category")
 @CrossOrigin(origins = "http://localhost:5173")
 @Validated
+@Slf4j
 public class CategoryController {
 
     private CategoryService categoryService;
@@ -23,32 +25,34 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping
+    @PostMapping("/{competitionUuid}")
     public Category createCategory(
-            @RequestBody @Valid CategoryRequest category) {
-
-        return categoryService.createCategory(category);
+            @PathVariable UUID competitionUuid,
+            @RequestBody @Valid CategoryRequest categoryRequest
+    ) {
+        return categoryService.createCategoryAndAddToCompetition(competitionUuid, categoryRequest);
     }
 
-    @GetMapping("/{uuid}")
+    @GetMapping("/{categoryUuid}")
     public Category getCategory(
-            @PathVariable UUID uuid
+            @PathVariable UUID categoryUuid
     ) {
-        return categoryService.getCategory(uuid);
+        return categoryService.getCategory(categoryUuid);
     }
 
-    @PutMapping("/{uuid}")
+    @PutMapping("/{categoryUuid}")
     public Category updateCategory(
-            @PathVariable UUID uuid,
-            @RequestBody CategoryRequest category
+            @PathVariable UUID categoryUuid,
+            @RequestBody @Valid CategoryRequest categoryRequest
     ) {
-        return categoryService.updateCategory(uuid, category);
+        return categoryService.updateCategory(categoryUuid, categoryRequest);
     }
 
-    @DeleteMapping("/{uuid}")
+    @DeleteMapping("/{categoryUuid}")
     public void deleteCategory(
-            @PathVariable UUID uuid
+            @PathVariable UUID categoryUuid
     ) {
-        categoryService.deleteCategory(uuid);
+        categoryService.deleteCategoryAndUpdateCompetition(categoryUuid);
     }
+
 }
