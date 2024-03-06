@@ -190,11 +190,10 @@ i18n
             compPicButton: 'Add photo',
             pLimit: 'Photo limit'
           },
-          modalAddCategory: {
-            title: 'Add category'
-          },
-          modalEditCategory: {
-            title: 'Edit category'
+          modalCategory: {
+            titleAdd: 'Add category',
+            titleEdit: 'Edit category',
+            closeButton: 'Close'
           }
         }
       },
@@ -377,11 +376,10 @@ i18n
             compPicButton: 'Pridėti nuotrauką',
             pLimit: 'Nuotraukų limitas'
           },
-          modalAddCategory: {
-            title: 'Pridėti kategoriją'
-          },
-          modalEditCategory: {
-            title: 'Redaguoti kategoriją'
+          modalCategory: {
+            titleAdd: 'Pridėti kategoriją',
+            titleEdit: 'Redaguoti kategoriją',
+            closeButton: 'Uždaryti'
           }
         }
       }

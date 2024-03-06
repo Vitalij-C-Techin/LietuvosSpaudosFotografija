@@ -10,12 +10,12 @@ const ModalCategory = ({ showModal, onClose }) => {
   return (
     <Modal show={showModal} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('modalEditCategory.title')}</Modal.Title>
+        <Modal.Title>{t('modalCategory.titleEdit')}</Modal.Title>
       </Modal.Header>
       <Modal.Body></Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>
-          Close
+        {t('modalCategory.closeButton')}
         </Button>
       </Modal.Footer>
     </Modal>

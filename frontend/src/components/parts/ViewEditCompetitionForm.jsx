@@ -149,10 +149,10 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
         <div className="divider"></div>
         <Container className="justify-content-xl-center mt-3 mb-5">
           <Button variant="secondary" onClick={handleCreateCategory}>
-            {t('modalAddCategory.title')}
+            {t('modalCategory.titleAdd')}
           </Button>
           <Button variant="secondary" onClick={handleAddCategory}>
-            {t('modalEditCategory.title')}
+            {t('modalCategory.titleEdit')}
           </Button>
           <ModalCreateCategory
             showModal={showCreateCategoryModal}
