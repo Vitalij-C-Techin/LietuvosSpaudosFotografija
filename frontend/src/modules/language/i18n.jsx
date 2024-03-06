@@ -186,7 +186,8 @@ i18n
             message: 'Are you sure you want to save?',
             Save: 'Save competition',
             compPicButton: 'Add photo',
-            pLimit: 'Photo limit'
+            pLimit: 'Photo limit',
+            error2: 'Photo limit must be between 1 and 50'
           },
           modalCategory: {
             titleCat: 'Title',
@@ -374,8 +375,8 @@ i18n
             status: 'Būsena',
             message: 'Ar tikrai norite išsaugoti?',
             Save: 'Išsaugoti',
-            compPicButton: 'Pridėti nuotrauką'
-    
+            compPicButton: 'Pridėti nuotrauką',
+            error2: 'Foto turi buti nuo 1 iki 50'
           },
           modalCategory: {
             titleCat: 'Pavadinimas',
@@ -385,7 +386,7 @@ i18n
             type: 'Tipas',
             single: 'Viena nuotrauka',
             series: 'Nuotraukų serija',
-            photoLimit:'Nuotraukų kiekis'
+            photoLimit: 'Nuotraukų kiekis'
           }
         }
       }

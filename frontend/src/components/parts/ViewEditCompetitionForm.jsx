@@ -5,12 +5,15 @@ import ModalCreateCategory from '../modals/ModalCreateCategory';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
+import axios from 'axios';
 
 const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const [isFormChanged, setIsFormChanged] = useState(false);
+  const [photoLimitError, setPhotoLimitError] = useState('');
+  const [selectedFile, setSelectedFile] = useState(null);
   const [t] = useTranslation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -21,6 +24,32 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
     status: '',
     visibility: ''
   });
+
+  //TODO add post request correct link
+  //TODO delete all console.log
+  //TODO check for photo submission
+  //TODO corect layout of photo upload
+
+  const handleSave = async () => {
+    if (isFormChanged && typeof onUpdate === 'function' && !photoLimitError) {
+      const confirmSave = window.confirm(t('editcomp.message'));
+      if (confirmSave) {
+        try {
+          const formDataWithFile = new FormData();
+          formDataWithFile.append('image', selectedFile);
+          Object.entries(formData).forEach(([key, value]) => {
+            formDataWithFile.append(key, value);
+          });
+          // await axios.post('api/v1/...', formDataWithFile);
+          setIsFormChanged(false);
+          console.log('competition created');
+          navigate('/admin-competitions-list');
+        } catch (error) {
+          console.error('Error creating competition:', error);
+        }
+      }
+    }
+  };
 
   useEffect(() => {
     const initialFormData = JSON.stringify(competitionData);
@@ -36,8 +65,10 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           ...formData,
           [name]: value
         });
+        setPhotoLimitError('');
+      } else {
+        setPhotoLimitError(t('editcomp.error2'));
       }
-      setError('Photo limit must be between 1 and 50');
     } else {
       setFormData({
         ...formData,
@@ -46,14 +77,16 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
     }
   };
 
-  const handleSave = () => {
-    if (isFormChanged && typeof onUpdate === 'function') {
-      const confirmSave = window.confirm(t('editcomp.message'));
-      if (confirmSave) {
-        onUpdate(formData);
-        setIsFormChanged(false);
-        navigate('/admin-competitions-list');
-      }
+  //TODO add more allowedTypes by need
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if (file && allowedTypes.includes(file.type)) {
+      setSelectedFile(file);
+      setPhotoLimitError('');
+    } else {
+      setSelectedFile(null);
+      setPhotoLimitError('wrong file');
     }
   };
 
@@ -91,8 +124,14 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
         <div className="divider"></div>
         <Container className="justify-content-xl-center my-5">
           <Container className="image-container mb-3">
-            <Image src={imagePlaceHolder}></Image>
-            <Button variant="secondary"> {t('editcomp.compPicButton')}</Button>
+            <Image
+              src={selectedFile ? URL.createObjectURL(selectedFile) : imagePlaceHolder}
+              rounded
+            />
+            <Form.Group controlId="formFile" className="mb-3">
+              <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
+              <Form.Control type="file" onChange={handleFileChange} />
+            </Form.Group>
           </Container>
           <Form.Label htmlFor="cname">{t('editcomp.name')}</Form.Label>
 
@@ -113,6 +152,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           ></Form.Control>
 
           <Form.Label htmlFor="photoLimit">{t('editcomp.Plimit')}</Form.Label>
+          {photoLimitError && <p className="text-danger">{photoLimitError}</p>}
           <Form.Control
             name="photoLimit"
             id="photoLimit"
@@ -120,6 +160,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
             onChange={handleInputChange}
             min="1"
             max="50"
+            placeholder={t('editcomp.error2')}
           ></Form.Control>
           <Form.Label htmlFor="status">{t('editcomp.status')}</Form.Label>
           <Form.Select
