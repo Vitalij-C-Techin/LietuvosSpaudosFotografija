@@ -1,12 +1,11 @@
 package lt.techin.lsf.model.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lt.techin.lsf.validator.ValidBirthYearConstraint;
 
 @Getter
 @Setter
@@ -21,10 +20,9 @@ public class UpdateUserRequest {
     @JsonProperty("surname")
     private String surname;
 
-    @Min(value = 1900, message = "Birth year must be after 1900")
-    @Max(value = 2024, message = "Birth year must be before 2024")
+    @ValidBirthYearConstraint
     @JsonProperty("birth_year")
-    private int birthYear;
+    private Integer birthYear;
 
     @NotBlank (message = "Field cannot be empty")
     @JsonProperty("phone_number")
