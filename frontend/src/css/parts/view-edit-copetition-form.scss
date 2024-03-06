@@ -13,6 +13,7 @@
     color: white;
     background-color: black;
     width: 100%;
+    margin-top: 1rem;
   }
 
   button:hover {
@@ -24,7 +25,9 @@
     margin-top: 1rem;
   }
 
-  input, .form-check-input, textarea {
+  input,
+  .form-check-input,
+  textarea {
     border-radius: 0%;
     border-color: black;
     border-width: 0.2em;
@@ -42,5 +45,10 @@
     outline: none;
     box-shadow: 0 0 0 4px rgb(131, 130, 130);
     border-color: rgb(206, 203, 203);
+  }
+  .divider {
+    background: black;
+    height: 1vh;
+    width: auto;
   }
 }

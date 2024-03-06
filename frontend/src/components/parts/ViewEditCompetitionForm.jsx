@@ -71,6 +71,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
             {t('editcomp.delete')}
           </Button>
         </Container>
+        <div className="divider"></div>
         <Container className="justify-content-xl-center my-5">
           <Form.Label htmlFor="cname">{t('editcomp.name')}</Form.Label>
 
@@ -133,9 +134,11 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <Form.Label htmlFor="EndDate">{t('editcomp.Edate')}</Form.Label>
           <Form.Control type="date" id="EndDate" name="EndDate" />
         </Container>
+        <div className="divider"></div>
         <Container className="justify-content-xl-center my-5">
           <h6>{t('editcomp.Addcategory')}</h6>
         </Container>
+        <div className="divider"></div>
         <Container className="justify-content-xl-center my-5">
           <Button variant="secondary" onClick={handleSave} disabled={!isFormChanged}>
             {t('editcomp.Save')}
