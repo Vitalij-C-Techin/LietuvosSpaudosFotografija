@@ -136,8 +136,14 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
               <Row>
                 <Col>
                   <Container className="image-container mb-3">
-                    <Image src={imagePlaceHolder}></Image>
-                    <Button variant="secondary"> {t('editcomp.compPicButton')}</Button>
+                    <Image
+                      src={selectedFile ? URL.createObjectURL(selectedFile) : imagePlaceHolder}
+                      rounded
+                    />
+                    <Form.Group controlId="formFile" className="mb-3">
+                      <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
+                      <Form.Control type="file" onChange={handleFileChange} />
+                    </Form.Group>
                   </Container>
                 </Col>
               </Row>
