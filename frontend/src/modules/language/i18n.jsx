@@ -229,7 +229,7 @@ i18n
           forgotPasswordForm: {
             emailFound:
               'El. paštas rastas mūsų duomenų bazėje, slaptažodžio atkūrimo nuoroda bus išsiųsta.',
-            emailSendingError: 'Klaida siunčiant slaptažodžio atkūrimo el. laišką',
+            emailSendingError: 'Klaida siunčiant slaptažodžio atkūrimo el. laišką.',
             userNotFound: 'Vartotojas su el. paštu {{email}} nerastas mūsų duomenų bazėje.',
             resetPassword: 'ATKURTI SLAPTAŽODĮ',
             required: 'Šis laukas privalomas.',

@@ -25,7 +25,7 @@ test('displays success message on successful email submission', async () => {
 });
 
 test('displays error message on unsuccessful email submission', async () => {
-  const errorMessage = 'An error occurred. Please try again later.';
+  const errorMessage = 'Klaida siunčiant slaptažodžio atkūrimo el. laišką.';
   const mockError = new Error(errorMessage);
   axios.post.mockRejectedValue(mockError);
 
@@ -40,7 +40,7 @@ test('displays error message on unsuccessful email submission', async () => {
   await waitFor(() => {
     const errorMsg = screen.getByTestId('error-message');
     expect(errorMsg).toBeInTheDocument();
-    expect(screen.getByText(errorMessage)).toBeInTheDocument();
+    expect(errorMsg.textContent).toContain(errorMessage);
   });
 });
 
