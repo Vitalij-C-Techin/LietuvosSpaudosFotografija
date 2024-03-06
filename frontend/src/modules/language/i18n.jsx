@@ -168,7 +168,7 @@ i18n
           editcomp: {
             header: 'View/Edit competition',
             delete: 'Delete competition',
-            name: 'Name',
+            name: 'Title',
             description: 'Description',
             Sdate: 'Start date',
             Plimit: 'Photo limit',
