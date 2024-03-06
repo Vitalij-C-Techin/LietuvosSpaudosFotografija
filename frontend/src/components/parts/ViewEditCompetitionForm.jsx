@@ -90,8 +90,8 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           onChange={handleInputChange}
         ></Form.Control>
 
-        <Form.Label htmlFor="status">{t('editcomp.status')}</Form.Label>
-
+       
+        <Form.Label htmlFor="StartDate">{t('editcomp.Sdate')}</Form.Label>
         <Form.Control
           type="date"
           id="StartDate"
@@ -110,7 +110,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <option value="2">{t('editcomp.number')}</option>
           <option value="3">{t('editcomp.group')}</option>
         </Form.Select>
-        <Form.Label htmlFor="StartDate">{t('editcomp.Sdate')}</Form.Label>
+        <Form.Label htmlFor="status">{t('editcomp.status')}</Form.Label>
         <Form.Select
           id="status"
           name="status"
