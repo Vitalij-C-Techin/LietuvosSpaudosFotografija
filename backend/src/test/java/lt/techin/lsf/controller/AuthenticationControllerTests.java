@@ -43,11 +43,13 @@ class AuthenticationControllerTests {
         ForgetPasswordRequest request = ForgetPasswordRequest.builder()
                 .email("passwordresetmail@email.com")
                 .build();
-        when(userService.existsUserWithEmail(request.getEmail())).thenReturn(null);
+        ResponseEntity<String> notFoundResponse = new ResponseEntity<>(
+                "User with email " + request.getEmail() + " not found!", HttpStatus.NOT_FOUND);
+        when(passwordResetService.resetPassword(request)).thenReturn(notFoundResponse);
 
         // Act and Assert
-        assertThrows(UserNotFoundByEmailException.class, () -> authenticationController.forgetPassword(request));
-        verify(passwordResetService, never()).resetPassword(any());
+       assertEquals(notFoundResponse, authenticationController.forgetPassword(request));
+        verify(passwordResetService, times(1)).resetPassword(request);
     }
 
     @Test
@@ -55,7 +57,7 @@ class AuthenticationControllerTests {
         // Arrange
         String token = "someToken";
         UserRecord userRecord = new UserRecord();
-        ResponseEntity<String> successResponse = new ResponseEntity<>("", HttpStatus.NO_CONTENT);
+        ResponseEntity<String> successResponse = new ResponseEntity<>("Password changed successfully", HttpStatus.NO_CONTENT);
         when(changePasswordService.changeUserPassword(token, userRecord.getPassword())).thenReturn(successResponse);
 
         // Act
@@ -63,7 +65,7 @@ class AuthenticationControllerTests {
 
         // Assert
         assertNotNull(response);
-        assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
+        assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
         assertEquals("Password changed successfully", response.getBody());
         verify(changePasswordService, times(1)).changeUserPassword(token, userRecord.getPassword());
     }

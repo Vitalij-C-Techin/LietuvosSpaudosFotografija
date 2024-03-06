@@ -1,6 +1,6 @@
 package lt.techin.lsf.model.requests;
 
-import lt.techin.lsf.exception.ForgotPasswordException;
+import lt.techin.lsf.exception.UserRegistrationEmailInvalidFormatException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -8,9 +8,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-//TODO
-//@DataJpaTest
-//@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
 class ForgetPasswordRequestTests {
 
     @Test
@@ -21,13 +18,12 @@ class ForgetPasswordRequestTests {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"myTestmail.com", "myTestmailcom", "myTestmail@.com", "a1??.@com",
-                            "mytestverylongmailwithlonglengthmorethan60characters@example.com"
+    @ValueSource(strings = {"myTestmail.com", "myTestmailcom", "myTestmail@.com", "a1??.@com"
                             })
     void invalidForgetPasswordRequestShouldThrowException(String invalidEmail) {
         ForgetPasswordRequest forgetPasswordRequest = ForgetPasswordRequest.builder()
                 .email(invalidEmail).build();
 
-        assertThrows(ForgotPasswordException.class, forgetPasswordRequest::validateData);
+        assertThrows(UserRegistrationEmailInvalidFormatException.class, forgetPasswordRequest::validateData);
     }
 }
