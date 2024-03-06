@@ -48,16 +48,16 @@ public class CompetitionController {
     }
 
     @GetMapping("/user/{page}")
-    public void getUserActiveCompetitionsWithPagination(
+    public Page<CompetitionRecord> getUserActiveCompetitionsWithPagination(
             @PathVariable int page
     ) {
-        //TODO
+        return competitionService.getUserCompetitionsWithPagination(page);
     }
 
     @GetMapping("/user/participate/{page}")
-    public void getUserParticipateCompetitionsWithPagination(
+    public Page<CompetitionRecord> getUserParticipateCompetitionsWithPagination(
             @PathVariable int page
     ) {
-        //TODO
+        return competitionService.getUserNotParticipatedCompetitionsWithPagination(page);
     }
 }

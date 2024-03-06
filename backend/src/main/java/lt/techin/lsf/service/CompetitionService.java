@@ -19,8 +19,9 @@ public class CompetitionService {
     private static final int recordsPerPage = 5;
 
     private final CompetitionRepository competitionRepository;
+    private final AuthenticationService authenticationService;
 
-    public Competition createCompetition(CreateCompetitionRequest competitionData){
+    public Competition createCompetition(CreateCompetitionRequest competitionData) {
         CompetitionRecord record = CompetitionRecordMapper.map(competitionData);
 
         record.setupNewCompetition();
@@ -30,8 +31,8 @@ public class CompetitionService {
         );
     }
 
-    public boolean deleteCompetition(UUID uuid){
-        if(!competitionRepository.existsByUuid(uuid)){
+    public boolean deleteCompetition(UUID uuid) {
+        if (!competitionRepository.existsByUuid(uuid)) {
             return false;
         }
 
@@ -40,7 +41,7 @@ public class CompetitionService {
         return true;
     }
 
-    public Competition updateCompetition(UUID uuid, UpdateCompetitionRequest competitionData){
+    public Competition updateCompetition(UUID uuid, UpdateCompetitionRequest competitionData) {
         CompetitionRecord record = competitionRepository.findByUuid(uuid);
 
         record.setNameLt(competitionData.getNameLt());
@@ -58,27 +59,29 @@ public class CompetitionService {
         );
     }
 
-    public Competition getCompetition(UUID uuid){
+    public Competition getCompetition(UUID uuid) {
         return new Competition(
                 competitionRepository.findByUuid(uuid)
         );
     }
 
-    public Page<CompetitionRecord> getAllCompetitionsWithPagination(int page){
+    public Page<CompetitionRecord> getAllCompetitionsWithPagination(int page) {
         return competitionRepository.findAll(
                 PageRequest.of(page, recordsPerPage)
         );
     }
 
     public Page<CompetitionRecord> getUserCompetitionsWithPagination(int page) {
-        //TODO
-
-        return null;
+        return competitionRepository.findUserActiveCompetitions(
+                authenticationService.getAuthenticatedUser().getUuid(),
+                PageRequest.of(page, recordsPerPage)
+        );
     }
 
-    public Page<CompetitionRecord> getUserNotParticipatedCompetitionsWithPagination(int page){
-        //TODO
-
-        return null;
+    public Page<CompetitionRecord> getUserNotParticipatedCompetitionsWithPagination(int page) {
+        return competitionRepository.findUserParticipateCompetitions(
+                authenticationService.getAuthenticatedUser().getUuid(),
+                PageRequest.of(page, recordsPerPage)
+        );
     }
 }

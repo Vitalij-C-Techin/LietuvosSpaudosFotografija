@@ -1,9 +1,7 @@
 package lt.techin.lsf.persistance;
 
 import jakarta.transaction.Transactional;
-import lt.techin.lsf.model.ParticipationRequest;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -11,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -25,4 +22,24 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
 
     Page<CompetitionRecord> findAll(Pageable pageable);
 
+    @Query("SELECT c " +
+            "FROM CompetitionRecord c " +
+            "JOIN ParticipationRequestRecord r ON c.uuid = r.competitionUuid " +
+            "WHERE r.userUuid = :userUuid " +
+            "AND r.status = 'PERMIT' " +
+            "AND c.startDate < CURRENT_TIMESTAMP " +
+            "AND c.endDate > CURRENT_TIMESTAMP"
+    )
+    Page<CompetitionRecord> findUserActiveCompetitions(@Param("userUuid") UUID userUuid, Pageable pageable);
+
+    @Query("SELECT c " +
+            "FROM CompetitionRecord c " +
+            "LEFT JOIN ParticipationRequestRecord r ON c.uuid = r.competitionUuid " +
+            "WHERE r.userUuid != :userUuid " +
+            "OR r.userUuid IS NULL " +
+            "AND r.userUuid IS NULL " +
+            "AND c.startDate < CURRENT_TIMESTAMP " +
+            "AND c.endDate > CURRENT_TIMESTAMP"
+    )
+    Page<CompetitionRecord> findUserParticipateCompetitions(@Param("userUuid") UUID userUuid, Pageable pageable);
 }
