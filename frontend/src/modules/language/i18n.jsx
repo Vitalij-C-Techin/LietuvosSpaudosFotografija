@@ -196,7 +196,7 @@ i18n
             type: 'Type',
             single: 'Single',
             series: 'Series',
-            photolimit: 'Photo limit'
+            photoLimit: 'Photo limit'
           }
         }
       },
