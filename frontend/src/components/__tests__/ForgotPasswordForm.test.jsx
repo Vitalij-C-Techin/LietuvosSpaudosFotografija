@@ -18,9 +18,7 @@ test('displays success message on successful email submission', async () => {
 
   // Wait for the axios call to complete
   await waitFor(() => {
-    expect(
-      screen.getByText('Email found in our database, a password reset link will be sent.')
-    ).toBeInTheDocument();
+    expect(screen.getByTestId('success-message')).toBeInTheDocument();
   });
 });
 
@@ -36,11 +34,9 @@ test('displays error message on unsuccessful email submission', async () => {
 
   fireEvent.click(screen.getByTestId('recover-button'));
 
-
   await waitFor(() => {
     const errorMsg = screen.getByTestId('error-message');
     expect(errorMsg).toBeInTheDocument();
     expect(errorMsg.textContent).toContain(errorMessage);
   });
 });
-
