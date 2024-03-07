@@ -36,14 +36,12 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
       const confirmSave = window.confirm(t('editcomp.message'));
       if (confirmSave) {
         try {
-          const formDataWithoutImage = { ...formData };
-          delete formDataWithoutImage.image;
           // const formDataWithFile = new FormData();
           // formDataWithFile.append('image', selectedFile);
           // Object.entries(formData).forEach(([key, value]) => {
           //   formDataWithFile.append(key, value);
           // });
-          await axios.post('http://localhost:8080/api/v1/competition', formDataWithoutImage);
+          await axios.post('http://localhost:8080/api/v1/competition', formData);
           setIsFormChanged(false);
           console.log('competition created');
           navigate('/admin-competitions-list');
