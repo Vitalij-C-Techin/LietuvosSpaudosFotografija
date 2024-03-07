@@ -40,7 +40,7 @@ function App() {
             <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
             <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
 
-            <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
+            <Route path="/admin-competition-list" element={<AdminCompetitionsListPage />} />
             <Route
               path="/admin-user-participation-requests"
               element={<AdminUserParticipationRequestPage />}
@@ -49,7 +49,10 @@ function App() {
             <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
               <Route path="/p" element={<ProfilePage />} />
             </Route>
-            <Route path="/editcompetition" element={<CompetitionManagementPage />} />
+
+            <Route path="/admin-competition-edit" element={<CompetitionManagementPage />} />
+            <Route path="/admin-competition-edit/:uuid" element={<CompetitionManagementPage />} />
+
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </AuthProvider>

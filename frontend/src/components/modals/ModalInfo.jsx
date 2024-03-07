@@ -1,10 +1,10 @@
 import { Modal } from 'react-bootstrap';
 
-const ModalInfo = ({ children, args }) => {
+const ModalInfo = ({ children, show, onHide }) => {
   return (
     <Modal
-      show={args.show}
-      onHide={args.onClose}
+      show={show}
+      onHide={onHide}
       className="lsf-modal-info"
       aria-labelledby="contained-modal-title-vcenter"
       size="lg"

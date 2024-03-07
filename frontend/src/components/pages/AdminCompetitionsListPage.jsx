@@ -2,20 +2,57 @@ import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import LoadingMessage from '../messages/LoadingMessage'
+import Config from '../config/Config';
+import axios from 'axios';
+
+import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
+import { useAuth } from '../context/AuthContext';
+import Competition from '../utils/Competition';
 
 const AdminCompetitionsListPage = () => {
   const [t] = useTranslation();
 
+  const { getTokenHeader } = useAuth();
+
+  const [requestData, setRequestData] = useState(null);
+  const [competitionsPage, setCompetitionsPage] = useState(0);
+
   const [competitions, setCompetitions] = useState(null);
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setCompetitions([{}, {}, {}]);
-      setIsLoading(false);
-    }, 1500);
+    console.log('Admin comp');
+
+    let url = Config.apiDomain + Config.endpoints.competitions.adminAll;
+    url = url.replace('{page}', competitionsPage);
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .get(url, cfg)
+      .then((response) => {
+        console.log('Admin competitions', response);
+
+        setRequestData(response.data);
+
+        if (!response.data.empty) {
+          setCompetitions(response.data.content);
+        } else {
+          setCompetitions(null);
+        }
+      })
+      .catch((error) => {
+        setCompetitions(null);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -49,9 +86,12 @@ const CompetitionList = ({ competitions }) => {
 
 const CompetitionSingle = ({ competition }) => {
   const [t] = useTranslation();
+  const navigate = useNavigate();
+
+  const c = new Competition(competition);
 
   const handleView = () => {
-    console.log('Competition view');
+    navigate('/admin-competition-edit/' + c.getUuid());
   };
 
   return (
@@ -66,13 +106,11 @@ const CompetitionSingle = ({ competition }) => {
             />
           </Col>
           <Col className="d-flex flex-column p-3">
-            <Card.Title className="mb-4">Competition title</Card.Title>
-            <Card.Text className="flex-fill">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit.
+            <Card.Title className="mb-4">{c.getTitle()}</Card.Title>
+            <Card.Text className="flex-fill">{c.getDescription()}</Card.Text>
+            <Card.Text>
+              {t('adminCompetitionPage.competitionDates')}: {c.getActiveDates()}
             </Card.Text>
-            <Card.Text>{t('adminCompetitionPage.competitionDates')}: 2023-2024</Card.Text>
             <Card.Link className="d-flex justify-content-end">
               <Col xs="12" sm="12" md="6" lg="3">
                 <Button className="lsf-button w-100" onClick={handleView}>
@@ -96,7 +134,7 @@ const ActionList = () => {
   };
 
   const handleCreateCompetition = () => {
-    navigate('/editcompetition')
+    navigate('/admin-competition-edit');
   };
 
   return (

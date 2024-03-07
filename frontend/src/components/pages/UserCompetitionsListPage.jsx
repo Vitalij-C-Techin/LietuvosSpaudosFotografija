@@ -1,21 +1,53 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+
 import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
+import { useAuth } from '../context/AuthContext';
+import Config from '../config/Config';
+import Competition from '../utils/Competition';
 
 const UserCompetitionsListPage = () => {
   const [t] = useTranslation();
+  const { getTokenHeader } = useAuth();
 
-  const [competitions, setCompetitions] = useState([null]);
+  const [requestData, setRequestData] = useState(null);
+  const [competitions, setCompetitions] = useState(null);
+  const [competitionsPage, setCompetitionsPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setCompetitions([{}, {}, {}]);
-      setIsLoading(false);
-    }, 1500);
+    let url = Config.apiDomain + Config.endpoints.competitions.userActive;
+    url = url.replace('{page}', competitionsPage);
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .get(url, cfg)
+      .then((response) => {
+        setRequestData(response.data);
+
+        if (!response.data.empty) {
+          setCompetitions(response.data.content);
+        } else {
+          setCompetitions(null);
+        }
+      })
+      .catch((error) => {
+        console.log('Errors', error);
+
+        setCompetitions(null);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -62,6 +94,8 @@ const CompetitionList = ({ competitions }) => {
 const CompetitionSingle = ({ competition }) => {
   const [t] = useTranslation();
 
+  const c = new Competition(competition);
+
   const handleSelect = () => {
     console.log('Handle Info');
   };
@@ -69,8 +103,8 @@ const CompetitionSingle = ({ competition }) => {
   return (
     <tr>
       <td className="col-12">
-        Competition name
-        <div>Date: 2024.01.01 - 2024.03.01 </div>
+        {c.getTitle()}
+        <div>{c.getActiveDates()}</div>
       </td>
       <td>
         <div className="d-flex gap-1 flex-column flex-lg-row flex-md-row align-end">
