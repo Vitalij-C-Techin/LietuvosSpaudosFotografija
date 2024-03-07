@@ -1,7 +1,5 @@
 package lt.techin.lsf.service;
 
-import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.exception.UserNotFoundByEmailException;
 import lt.techin.lsf.model.requests.ForgetPasswordRequest;
 import lt.techin.lsf.persistance.UserRepository;
 import lt.techin.lsf.persistance.model.UserRecord;
@@ -26,7 +24,6 @@ public class PasswordResetService {
     }
 
     public ResponseEntity<String> resetPassword(ForgetPasswordRequest forgetPasswordRequest) {
-        forgetPasswordRequest.validateData();
         String email = forgetPasswordRequest.getEmail();
         if (userRepository.existsByEmail(email)) {
             UserRecord user = userRepository.findByEmailIgnoreCase(email);
