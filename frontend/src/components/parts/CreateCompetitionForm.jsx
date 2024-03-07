@@ -8,7 +8,6 @@ import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
 
 const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
-  const [selectedStatus, setSelectedStatus] = useState('');
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const [isFormChanged, setIsFormChanged] = useState(false);
@@ -17,13 +16,16 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
   const [t] = useTranslation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    description: '',
+    description: 'aaa',
     end_date: '',
-    name: '',
-    photo_limit: '',
+    name: 'aaa',
+    photo_limit: '23',
     start_date: '',
-    status: '',
-    visibility: ''
+    status: 'active',
+    visibility: 'visible',
+    name_lt: 'ssss',
+    name_en:'ssss',
+    description_lt: 'ssss'
   });
 
   //TODO add post request correct link
