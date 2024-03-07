@@ -20,7 +20,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
     name: '',
     description: '',
     start_date: '',
-    end_date:'',
+    end_date: '',
     photo_limit: '',
     status: '',
     visibility: ''
@@ -41,7 +41,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           Object.entries(formData).forEach(([key, value]) => {
             formDataWithFile.append(key, value);
           });
-          // await axios.post('api/v1/competition', formDataWithFile);
+          // await axios.post('http://localhost:8080/api/v1/competition', formDataWithFile);
           setIsFormChanged(false);
           console.log('competition created');
           navigate('/admin-competitions-list');
@@ -154,6 +154,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Form.Control
                     type="text"
                     id="name"
+                    autoComplete="name"
                     name="name"
                     value={formData.cname}
                     onChange={handleInputChange}

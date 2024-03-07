@@ -17,11 +17,11 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
   const [t] = useTranslation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
     description: '',
-    start_date: '',
-    end_date:'',
+    end_date: '',
+    name: '',
     photo_limit: '',
+    start_date: '',
     status: '',
     visibility: ''
   });
@@ -36,12 +36,14 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
       const confirmSave = window.confirm(t('editcomp.message'));
       if (confirmSave) {
         try {
-          const formDataWithFile = new FormData();
-          formDataWithFile.append('image', selectedFile);
-          Object.entries(formData).forEach(([key, value]) => {
-            formDataWithFile.append(key, value);
-          });
-          // await axios.post('api/v1/competition', formDataWithFile);
+          const formDataWithoutImage = { ...formData };
+          delete formDataWithoutImage.image;
+          // const formDataWithFile = new FormData();
+          // formDataWithFile.append('image', selectedFile);
+          // Object.entries(formData).forEach(([key, value]) => {
+          //   formDataWithFile.append(key, value);
+          // });
+          await axios.post('http://localhost:8080/api/v1/competition', formDataWithoutImage);
           setIsFormChanged(false);
           console.log('competition created');
           navigate('/admin-competitions-list');
@@ -154,8 +156,9 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Form.Control
                     type="text"
                     id="name"
+                    autoComplete="name"
                     name="name"
-                    value={formData.cname}
+                    value={formData.name}
                     onChange={handleInputChange}
                   />
                 </Col>
@@ -179,7 +182,7 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Form.Control
                     name="photo_limit"
                     id="photo_limit"
-                    value={formData.photoLimit}
+                    value={formData.photo_limit}
                     onChange={handleInputChange}
                     min="1"
                     max="50"
@@ -191,8 +194,8 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Form.Select
                     id="status"
                     name="status"
-                    value={selectedStatus}
-                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    value={formData.status}
+                    onChange={handleInputChange}
                   >
                     <option value=""></option>
                     <option value="active">{t('editcomp.active')}</option>
@@ -207,8 +210,9 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                     value={formData.visibility}
                     onChange={handleInputChange}
                   >
-                    <option value="1">{t('editcomp.active2')}</option>
-                    <option value="2">{t('editcomp.closed2')}</option>
+                    <option value=""></option>
+                    <option value="visible">{t('editcomp.active2')}</option>
+                    <option value="hidden">{t('editcomp.closed2')}</option>
                   </Form.Select>
                 </Col>
               </Row>
@@ -219,13 +223,19 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                     type="date"
                     id="start_date"
                     name="start_date"
-                    value={formData.StartDate}
+                    value={formData.start_date}
                     onChange={handleInputChange}
                   />
                 </Col>
                 <Col>
                   <Form.Label htmlFor="end_date">{t('editcomp.Edate')}</Form.Label>
-                  <Form.Control type="date" id="end_date" name="end_date" />
+                  <Form.Control
+                    type="date"
+                    id="end_date"
+                    name="end_date"
+                    value={formData.end_date}
+                    onChange={handleInputChange}
+                  />
                 </Col>
               </Row>
             </Container>
