@@ -1,7 +1,7 @@
 .view-edit-competition-container {
   font-family: 'Montserrat', sans-serif;
   font-weight: 500;
-  h2 {
+  h4 {
     font-weight: 700;
     margin-bottom: 2rem;
   }
@@ -53,6 +53,12 @@
   .divider {
     background: black;
     height: 1vh;
+    width: auto;
+    margin: 0;
+  }
+  .divider-small {
+    background: black;
+    height: 0.5vh;
     width: auto;
     margin: 0;
   }

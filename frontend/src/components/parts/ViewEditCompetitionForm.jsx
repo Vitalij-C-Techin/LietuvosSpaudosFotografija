@@ -188,35 +188,51 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
               </Row>
             </Container>
           </Col>
-          <Col className="py-5">
-            <Container className="justify-content-xl-center mt-3 mb-5">
-              <Row>
-                <Col>
-                  <Button variant="secondary" onClick={handleCreateCategory}>
-                    {t('modalCategory.titleAdd')}
-                  </Button>
-                </Col>
-                <Col>
-                  <Button variant="secondary" onClick={handleAddCategory}>
-                    {t('modalCategory.titleEdit')}
-                  </Button>
-                </Col>
-              </Row>
-              <ModalCreateCategory
-                showModal={showCreateCategoryModal}
-                onClose={handleCloseCreateCategoryModal}
-              />
-              <ModalCategory
-                showModal={showAddCategoryModal}
-                onClose={handleCloseAddCategoryModal}
-              />
-              <div className="divider mt-5 "></div>
+         
+          <Col className="py-3">
+          <div className='divider'></div>
+            <Container className="justify-content-xl-center mt-1 mb-3">
               <Container className="justify-content-xl-center my-5">
-                <h6>{t('editcomp.Addcategory')}</h6>
+                <h4>{t('editcomp.Addcategory')}</h4>
               </Container>
-              <div className="divider"></div>
             </Container>
-            {/* </Col> */}
+          
+            <Row>
+              <Col>
+                <Button variant="secondary" onClick={handleCreateCategory}>
+                  {t('modalCategory.titleAdd')}
+                </Button>
+              </Col>
+            </Row>
+            <ModalCreateCategory
+              showModal={showCreateCategoryModal}
+              onClose={handleCloseCreateCategoryModal}
+            />
+            <ModalCategory showModal={showAddCategoryModal} onClose={handleCloseAddCategoryModal} />
+            <div className="divider-small mt-5 "></div>
+            <Row>
+              <Col>
+                <Form.Text>Title</Form.Text>
+              </Col>
+              <Col>
+                <Form.Text>Description</Form.Text>
+              </Col>
+              <Col>
+                <Row>
+                  <Col>
+                    <Button variant="secondary" onClick={handleAddCategory}>
+                      {t('modalCategory.titleEdit')}
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button variant="secondary" onClick={handleAddCategory}>
+                      Delete
+                    </Button>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <div className="divider-small"></div>
           </Col>
         </Row>
       </Container>
