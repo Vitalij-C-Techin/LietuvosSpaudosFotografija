@@ -33,49 +33,21 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
   //TODO check for photo submission
   //TODO corect layout of photo upload
 
-  // const handleSave = async () => {
-  //   if (isFormChanged && typeof onUpdate === 'function' && !photoLimitError) {
-  //     const confirmSave = window.confirm(t('editcomp.message'));
-  //     if (confirmSave) {
-  //       try {
-  //         // const formDataWithFile = new FormData();
-  //         // formDataWithFile.append('image', selectedFile);
-  //         // Object.entries(formData).forEach(([key, value]) => {
-  //         //   formDataWithFile.append(key, value);
-  //         // });
-  //         await axios.post('http://localhost:8080/api/v1/competition', formData);
-  //         setIsFormChanged(false);
-  //         console.log('competition created');
-  //         navigate('/admin-competitions-list');
-  //       } catch (error) {
-  //         console.error('Error creating competition:', error);
-  //       }
-  //     }
-  //   }
-  // };
-
   const handleSave = async () => {
-    if (isFormChanged && !photoLimitError) {
+    if (isFormChanged && typeof onUpdate === 'function' && !photoLimitError) {
       const confirmSave = window.confirm(t('editcomp.message'));
       if (confirmSave) {
         try {
-          const response = await axios.post('http://localhost:8080/api/v1/competition', formData);
+          // const formDataWithFile = new FormData();
+          // formDataWithFile.append('image', selectedFile);
+          // Object.entries(formData).forEach(([key, value]) => {
+          //   formDataWithFile.append(key, value);
+          // });
+          await axios.post('http://localhost:8080/api/v1/competition', formData);
           setIsFormChanged(false);
-          console.log('Competition created:', response.data);
+          console.log('competition created');
           navigate('/admin-competitions-list');
         } catch (error) {
-          if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.error('Request failed with status code:', error.response.status);
-            console.error('Response data:', error.response.data);
-          } else if (error.request) {
-            // The request was made but no response was received
-            console.error('No response received:', error.request);
-          } else {
-            // Something happened in setting up the request that triggered an Error
-            console.error('Error:', error.message);
-          }
           console.error('Error creating competition:', error);
         }
       }

@@ -36,14 +36,13 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
       const confirmSave = window.confirm(t('editcomp.message'));
       if (confirmSave) {
         try {
-          const formDataWithFile = new FormData();
-          formDataWithFile.append('image', selectedFile);
-          Object.entries(formData).forEach(([key, value]) => {
-            formDataWithFile.append(key, value);
-          });
-          // await axios.post('http://localhost:8080/api/v1/competition', formDataWithFile);
+          // const formDataWithFile = new FormData();
+          // formDataWithFile.append('image', selectedFile);
+          // Object.entries(formData).forEach(([key, value]) => {
+          //   formDataWithFile.append(key, value);
+          // });
+          await axios.post('http://localhost:8080/api/v1/competition/uuid', formData);
           setIsFormChanged(false);
-          console.log('competition created');
           navigate('/admin-competitions-list');
         } catch (error) {
           console.error('Error creating competition:', error);
