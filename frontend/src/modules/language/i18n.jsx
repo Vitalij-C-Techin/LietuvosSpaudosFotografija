@@ -187,7 +187,8 @@ i18n
             Save: 'Save competition',
             compPicButton: 'Add photo',
             pLimit: 'Photo limit',
-            error2: 'Photo limit must be between 1 and 50'
+            error2: 'Photo limit must be between 1 and 50',
+            header1: 'Create Competition'
           },
           modalCategory: {
             titleCat: 'Title',
@@ -376,7 +377,8 @@ i18n
             message: 'Ar tikrai norite išsaugoti?',
             Save: 'Išsaugoti',
             compPicButton: 'Pridėti nuotrauką',
-            error2: 'Foto turi buti nuo 1 iki 50'
+            error2: 'Foto turi buti nuo 1 iki 50',
+            header1: 'Sukurti Konkursa'
           },
           modalCategory: {
             titleCat: 'Pavadinimas',
