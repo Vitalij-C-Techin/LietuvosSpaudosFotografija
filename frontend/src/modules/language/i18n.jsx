@@ -186,7 +186,9 @@ i18n
             message: 'Are you sure you want to save?',
             Save: 'Save competition',
             compPicButton: 'Add photo',
-            pLimit: 'Photo limit'
+            pLimit: 'Photo limit',
+            error2: 'Photo limit must be between 1 and 50',
+            header1: 'Create Competition'
           },
           modalCategory: {
             titleCat: 'Title',
@@ -228,7 +230,7 @@ i18n
           forgotPasswordForm: {
             emailFound:
               'El. paštas rastas mūsų duomenų bazėje, slaptažodžio atkūrimo nuoroda bus išsiųsta.',
-            emailSendingError: 'Klaida siunčiant slaptažodžio atkūrimo el. laišką',
+            emailSendingError: 'Klaida siunčiant slaptažodžio atkūrimo el. laišką.',
             userNotFound: 'Vartotojas su el. paštu {{email}} nerastas mūsų duomenų bazėje.',
             resetPassword: 'ATKURTI SLAPTAŽODĮ',
             required: 'Šis laukas privalomas.',
@@ -374,8 +376,9 @@ i18n
             status: 'Būsena',
             message: 'Ar tikrai norite išsaugoti?',
             Save: 'Išsaugoti',
-            compPicButton: 'Pridėti nuotrauką'
-    
+            compPicButton: 'Pridėti nuotrauką',
+            error2: 'Foto turi buti nuo 1 iki 50',
+            header1: 'Sukurti Konkursa'
           },
           modalCategory: {
             titleCat: 'Pavadinimas',
@@ -385,7 +388,7 @@ i18n
             type: 'Tipas',
             single: 'Viena nuotrauka',
             series: 'Nuotraukų serija',
-            photoLimit:'Nuotraukų kiekis'
+            photoLimit: 'Nuotraukų kiekis'
           }
         }
       }

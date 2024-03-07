@@ -19,6 +19,7 @@ import ErrorPage from './components/pages/ErrorPage.jsx';
 import CompetitionManagementPage from './components/pages/CompetitionManagementPage.jsx';
 import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import { Authorization } from './components/utils/Authorization.jsx';
+import CreateCompetition from './components/pages/CreateCompetitionPage.jsx';
 
 function App() {
   return (
@@ -49,7 +50,8 @@ function App() {
             <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
               <Route path="/p" element={<ProfilePage />} />
             </Route>
-            <Route path="/editcompetition" element={<CompetitionManagementPage />} />
+            <Route path="/edit-competition" element={<CompetitionManagementPage />} />
+            <Route path="/create-competition" element={<CreateCompetition />} />
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </AuthProvider>

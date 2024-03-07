@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
 
-const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
+const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
   const [selectedStatus, setSelectedStatus] = useState('');
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
@@ -17,11 +17,11 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
   const [t] = useTranslation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
     description: '',
-    start_date: '',
     end_date: '',
+    name: '',
     photo_limit: '',
+    start_date: '',
     status: '',
     visibility: ''
   });
@@ -36,12 +36,14 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
       const confirmSave = window.confirm(t('editcomp.message'));
       if (confirmSave) {
         try {
-          const formDataWithFile = new FormData();
-          formDataWithFile.append('image', selectedFile);
-          Object.entries(formData).forEach(([key, value]) => {
-            formDataWithFile.append(key, value);
-          });
-          // await axios.post('http://localhost:8080/api/v1/competition', formDataWithFile);
+          const formDataWithoutImage = { ...formData };
+          delete formDataWithoutImage.image;
+          // const formDataWithFile = new FormData();
+          // formDataWithFile.append('image', selectedFile);
+          // Object.entries(formData).forEach(([key, value]) => {
+          //   formDataWithFile.append(key, value);
+          // });
+          await axios.post('http://localhost:8080/api/v1/competition', formDataWithoutImage);
           setIsFormChanged(false);
           console.log('competition created');
           navigate('/admin-competitions-list');
@@ -115,7 +117,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <Row>
             <Col xl="6">
               <Card className="image-header-text">
-                <h2>{t('editcomp.header')}</h2>
+                <h2>{t('editcomp.header1')}</h2>
               </Card>
             </Col>
             <Col xl="2">
@@ -156,7 +158,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                     id="name"
                     autoComplete="name"
                     name="name"
-                    value={formData.cname}
+                    value={formData.name}
                     onChange={handleInputChange}
                   />
                 </Col>
@@ -180,7 +182,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Form.Control
                     name="photo_limit"
                     id="photo_limit"
-                    value={formData.photoLimit}
+                    value={formData.photo_limit}
                     onChange={handleInputChange}
                     min="1"
                     max="50"
@@ -192,8 +194,8 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Form.Select
                     id="status"
                     name="status"
-                    value={selectedStatus}
-                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    value={formData.status}
+                    onChange={handleInputChange}
                   >
                     <option value=""></option>
                     <option value="active">{t('editcomp.active')}</option>
@@ -208,8 +210,9 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                     value={formData.visibility}
                     onChange={handleInputChange}
                   >
-                    <option value="1">{t('editcomp.active2')}</option>
-                    <option value="2">{t('editcomp.closed2')}</option>
+                    <option value=""></option>
+                    <option value="visible">{t('editcomp.active2')}</option>
+                    <option value="hidden">{t('editcomp.closed2')}</option>
                   </Form.Select>
                 </Col>
               </Row>
@@ -220,62 +223,52 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                     type="date"
                     id="start_date"
                     name="start_date"
-                    value={formData.StartDate}
+                    value={formData.start_date}
                     onChange={handleInputChange}
                   />
                 </Col>
                 <Col>
                   <Form.Label htmlFor="end_date">{t('editcomp.Edate')}</Form.Label>
-                  <Form.Control type="date" id="end_date" name="end_date" />
+                  <Form.Control
+                    type="date"
+                    id="end_date"
+                    name="end_date"
+                    value={formData.end_date}
+                    onChange={handleInputChange}
+                  />
                 </Col>
               </Row>
             </Container>
           </Col>
-         
-          <Col className="py-3">
-          <div className='divider'></div>
-            <Container className="justify-content-xl-center mt-1 mb-3">
+          <Col className="py-5">
+            <Container className="justify-content-xl-center mt-3 mb-5">
+              <Row>
+                <Col>
+                  <Button variant="secondary" onClick={handleCreateCategory}>
+                    {t('modalCategory.titleAdd')}
+                  </Button>
+                </Col>
+                <Col>
+                  <Button variant="secondary" onClick={handleAddCategory}>
+                    {t('modalCategory.titleEdit')}
+                  </Button>
+                </Col>
+              </Row>
+              <ModalCreateCategory
+                showModal={showCreateCategoryModal}
+                onClose={handleCloseCreateCategoryModal}
+              />
+              <ModalCategory
+                showModal={showAddCategoryModal}
+                onClose={handleCloseAddCategoryModal}
+              />
+              <div className="divider mt-5 "></div>
               <Container className="justify-content-xl-center my-5">
-                <h4>{t('editcomp.Addcategory')}</h4>
+                <h6>{t('editcomp.Addcategory')}</h6>
               </Container>
+              <div className="divider"></div>
             </Container>
-          
-            <Row>
-              <Col>
-                <Button variant="secondary" onClick={handleCreateCategory}>
-                  {t('modalCategory.titleAdd')}
-                </Button>
-              </Col>
-            </Row>
-            <ModalCreateCategory
-              showModal={showCreateCategoryModal}
-              onClose={handleCloseCreateCategoryModal}
-            />
-            <ModalCategory showModal={showAddCategoryModal} onClose={handleCloseAddCategoryModal} />
-            <div className="divider-small mt-5 "></div>
-            <Row>
-              <Col>
-                <Form.Text>Title</Form.Text>
-              </Col>
-              <Col>
-                <Form.Text>Description</Form.Text>
-              </Col>
-              <Col>
-                <Row>
-                  <Col>
-                    <Button variant="secondary" onClick={handleAddCategory}>
-                      {t('modalCategory.titleEdit')}
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Button variant="secondary" onClick={handleAddCategory}>
-                      Delete
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-            <div className="divider-small"></div>
+            {/* </Col> */}
           </Col>
         </Row>
       </Container>
@@ -283,4 +276,4 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
   );
 };
 
-export default ViewEditCompetitionForm;
+export default CreateCompetitionForm;
