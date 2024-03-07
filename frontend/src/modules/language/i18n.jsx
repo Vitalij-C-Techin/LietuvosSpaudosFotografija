@@ -193,7 +193,7 @@ i18n
           modalCategory: {
             titleCat: 'Title',
             titleAdd: 'Add category',
-            titleEdit: 'Edit category',
+            titleEdit: 'Edit',
             closeButton: 'Close',
             type: 'Type',
             single: 'Single',
@@ -383,7 +383,7 @@ i18n
           modalCategory: {
             titleCat: 'Pavadinimas',
             titleAdd: 'Pridėti kategoriją',
-            titleEdit: 'Redaguoti kategoriją',
+            titleEdit: 'Redaguoti',
             closeButton: 'Uždaryti',
             type: 'Tipas',
             single: 'Viena nuotrauka',
