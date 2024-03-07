@@ -16,11 +16,11 @@ public class ParticipationRequestService {
     private final AuthenticationService authenticationService;
     private final ParticipationRequestRepository requestRepository;
 
-    public ParticipationRequest createRequest(CreateParticipationRequest request){
-        if(requestRepository.existsByUserUuidAndCompetitionUuid(
+    public ParticipationRequest createRequest(CreateParticipationRequest request) {
+        if (requestRepository.existsByUserUuidAndCompetitionUuid(
                 request.getUserUuid(),
                 request.getCompetitionUuid()
-        )){
+        )) {
             return null;
         }
 
@@ -36,8 +36,8 @@ public class ParticipationRequestService {
         );
     }
 
-    public boolean deleteRequest(UUID uuid){
-        if(!requestRepository.existsByUuid(uuid)){
+    public boolean deleteRequest(UUID uuid) {
+        if (!requestRepository.existsByUuid(uuid)) {
             return false;
         }
 
@@ -46,11 +46,12 @@ public class ParticipationRequestService {
         return true;
     }
 
-    public ParticipationRequest updateRequest(UpdateParticipationRequest request){
-        if(!requestRepository.existsByUserUuidAndCompetitionUuid(
+    public ParticipationRequest updateRequest(
+            UpdateParticipationRequest request) {
+        if (!requestRepository.existsByUserUuidAndCompetitionUuid(
                 request.getUserUuid(),
                 request.getCompetitionUuid()
-        )){
+        )) {
             return null;
         }
 
@@ -68,13 +69,13 @@ public class ParticipationRequestService {
         );
     }
 
-    public ParticipationRequest getRequest(UUID uuid){
+    public ParticipationRequest getRequest(UUID uuid) {
         return new ParticipationRequest(
                 requestRepository.findByUuid(uuid)
         );
     }
 
-    public ParticipationRequest getRequestByUserAndCompetition(UUID userUuid, UUID competitionUuid){
+    public ParticipationRequest getRequestByUserAndCompetition(UUID userUuid, UUID competitionUuid) {
         return new ParticipationRequest(
                 requestRepository.findByUserUuidAndCompetitionUuid(userUuid, competitionUuid)
         );
