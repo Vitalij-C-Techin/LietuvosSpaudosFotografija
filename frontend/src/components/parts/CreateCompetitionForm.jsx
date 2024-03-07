@@ -17,10 +17,10 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     description: 'aaa',
-    end_date: '',
+    end_date: '28-07-2024',
     name: 'aaa',
     photo_limit: '23',
-    start_date: '',
+    start_date: '12-07-2024',
     status: 'active',
     visibility: 'visible',
     name_lt: 'ssss',
