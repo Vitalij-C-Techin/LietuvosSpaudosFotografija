@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import LoadingMessage from '../messages/LoadingMessage'
+import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
 
 const AdminCompetitionsListPage = () => {
@@ -38,6 +38,7 @@ const AdminCompetitionsListPage = () => {
 };
 
 const CompetitionList = ({ competitions }) => {
+  const navigate = useNavigate();
   const [t] = useTranslation();
 
   const list = competitions.map((competition, i) => {
@@ -48,10 +49,11 @@ const CompetitionList = ({ competitions }) => {
 };
 
 const CompetitionSingle = ({ competition }) => {
+  const navigate = useNavigate();
   const [t] = useTranslation();
 
   const handleView = () => {
-    console.log('Competition view');
+    navigate('/edit-competition');
   };
 
   return (
@@ -96,7 +98,7 @@ const ActionList = () => {
   };
 
   const handleCreateCompetition = () => {
-    navigate('/create-competition')
+    navigate('/create-competition');
   };
 
   return (
