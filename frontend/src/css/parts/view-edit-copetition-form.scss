@@ -56,6 +56,14 @@
     width: auto;
     margin: 0;
   }
+
+  .divider-cat {
+    background: black;
+    height: 1vh;
+    width: auto;
+    margin: 0;
+  }
+
   .divider-small {
     background: black;
     height: 0.5vh;
@@ -86,6 +94,10 @@
     .image-container {
       position: relative;
       width: 40%;
+    }
+
+    .divider-cat {
+      display: none;
     }
   }
 }

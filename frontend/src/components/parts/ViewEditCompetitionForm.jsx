@@ -234,7 +234,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           </Col>
 
           <Col className="py-3">
-            <div className="divider"></div>
+            <div className="divider-cat"></div>
             <Container className="justify-content-xl-center mt-1 mb-3">
               <Container className="justify-content-xl-center my-5">
                 <h4>{t('editcomp.Addcategory')}</h4>
