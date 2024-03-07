@@ -41,7 +41,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           Object.entries(formData).forEach(([key, value]) => {
             formDataWithFile.append(key, value);
           });
-          await axios.post('api/v1/competition', formDataWithFile);
+          // await axios.post('api/v1/competition', formDataWithFile);
           setIsFormChanged(false);
           console.log('competition created');
           navigate('/admin-competitions-list');
