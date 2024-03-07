@@ -139,17 +139,12 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Container className="image-container mb-3">
                     <Image
                       src={selectedFile ? URL.createObjectURL(selectedFile) : imagePlaceHolder}
-                      rounded
                     />
-                    <Form.Group controlId="formFile" className="mb-3">
-                      <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
-                      <Form.Control type="file" onChange={handleFileChange} />
-                    </Form.Group>
                   </Container>
                 </Col>
               </Row>
               <Row>
-                <Col xl="4">
+                <Col xs={{ order: 'last' }} xl={{ span: 5, order: 'first' }}>
                   <Form.Label htmlFor="name">{t('editcomp.name')}</Form.Label>
                   <Form.Control
                     type="text"
@@ -159,6 +154,12 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                     value={formData.cname}
                     onChange={handleInputChange}
                   />
+                </Col>
+                <Col xs={{ order: 'first' }} xl={{ span: 6, order: 'last' }}>
+                  <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
+                    <Form.Control type="file" onChange={handleFileChange} />
+                  </Form.Group>
                 </Col>
               </Row>
               <Row>
@@ -231,15 +232,15 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
               </Row>
             </Container>
           </Col>
-         
+
           <Col className="py-3">
-          <div className='divider'></div>
+            <div className="divider"></div>
             <Container className="justify-content-xl-center mt-1 mb-3">
               <Container className="justify-content-xl-center my-5">
                 <h4>{t('editcomp.Addcategory')}</h4>
               </Container>
             </Container>
-          
+
             <Row>
               <Col>
                 <Button variant="secondary" onClick={handleCreateCategory}>
