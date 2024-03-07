@@ -17,10 +17,11 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
   const [t] = useTranslation();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    cname: '',
+    name: '',
     description: '',
-    StartDate: '',
-    photoLimit: '',
+    start_date: '',
+    end_date:'',
+    photo_limit: '',
     status: '',
     visibility: ''
   });
@@ -40,7 +41,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           Object.entries(formData).forEach(([key, value]) => {
             formDataWithFile.append(key, value);
           });
-          // await axios.post('api/v1/...', formDataWithFile);
+          await axios.post('api/v1/competition', formDataWithFile);
           setIsFormChanged(false);
           console.log('competition created');
           navigate('/admin-competitions-list');
@@ -149,11 +150,11 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
               </Row>
               <Row>
                 <Col xl="4">
-                  <Form.Label htmlFor="cname">{t('editcomp.name')}</Form.Label>
+                  <Form.Label htmlFor="name">{t('editcomp.name')}</Form.Label>
                   <Form.Control
                     type="text"
-                    id="cname"
-                    name="cname"
+                    id="name"
+                    name="name"
                     value={formData.cname}
                     onChange={handleInputChange}
                   />
@@ -173,11 +174,11 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
               </Row>
               <Row>
                 <Col>
-                  <Form.Label htmlFor="photoLimit">{t('editcomp.Plimit')}</Form.Label>
+                  <Form.Label htmlFor="photo_limit">{t('editcomp.Plimit')}</Form.Label>
                   {photoLimitError && <p className="text-danger">{photoLimitError}</p>}
                   <Form.Control
-                    name="photoLimit"
-                    id="photoLimit"
+                    name="photo_limit"
+                    id="photo_limit"
                     value={formData.photoLimit}
                     onChange={handleInputChange}
                     min="1"
@@ -213,18 +214,18 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
               </Row>
               <Row>
                 <Col>
-                  <Form.Label htmlFor="StartDate">{t('editcomp.Sdate')}</Form.Label>
+                  <Form.Label htmlFor="start_date">{t('editcomp.Sdate')}</Form.Label>
                   <Form.Control
                     type="date"
-                    id="StartDate"
-                    name="StartDate"
+                    id="start_date"
+                    name="start_date"
                     value={formData.StartDate}
                     onChange={handleInputChange}
                   />
                 </Col>
                 <Col>
-                  <Form.Label htmlFor="EndDate">{t('editcomp.Edate')}</Form.Label>
-                  <Form.Control type="date" id="EndDate" name="EndDate" />
+                  <Form.Label htmlFor="end_date">{t('editcomp.Edate')}</Form.Label>
+                  <Form.Control type="date" id="end_date" name="end_date" />
                 </Col>
               </Row>
             </Container>
