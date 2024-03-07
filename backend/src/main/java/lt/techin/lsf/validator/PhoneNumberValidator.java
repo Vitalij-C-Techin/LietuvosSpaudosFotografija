@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 public class PhoneNumberValidator implements ConstraintValidator<ValidPhoneNumberConstraint, String> {
 
     private static final int MIN_LENGTH = 8;
-    private static final int MAX_LENGTH = 50;
+    private static final int MAX_LENGTH = 30;
     private static final String PHONE_NUMBER_PATTERN = "^([+])?\\d+$";
     @Override
     public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
