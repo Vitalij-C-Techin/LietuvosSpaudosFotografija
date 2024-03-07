@@ -86,11 +86,12 @@ const CompetitionList = ({ competitions }) => {
 
 const CompetitionSingle = ({ competition }) => {
   const [t] = useTranslation();
+  const navigate = useNavigate();
 
   const c = new Competition(competition);
 
   const handleView = () => {
-    navigate("");
+    navigate('/admin-competition-edit/' + c.getUuid());
   };
 
   return (
@@ -107,7 +108,9 @@ const CompetitionSingle = ({ competition }) => {
           <Col className="d-flex flex-column p-3">
             <Card.Title className="mb-4">{c.getTitle()}</Card.Title>
             <Card.Text className="flex-fill">{c.getDescription()}</Card.Text>
-            <Card.Text>{t('adminCompetitionPage.competitionDates')}: {c.getActiveDates()}</Card.Text>
+            <Card.Text>
+              {t('adminCompetitionPage.competitionDates')}: {c.getActiveDates()}
+            </Card.Text>
             <Card.Link className="d-flex justify-content-end">
               <Col xs="12" sm="12" md="6" lg="3">
                 <Button className="lsf-button w-100" onClick={handleView}>
@@ -131,7 +134,7 @@ const ActionList = () => {
   };
 
   const handleCreateCompetition = () => {
-    navigate('/editcompetition');
+    navigate('/admin-competition-edit');
   };
 
   return (

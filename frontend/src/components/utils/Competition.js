@@ -5,7 +5,7 @@ export default class Competition {
         this.data = data;
     }
 
-    getID(){
+    getUuid(){
         return this.data.uuid;
     }
 
