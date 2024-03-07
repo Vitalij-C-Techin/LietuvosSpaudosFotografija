@@ -17,14 +17,14 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     description: 'aaa',
-    end_date: '28-07-2024',
+    end_date: '2024-11-20',
     name: 'aaa',
     photo_limit: '23',
-    start_date: '12-07-2024',
+    start_date: '2024-07-12',
     status: 'active',
     visibility: 'visible',
     name_lt: 'ssss',
-    name_en:'ssss',
+    name_en: 'ssss',
     description_lt: 'ssss'
   });
 
@@ -33,21 +33,49 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
   //TODO check for photo submission
   //TODO corect layout of photo upload
 
+  // const handleSave = async () => {
+  //   if (isFormChanged && typeof onUpdate === 'function' && !photoLimitError) {
+  //     const confirmSave = window.confirm(t('editcomp.message'));
+  //     if (confirmSave) {
+  //       try {
+  //         // const formDataWithFile = new FormData();
+  //         // formDataWithFile.append('image', selectedFile);
+  //         // Object.entries(formData).forEach(([key, value]) => {
+  //         //   formDataWithFile.append(key, value);
+  //         // });
+  //         await axios.post('http://localhost:8080/api/v1/competition', formData);
+  //         setIsFormChanged(false);
+  //         console.log('competition created');
+  //         navigate('/admin-competitions-list');
+  //       } catch (error) {
+  //         console.error('Error creating competition:', error);
+  //       }
+  //     }
+  //   }
+  // };
+
   const handleSave = async () => {
-    if (isFormChanged && typeof onUpdate === 'function' && !photoLimitError) {
+    if (isFormChanged && !photoLimitError) {
       const confirmSave = window.confirm(t('editcomp.message'));
       if (confirmSave) {
         try {
-          // const formDataWithFile = new FormData();
-          // formDataWithFile.append('image', selectedFile);
-          // Object.entries(formData).forEach(([key, value]) => {
-          //   formDataWithFile.append(key, value);
-          // });
-          await axios.post('http://localhost:8080/api/v1/competition', formData);
+          const response = await axios.post('http://localhost:8080/api/v1/competition', formData);
           setIsFormChanged(false);
-          console.log('competition created');
+          console.log('Competition created:', response.data);
           navigate('/admin-competitions-list');
         } catch (error) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.error('Request failed with status code:', error.response.status);
+            console.error('Response data:', error.response.data);
+          } else if (error.request) {
+            // The request was made but no response was received
+            console.error('No response received:', error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.error('Error:', error.message);
+          }
           console.error('Error creating competition:', error);
         }
       }
