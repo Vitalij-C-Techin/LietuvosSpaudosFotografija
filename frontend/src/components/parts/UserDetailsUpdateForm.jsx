@@ -22,7 +22,8 @@ const UserDetailsUpdateForm = () => {
     control,
     formState: { errors },
     clearErrors,
-    setValue
+    setValue,
+    trigger
   } = useForm({
     reValidateMode: 'onChange',
     defaultValues: {
@@ -77,6 +78,10 @@ const UserDetailsUpdateForm = () => {
   const handleChangeActivity = (e) => {
     setSelectedActivity(e.target.value);
   };
+
+  useEffect(() => {
+    trigger();
+  }, [i18n.language, trigger]); //
 
   return (
     <>
@@ -185,7 +190,6 @@ const UserDetailsUpdateForm = () => {
                 </Row>
                 <Form.Group className="mb-3">
                   <Form.Label htmlFor="email">{t('userDetailsUpdateForm.email')}</Form.Label>
-
                   <Form.Control
                     data-testid="email-input"
                     name="email"
@@ -266,6 +270,7 @@ const UserDetailsUpdateForm = () => {
                         {t('userDetailsUpdateForm.phoneNumber')}
                       </Form.Label>
                       <Controller
+                        key={i18n.language}
                         name="phone_number"
                         control={control}
                         rules={{
@@ -303,7 +308,6 @@ const UserDetailsUpdateForm = () => {
                     </Form.Group>
                   </Col>
                 </Row>
-
                 <Form.Group className="mb-3">
                   <Form.Label htmlFor="activity">{t('userDetailsUpdateForm.activity')}</Form.Label>
 
