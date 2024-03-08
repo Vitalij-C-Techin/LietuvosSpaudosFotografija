@@ -1,7 +1,9 @@
 package lt.techin.lsf.model.mapper;
 
 import lt.techin.lsf.model.User;
+import lt.techin.lsf.model.requests.AdminRegisterJuryRequest;
 import lt.techin.lsf.model.requests.RegisterRequest;
+import lt.techin.lsf.model.requests.AdminRegisterUserRequest;
 import lt.techin.lsf.persistance.model.UserRecord;
 
 public class UserRecordMapper {
@@ -27,6 +29,36 @@ public class UserRecordMapper {
                 .email(registerRequest.getEmail())
                 .password(registerRequest.getPassword())
                 .mediaName(registerRequest.getMediaName())
+                .build();
+    }
+
+    public static UserRecord mapAdminRegistration(AdminRegisterUserRequest registerRequest) {
+        if (null == registerRequest) {
+            return null;
+        }
+
+        return UserRecord.builder()
+                .name(registerRequest.getName())
+                .surname(registerRequest.getSurname())
+                .birthYear(registerRequest.getBirthYear())
+                .phoneNumber(registerRequest.getPhoneNumber())
+                .email(registerRequest.getEmail())
+                .password(registerRequest.getPassword())
+                .mediaName(registerRequest.getMediaName())
+                .role(registerRequest.getRole())
+                .build();
+    }
+
+    public static UserRecord mapAdminRegistration(AdminRegisterJuryRequest registerRequest) {
+        if (null == registerRequest) {
+            return null;
+        }
+
+        return UserRecord.builder()
+                .name(registerRequest.getName())
+                .surname(registerRequest.getSurname())
+                .email(registerRequest.getEmail())
+                .password(registerRequest.getPassword())
                 .build();
     }
 }
