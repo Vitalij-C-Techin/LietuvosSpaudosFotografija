@@ -1,5 +1,6 @@
 package lt.techin.lsf.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -72,5 +73,14 @@ public class User implements UserDetails {
         JURY,
         MODERATOR,
         ADMIN;
+
+        @JsonCreator
+        public static Role forValue(String value) {
+            if (value == null || value.isEmpty()) {
+                return null; // Or default value
+            }
+            return Role.valueOf(value.toUpperCase());
+        }
+
     }
 }

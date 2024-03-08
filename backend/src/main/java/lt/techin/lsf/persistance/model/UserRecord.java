@@ -56,11 +56,6 @@ public class UserRecord {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
-    @PrePersist
-    public void prePersis() {
-        setDefaultRole();
-    }
-
     public UserRecord setupNewUser() {
         setGeneratedUuid();
         setCreatedAtNow();
