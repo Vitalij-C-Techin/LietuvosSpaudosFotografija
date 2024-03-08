@@ -1,7 +1,10 @@
 package lt.techin.lsf.persistance.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lt.techin.lsf.model.ParticipationRequest;
 
 import java.sql.Timestamp;
@@ -15,7 +18,7 @@ import static jakarta.persistence.EnumType.STRING;
 @Builder
 @Entity
 @Table(name = "`participation_request`")
-public class ParticipationRequestRecord{
+public class ParticipationRequestRecord {
     @Id
     @Column(name = "uuid", nullable = false)
     private UUID uuid;
@@ -39,20 +42,20 @@ public class ParticipationRequestRecord{
     @Column(name = "approved_at")
     private Timestamp approvedAt;
 
-    public void setupNewRequest(){
+    public void setupNewRequest() {
         setGeneratedUuid();
         setCreatedAtNow();
     }
 
-    public void setGeneratedUuid(){
+    public void setGeneratedUuid() {
         uuid = UUID.randomUUID();
     }
 
-    public void setCreatedAtNow(){
+    public void setCreatedAtNow() {
         createdAt = new Timestamp(System.currentTimeMillis());
     }
 
-    public void setApprovedAtNow(){
+    public void setApprovedAtNow() {
         approvedAt = new Timestamp(System.currentTimeMillis());
     }
 }

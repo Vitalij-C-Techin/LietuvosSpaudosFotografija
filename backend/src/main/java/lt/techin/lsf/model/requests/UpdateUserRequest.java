@@ -1,40 +1,37 @@
 package lt.techin.lsf.model.requests;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lt.techin.lsf.validator.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class UpdateUserRequest {
 
-    @NotBlank(message = "Field cannot be empty")
+    @ValidNameConstraint
     @JsonProperty("name")
     private String name;
 
-    @NotBlank (message = "Field cannot be empty")
+    @ValidSurnameConstraint
     @JsonProperty("surname")
     private String surname;
 
-    @Min(value = 1900, message = "Birth year must be after 1900")
-    @Max(value = 2024, message = "Birth year must be before 2024")
+    @ValidBirthYearConstraint
     @JsonProperty("birth_year")
-    private int birthYear;
+    private Integer birthYear;
 
-    @NotBlank (message = "Field cannot be empty")
+    @ValidPhoneNumberConstraint
     @JsonProperty("phone_number")
     private String phoneNumber;
 
-    @NotBlank (message = "Field cannot be empty")
+    @ValidEmailConstraint
     @JsonProperty("email")
     private String email;
 
-    @NotBlank (message = "Field cannot be empty")
+    @ValidMediaNameConstraint
     @JsonProperty("media_name")
     private String mediaName;
 
