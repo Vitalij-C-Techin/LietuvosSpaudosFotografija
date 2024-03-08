@@ -4,18 +4,58 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
+import Config from '../config/Config';
+import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
 
 const AdminUserParticipationRequestPage = () => {
   const [t] = useTranslation();
+  const { getTokenHeader } = useAuth();
+
+  const [requestData, setRequestData] = useState(null);
+  const [userRequestsPage, setUserRequestsPage] = useState(0);
 
   const [userRequests, setUserRequests] = useState(null);
+
   const [isLoading, setIsLoading] = useState(true);
 
+  const onApprove = (request) => {};
+
+  const OnReject = (request) => {
+    
+  };
+
   useEffect(() => {
-    setTimeout(() => {
-      setUserRequests([{}, {}, {}]);
-      setIsLoading(false);
-    }, 1500);
+    let url = Config.apiDomain + Config.endpoints.participation.pending;
+    url = url.replace('{page}', userRequestsPage);
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    console.log('Url: ', url);
+
+    axios
+      .get(url, cfg)
+      .then((response) => {
+        console.log('Response: ', response);
+
+        setRequestData(response.data);
+
+        if (!response.data.empty) {
+          setUserRequests(response.data.content);
+        } else {
+          setUserRequests(null);
+        }
+      })
+      .catch((error) => {
+        console.log('Catch: ', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (

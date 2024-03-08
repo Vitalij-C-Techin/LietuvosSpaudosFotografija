@@ -45,11 +45,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(getStorageToken() || null);
   const [userData, setUserData] = useState(getStorageUserData() || null);
 
-  window.userData = {
-    token,
-    userData
-  };
-
   const getToken = () => {
     return token;
   };

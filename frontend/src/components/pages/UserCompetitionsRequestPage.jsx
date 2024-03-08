@@ -12,10 +12,11 @@ import EmptyMessage from '../messages/EmptyMessage';
 
 import ModalInfo from '../modals/ModalInfo';
 import ModalContentCompetitionParticipation from '../modals/ModalContentCompetitionParticipation';
+import { get } from 'react-hook-form';
 
 const UserCompetitionsRequestPage = () => {
   const [t] = useTranslation();
-  const { getTokenHeader } = useAuth();
+  const { getUserData, getTokenHeader } = useAuth();
 
   const [requestData, setRequestData] = useState(null);
   const [competitionsPage, setCompetitionsPage] = useState(0);
@@ -32,9 +33,35 @@ const UserCompetitionsRequestPage = () => {
   };
 
   const onParticipate = (competition) => {
-    //TODO
+    const url = Config.apiDomain + Config.endpoints.participation.create;
 
-    setModalState(false);
+    const body = {
+      user_uuid: getUserData().uuid,
+      competition_uuid: competition.uuid
+    };
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    console.log();
+
+    axios
+      .post(url, body, cfg)
+      .then((response) => {
+        console.log('Response: ', response);
+        
+        setCompetitions(competitions.filter((comp)=>{
+          return comp.uuid !== competition.uuid;
+        }))
+
+        setModalState(false);
+      })
+      .catch((error) => {
+        console.log('Catch: ', error);
+      });
   };
 
   const onModalClose = () => {

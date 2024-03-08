@@ -6,6 +6,9 @@ import lt.techin.lsf.model.requests.CreateParticipationRequest;
 import lt.techin.lsf.model.requests.UpdateParticipationRequest;
 import lt.techin.lsf.persistance.ParticipationRequestRepository;
 import lt.techin.lsf.persistance.model.ParticipationRequestRecord;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -78,6 +81,13 @@ public class ParticipationRequestService {
     public ParticipationRequest getRequestByUserAndCompetition(UUID userUuid, UUID competitionUuid) {
         return new ParticipationRequest(
                 requestRepository.findByUserUuidAndCompetitionUuid(userUuid, competitionUuid)
+        );
+    }
+
+    public Page<ParticipationRequestRecord> getPendingRequest(int page){
+        return requestRepository.findByStatus(
+                ParticipationRequest.Status.PENDING,
+                PageRequest.of(page, 20)
         );
     }
 }

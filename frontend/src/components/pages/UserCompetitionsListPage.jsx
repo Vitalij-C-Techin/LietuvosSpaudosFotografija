@@ -15,8 +15,10 @@ const UserCompetitionsListPage = () => {
   const { getTokenHeader } = useAuth();
 
   const [requestData, setRequestData] = useState(null);
-  const [competitions, setCompetitions] = useState(null);
   const [competitionsPage, setCompetitionsPage] = useState(0);
+
+  const [competitions, setCompetitions] = useState(null);
+  
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -41,8 +43,6 @@ const UserCompetitionsListPage = () => {
         }
       })
       .catch((error) => {
-        console.log('Errors', error);
-
         setCompetitions(null);
       })
       .finally(() => {

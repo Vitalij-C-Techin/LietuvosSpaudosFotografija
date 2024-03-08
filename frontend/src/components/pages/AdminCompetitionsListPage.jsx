@@ -23,8 +23,6 @@ const AdminCompetitionsListPage = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log('Admin comp');
-
     let url = Config.apiDomain + Config.endpoints.competitions.adminAll;
     url = url.replace('{page}', competitionsPage);
 
@@ -37,8 +35,6 @@ const AdminCompetitionsListPage = () => {
     axios
       .get(url, cfg)
       .then((response) => {
-        console.log('Admin competitions', response);
-
         setRequestData(response.data);
 
         if (!response.data.empty) {
