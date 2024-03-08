@@ -21,7 +21,8 @@ const UserDetailsUpdateForm = () => {
     handleSubmit,
     control,
     formState: { errors },
-    clearErrors
+    clearErrors,
+    setValue
   } = useForm({
     reValidateMode: 'onChange',
     defaultValues: {
@@ -34,6 +35,31 @@ const UserDetailsUpdateForm = () => {
     },
     criteriaMode: 'all'
   });
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = getToken();
+        const response = await axios.get(
+          `http://localhost:8080/api/v1/user/${getUserData().uuid}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        const userData = response.data;
+        setValue('name', userData.name);
+        setValue('surname', userData.surname);
+        setValue('birth_year', userData.birth_year);
+        setValue('phone_number', userData.phone_number);
+        setValue('email', userData.email);
+        setValue('media_name', userData.media_name);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    if (isLoggedIn()) {
+      fetchUserData();
+    }
+  }, [isLoggedIn, setValue]);
 
   const handleFormSubmit = (formData) => {
     const token = getToken();
