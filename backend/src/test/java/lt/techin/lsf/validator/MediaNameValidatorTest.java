@@ -31,6 +31,6 @@ class MediaNameValidatorTest {
 
     @Test
     void testNullMediaName() {
-        assertFalse(validator.isValid(null, context));
+        assertTrue(validator.isValid(null, context));
     }
 }
