@@ -25,12 +25,12 @@ const UserDetailsUpdateForm = () => {
   } = useForm({
     reValidateMode: 'onChange',
     defaultValues: {
-      name: getUserData().name,
-      surname: getUserData().surname,
-      birth_year: getUserData().birth_year,
-      phone_number: getUserData().phone_number,
-      email: getUserData().email,
-      media_name: getUserData().media_name
+      name: getUserData()?.name || '',
+      surname: getUserData()?.surname || '',
+      birth_year: getUserData()?.birth_year || '',
+      phone_number: getUserData()?.phone_number || '',
+      email: getUserData()?.email || '',
+      media_name: getUserData()?.media_name || ''
     },
     criteriaMode: 'all'
   });
