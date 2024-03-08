@@ -52,54 +52,47 @@ const UserDetailsUpdateForm = () => {
     setSelectedActivity(e.target.value);
   };
 
-  useEffect(() => {
-    clearErrors();
-    setEmailError('');
-  }, [i18n.language, clearErrors]);
-
   return (
     <>
-      <Container className="registration-form-container mb-5">
+      <Container className="registration-form-cont</Form.Label>ainer mb-5">
         <Row className="justify-content-md-center">
           <Col xs="12" sm="10" md="8" lg="6">
             <Card className="my-5">
               <h2 data-testid="form-title" style={{ textAlign: 'center' }}>
-                {t('User details form')}
+                {t('userDetailsUpdateForm.title')}
               </h2>
             </Card>
             <IsNotAuthenticated>
               <>
-                <p>{t('Not logged in')}</p>
+                <p>{t('userDetailsUpdateForm.userIsNotLoggedIn')}</p>
               </>
             </IsNotAuthenticated>
             <IsAuthenticated>
-              <p>{!!getUserData() && getUserData().uuid}</p>
               <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
-                {emailError && <p style={{ color: 'red' }}>{emailError}</p>}
                 <Row>
                   <Col xs="12" sm="6">
                     <Form.Group className="mb-3">
-                      <Form.Label htmlFor="name">{t('registrationPage.name')}</Form.Label>
+                      <Form.Label htmlFor="name">{t('userDetailsUpdateForm.name')}</Form.Label>
                       <Form.Control
                         data-testid="name-input"
                         type="text"
                         name="name"
                         id="name"
                         autoComplete="name"
-                        placeholder={t('registrationPage.namePlaceholder')}
+                        placeholder={t('userDetailsUpdateForm.namePlaceholder')}
                         {...register('name', {
-                          required: t('registrationPage.required'),
+                          required: t('userDetailsUpdateForm.required'),
                           minLength: {
                             value: 2,
-                            message: t('registrationPage.nameMinLength')
+                            message: t('userDetailsUpdateForm.nameMinLength')
                           },
                           maxLength: {
                             value: 50,
-                            message: t('registrationPage.nameMaxLength')
+                            message: t('userDetailsUpdateForm.nameMaxLength')
                           },
                           pattern: {
                             value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
-                            message: t('registrationPage.namePattern')
+                            message: t('userDetailsUpdateForm.namePattern')
                           }
                         })}
                       />
@@ -123,27 +116,29 @@ const UserDetailsUpdateForm = () => {
                   </Col>
                   <Col xs="12" sm="6">
                     <Form.Group className="mb-3">
-                      <Form.Label htmlFor="surname">{t('registrationPage.surname')}</Form.Label>
+                      <Form.Label htmlFor="surname">
+                        {t('userDetailsUpdateForm.surname')}
+                      </Form.Label>
 
                       <Form.Control
                         data-testid="surname-input"
                         type="text"
                         name="surname"
                         id="surname"
-                        placeholder={t('registrationPage.surnamePlaceholder')}
+                        placeholder={t('userDetailsUpdateForm.surnamePlaceholder')}
                         {...register('surname', {
-                          required: t('registrationPage.required'),
+                          required: t('userDetailsUpdateForm.required'),
                           minLength: {
                             value: 2,
-                            message: t('registrationPage.surnameMinLength')
+                            message: t('userDetailsUpdateForm.surnameMinLength')
                           },
                           maxLength: {
                             value: 50,
-                            message: t('registrationPage.surnameMaxLength')
+                            message: t('userDetailsUpdateForm.surnameMaxLength')
                           },
                           pattern: {
                             value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
-                            message: t('registrationPage.surnamePattern')
+                            message: t('userDetailsUpdateForm.surnamePattern')
                           }
                         })}
                       />
@@ -163,7 +158,7 @@ const UserDetailsUpdateForm = () => {
                   </Col>
                 </Row>
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="email">{t('registrationPage.email')}</Form.Label>
+                  <Form.Label htmlFor="email">{t('userDetailsUpdateForm.email')}</Form.Label>
 
                   <Form.Control
                     data-testid="email-input"
@@ -172,10 +167,10 @@ const UserDetailsUpdateForm = () => {
                     placeholder="example@example.com"
                     autoComplete="email"
                     {...register('email', {
-                      required: t('registrationPage.required'),
+                      required: t('userDetailsUpdateForm.required'),
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                        message: t('registrationPage.emailPattern')
+                        message: t('userDetailsUpdateForm.emailPattern')
                       }
                     })}
                   />
@@ -196,32 +191,32 @@ const UserDetailsUpdateForm = () => {
                   <Col md="6">
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="birth_year">
-                        {t('registrationPage.birthYear')}
+                        {t('userDetailsUpdateForm.birthYear')}
                       </Form.Label>
-
                       <Form.Control
                         data-testid="birth-year-input"
                         type="number"
                         name="birth_year"
                         id="birth_year"
-                        placeholder={t('registrationPage.birthYearPlaceholder')}
+                        max={new Date().getFullYear()}
+                        placeholder={t('userDetailsUpdateForm.birthYearPlaceholder')}
                         {...register('birth_year', {
-                          required: t('registrationPage.required'),
+                          required: t('userDetailsUpdateForm.required'),
                           maxLength: {
                             value: 4,
-                            message: t('registrationPage.birthYearLength')
+                            message: t('userDetailsUpdateForm.birthYearLength')
                           },
                           minLength: {
                             value: 4,
-                            message: t('registrationPage.birthYearLength')
+                            message: t('userDetailsUpdateForm.birthYearLength')
                           },
                           max: {
-                            value: new Date().getFullYear() - 18,
-                            message: t('registrationPage.birthYearMax')
+                            value: new Date().getFullYear(),
+                            message: t('userDetailsUpdateForm.birthYearMax')
                           },
                           min: {
                             value: new Date().getFullYear() - 120,
-                            message: t('registrationPage.birthYearMin')
+                            message: t('userDetailsUpdateForm.birthYearMin')
                           }
                         })}
                       />
@@ -242,14 +237,14 @@ const UserDetailsUpdateForm = () => {
                   <Col md="6">
                     <Form.Group className="mb-3">
                       <Form.Label htmlFor="phone_number">
-                        {t('registrationPage.phoneNumber')}
+                        {t('userDetailsUpdateForm.phoneNumber')}
                       </Form.Label>
                       <Controller
                         name="phone_number"
                         control={control}
                         rules={{
                           validate: (value) =>
-                            isValidPhoneNumber(`${value}`) || t('registrationPage.phoneError'),
+                            isValidPhoneNumber(`${value}`) || t('userDetailsUpdateForm.phoneError'),
                           required: t('registrationPage.required')
                         }}
                         render={({ field: { onChange, value } }) => (
@@ -284,7 +279,7 @@ const UserDetailsUpdateForm = () => {
                 </Row>
 
                 <Form.Group className="mb-3">
-                  <Form.Label htmlFor="activity">{t('registrationPage.activity')}</Form.Label>
+                  <Form.Label htmlFor="activity">{t('userDetailsUpdateForm.activity')}</Form.Label>
 
                   <Form.Select
                     data-testid="activity-input"
@@ -294,24 +289,24 @@ const UserDetailsUpdateForm = () => {
                     value={selectedActivity}
                     onChange={handleChangeActivity}
                   >
-                    <option value="freelanceWorker">{t('registrationPage.work1')}</option>
-                    <option value="mediaWorker">{t('registrationPage.work2')}</option>
+                    <option value="freelanceWorker">{t('userDetailsUpdateForm.work1')}</option>
+                    <option value="mediaWorker">{t('userDetailsUpdateForm.work2')}</option>
                   </Form.Select>
 
                   {selectedActivity === 'mediaWorker' && (
                     <>
                       <Form.Label htmlFor="media_name" className="mt-3">
-                        {t('registrationPage.mediaName')}
+                        {t('userDetailsUpdateForm.mediaName')}
                       </Form.Label>
                       <Form.Control
                         data-testid="media-name-input"
                         id="media_name"
                         as="textarea"
                         {...register('media_name', {
-                          required: t('registrationPage.required'),
+                          required: t('userDetailsUpdateForm.required'),
                           maxLength: {
                             value: 50,
-                            message: t('registrationPage.mediaNameMaxLength')
+                            message: t('userDetailsUpdateForm.mediaNameMaxLength')
                           }
                         })}
                       ></Form.Control>
@@ -331,7 +326,7 @@ const UserDetailsUpdateForm = () => {
                   )}
                 </Form.Group>
                 <Button variant="secondary" type="submit" data-testid="submit-button">
-                  {t('registrationPage.button')}
+                  {t('userDetailsUpdateForm.button')}
                 </Button>
               </Form>
             </IsAuthenticated>
