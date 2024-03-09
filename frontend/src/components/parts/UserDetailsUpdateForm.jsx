@@ -1,3 +1,4 @@
+import { API_BASE_URL } from './../utils/apiConfig';
 import { useEffect, useState } from 'react';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
@@ -44,7 +45,7 @@ const UserDetailsUpdateForm = () => {
       setLoading(true);
       const token = getToken();
       axios
-        .get(`http://localhost:8080/api/v1/user/${getUserData().uuid}`, {
+        .get(`${API_BASE_URL}/user/${getUserData().uuid}`, {
           headers: { Authorization: `Bearer ${token}` }
         })
         .then((response) => {
@@ -74,7 +75,7 @@ const UserDetailsUpdateForm = () => {
   const handleFormSubmit = (formData) => {
     const token = getToken();
     axios
-      .put(`http://localhost:8080/api/v1/user/${getUserData().uuid}/profile`, formData, {
+      .put(`${API_BASE_URL}/user/${getUserData().uuid}/profile`, formData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -109,9 +110,15 @@ const UserDetailsUpdateForm = () => {
                 {t('userDetailsUpdateForm.title')}
               </h2>
             </Card>
-            {userDataFetchError && <p>{t('userDetailsUpdateForm.errorMessageGetData')}</p>}
-            {userDataSaveError && <p>{t('userDetailsUpdateForm.errorMessageSetData')}</p>}
-            {successMessage && <p>{t('userDetailsUpdateForm.successMessageSetData')}</p>}
+            {userDataFetchError && (
+              <p style={{ color: 'red' }}>{t('userDetailsUpdateForm.errorMessageGetData')}</p>
+            )}
+            {userDataSaveError && (
+              <p style={{ color: 'red' }}>{t('userDetailsUpdateForm.errorMessageSetData')}</p>
+            )}
+            {successMessage && (
+              <p style={{ color: 'green' }}>{t('userDetailsUpdateForm.successMessageSetData')}</p>
+            )}
             <IsNotAuthenticated>
               <>
                 <p>{t('userDetailsUpdateForm.userIsNotLoggedIn')}</p>

@@ -133,7 +133,8 @@ i18n
             birthYear: 'Birth year',
             phoneNumber: 'Phone number',
             media: 'Media',
-            createdAt: 'Created at'
+            createdAt: 'Created at',
+            updateProfile: 'Update Profile'
           },
           userCompetitionPage: {
             title: 'My Competitions',
@@ -350,7 +351,8 @@ i18n
             birthYear: 'Gimimo metai',
             phoneNumber: 'Telefono numeris',
             media: 'Žiniasklaida',
-            createdAt: 'Sukurta'
+            createdAt: 'Sukurta',
+            updateProfile: 'Redaguoti profilį'
           },
           userCompetitionPage: {
             title: 'Mano konkursai',
