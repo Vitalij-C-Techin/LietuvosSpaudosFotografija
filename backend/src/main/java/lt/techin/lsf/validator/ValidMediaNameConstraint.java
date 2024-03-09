@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidMediaNameConstraint {
 
-    String message() default "Invalid media name";
+    String message() default "Media name must be less than 50 characters long";
 
     Class<?>[] groups() default {};
 

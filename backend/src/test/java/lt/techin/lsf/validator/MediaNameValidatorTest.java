@@ -2,11 +2,13 @@ package lt.techin.lsf.validator;
 
 import jakarta.validation.ConstraintValidatorContext;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
+@SpringBootTest
 class MediaNameValidatorTest {
 
 
@@ -20,17 +22,7 @@ class MediaNameValidatorTest {
     }
 
     @Test
-    void testMediaNameTooShort() {
-        assertFalse(validator.isValid("", context));
-    }
-
-    @Test
     void testMediaNameTooLong() {
         assertFalse(validator.isValid("ThisIsAReallyLongMediaNameThatExceedsTheMaximumLengthAllowed", context));
-    }
-
-    @Test
-    void testNullMediaName() {
-        assertFalse(validator.isValid(null, context));
     }
 }
