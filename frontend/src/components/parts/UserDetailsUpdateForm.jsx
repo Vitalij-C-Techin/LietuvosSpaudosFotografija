@@ -8,11 +8,16 @@ import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication';
 import { useAuth } from '../context/AuthContext';
+import { Spinner } from 'react-bootstrap';
 
 const UserDetailsUpdateForm = () => {
-  const { t, i18n } = useTranslation();
+  const { t, i18n } = useTranslation(['translation', 'userDetailsUpdateForm']);
   const [selectedActivity, setSelectedActivity] = useState('');
   const { getUserData, isLoggedIn, getToken } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [userDataFetchError, setUserDataFetchError] = useState(false);
+  const [userDataSaveError, setUserDataSaveError] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
 
   const {
     register,
@@ -36,6 +41,7 @@ const UserDetailsUpdateForm = () => {
 
   useEffect(() => {
     const fetchUserData = () => {
+      setLoading(true);
       const token = getToken();
       axios
         .get(`http://localhost:8080/api/v1/user/${getUserData().uuid}`, {
@@ -53,6 +59,10 @@ const UserDetailsUpdateForm = () => {
         })
         .catch((error) => {
           console.error('Error fetching user data:', error);
+          setUserDataFetchError(true);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     };
 
@@ -70,9 +80,11 @@ const UserDetailsUpdateForm = () => {
         }
       })
       .then((response) => {
-        alert('User details updated');
+        setSuccessMessage(true);
       })
-      .catch((error) => {});
+      .catch((error) => {
+        setUserDataSaveError(true);
+      });
   };
 
   const handleChangeActivity = (event) => {
@@ -97,256 +109,131 @@ const UserDetailsUpdateForm = () => {
                 {t('userDetailsUpdateForm.title')}
               </h2>
             </Card>
+            {userDataFetchError && <p>{t('userDetailsUpdateForm.errorMessageGetData')}</p>}
+            {userDataSaveError && <p>{t('userDetailsUpdateForm.errorMessageSetData')}</p>}
+            {successMessage && <p>{t('userDetailsUpdateForm.successMessageSetData')}</p>}
             <IsNotAuthenticated>
               <>
                 <p>{t('userDetailsUpdateForm.userIsNotLoggedIn')}</p>
               </>
             </IsNotAuthenticated>
             <IsAuthenticated>
-              <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
-                <Row>
-                  <Col xs="12" sm="6">
-                    <Form.Group className="mb-3">
-                      <Form.Label htmlFor="name">{t('userDetailsUpdateForm.name')}</Form.Label>
-                      <Form.Control
-                        data-testid="name-input"
-                        type="text"
-                        name="name"
-                        id="name"
-                        autoComplete="name"
-                        placeholder={t('userDetailsUpdateForm.namePlaceholder')}
-                        {...register('name', {
-                          required: t('userDetailsUpdateForm.required'),
-                          minLength: {
-                            value: 2,
-                            message: t('userDetailsUpdateForm.nameMinLength')
-                          },
-                          maxLength: {
-                            value: 50,
-                            message: t('userDetailsUpdateForm.nameMaxLength')
-                          },
-                          pattern: {
-                            value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
-                            message: t('userDetailsUpdateForm.namePattern')
-                          }
-                        })}
-                      />
-                      <ErrorMessage
-                        errors={errors}
-                        name="name"
-                        render={({ messages }) =>
-                          messages &&
-                          Object.entries(messages).map(([type, message]) => (
-                            <p
-                              className="text-danger mb-1 "
-                              style={{ fontSize: '14px' }}
-                              key={type}
-                            >
-                              {message}
-                            </p>
-                          ))
-                        }
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col xs="12" sm="6">
-                    <Form.Group className="mb-3">
-                      <Form.Label htmlFor="surname">
-                        {t('userDetailsUpdateForm.surname')}
-                      </Form.Label>
-
-                      <Form.Control
-                        data-testid="surname-input"
-                        type="text"
-                        name="surname"
-                        id="surname"
-                        placeholder={t('userDetailsUpdateForm.surnamePlaceholder')}
-                        {...register('surname', {
-                          required: t('userDetailsUpdateForm.required'),
-                          minLength: {
-                            value: 2,
-                            message: t('userDetailsUpdateForm.surnameMinLength')
-                          },
-                          maxLength: {
-                            value: 50,
-                            message: t('userDetailsUpdateForm.surnameMaxLength')
-                          },
-                          pattern: {
-                            value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
-                            message: t('userDetailsUpdateForm.surnamePattern')
-                          }
-                        })}
-                      />
-                      <ErrorMessage
-                        errors={errors}
-                        name="surname"
-                        render={({ messages }) =>
-                          messages &&
-                          Object.entries(messages).map(([type, message]) => (
-                            <p className="text-danger mb-1" style={{ fontSize: '14px' }} key={type}>
-                              {message}
-                            </p>
-                          ))
-                        }
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="email">{t('userDetailsUpdateForm.email')}</Form.Label>
-                  <Form.Control
-                    data-testid="email-input"
-                    name="email"
-                    id="email"
-                    placeholder="example@example.com"
-                    autoComplete="email"
-                    {...register('email', {
-                      required: t('userDetailsUpdateForm.required'),
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                        message: t('userDetailsUpdateForm.emailPattern')
-                      }
-                    })}
-                  />
-                  <ErrorMessage
-                    errors={errors}
-                    name="email"
-                    render={({ messages }) =>
-                      messages &&
-                      Object.entries(messages).map(([type, message]) => (
-                        <p className="text-danger mb-1" style={{ fontSize: '14px' }} key={type}>
-                          {message}
-                        </p>
-                      ))
-                    }
-                  />
-                </Form.Group>
-                <Row>
-                  <Col md="6">
-                    <Form.Group className="mb-3">
-                      <Form.Label htmlFor="birth_year">
-                        {t('userDetailsUpdateForm.birthYear')}
-                      </Form.Label>
-                      <Form.Control
-                        data-testid="birth-year-input"
-                        type="number"
-                        name="birth_year"
-                        id="birth_year"
-                        max={new Date().getFullYear()}
-                        placeholder={t('userDetailsUpdateForm.birthYearPlaceholder')}
-                        {...register('birth_year', {
-                          required: t('userDetailsUpdateForm.required'),
-                          maxLength: {
-                            value: 4,
-                            message: t('userDetailsUpdateForm.birthYearLength')
-                          },
-                          minLength: {
-                            value: 4,
-                            message: t('userDetailsUpdateForm.birthYearLength')
-                          },
-                          max: {
-                            value: new Date().getFullYear(),
-                            message: t('userDetailsUpdateForm.birthYearMax')
-                          },
-                          min: {
-                            value: new Date().getFullYear() - 120,
-                            message: t('userDetailsUpdateForm.birthYearMin')
-                          }
-                        })}
-                      />
-                      <ErrorMessage
-                        errors={errors}
-                        name="birth_year"
-                        render={({ messages }) =>
-                          messages &&
-                          Object.entries(messages).map(([type, message]) => (
-                            <p className="text-danger mb-1" style={{ fontSize: '14px' }} key={type}>
-                              {message}
-                            </p>
-                          ))
-                        }
-                      />
-                    </Form.Group>
-                  </Col>
-                  <Col md="6">
-                    <Form.Group className="mb-3">
-                      <Form.Label htmlFor="phone_number">
-                        {t('userDetailsUpdateForm.phoneNumber')}
-                      </Form.Label>
-                      <Controller
-                        name="phone_number"
-                        control={control}
-                        rules={{
-                          validate: (value) =>
-                            isValidPhoneNumber(`${value}`) || t('userDetailsUpdateForm.phoneError'),
-                          required: t('registrationPage.required')
-                        }}
-                        render={({ field: { onChange, value } }) => (
-                          <PhoneInput
-                            data-testid="phone-input"
-                            value={value}
-                            onChange={onChange}
-                            defaultCountry="LT"
-                            international
-                            id="phone_number"
+              <div className="text-center">
+                {loading ? (
+                  <Spinner animation="border" variant="primary" />
+                ) : (
+                  <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
+                    <Row>
+                      <Col xs="12" sm="6">
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="name">{t('userDetailsUpdateForm.name')}</Form.Label>
+                          <Form.Control
+                            data-testid="name-input"
+                            type="text"
+                            name="name"
+                            id="name"
+                            autoComplete="name"
+                            placeholder={t('userDetailsUpdateForm.namePlaceholder')}
+                            {...register('name', {
+                              required: t('userDetailsUpdateForm.required'),
+                              minLength: {
+                                value: 2,
+                                message: t('userDetailsUpdateForm.nameMinLength')
+                              },
+                              maxLength: {
+                                value: 50,
+                                message: t('userDetailsUpdateForm.nameMaxLength')
+                              },
+                              pattern: {
+                                value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
+                                message: t('userDetailsUpdateForm.namePattern')
+                              }
+                            })}
                           />
-                        )}
-                      />
-                      <ErrorMessage
-                        errors={errors}
-                        name="phone_number"
-                        render={({ messages }) =>
-                          messages &&
-                          Object.entries(messages).map(([type, message]) => (
-                            <p
-                              className="text-danger mx-5 mb-1 "
-                              style={{ fontSize: '14px' }}
-                              key={type}
-                            >
-                              {message}
-                            </p>
-                          ))
-                        }
-                      />
-                    </Form.Group>
-                  </Col>
-                </Row>
-                <Form.Group className="mb-3">
-                  <Form.Label htmlFor="activity">{t('userDetailsUpdateForm.activity')}</Form.Label>
+                          <ErrorMessage
+                            errors={errors}
+                            name="name"
+                            render={({ messages }) =>
+                              messages &&
+                              Object.entries(messages).map(([type, message]) => (
+                                <p
+                                  className="text-danger mb-1 "
+                                  style={{ fontSize: '14px' }}
+                                  key={type}
+                                >
+                                  {message}
+                                </p>
+                              ))
+                            }
+                          />
+                        </Form.Group>
+                      </Col>
+                      <Col xs="12" sm="6">
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="surname">
+                            {t('userDetailsUpdateForm.surname')}
+                          </Form.Label>
 
-                  <Form.Select
-                    data-testid="activity-input"
-                    name="activity"
-                    id="activity"
-                    size={1}
-                    value={selectedActivity}
-                    onChange={handleChangeActivity}
-                  >
-                    <option value="freelanceWorker">{t('userDetailsUpdateForm.work1')}</option>
-                    <option value="mediaWorker">{t('userDetailsUpdateForm.work2')}</option>
-                  </Form.Select>
-
-                  {selectedActivity === 'mediaWorker' && (
-                    <>
-                      <Form.Label htmlFor="media_name" className="mt-3">
-                        {t('userDetailsUpdateForm.mediaName')}
-                      </Form.Label>
+                          <Form.Control
+                            data-testid="surname-input"
+                            type="text"
+                            name="surname"
+                            id="surname"
+                            placeholder={t('userDetailsUpdateForm.surnamePlaceholder')}
+                            {...register('surname', {
+                              required: t('userDetailsUpdateForm.required'),
+                              minLength: {
+                                value: 2,
+                                message: t('userDetailsUpdateForm.surnameMinLength')
+                              },
+                              maxLength: {
+                                value: 50,
+                                message: t('userDetailsUpdateForm.surnameMaxLength')
+                              },
+                              pattern: {
+                                value: /^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ]+$/,
+                                message: t('userDetailsUpdateForm.surnamePattern')
+                              }
+                            })}
+                          />
+                          <ErrorMessage
+                            errors={errors}
+                            name="surname"
+                            render={({ messages }) =>
+                              messages &&
+                              Object.entries(messages).map(([type, message]) => (
+                                <p
+                                  className="text-danger mb-1"
+                                  style={{ fontSize: '14px' }}
+                                  key={type}
+                                >
+                                  {message}
+                                </p>
+                              ))
+                            }
+                          />
+                        </Form.Group>
+                      </Col>
+                    </Row>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="email">{t('userDetailsUpdateForm.email')}</Form.Label>
                       <Form.Control
-                        data-testid="media-name-input"
-                        id="media_name"
-                        as="textarea"
-                        {...register('media_name', {
+                        data-testid="email-input"
+                        name="email"
+                        id="email"
+                        placeholder="example@example.com"
+                        autoComplete="email"
+                        {...register('email', {
                           required: t('userDetailsUpdateForm.required'),
-                          maxLength: {
-                            value: 50,
-                            message: t('userDetailsUpdateForm.mediaNameMaxLength')
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                            message: t('userDetailsUpdateForm.emailPattern')
                           }
                         })}
-                      ></Form.Control>
-                      {selectedActivity === 'freelanceWorker' && <>{/* ... */}</>}
+                      />
                       <ErrorMessage
                         errors={errors}
-                        name="media_name"
+                        name="email"
                         render={({ messages }) =>
                           messages &&
                           Object.entries(messages).map(([type, message]) => (
@@ -356,13 +243,162 @@ const UserDetailsUpdateForm = () => {
                           ))
                         }
                       />
-                    </>
-                  )}
-                </Form.Group>
-                <Button variant="secondary" type="submit" data-testid="submit-button">
-                  {t('userDetailsUpdateForm.button')}
-                </Button>
-              </Form>
+                    </Form.Group>
+                    <Row>
+                      <Col md="6">
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="birth_year">
+                            {t('userDetailsUpdateForm.birthYear')}
+                          </Form.Label>
+                          <Form.Control
+                            data-testid="birth-year-input"
+                            type="number"
+                            name="birth_year"
+                            id="birth_year"
+                            max={new Date().getFullYear()}
+                            placeholder={t('userDetailsUpdateForm.birthYearPlaceholder')}
+                            {...register('birth_year', {
+                              required: t('userDetailsUpdateForm.required'),
+                              maxLength: {
+                                value: 4,
+                                message: t('userDetailsUpdateForm.birthYearLength')
+                              },
+                              minLength: {
+                                value: 4,
+                                message: t('userDetailsUpdateForm.birthYearLength')
+                              },
+                              max: {
+                                value: new Date().getFullYear(),
+                                message: t('userDetailsUpdateForm.birthYearMax')
+                              },
+                              min: {
+                                value: new Date().getFullYear() - 120,
+                                message: t('userDetailsUpdateForm.birthYearMin')
+                              }
+                            })}
+                          />
+                          <ErrorMessage
+                            errors={errors}
+                            name="birth_year"
+                            render={({ messages }) =>
+                              messages &&
+                              Object.entries(messages).map(([type, message]) => (
+                                <p
+                                  className="text-danger mb-1"
+                                  style={{ fontSize: '14px' }}
+                                  key={type}
+                                >
+                                  {message}
+                                </p>
+                              ))
+                            }
+                          />
+                        </Form.Group>
+                      </Col>
+                      <Col md="6">
+                        <Form.Group className="mb-3">
+                          <Form.Label htmlFor="phone_number">
+                            {t('userDetailsUpdateForm.phoneNumber')}
+                          </Form.Label>
+                          <Controller
+                            name="phone_number"
+                            control={control}
+                            rules={{
+                              validate: (value) =>
+                                isValidPhoneNumber(`${value}`) ||
+                                t('userDetailsUpdateForm.phoneError'),
+                              required: t('registrationPage.required')
+                            }}
+                            render={({ field: { onChange, value } }) => (
+                              <PhoneInput
+                                data-testid="phone-input"
+                                value={value}
+                                onChange={onChange}
+                                defaultCountry="LT"
+                                international
+                                id="phone_number"
+                              />
+                            )}
+                          />
+                          <ErrorMessage
+                            errors={errors}
+                            name="phone_number"
+                            render={({ messages }) =>
+                              messages &&
+                              Object.entries(messages).map(([type, message]) => (
+                                <p
+                                  className="text-danger mx-5 mb-1 "
+                                  style={{ fontSize: '14px' }}
+                                  key={type}
+                                >
+                                  {message}
+                                </p>
+                              ))
+                            }
+                          />
+                        </Form.Group>
+                      </Col>
+                    </Row>
+                    <Form.Group className="mb-3">
+                      <Form.Label htmlFor="activity">
+                        {t('userDetailsUpdateForm.activity')}
+                      </Form.Label>
+
+                      <Form.Select
+                        data-testid="activity-input"
+                        name="activity"
+                        id="activity"
+                        size={1}
+                        value={selectedActivity}
+                        onChange={handleChangeActivity}
+                      >
+                        <option value="freelanceWorker">{t('userDetailsUpdateForm.work1')}</option>
+                        <option value="mediaWorker">{t('userDetailsUpdateForm.work2')}</option>
+                      </Form.Select>
+
+                      {selectedActivity === 'mediaWorker' && (
+                        <>
+                          <Form.Label htmlFor="media_name" className="mt-3">
+                            {t('userDetailsUpdateForm.mediaName')}
+                          </Form.Label>
+                          <Form.Control
+                            data-testid="media-name-input"
+                            id="media_name"
+                            as="textarea"
+                            {...register('media_name', {
+                              required: t('userDetailsUpdateForm.required'),
+                              maxLength: {
+                                value: 50,
+                                message: t('userDetailsUpdateForm.mediaNameMaxLength')
+                              }
+                            })}
+                          ></Form.Control>
+                          {selectedActivity === 'freelanceWorker' && <>{/* ... */}</>}
+                          <ErrorMessage
+                            errors={errors}
+                            name="media_name"
+                            render={({ messages }) =>
+                              messages &&
+                              Object.entries(messages).map(([type, message]) => (
+                                <p
+                                  className="text-danger mb-1"
+                                  style={{ fontSize: '14px' }}
+                                  key={type}
+                                >
+                                  {message}
+                                </p>
+                              ))
+                            }
+                          />
+                        </>
+                      )}
+                    </Form.Group>
+                    <Button variant="secondary" type="submit" data-testid="submit-button">
+                      {t('userDetailsUpdateForm.button')}
+                    </Button>
+                  </Form>
+                )}
+              </div>
             </IsAuthenticated>
           </Col>
         </Row>
