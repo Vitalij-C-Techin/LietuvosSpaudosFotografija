@@ -4,10 +4,12 @@ import jakarta.validation.ConstraintValidatorContext;
 import lt.techin.lsf.exception.UserRegistrationEmailInvalidFormatException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+@SpringBootTest
 class EmailValidatorTest {
 
     private EmailValidator emailValidator;
@@ -27,18 +29,14 @@ class EmailValidatorTest {
 
     @Test
     void testInvalidEmail() {
-        assertThrows(UserRegistrationEmailInvalidFormatException.class, () ->
-                emailValidator.isValid("invalid-email", constraintValidatorContext));
-        assertThrows(UserRegistrationEmailInvalidFormatException.class, () ->
-                emailValidator.isValid("invalid-email@", constraintValidatorContext));
-        assertThrows(UserRegistrationEmailInvalidFormatException.class, () ->
-                emailValidator.isValid("invalid  email@", constraintValidatorContext));
+        assertFalse(emailValidator.isValid("invalid-email", constraintValidatorContext));
+        assertFalse(emailValidator.isValid("invalid-email@", constraintValidatorContext));
+        assertFalse(emailValidator.isValid("invalid  email@", constraintValidatorContext));
 
     }
 
     @Test
     void testNullEmail() {
-        assertThrows(UserRegistrationEmailInvalidFormatException.class, () ->
-                emailValidator.isValid(null, constraintValidatorContext));
+        assertFalse(emailValidator.isValid(null, constraintValidatorContext));
     }
 }
