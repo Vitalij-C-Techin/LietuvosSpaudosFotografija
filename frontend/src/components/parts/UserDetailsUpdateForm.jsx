@@ -6,22 +6,19 @@ import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { useNavigate } from 'react-router-dom';
-import { Authentication, IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication';
+import { IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication';
 import { useAuth } from '../context/AuthContext';
 
 const UserDetailsUpdateForm = () => {
   const { t, i18n } = useTranslation();
-  const [selectedActivity, setSelectedActivity] = useState(``);
-  const [emailError, setEmailError] = useState('');
-  const navigate = useNavigate();
+  const [selectedActivity, setSelectedActivity] = useState('');
   const { getUserData, isLoggedIn, getToken } = useAuth();
+
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
-    clearErrors,
     setValue,
     trigger
   } = useForm({
@@ -32,7 +29,7 @@ const UserDetailsUpdateForm = () => {
       birth_year: getUserData()?.birth_year || '',
       phone_number: getUserData()?.phone_number || '',
       email: getUserData()?.email || '',
-      media_name: getUserData()?.media_name || ''
+      media_name: null
     },
     criteriaMode: 'all'
   });
@@ -52,6 +49,7 @@ const UserDetailsUpdateForm = () => {
         setValue('phone_number', userData.phone_number);
         setValue('email', userData.email);
         setValue('media_name', userData.media_name);
+        setSelectedActivity(!userData.media_name || 'mediaWorker');
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -75,13 +73,18 @@ const UserDetailsUpdateForm = () => {
       })
       .catch((error) => {});
   };
-  const handleChangeActivity = (e) => {
-    setSelectedActivity(e.target.value);
+
+  const handleChangeActivity = (event) => {
+    setSelectedActivity(event.target.value);
+
+    if (event.target.value === 'freelanceWorker') {
+      setValue('media_name', null);
+    }
   };
 
   useEffect(() => {
     trigger();
-  }, [i18n.language, trigger]); //
+  }, [i18n.language, trigger]);
 
   return (
     <>
@@ -270,7 +273,6 @@ const UserDetailsUpdateForm = () => {
                         {t('userDetailsUpdateForm.phoneNumber')}
                       </Form.Label>
                       <Controller
-                        key={i18n.language}
                         name="phone_number"
                         control={control}
                         rules={{
@@ -340,6 +342,7 @@ const UserDetailsUpdateForm = () => {
                           }
                         })}
                       ></Form.Control>
+                      {selectedActivity === 'freelanceWorker' && <>{/* ... */}</>}
                       <ErrorMessage
                         errors={errors}
                         name="media_name"
