@@ -1,35 +1,28 @@
 package lt.techin.lsf.model.requests;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
+import lt.techin.lsf.validator.ValidEmailConstraint;
+import lt.techin.lsf.validator.ValidNameConstraint;
+import lt.techin.lsf.validator.ValidPasswordConstraint;
+import lt.techin.lsf.validator.ValidSurnameConstraint;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminRegisterJuryRequest {
 
-    @NotBlank
-    @Length(min = 2, max = 50, message = "name length should be between {min} and {max} characters")
-    @Pattern(regexp = "^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ ]+$", message = "Name can contain only letters")
+    @ValidNameConstraint
     private String name;
 
-    @NotBlank
-    @Length(min = 2, max = 50, message = "surname length should be between {min} and {max} characters")
-    @Pattern(regexp = "^[a-zA-ZąčęėįšųūžĄČĘĖĮŠŲŪŽ ]+$", message = "Name can contain only letters")
+    @ValidSurnameConstraint
     private String surname;
 
-    @NotBlank
-    @Pattern(regexp = "(?i)^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$", message = "Invalid email format")
+    @ValidEmailConstraint
     private String email;
 
-    @NotBlank
-    @Length(min = 8, max = 50, message = "surname length should be between {min} and {max} characters")
-    @Pattern(regexp = "^(?!.*\\s)(?=.*[A-Z])(?=.*\\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$", message = "Password must contain only lowercase, " +
-            "uppercase latin letters, numbers and special symbols !@#$%^&*()")
+    @ValidPasswordConstraint
     private String password;
 
 }
