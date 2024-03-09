@@ -35,24 +35,25 @@ const UserDetailsUpdateForm = () => {
   });
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = getToken();
-        const response = await axios.get(
-          `http://localhost:8080/api/v1/user/${getUserData().uuid}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        const userData = response.data;
-        setValue('name', userData.name);
-        setValue('surname', userData.surname);
-        setValue('birth_year', userData.birth_year);
-        setValue('phone_number', userData.phone_number);
-        setValue('email', userData.email);
-        setValue('media_name', userData.media_name);
-        setSelectedActivity(!userData.media_name || 'mediaWorker');
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
+    const fetchUserData = () => {
+      const token = getToken();
+      axios
+        .get(`http://localhost:8080/api/v1/user/${getUserData().uuid}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        .then((response) => {
+          const userData = response.data;
+          setValue('name', userData.name);
+          setValue('surname', userData.surname);
+          setValue('birth_year', userData.birth_year);
+          setValue('phone_number', userData.phone_number);
+          setValue('email', userData.email);
+          setValue('media_name', userData.media_name);
+          setSelectedActivity(!userData.media_name || 'mediaWorker');
+        })
+        .catch((error) => {
+          console.error('Error fetching user data:', error);
+        });
     };
 
     if (isLoggedIn()) {
