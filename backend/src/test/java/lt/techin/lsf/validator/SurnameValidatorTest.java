@@ -1,20 +1,32 @@
 package lt.techin.lsf.validator;
 
-import lt.techin.lsf.exception.UserRegistrationSurnameInvalidFormatException;
-import lt.techin.lsf.exception.UserRegistrationSurnameIsTooLongException;
-import lt.techin.lsf.exception.UserRegistrationSurnameIsTooShortException;
-import org.junit.jupiter.api.Test;
 import jakarta.validation.ConstraintValidatorContext;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
+@SpringBootTest
 public class SurnameValidatorTest {
 
-    private final SurnameValidator validator = new SurnameValidator();
-    private final ConstraintValidatorContext context = mock(ConstraintValidatorContext.class);
+    private SurnameValidator validator;
+    private ConstraintValidatorContext context;
+
+    @BeforeEach
+    void setUp() {
+        validator = new SurnameValidator();
+        context = mock(ConstraintValidatorContext.class);
+        ConstraintValidatorContext.ConstraintViolationBuilder builder =
+                mock(ConstraintValidatorContext.ConstraintViolationBuilder.class);
+        when(context.buildConstraintViolationWithTemplate(anyString())).thenReturn(builder);
+        when(builder.addConstraintViolation()).thenReturn(context);
+    }
 
     @Test
     void testValidSurname() {
@@ -23,21 +35,21 @@ public class SurnameValidatorTest {
 
     @Test
     void testShortSurname() {
-        assertThrows(UserRegistrationSurnameIsTooShortException.class,
-                () -> validator.isValid("A", context));
+        assertFalse(validator.isValid("A", context));
+        verify(context).buildConstraintViolationWithTemplate("Surname length should be between 2 and 50 characters");
     }
 
     @Test
     void testLongSurname() {
-        assertThrows(UserRegistrationSurnameIsTooLongException.class,
-                () -> validator.isValid("DoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoe", context));
+        assertFalse(validator.isValid("DoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoeDoe", context));
+        verify(context).buildConstraintViolationWithTemplate("Surname length should be between 2 and 50 characters");
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"@Doe", "10025", "#T", "One1"})
     void testInvalidCharactersSurname(String invalidSurname) {
-        assertThrows(UserRegistrationSurnameInvalidFormatException.class,
-                () -> validator.isValid(invalidSurname, context));
+        assertFalse(validator.isValid(invalidSurname, context));
+        verify(context).buildConstraintViolationWithTemplate("Surname can contain only letters");
     }
 
 
