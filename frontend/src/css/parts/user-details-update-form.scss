@@ -1,0 +1,55 @@
+.user-details-update-form-container {
+  font-family: 'Montserrat', sans-serif;
+
+  h2 {
+    font-weight: 900;
+  }
+
+  button {
+    font-size: 12px;
+    border-radius: 0%;
+    border: solid;
+    border-width: medium;
+    border-color: black;
+    color: white;
+    background-color: black;
+    width: 100%;
+
+    &:hover {
+      background-color: white;
+      border-color: black;
+      color: black;
+    }
+  }
+
+  input,
+  textarea,
+  select,
+  .form-check-input {
+    border-radius: 0%;
+    border: 0.2em solid black;
+  }
+
+  .PhoneInputInput {
+    padding: 6px;
+    border: solid;
+    border-color: black;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgb(131, 130, 130);
+    border-color: rgb(206, 203, 203);
+  }
+
+  .form-check-input:checked {
+    background-color: gray;
+    border-color: rgb(206, 203, 203);
+    border-radius: 0%;
+  }
+
+  select {
+    border-radius: 0%;
+    border: 0.2em solid black;
+  }
+}

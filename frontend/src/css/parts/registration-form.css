@@ -19,11 +19,15 @@
   border-color: black;
   color: black;
 }
-.registration-form-container input,
-.registration-form-container .PhoneInputInput {
+.registration-form-container input, .registration-form-container .form-check-input {
   border-radius: 0%;
   border-color: black;
   border-width: 0.2em;
+}
+.registration-form-container .PhoneInputInput {
+  padding: 6px;
+  border: solid;
+  border-color: black;
 }
 .registration-form-container input:focus,
 .registration-form-container textarea:focus,
@@ -36,6 +40,7 @@
 .registration-form-container .form-check-input:checked {
   background-color: gray;
   border-color: rgb(206, 203, 203);
+  border-radius: 0%;
 }
 .registration-form-container select {
   border-radius: 0%;

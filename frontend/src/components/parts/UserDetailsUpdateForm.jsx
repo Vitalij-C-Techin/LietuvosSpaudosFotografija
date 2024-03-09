@@ -58,8 +58,8 @@ const UserDetailsUpdateForm = () => {
           setSelectedActivity(!userData.media_name || 'mediaWorker');
         })
         .catch((error) => {
-          console.error('Error fetching user data:', error);
           setUserDataFetchError(true);
+          setSuccessMessage(false);
         })
         .finally(() => {
           setLoading(false);
@@ -101,7 +101,7 @@ const UserDetailsUpdateForm = () => {
 
   return (
     <>
-      <Container className="registration-form-cont</Form.Label>ainer mb-5">
+      <Container className="user-details-update-form-container mb-5">
         <Row className="justify-content-md-center">
           <Col xs="12" sm="10" md="8" lg="6">
             <Card className="my-5">
