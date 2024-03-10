@@ -13,13 +13,13 @@ import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ProfilePage from './components/pages/ProfilePage.jsx';
 import UserCompetitionsListPage from './components/pages/UserCompetitionsListPage.jsx';
 import UserCompetitionsRequestPage from './components/pages/UserCompetitionsRequestPage.jsx';
-import AdminCompetitionsListPage from './components/pages/AdminCompetitionListPage.jsx';
-import AdminUserParticipationRequestPage from './components/pages/AdminUserParticipationRequestForm.jsx';
+import AdminCompetitionsListPage from './components/pages/adminPages/AdminCompetitionListPage.jsx';
+import AdminUserParticipationRequestPage from './components/pages/adminPages/AdminUserParticipationRequestPage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
-import CompetitionManagementPage from './components/pages/CompetitionManagementPage.jsx';
+import CompetitionManagementPage from './components/pages/adminPages/CompetitionManagementPage.jsx';
 import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import { Authorization } from './components/utils/Authorization.jsx';
-import CreateCompetition from './components/pages/CreateCompetitionPage.jsx';
+import CreateCompetition from './components/pages/adminPages/CreateCompetitionPage.jsx';
 
 function App() {
   return (

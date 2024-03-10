@@ -1,5 +1,5 @@
-import AdminCompetitionListForm from '../parts/AdminCompetitionsListForm';
-import UserManagement from '../context/UserManagement'
+import AdminCompetitionListForm from '../../parts/AdminCompetitionsListForm';
+import UserManagement from '../../context/UserManagement'
 
 const AdminCompetitionListPage = () => {
   return (

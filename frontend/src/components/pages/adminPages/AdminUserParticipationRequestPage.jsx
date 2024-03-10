@@ -1,5 +1,5 @@
-import UserManagement from '../context/UserManagement';
-import AdminUserParticipationRequestForm from '../parts/AdminUserParticipationRequestForm';
+import UserManagement from '../../context/UserManagement';
+import AdminUserParticipationRequestForm from '../../parts/AdminUserParticipationRequestForm';
 const AdminUserParticipationRequestPage = () => {
   return (
     <>
