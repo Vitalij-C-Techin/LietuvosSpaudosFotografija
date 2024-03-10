@@ -15,7 +15,7 @@ public class NameValidator implements ConstraintValidator<ValidNameConstraint, S
 
     @Override
     public boolean isValid(String name, ConstraintValidatorContext context) {
-        if (name == null || name.trim().isEmpty()) {
+        if (name == null) {
             return false; // or throw exception as per your requirement
         }
 
