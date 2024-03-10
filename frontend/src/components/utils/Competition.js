@@ -5,11 +5,11 @@ export default class Competition {
         this.data = data;
     }
 
-    getUuid(){
+    getUuid() {
         return this.data.uuid;
     }
 
-    getTitle() {
+    getName() {
         switch (i18n.language) {
             case "en":
                 return this.data.nameEn;
@@ -33,11 +33,11 @@ export default class Competition {
         return Competition.formatDate(this.data.startDate);
     }
 
-    getEndDate(){
+    getEndDate() {
         return Competition.formatDate(this.data.endDate);
     }
 
-    getActiveDates(){
+    getActiveDates() {
         return this.getStartDate() + " - " + this.getEndDate();
     }
 
@@ -60,5 +60,9 @@ export default class Competition {
         const minutes = String(d.getMinutes()).padStart(2, '0');
 
         return d.getFullYear() + "." + month + '.' + day + ' ' + hours + ":" + minutes;
+    }
+
+    getAdminUrl(){
+        return "/admin-competition-edit/" + this.getUuid();
     }
 }

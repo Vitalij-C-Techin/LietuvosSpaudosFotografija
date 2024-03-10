@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.model.ParticipationRequest;
 import lt.techin.lsf.model.requests.CreateParticipationRequest;
 import lt.techin.lsf.model.requests.UpdateParticipationRequest;
-import lt.techin.lsf.persistance.model.ParticipationRequestRecord;
+import lt.techin.lsf.model.response.ParticipationRequestResponse;
 import lt.techin.lsf.service.ParticipationRequestService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +34,10 @@ public class ParticipationController {
 
     @PutMapping("/{uuid}")
     public ParticipationRequest updateRequest(
+            @PathVariable UUID uuid,
             @RequestBody UpdateParticipationRequest request
     ) {
-        return requestService.updateRequest(request);
+        return requestService.updateRequest(uuid, request);
     }
 
     @GetMapping("/{uuid}")
@@ -47,7 +48,7 @@ public class ParticipationController {
     }
 
     @GetMapping("/all/pending/{page}")
-    public Page<ParticipationRequestRecord> getPendingRequests(
+    public Page<ParticipationRequestResponse> getPendingRequests(
             @PathVariable int page
     ) {
         return requestService.getPendingRequest(page);

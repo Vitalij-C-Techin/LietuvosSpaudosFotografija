@@ -61,6 +61,8 @@ public class SecurityConfig {
 
                     //Moderator, Admin
                             request.requestMatchers(
+                                    "api/v1/participation",
+                                    "api/v1/participation/{uuid}",
                                     "api/v1/participation/all/pending/{page}",
 
                                     "api/v1/competition",

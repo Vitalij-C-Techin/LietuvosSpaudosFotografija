@@ -10,6 +10,7 @@ const Config = {
     },
     participation: {
       create: "/api/v1/participation",
+      update: "/api/v1/participation/{uuid}",
       pending: "/api/v1/participation/all/pending/{page}"
     },
     competitions: {

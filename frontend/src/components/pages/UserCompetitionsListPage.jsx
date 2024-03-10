@@ -18,7 +18,7 @@ const UserCompetitionsListPage = () => {
   const [competitionsPage, setCompetitionsPage] = useState(0);
 
   const [competitions, setCompetitions] = useState(null);
-  
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -43,6 +43,8 @@ const UserCompetitionsListPage = () => {
         }
       })
       .catch((error) => {
+        console.log('Error: ', error);
+
         setCompetitions(null);
       })
       .finally(() => {
@@ -103,7 +105,7 @@ const CompetitionSingle = ({ competition }) => {
   return (
     <tr>
       <td className="col-12">
-        {c.getTitle()}
+        {c.getName()}
         <div>{c.getActiveDates()}</div>
       </td>
       <td>

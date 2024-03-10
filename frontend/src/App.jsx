@@ -33,9 +33,10 @@ function App() {
 
             <Route path="/registration" element={<RegistrationPage />} />
             <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+            <Route path="/change-password" element={<PasswordChangePage />} />
 
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/change-password" element={<PasswordChangePage />} />
+            <Route path="/profile/:uuid" element={<ProfilePage />} />
 
             <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
             <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />

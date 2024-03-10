@@ -12,7 +12,6 @@ import EmptyMessage from '../messages/EmptyMessage';
 
 import ModalInfo from '../modals/ModalInfo';
 import ModalContentCompetitionParticipation from '../modals/ModalContentCompetitionParticipation';
-import { get } from 'react-hook-form';
 
 const UserCompetitionsRequestPage = () => {
   const [t] = useTranslation();
@@ -26,6 +25,20 @@ const UserCompetitionsRequestPage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [modalState, setModalState] = useState(false);
+
+  const removeCompetitions = (uuid) => {
+    const list = competitions.filter((comp) => {
+      return comp.uuid !== competition.uuid;
+    });
+
+    if (!!list.length) {
+      setCompetitions(list);
+
+      return;
+    }
+
+    setCompetitions(null);
+  };
 
   const onDetails = (competition) => {
     setCompetition(competition);
@@ -46,21 +59,15 @@ const UserCompetitionsRequestPage = () => {
       }
     };
 
-    console.log();
-
     axios
       .post(url, body, cfg)
       .then((response) => {
-        console.log('Response: ', response);
-        
-        setCompetitions(competitions.filter((comp)=>{
-          return comp.uuid !== competition.uuid;
-        }))
-
         setModalState(false);
+
+        removeCompetitions(competition.uuid);
       })
       .catch((error) => {
-        console.log('Catch: ', error);
+        console.log('Error: ', error);
       });
   };
 
@@ -90,6 +97,8 @@ const UserCompetitionsRequestPage = () => {
         }
       })
       .catch((error) => {
+        console.log('Error: ', error);
+
         setCompetitions(null);
       })
       .finally(() => {
@@ -156,9 +165,9 @@ const CompetitionSingle = ({ competition, onDetails }) => {
   return (
     <tr>
       <td className="col-4">
-        {c.getTitle()}
+        {c.getName()}
         <div>
-          {c.getStartDate()} - {c.getEndDate()}{' '}
+          {c.getStartDate()} - {c.getEndDate()}
         </div>
       </td>
       <td className="col-12">Categories</td>

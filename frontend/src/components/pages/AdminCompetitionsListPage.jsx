@@ -102,7 +102,7 @@ const CompetitionSingle = ({ competition }) => {
             />
           </Col>
           <Col className="d-flex flex-column p-3">
-            <Card.Title className="mb-4">{c.getTitle()}</Card.Title>
+            <Card.Title className="mb-4">{c.getName()}</Card.Title>
             <Card.Text className="flex-fill">{c.getDescription()}</Card.Text>
             <Card.Text>
               {t('adminCompetitionPage.competitionDates')}: {c.getActiveDates()}
