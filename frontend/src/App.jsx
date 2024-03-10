@@ -13,8 +13,8 @@ import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
 import ProfilePage from './components/pages/ProfilePage.jsx';
 import UserCompetitionsListPage from './components/pages/UserCompetitionsListPage.jsx';
 import UserCompetitionsRequestPage from './components/pages/UserCompetitionsRequestPage.jsx';
-import AdminCompetitionsListPage from './components/pages/AdminCompetitionsListPage.jsx';
-import AdminUserParticipationRequestPage from './components/pages/AdminUserParticipationRequestPage.jsx';
+import AdminCompetitionsListPage from './components/pages/AdminCompetitionListPage.jsx';
+import AdminUserParticipationRequestPage from './components/pages/AdminUserParticipationRequestForm.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
 import CompetitionManagementPage from './components/pages/CompetitionManagementPage.jsx';
 import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
@@ -40,18 +40,17 @@ function App() {
 
             <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
             <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
-
             <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
             <Route
               path="/admin-user-participation-requests"
               element={<AdminUserParticipationRequestPage />}
             />
-
+            <Route path="/edit-competition" element={<CompetitionManagementPage />} />
+            <Route path="/create-competition" element={<CreateCompetition />} />
             <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
               <Route path="/p" element={<ProfilePage />} />
             </Route>
-            <Route path="/edit-competition" element={<CompetitionManagementPage />} />
-            <Route path="/create-competition" element={<CreateCompetition />} />
+
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </AuthProvider>

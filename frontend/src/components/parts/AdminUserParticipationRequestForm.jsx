@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
 
-const AdminUserParticipationRequestPage = () => {
+const AdminUserParticipationRequestForm = () => {
   const [t] = useTranslation();
 
   const [userRequests, setUserRequests] = useState(null);
@@ -114,4 +114,4 @@ const UserRequestSingle = ({ userRequest }) => {
   );
 };
 
-export default AdminUserParticipationRequestPage;
+export default AdminUserParticipationRequestForm;

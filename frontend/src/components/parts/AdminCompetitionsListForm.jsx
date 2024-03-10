@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
 
-const AdminCompetitionsListPage = () => {
+const AdminCompetitionsListForm = () => {
   const [t] = useTranslation();
 
   const [competitions, setCompetitions] = useState(null);
@@ -121,4 +121,4 @@ const ActionList = () => {
   );
 };
 
-export default AdminCompetitionsListPage;
+export default AdminCompetitionsListForm;

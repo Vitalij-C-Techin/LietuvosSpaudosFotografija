@@ -1,11 +1,12 @@
+import UserManagement from '../context/UserManagement';
 import ViewEditCompetitionForm from '../parts/ViewEditCompetitionForm';
 
 const CompetitionManagementPage = () => {
- 
-
   return (
     <>
-      <ViewEditCompetitionForm />
+      <UserManagement requiredRole='ADMIN'>
+        <ViewEditCompetitionForm />
+      </UserManagement>
     </>
   );
 };

@@ -6,63 +6,84 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
-const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
+const CreateCompetitionForm = () => {
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
-  const [isFormChanged, setIsFormChanged] = useState(false);
+  const [photoUploaderror, setUploadPhotoError] = useState('');
   const [photoLimitError, setPhotoLimitError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [t] = useTranslation();
   const navigate = useNavigate();
+  const { getTokenHeader } = useAuth();
   const [formData, setFormData] = useState({
-    description: 'aaa',
-    end_date: '2024-11-20',
-    name: 'aaa',
-    photo_limit: '23',
-    start_date: '2024-07-12',
-    status: 'active',
-    visibility: 'visible',
-    name_lt: 'ssss',
-    name_en: 'ssss',
-    description_lt: 'ssss'
+    end_date: '',
+    photo_limit: '',
+    start_date: '',
+    status: '',
+    visibility: '',
+    name_lt: '',
+    name_en: '',
+    description_lt: '',
+    description_en: ''
   });
 
-  //TODO add post request correct link
-  //TODO delete all console.log
-  //TODO check for photo submission
-  //TODO corect layout of photo upload
+  //TODO corect layout
+  //TODO leave commented code till uploade photo will be awailable in backend
+  //TODO add more allowedTypes by need in handleFileChange
 
   const handleSave = async () => {
-    if (isFormChanged && typeof onUpdate === 'function' && !photoLimitError) {
-      const confirmSave = window.confirm(t('editcomp.message'));
-      if (confirmSave) {
-        try {
-          // const formDataWithFile = new FormData();
-          // formDataWithFile.append('image', selectedFile);
-          // Object.entries(formData).forEach(([key, value]) => {
-          //   formDataWithFile.append(key, value);
-          // });
-          await axios.post('http://localhost:8080/api/v1/competition', formData);
-          setIsFormChanged(false);
-          console.log('competition created');
-          navigate('/admin-competitions-list');
-        } catch (error) {
-          console.error('Error creating competition:', error);
-        }
-      }
+    if (!isFormDataValid(formData)) {
+      alert(t('editcomp.valid'));
+      return;
+    }
+    if (new Date(formData.end_date) < new Date(formData.start_date)) {
+      alert(t('editcomp.dateAllert'));
+      return;
+    }
+    const confirmSave = window.confirm(t('editcomp.message'));
+    if (!confirmSave) {
+      return;
+    }
+    try {
+      // const formDataWithFile = new FormData();
+      // formDataWithFile.append('image', selectedFile);
+      // Object.entries(formData).forEach(([key, value]) => {
+      //   formDataWithFile.append(key, value);
+      // });
+      await axios.post('http://localhost:8080/api/v1/competition', formData, {
+        headers: getTokenHeader()
+      });
+      navigate('/admin-competitions-list');
+    } catch (error) {
+      alert(t(editcompt.error1));
     }
   };
 
-  useEffect(() => {
-    const initialFormData = JSON.stringify(competitionData);
-    const currentFormData = JSON.stringify(formData);
-    setIsFormChanged(initialFormData !== currentFormData);
-  }, [competitionData, formData]);
+  const isFormDataValid = (data) => {
+    const requiredFields = [
+      'end_date',
+      'photo_limit',
+      'start_date',
+      'status',
+      'visibility',
+      'name_lt',
+      'name_en',
+      'description_lt',
+      'description_en'
+    ];
+    for (const field of requiredFields) {
+      if (!data[field]) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'photoLimit') {
+    if (name === 'photo_limit') {
       if (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 50)) {
         setFormData({
           ...formData,
@@ -70,7 +91,7 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
         });
         setPhotoLimitError('');
       } else {
-        setPhotoLimitError(t('editcomp.error2'));
+        setPhotoLimitError(t('editcomp.limitError'));
       }
     } else {
       setFormData({
@@ -80,16 +101,20 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
     }
   };
 
-  //TODO add more allowedTypes by need
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if (file && allowedTypes.includes(file.type)) {
-      setSelectedFile(file);
-      setPhotoLimitError('');
+    if (file) {
+      if (!allowedTypes.includes(file.type)) {
+        setSelectedFile(file);
+        setUploadPhotoError(t('editcomp.allowedTypes'));
+      } else {
+        setSelectedFile(file);
+        setUploadPhotoError('');
+      }
     } else {
+      setUploadPhotoError('');
       setSelectedFile(null);
-      setPhotoLimitError('wrong file');
     }
   };
 
@@ -117,11 +142,11 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
           <Row>
             <Col xl="6">
               <Card className="image-header-text">
-                <h2>{t('editcomp.header1')}</h2>
+                <h2>{t('editcomp.headerCreate')}</h2>
               </Card>
             </Col>
             <Col xl="2">
-              <Button variant="secondary" onClick={handleSave} disabled={!isFormChanged}>
+              <Button variant="secondary" onClick={handleSave}>
                 {t('editcomp.Save')}
               </Button>
             </Col>
@@ -143,6 +168,7 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                       src={selectedFile ? URL.createObjectURL(selectedFile) : imagePlaceHolder}
                       rounded
                     />
+                    {photoUploaderror && <p className="text-danger">{photoUploaderror}</p>}
                     <Form.Group controlId="formFile" className="mb-3">
                       <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
                       <Form.Control type="file" onChange={handleFileChange} />
@@ -152,25 +178,48 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
               </Row>
               <Row>
                 <Col xl="4">
-                  <Form.Label htmlFor="name">{t('editcomp.name')}</Form.Label>
+                  <Form.Label htmlFor="name_en">{t('editcomp.name')}</Form.Label>
                   <Form.Control
                     type="text"
-                    id="name"
-                    autoComplete="name"
-                    name="name"
-                    value={formData.name}
+                    id="name_en"
+                    name="name_en"
+                    value={formData.name_en}
+                    onChange={handleInputChange}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col xl="4">
+                  <Form.Label htmlFor="name_lt">{t('editcomp.name2')}</Form.Label>
+                  <Form.Control
+                    type="text"
+                    id="name_lt"
+                    name="name_lt"
+                    value={formData.name_lt}
                     onChange={handleInputChange}
                   />
                 </Col>
               </Row>
               <Row>
                 <Col xl="6">
-                  <Form.Label htmlFor="description">{t('editcomp.description')}</Form.Label>
+                  <Form.Label htmlFor="description_en">{t('editcomp.description')}</Form.Label>
                   <Form.Control
                     as="textarea"
-                    name="description"
-                    id="description"
-                    value={formData.description}
+                    name="description_en"
+                    id="description_en"
+                    value={formData.description_en}
+                    onChange={handleInputChange}
+                  ></Form.Control>
+                </Col>
+              </Row>
+              <Row>
+                <Col xl="6">
+                  <Form.Label htmlFor="description_lt">{t('editcomp.description2')}</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    name="description_lt"
+                    id="description_lt"
+                    value={formData.description_lt}
                     onChange={handleInputChange}
                   ></Form.Control>
                 </Col>
@@ -184,9 +233,9 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                     id="photo_limit"
                     value={formData.photo_limit}
                     onChange={handleInputChange}
+                    type="number"
                     min="1"
                     max="50"
-                    placeholder={t('editcomp.error2')}
                   ></Form.Control>
                 </Col>
                 <Col>
@@ -198,8 +247,10 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                     onChange={handleInputChange}
                   >
                     <option value=""></option>
-                    <option value="active">{t('editcomp.active')}</option>
-                    <option value="closed">{t('editcomp.closed')}</option>
+                    <option value="coming">{t('editcomp.coming')}</option>
+                    <option value="evaluates">{t('editcomp.evaluates')}</option>
+                    <option value="going">{t('editcomp.going')}</option>
+                    <option value="finished">{t('editcomp.finished')}</option>
                   </Form.Select>
                 </Col>
                 <Col>
@@ -211,8 +262,8 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                     onChange={handleInputChange}
                   >
                     <option value=""></option>
-                    <option value="visible">{t('editcomp.active2')}</option>
-                    <option value="hidden">{t('editcomp.closed2')}</option>
+                    <option value="public">{t('editcomp.public')}</option>
+                    <option value="private">{t('editcomp.private')}</option>
                   </Form.Select>
                 </Col>
               </Row>
@@ -220,7 +271,7 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                 <Col>
                   <Form.Label htmlFor="start_date">{t('editcomp.Sdate')}</Form.Label>
                   <Form.Control
-                    type="date"
+                    type="datetime-local"
                     id="start_date"
                     name="start_date"
                     value={formData.start_date}
@@ -230,7 +281,7 @@ const CreateCompetitionForm = ({ competitionData, onUpdate }) => {
                 <Col>
                   <Form.Label htmlFor="end_date">{t('editcomp.Edate')}</Form.Label>
                   <Form.Control
-                    type="date"
+                    type="datetime-local"
                     id="end_date"
                     name="end_date"
                     value={formData.end_date}

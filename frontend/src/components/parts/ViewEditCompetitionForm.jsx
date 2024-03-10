@@ -114,7 +114,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <Row>
             <Col xl="6">
               <Card className="image-header-text">
-                <h2>{t('editcomp.header')}</h2>
+                <h2>{t('editcomp.headerView')}</h2>
               </Card>
             </Col>
             <Col xl="2">

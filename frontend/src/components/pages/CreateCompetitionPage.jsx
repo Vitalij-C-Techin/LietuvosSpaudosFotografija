@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CreateCompetitionForm from '../parts/CreateCompetitionForm';
+import UserManagement from '../context/UserManagement';
 
 const CreateCompetition = () => {
-  const [competitionData, setCompetitionData] = useState(null);
-
-  const updateCompetitionData = (data) => {
-    setCompetitionData(data);
-  };
   return (
     <>
-      <CreateCompetitionForm onUpdate={updateCompetitionData} competitionData={competitionData}/>
+      <UserManagement requiredRole='ADMIN'>
+        <CreateCompetitionForm />
+      </UserManagement>
     </>
   );
 };
