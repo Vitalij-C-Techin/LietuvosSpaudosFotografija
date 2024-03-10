@@ -31,25 +31,25 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
   //TODO check for photo submission
   //TODO corect layout of photo upload
 
-  const handleSave = async () => {
-    if (isFormChanged && typeof onUpdate === 'function' && !photoLimitError) {
-      const confirmSave = window.confirm(t('editcomp.message'));
-      if (confirmSave) {
-        try {
-          // const formDataWithFile = new FormData();
-          // formDataWithFile.append('image', selectedFile);
-          // Object.entries(formData).forEach(([key, value]) => {
-          //   formDataWithFile.append(key, value);
-          // });
-          await axios.post('http://localhost:8080/api/v1/competition/uuid', formData);
-          setIsFormChanged(false);
-          navigate('/admin-competitions-list');
-        } catch (error) {
-          console.error('Error creating competition:', error);
-        }
-      }
-    }
-  };
+  // const handleSave = async () => {
+  //   if (isFormChanged && typeof onUpdate === 'function' && !photoLimitError) {
+  //     const confirmSave = window.confirm(t('editcomp.message'));
+  //     if (confirmSave) {
+  //       try {
+  //         // const formDataWithFile = new FormData();
+  //         // formDataWithFile.append('image', selectedFile);
+  //         // Object.entries(formData).forEach(([key, value]) => {
+  //         //   formDataWithFile.append(key, value);
+  //         // });
+  //         await axios.post('http://localhost:8080/api/v1/competition/uuid', formData);
+  //         setIsFormChanged(false);
+  //         navigate('/admin-competitions-list');
+  //       } catch (error) {
+  //         console.error('Error creating competition:', error);
+  //       }
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     const initialFormData = JSON.stringify(competitionData);
@@ -59,7 +59,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'photoLimit') {
+    if (name === 'photo_limit') {
       if (value === '' || (parseInt(value) >= 1 && parseInt(value) <= 50)) {
         setFormData({
           ...formData,
@@ -67,7 +67,7 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
         });
         setPhotoLimitError('');
       } else {
-        setPhotoLimitError(t('editcomp.error2'));
+        setPhotoLimitError(t('editcomp.limitError'));
       }
     } else {
       setFormData({
@@ -81,12 +81,17 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if (file && allowedTypes.includes(file.type)) {
-      setSelectedFile(file);
-      setPhotoLimitError('');
+    if (file) {
+      if (!allowedTypes.includes(file.type)) {
+        setSelectedFile(file);
+        setUploadPhotoError(t('editcomp.allowedTypes'));
+      } else {
+        setSelectedFile(file);
+        setUploadPhotoError('');
+      }
     } else {
+      setUploadPhotoError('');
       setSelectedFile(null);
-      setPhotoLimitError('wrong file');
     }
   };
 
@@ -114,11 +119,11 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
           <Row>
             <Col xl="6">
               <Card className="image-header-text">
-                <h2>{t('editcomp.headerView')}</h2>
+                <h2>{t('editcomp.headerCreate')}</h2>
               </Card>
             </Col>
             <Col xl="2">
-              <Button variant="secondary" onClick={handleSave} disabled={!isFormChanged}>
+              <Button variant="secondary" onClick={handleSave}>
                 {t('editcomp.Save')}
               </Button>
             </Col>
@@ -138,37 +143,60 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Container className="image-container mb-3">
                     <Image
                       src={selectedFile ? URL.createObjectURL(selectedFile) : imagePlaceHolder}
+                      rounded
                     />
+                    {photoUploaderror && <p className="text-danger">{photoUploaderror}</p>}
+                    <Form.Group controlId="formFile" className="mb-3">
+                      <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
+                      <Form.Control type="file" onChange={handleFileChange} />
+                    </Form.Group>
                   </Container>
                 </Col>
               </Row>
               <Row>
-                <Col xs={{ order: 'last' }} xl={{ span: 5, order: 'first' }}>
-                  <Form.Label htmlFor="name">{t('editcomp.name')}</Form.Label>
+                <Col xl="4">
+                  <Form.Label htmlFor="name_en">{t('editcomp.name')}</Form.Label>
                   <Form.Control
                     type="text"
-                    id="name"
-                    autoComplete="name"
-                    name="name"
-                    value={formData.cname}
+                    id="name_en"
+                    name="name_en"
+                    value={formData.name_en}
                     onChange={handleInputChange}
                   />
                 </Col>
-                <Col xs={{ order: 'first' }} xl={{ span: 6, order: 'last' }}>
-                  <Form.Group controlId="formFile" className="mb-3">
-                    <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
-                    <Form.Control type="file" onChange={handleFileChange} />
-                  </Form.Group>
+              </Row>
+              <Row>
+                <Col xl="4">
+                  <Form.Label htmlFor="name_lt">{t('editcomp.name2')}</Form.Label>
+                  <Form.Control
+                    type="text"
+                    id="name_lt"
+                    name="name_lt"
+                    value={formData.name_lt}
+                    onChange={handleInputChange}
+                  />
                 </Col>
               </Row>
               <Row>
                 <Col xl="6">
-                  <Form.Label htmlFor="description">{t('editcomp.description')}</Form.Label>
+                  <Form.Label htmlFor="description_en">{t('editcomp.description')}</Form.Label>
                   <Form.Control
                     as="textarea"
-                    name="description"
-                    id="description"
-                    value={formData.description}
+                    name="description_en"
+                    id="description_en"
+                    value={formData.description_en}
+                    onChange={handleInputChange}
+                  ></Form.Control>
+                </Col>
+              </Row>
+              <Row>
+                <Col xl="6">
+                  <Form.Label htmlFor="description_lt">{t('editcomp.description2')}</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    name="description_lt"
+                    id="description_lt"
+                    value={formData.description_lt}
                     onChange={handleInputChange}
                   ></Form.Control>
                 </Col>
@@ -180,11 +208,11 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Form.Control
                     name="photo_limit"
                     id="photo_limit"
-                    value={formData.photoLimit}
+                    value={formData.photo_limit}
                     onChange={handleInputChange}
+                    type="number"
                     min="1"
                     max="50"
-                    placeholder={t('editcomp.error2')}
                   ></Form.Control>
                 </Col>
                 <Col>
@@ -192,12 +220,14 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                   <Form.Select
                     id="status"
                     name="status"
-                    value={selectedStatus}
-                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    value={formData.status}
+                    onChange={handleInputChange}
                   >
                     <option value=""></option>
-                    <option value="active">{t('editcomp.active')}</option>
-                    <option value="closed">{t('editcomp.closed')}</option>
+                    <option value="coming">{t('editcomp.coming')}</option>
+                    <option value="evaluates">{t('editcomp.evaluates')}</option>
+                    <option value="going">{t('editcomp.going')}</option>
+                    <option value="finished">{t('editcomp.finished')}</option>
                   </Form.Select>
                 </Col>
                 <Col>
@@ -208,8 +238,9 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                     value={formData.visibility}
                     onChange={handleInputChange}
                   >
-                    <option value="1">{t('editcomp.active2')}</option>
-                    <option value="2">{t('editcomp.closed2')}</option>
+                    <option value=""></option>
+                    <option value="public">{t('editcomp.public')}</option>
+                    <option value="private">{t('editcomp.private')}</option>
                   </Form.Select>
                 </Col>
               </Row>
@@ -217,65 +248,55 @@ const ViewEditCompetitionForm = ({ competitionData, onUpdate }) => {
                 <Col>
                   <Form.Label htmlFor="start_date">{t('editcomp.Sdate')}</Form.Label>
                   <Form.Control
-                    type="date"
+                    type="datetime-local"
                     id="start_date"
                     name="start_date"
-                    value={formData.StartDate}
+                    value={formData.start_date}
                     onChange={handleInputChange}
                   />
                 </Col>
                 <Col>
                   <Form.Label htmlFor="end_date">{t('editcomp.Edate')}</Form.Label>
-                  <Form.Control type="date" id="end_date" name="end_date" />
+                  <Form.Control
+                    type="datetime-local"
+                    id="end_date"
+                    name="end_date"
+                    value={formData.end_date}
+                    onChange={handleInputChange}
+                  />
                 </Col>
               </Row>
             </Container>
           </Col>
-
-          <Col className="py-3">
-            <div className="divider-cat"></div>
-            <Container className="justify-content-xl-center mt-1 mb-3">
+          <Col className="py-5">
+            <Container className="justify-content-xl-center mt-3 mb-5">
+              <Row>
+                <Col>
+                  <Button variant="secondary" onClick={handleCreateCategory}>
+                    {t('modalCategory.titleAdd')}
+                  </Button>
+                </Col>
+                <Col>
+                  <Button variant="secondary" onClick={handleAddCategory}>
+                    {t('modalCategory.titleEdit')}
+                  </Button>
+                </Col>
+              </Row>
+              <ModalCreateCategory
+                showModal={showCreateCategoryModal}
+                onClose={handleCloseCreateCategoryModal}
+              />
+              <ModalCategory
+                showModal={showAddCategoryModal}
+                onClose={handleCloseAddCategoryModal}
+              />
+              <div className="divider mt-5 "></div>
               <Container className="justify-content-xl-center my-5">
-                <h4>{t('editcomp.Addcategory')}</h4>
+                <h6>{t('editcomp.Addcategory')}</h6>
               </Container>
+              <div className="divider"></div>
             </Container>
-
-            <Row>
-              <Col>
-                <Button variant="secondary" onClick={handleCreateCategory}>
-                  {t('modalCategory.titleAdd')}
-                </Button>
-              </Col>
-            </Row>
-            <ModalCreateCategory
-              showModal={showCreateCategoryModal}
-              onClose={handleCloseCreateCategoryModal}
-            />
-            <ModalCategory showModal={showAddCategoryModal} onClose={handleCloseAddCategoryModal} />
-            <div className="divider-small mt-5 "></div>
-            <Row>
-              <Col>
-                <Form.Text>Title</Form.Text>
-              </Col>
-              <Col>
-                <Form.Text>Description</Form.Text>
-              </Col>
-              <Col>
-                <Row>
-                  <Col>
-                    <Button variant="secondary" onClick={handleAddCategory}>
-                      {t('modalCategory.titleEdit')}
-                    </Button>
-                  </Col>
-                  <Col>
-                    <Button variant="secondary" onClick={handleAddCategory}>
-                      Delete
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-            <div className="divider-small"></div>
+            {/* </Col> */}
           </Col>
         </Row>
       </Container>
