@@ -2,8 +2,8 @@ package lt.techin.lsf.model.mapper;
 
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.requests.AdminRegisterJuryRequest;
-import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.model.requests.AdminRegisterUserRequest;
+import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.persistance.model.UserRecord;
 
 public class UserRecordMapper {
@@ -38,13 +38,13 @@ public class UserRecordMapper {
         }
 
         return UserRecord.builder()
-                .name(registerRequest.getName())
-                .surname(registerRequest.getSurname())
+                .name(registerRequest.getName().trim())
+                .surname(registerRequest.getSurname().trim())
                 .birthYear(registerRequest.getBirthYear())
-                .phoneNumber(registerRequest.getPhoneNumber())
-                .email(registerRequest.getEmail())
-                .password(registerRequest.getPassword())
-                .mediaName(registerRequest.getMediaName())
+                .phoneNumber(registerRequest.getPhoneNumber().trim())
+                .email(registerRequest.getEmail().trim())
+                .password(registerRequest.getPassword().trim())
+                .mediaName(registerRequest.getMediaName() != null ? registerRequest.getMediaName().trim() : null)
                 .role(registerRequest.getRole())
                 .build();
     }
@@ -55,10 +55,10 @@ public class UserRecordMapper {
         }
 
         return UserRecord.builder()
-                .name(registerRequest.getName())
-                .surname(registerRequest.getSurname())
-                .email(registerRequest.getEmail())
-                .password(registerRequest.getPassword())
+                .name(registerRequest.getName().trim())
+                .surname(registerRequest.getSurname().trim())
+                .email(registerRequest.getEmail().trim())
+                .password(registerRequest.getPassword().trim())
                 .build();
     }
 }

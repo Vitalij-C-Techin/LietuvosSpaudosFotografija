@@ -1,6 +1,7 @@
 package lt.techin.lsf.controller;
 
 import jakarta.validation.Valid;
+import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.requests.AdminRegisterJuryRequest;
 import lt.techin.lsf.model.requests.AdminRegisterUserRequest;
 import lt.techin.lsf.model.response.UserCreationResponse;
@@ -33,7 +34,7 @@ public class AdminController {
             UserCreationResponse response = new UserCreationResponse("User created successfully.", registeredUser);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new UserNotRegisteredException("User not registered");
         }
     }
 
@@ -47,7 +48,7 @@ public class AdminController {
             UserCreationResponse response = new UserCreationResponse("Jury created successfully.", registeredJury);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } else {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            throw new UserNotRegisteredException("User not registered.");
         }
     }
 }

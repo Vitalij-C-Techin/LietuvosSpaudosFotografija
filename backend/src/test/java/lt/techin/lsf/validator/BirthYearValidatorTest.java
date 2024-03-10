@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
@@ -14,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
 public class BirthYearValidatorTest {
     private BirthYearValidator birthYearValidator;
     private ConstraintValidatorContext constraintValidatorContext;

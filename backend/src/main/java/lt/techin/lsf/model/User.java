@@ -77,7 +77,7 @@ public class User implements UserDetails {
         @JsonCreator
         public static Role forValue(String value) {
             if (value == null || value.isEmpty()) {
-                return null; // Or default value
+                return null;
             }
             return Role.valueOf(value.toUpperCase());
         }
