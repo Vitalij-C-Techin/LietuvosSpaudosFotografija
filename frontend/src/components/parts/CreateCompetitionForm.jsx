@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
 import ModalCategory from '../modals/ModalCategory';
 import ModalCreateCategory from '../modals/ModalCreateCategory';
