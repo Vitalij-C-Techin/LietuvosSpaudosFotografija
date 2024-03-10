@@ -20,7 +20,16 @@ class MediaNameValidatorTest {
     }
 
     @Test
+    void testMediaNameIsEmpty  () {
+        assertTrue(validator.isValid("", context));
+    }
+    @Test
     void testMediaNameTooLong() {
         assertFalse(validator.isValid("ThisIsAReallyLongMediaNameThatExceedsTheMaximumLengthAllowed", context));
+    }
+
+    @Test
+    void testNullMediaName() {
+        assertTrue(validator.isValid(null, context));
     }
 }

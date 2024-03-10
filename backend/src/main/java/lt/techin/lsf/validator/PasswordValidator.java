@@ -16,10 +16,17 @@ public class PasswordValidator implements ConstraintValidator<ValidPasswordConst
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
+
+        if (password == null || password.trim().isEmpty()) {
+            return false;
+        }
+
         errorMessages.clear();
 
         if (password.length() < PASSWORD_MIN_LENGTH || password.length() > PASSWORD_MAX_LENGTH) {
-            errorMessages.add("Password length must be between 8 and 50 characters");
+            String message = String.format("Password length should be between %d and %d characters",
+                    PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH);
+            errorMessages.add(message);
         }
 
         if (!Pattern.matches(PASSWORD_PATTERN, password)) {

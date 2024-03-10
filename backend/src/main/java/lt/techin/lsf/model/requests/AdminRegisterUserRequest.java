@@ -30,7 +30,6 @@ public class AdminRegisterUserRequest {
     @ValidEmailConstraint
     private String email;
 
-    @NotNull
     @ValidPasswordConstraint
     private String password;
 
