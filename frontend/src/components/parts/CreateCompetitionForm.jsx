@@ -137,70 +137,78 @@ const CreateCompetitionForm = () => {
   return (
     <>
       <Container className="view-edit-competition-container">
-        {/* <Col xs="12" xl="6"> */}
-        <Container className="justify-content-xl-center my-5">
+        <Container className="competition-header-container my-5">
           <Row>
             <Col xl="6">
               <Card className="image-header-text">
                 <h2>{t('editcomp.headerCreate')}</h2>
               </Card>
             </Col>
-            <Col xl="2">
-              <Button variant="secondary" onClick={handleSave}>
-                {t('editcomp.Save')}
-              </Button>
-            </Col>
-            <Col xl="2">
-              <Button variant="secondary" className="lsf-Button w-40">
-                {t('editcomp.delete')}
-              </Button>
+            <Col>
+              <Row className="justify-content-center" xl="6">
+                <Col xl="4">
+                  <Button variant="secondary" onClick={handleSave}>
+                    {t('editcomp.Save')}
+                  </Button>
+                </Col>
+                <Col xl="4">
+                  <Button variant="secondary" className="lsf-Button w-40">
+                    {t('editcomp.delete')}
+                  </Button>
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Container>
         <div className="divider"></div>
-        <Row>
+        <Row className="competition-form-row pb-5">
           <Col>
-            <Container className="justify-content-xl-center my-5">
-              <Row>
-                <Col>
+            <Container className="mt-4">
+              <Row className="container-image-row">
+                <Col md="4" xl="6">
                   <Container className="image-container mb-3">
                     <Image
                       src={selectedFile ? URL.createObjectURL(selectedFile) : imagePlaceHolder}
                       rounded
                     />
-                    {photoUploaderror && <p className="text-danger">{photoUploaderror}</p>}
-                    <Form.Group controlId="formFile" className="mb-3">
-                      <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
-                      <Form.Control type="file" onChange={handleFileChange} />
-                    </Form.Group>
                   </Container>
                 </Col>
-              </Row>
-              <Row>
-                <Col xl="4">
-                  <Form.Label htmlFor="name_en">{t('editcomp.name')}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="name_en"
-                    name="name_en"
-                    value={formData.name_en}
-                    onChange={handleInputChange}
-                  />
+                <Col>
+                  <Row className="competition-title-row">
+                    <Col md="6" xl="12">
+                      <Form.Label htmlFor="name_en">{t('editcomp.name')}</Form.Label>
+                      <Form.Control
+                        type="text"
+                        id="name_en"
+                        name="name_en"
+                        value={formData.name_en}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                    <Col md="6" xl="12">
+                      <Form.Label htmlFor="name_lt">{t('editcomp.name2')}</Form.Label>
+                      <Form.Control
+                        type="text"
+                        id="name_lt"
+                        name="name_lt"
+                        value={formData.name_lt}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                    <Col xs={{ order: 'first' }} xl={{ order: 'last', span: 12 }}>
+                      <Row>
+                        {photoUploaderror && <p className="text-danger">{photoUploaderror}</p>}
+                        <Form.Group controlId="formFile">
+                          <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
+                          <Form.Control type="file" onChange={handleFileChange} />
+                        </Form.Group>
+                      </Row>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
-              <Row>
-                <Col xl="4">
-                  <Form.Label htmlFor="name_lt">{t('editcomp.name2')}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="name_lt"
-                    name="name_lt"
-                    value={formData.name_lt}
-                    onChange={handleInputChange}
-                  />
-                </Col>
-              </Row>
-              <Row>
+
+              <Row className="competition-description-row">
                 <Col xl="6">
                   <Form.Label htmlFor="description_en">{t('editcomp.description')}</Form.Label>
                   <Form.Control
@@ -211,8 +219,7 @@ const CreateCompetitionForm = () => {
                     onChange={handleInputChange}
                   ></Form.Control>
                 </Col>
-              </Row>
-              <Row>
+
                 <Col xl="6">
                   <Form.Label htmlFor="description_lt">{t('editcomp.description2')}</Form.Label>
                   <Form.Control
@@ -224,10 +231,10 @@ const CreateCompetitionForm = () => {
                   ></Form.Control>
                 </Col>
               </Row>
-              <Row>
-                <Col>
+              <Row className="competition-selections-row">
+                <Col xs="12" md="4">
                   <Form.Label htmlFor="photo_limit">{t('editcomp.Plimit')}</Form.Label>
-                  {photoLimitError && <p className="text-danger">{photoLimitError}</p>}
+
                   <Form.Control
                     name="photo_limit"
                     id="photo_limit"
@@ -237,8 +244,9 @@ const CreateCompetitionForm = () => {
                     min="1"
                     max="50"
                   ></Form.Control>
+                  {photoLimitError && <p className="text-danger">{photoLimitError}</p>}
                 </Col>
-                <Col>
+                <Col xs="12" md="4">
                   <Form.Label htmlFor="status">{t('editcomp.status')}</Form.Label>
                   <Form.Select
                     id="status"
@@ -253,7 +261,7 @@ const CreateCompetitionForm = () => {
                     <option value="finished">{t('editcomp.finished')}</option>
                   </Form.Select>
                 </Col>
-                <Col>
+                <Col xs="12" md="4">
                   <Form.Label htmlFor="visibility">{t('editcomp.visible')}</Form.Label>
                   <Form.Select
                     name="visibility"
@@ -267,7 +275,7 @@ const CreateCompetitionForm = () => {
                   </Form.Select>
                 </Col>
               </Row>
-              <Row>
+              <Row className="competition-date-row">
                 <Col>
                   <Form.Label htmlFor="start_date">{t('editcomp.Sdate')}</Form.Label>
                   <Form.Control
@@ -291,20 +299,31 @@ const CreateCompetitionForm = () => {
               </Row>
             </Container>
           </Col>
-          <Col className="py-5">
+          <Col xl="6" className="pb-5">
             <Container className="justify-content-xl-center mt-3 mb-5">
-              <Row>
-                <Col>
-                  <Button variant="secondary" onClick={handleCreateCategory}>
-                    {t('modalCategory.titleAdd')}
-                  </Button>
+              <div className="divider mt-5 "></div>
+              <Row className="py-3">
+                <Col xs="6" xl="8" className="justify-content-xl-center py-3">
+                  <Container className="pt-3">
+                    <h2>{t('editcomp.Addcategory')}</h2>
+                  </Container>
                 </Col>
-                <Col>
-                  <Button variant="secondary" onClick={handleAddCategory}>
-                    {t('modalCategory.titleEdit')}
-                  </Button>
+                <Col xs="6" xl="4" className="justify-content-xl-center">
+                  <Row>
+                    <Col xl="12">
+                      <Button variant="secondary" onClick={handleCreateCategory}>
+                        {t('modalCategory.titleAdd')}
+                      </Button>
+                    </Col>
+                    <Col xl="12">
+                      <Button variant="secondary" onClick={handleAddCategory}>
+                        {t('modalCategory.titleEdit')}
+                      </Button>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
+              <div className="divider"></div>
               <ModalCreateCategory
                 showModal={showCreateCategoryModal}
                 onClose={handleCloseCreateCategoryModal}
@@ -313,13 +332,7 @@ const CreateCompetitionForm = () => {
                 showModal={showAddCategoryModal}
                 onClose={handleCloseAddCategoryModal}
               />
-              <div className="divider mt-5 "></div>
-              <Container className="justify-content-xl-center my-5">
-                <h6>{t('editcomp.Addcategory')}</h6>
-              </Container>
-              <div className="divider"></div>
             </Container>
-            {/* </Col> */}
           </Col>
         </Row>
       </Container>
