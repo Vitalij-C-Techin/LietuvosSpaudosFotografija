@@ -1,97 +1,38 @@
 import { useEffect, useState } from 'react';
-import { Container, Card, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Card, Row, Col, Image, Button, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import LoadingMessage from '../messages/LoadingMessage';
-import EmptyMessage from '../messages/EmptyMessage';
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const AdminCompetitionsListForm = () => {
   const [t] = useTranslation();
+  const navigate = useNavigate();
+  const { getTokenHeader } = useAuth();
+  const [competitions, setCompetitions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [competitions, setCompetitions] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const fetchCompetitions = async (page) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`http://localhost:8080/api/v1/competition/all/${page}`, {
+        headers: getTokenHeader()
+      });
+      setCompetitions(response.data.content);
+    } catch (error) {
+      console.log('error fetching competition', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setTimeout(() => {
-      setCompetitions([{}, {}, {}]);
-      setIsLoading(false);
-    }, 1500);
+    fetchCompetitions(1);
   }, []);
-
-  return (
-    <>
-      <Container className="justify-content-xl-center my-5">
-        <Card className="image-header-text">
-          <h3>{t('adminCompetitionPage.title')}</h3>
-        </Card>
-      </Container>
-
-      <ActionList />
-
-      {!!isLoading && <LoadingMessage />}
-
-      {!!!isLoading && !!!competitions && <EmptyMessage />}
-
-      {!!!isLoading && !!competitions && <CompetitionList competitions={competitions} />}
-    </>
-  );
-};
-
-const CompetitionList = ({ competitions }) => {
-  const navigate = useNavigate();
-  const [t] = useTranslation();
-
-  const list = competitions.map((competition, i) => {
-    return <CompetitionSingle competition={competition} key={i} />;
-  });
-
-  return <Container className="justify-content-xl-center">{list}</Container>;
-};
-
-const CompetitionSingle = ({ competition }) => {
-  const navigate = useNavigate();
-  const [t] = useTranslation();
 
   const handleView = () => {
     navigate('/edit-competition');
   };
-
-  return (
-    <Card className="lsf-admin-competition-card my-3">
-      <Card.Body className="p-0">
-        <Row className="m-0">
-          <Col xs="12" md="4" lg="3" className="p-0 p-md-3 p-lg-3 bg-light">
-            <Image
-              src="/src/tmp/placeholder-500.jpg"
-              alt="competition photo"
-              className="lsf-image-cover"
-            />
-          </Col>
-          <Col className="d-flex flex-column p-3">
-            <Card.Title className="mb-4">Competition title</Card.Title>
-            <Card.Text className="flex-fill">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum
-              dolor sit amet, consectetur adipiscing elit.
-            </Card.Text>
-            <Card.Text>{t('adminCompetitionPage.competitionDates')}: 2023-2024</Card.Text>
-            <Card.Link className="d-flex justify-content-end">
-              <Col xs="12" sm="12" md="6" lg="3">
-                <Button className="lsf-button w-100" onClick={handleView}>
-                  {t('adminCompetitionPage.competitionView')}
-                </Button>
-              </Col>
-            </Card.Link>
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
-  );
-};
-
-const ActionList = () => {
-  const navigate = useNavigate();
-  const [t] = useTranslation();
 
   const handleViewRequest = () => {
     navigate('/admin-user-participation-requests');
@@ -101,8 +42,21 @@ const ActionList = () => {
     navigate('/create-competition');
   };
 
+  if (loading) {
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
+  }
+
   return (
     <>
+      <Container className="justify-content-xl-center my-5">
+        <Card className="image-header-text">
+          <h3>{t('adminCompetitionPage.title')}</h3>
+        </Card>
+      </Container>
       <Container className="justify-content-xl-center my-3">
         <Row className="justify-content-end gap-2">
           <Col xs="12" lg="3">
@@ -117,6 +71,42 @@ const ActionList = () => {
           </Col>
         </Row>
       </Container>
+      {competitions.map((competition, index) => (
+        <Card key={index} className="lsf-admin-competition-card my-3">
+          <Card.Body className="p-0">
+            <Row className="m-0">
+              <Col className="d-flex flex-column p-3">
+                {/* Uncomment and modify this section if your competition object has a photo property */}
+                {/* <Col xs="12" md="4" lg="3" className="p-0 p-md-3 p-lg-3 bg-light">
+                  <Image
+                    src={competition.photo}
+                    alt="competition photo"
+                    className="lsf-image-cover"
+                  />
+                </Col> */}
+                <Card.Title className="mb-4">
+                  {competition.nameEn}/{competition.nameLt}
+                </Card.Title>
+                <Card.Text className="flex-fill">{competition.descriptionEn}</Card.Text>
+                <Card.Text className="flex-fill">{competition.descriptionLt}</Card.Text>
+                <Card.Text>
+                  {t('adminCompetitionPage.competitionStartDate')} {competition.startDate}
+                </Card.Text>
+                <Card.Text>
+                  {t('adminCompetitionPage.competitionEndDate')} {competition.endDate}
+                </Card.Text>
+                <Card.Link className="d-flex justify-content-end">
+                  <Col xs="12" sm="12" md="6" lg="3">
+                    <Button className="lsf-button w-100" onClick={handleView}>
+                      {t('adminCompetitionPage.competitionView')}
+                    </Button>
+                  </Col>
+                </Card.Link>
+              </Col>
+            </Row>
+          </Card.Body>
+        </Card>
+      ))}
     </>
   );
 };
