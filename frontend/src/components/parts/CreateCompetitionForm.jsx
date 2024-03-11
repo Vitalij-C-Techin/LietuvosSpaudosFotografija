@@ -301,20 +301,20 @@ const CreateCompetitionForm = () => {
           <Col xl="6" className="pb-5">
             <Container className="justify-content-xl-center mt-3 mb-5">
               <div className="divider mt-5 "></div>
-              <Row>
-                <Col className="justify-content-xl-center py-3">
-                  <Container className="justify-content-xl-center py-3">
+              <Row className="py-3">
+                <Col xs="6" xl="8" className="justify-content-xl-center py-3">
+                  <Container className="pt-3">
                     <h2>{t('editcomp.Addcategory')}</h2>
                   </Container>
                 </Col>
-                <Col>
+                <Col xs="6" xl="4" className="justify-content-xl-center">
                   <Row>
-                    <Col>
+                    <Col xl="12">
                       <Button variant="secondary" onClick={handleCreateCategory}>
                         {t('modalCategory.titleAdd')}
                       </Button>
                     </Col>
-                    <Col>
+                    <Col xl="12">
                       <Button variant="secondary" onClick={handleAddCategory}>
                         {t('modalCategory.titleEdit')}
                       </Button>
