@@ -137,7 +137,6 @@ const CreateCompetitionForm = () => {
   return (
     <>
       <Container className="view-edit-competition-container">
-        {/* <Col xs="12" xl="6"> */}
         <Container className="justify-content-xl-center my-5">
           <Row>
             <Col xl="6">
@@ -158,48 +157,52 @@ const CreateCompetitionForm = () => {
           </Row>
         </Container>
         <div className="divider"></div>
-        <Row>
+        <Row className="competition-form-row">
           <Col>
-            <Container className="justify-content-xl-center my-5">
-              <Row>
-                <Col>
+            <Container className="my-5">
+              <Row className="container-image-row">
+                <Col xl="6">
                   <Container className="image-container mb-3">
                     <Image
                       src={selectedFile ? URL.createObjectURL(selectedFile) : imagePlaceHolder}
                       rounded
                     />
-                    {photoUploaderror && <p className="text-danger">{photoUploaderror}</p>}
-                    <Form.Group controlId="formFile" className="mb-3">
-                      <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
-                      <Form.Control type="file" onChange={handleFileChange} />
-                    </Form.Group>
                   </Container>
+         
+                </Col>
+                <Col>
+                  <Row className="competition-title-row">
+                    <Col xl="12">
+                      <Form.Label htmlFor="name_en">{t('editcomp.name')}</Form.Label>
+                      <Form.Control
+                        type="text"
+                        id="name_en"
+                        name="name_en"
+                        value={formData.name_en}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xl="12">
+                      <Form.Label htmlFor="name_lt">{t('editcomp.name2')}</Form.Label>
+                      <Form.Control
+                        type="text"
+                        id="name_lt"
+                        name="name_lt"
+                        value={formData.name_lt}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                  </Row>
+                  {photoUploaderror && <p className="text-danger">{photoUploaderror}</p>}
+                 <Form.Group controlId="formFile">
+                    <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
+                    <Form.Control type="file" onChange={handleFileChange} />
+                  </Form.Group> 
                 </Col>
               </Row>
-              <Row>
-                <Col xl="4">
-                  <Form.Label htmlFor="name_en">{t('editcomp.name')}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="name_en"
-                    name="name_en"
-                    value={formData.name_en}
-                    onChange={handleInputChange}
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col xl="4">
-                  <Form.Label htmlFor="name_lt">{t('editcomp.name2')}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    id="name_lt"
-                    name="name_lt"
-                    value={formData.name_lt}
-                    onChange={handleInputChange}
-                  />
-                </Col>
-              </Row>
+
               <Row>
                 <Col xl="6">
                   <Form.Label htmlFor="description_en">{t('editcomp.description')}</Form.Label>
@@ -211,8 +214,7 @@ const CreateCompetitionForm = () => {
                     onChange={handleInputChange}
                   ></Form.Control>
                 </Col>
-              </Row>
-              <Row>
+
                 <Col xl="6">
                   <Form.Label htmlFor="description_lt">{t('editcomp.description2')}</Form.Label>
                   <Form.Control
@@ -319,7 +321,6 @@ const CreateCompetitionForm = () => {
               </Container>
               <div className="divider"></div>
             </Container>
-            {/* </Col> */}
           </Col>
         </Row>
       </Container>
