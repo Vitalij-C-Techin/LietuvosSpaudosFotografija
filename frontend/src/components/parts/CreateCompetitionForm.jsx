@@ -298,20 +298,31 @@ const CreateCompetitionForm = () => {
               </Row>
             </Container>
           </Col>
-          <Col xl="6" className="py-5">
+          <Col xl="6" className="pb-5">
             <Container className="justify-content-xl-center mt-3 mb-5">
+              <div className="divider mt-5 "></div>
               <Row>
-                <Col>
-                  <Button variant="secondary" onClick={handleCreateCategory}>
-                    {t('modalCategory.titleAdd')}
-                  </Button>
+                <Col className="justify-content-xl-center py-3">
+                  <Container className="justify-content-xl-center py-3">
+                    <h2>{t('editcomp.Addcategory')}</h2>
+                  </Container>
                 </Col>
                 <Col>
-                  <Button variant="secondary" onClick={handleAddCategory}>
-                    {t('modalCategory.titleEdit')}
-                  </Button>
+                  <Row>
+                    <Col>
+                      <Button variant="secondary" onClick={handleCreateCategory}>
+                        {t('modalCategory.titleAdd')}
+                      </Button>
+                    </Col>
+                    <Col>
+                      <Button variant="secondary" onClick={handleAddCategory}>
+                        {t('modalCategory.titleEdit')}
+                      </Button>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
+              <div className="divider"></div>
               <ModalCreateCategory
                 showModal={showCreateCategoryModal}
                 onClose={handleCloseCreateCategoryModal}
@@ -320,11 +331,6 @@ const CreateCompetitionForm = () => {
                 showModal={showAddCategoryModal}
                 onClose={handleCloseAddCategoryModal}
               />
-              <div className="divider mt-5 "></div>
-              <Container className="justify-content-xl-center my-5">
-                <h6>{t('editcomp.Addcategory')}</h6>
-              </Container>
-              <div className="divider"></div>
             </Container>
           </Col>
         </Row>
