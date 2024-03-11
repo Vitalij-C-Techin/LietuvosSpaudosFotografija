@@ -161,7 +161,7 @@ const CreateCompetitionForm = () => {
           </Row>
         </Container>
         <div className="divider"></div>
-        <Row className="competition-form-row">
+        <Row className="competition-form-row pb-5">
           <Col>
             <Container className="mt-4">
               <Row className="container-image-row">
