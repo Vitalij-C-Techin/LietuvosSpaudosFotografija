@@ -18,7 +18,7 @@ const AdminCompetitionsListForm = () => {
       const response = await axios.get(`http://localhost:8080/api/v1/competition/all/${page}`, {
         headers: getTokenHeader()
       });
-      setCompetitions(response.data.content);
+      setCompetitions(response.data.content || []);
     } catch (error) {
       console.log('error fetching competition', error);
     } finally {
@@ -30,10 +30,10 @@ const AdminCompetitionsListForm = () => {
     fetchCompetitions(1);
   }, []);
 
-  const handleView = () => {
-    navigate('/edit-competition');
+  const handleView = (uuid) => {
+    navigate(`/edit-competition?competition=${uuid}`);
   };
-
+  
   const handleViewRequest = () => {
     navigate('/admin-user-participation-requests');
   };
@@ -97,7 +97,10 @@ const AdminCompetitionsListForm = () => {
                 </Card.Text>
                 <Card.Link className="d-flex justify-content-end">
                   <Col xs="12" sm="12" md="6" lg="3">
-                    <Button className="lsf-button w-100" onClick={handleView}>
+                    <Button
+                      className="lsf-button w-100"
+                      onClick={() => handleView(competition.uuid)}
+                    >
                       {t('adminCompetitionPage.competitionView')}
                     </Button>
                   </Col>
