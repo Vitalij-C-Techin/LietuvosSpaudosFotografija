@@ -234,7 +234,7 @@ const CreateCompetitionForm = () => {
               <Row className="competition-selections-row">
                 <Col xs="12" md="4">
                   <Form.Label htmlFor="photo_limit">{t('editcomp.Plimit')}</Form.Label>
-                  {photoLimitError && <p className="text-danger">{photoLimitError}</p>}
+
                   <Form.Control
                     name="photo_limit"
                     id="photo_limit"
@@ -244,6 +244,7 @@ const CreateCompetitionForm = () => {
                     min="1"
                     max="50"
                   ></Form.Control>
+                  {photoLimitError && <p className="text-danger">{photoLimitError}</p>}
                 </Col>
                 <Col xs="12" md="4">
                   <Form.Label htmlFor="status">{t('editcomp.status')}</Form.Label>
