@@ -115,10 +115,14 @@ const UserDetailsUpdateForm = () => {
               <p style={{ color: 'red' }}>{t('userDetailsUpdateForm.errorMessageGetData')}</p>
             )}
             {userDataSaveError && (
-              <p style={{ color: 'red' }}>{t('userDetailsUpdateForm.errorMessageSetData')}</p>
+              <p style={{ color: 'red' }} className="text-center">
+                {t('userDetailsUpdateForm.errorMessageSetData')}
+              </p>
             )}
             {successMessage && (
-              <p style={{ color: 'green' }}>{t('userDetailsUpdateForm.successMessageSetData')}</p>
+              <p style={{ color: 'green' }} className="text-center">
+                {t('userDetailsUpdateForm.successMessageSetData')}
+              </p>
             )}
             <IsNotAuthenticated>
               <>
@@ -378,10 +382,13 @@ const UserDetailsUpdateForm = () => {
                               maxLength: {
                                 value: 50,
                                 message: t('userDetailsUpdateForm.mediaNameMaxLength')
+                              },
+                              pattern: {
+                                value: /^\S.*\S$|^$/,
+                                message: t('userDetailsUpdateForm.mediaNamePattern')
                               }
                             })}
                           ></Form.Control>
-                          {selectedActivity === 'freelanceWorker' && <>{/* ... */}</>}
                           <ErrorMessage
                             errors={errors}
                             name="media_name"
