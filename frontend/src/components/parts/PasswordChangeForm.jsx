@@ -13,6 +13,7 @@ const PasswordChangeForm = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const resetToken = searchParams.get('token');
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const {
     register,
@@ -42,7 +43,9 @@ const PasswordChangeForm = () => {
         alert(t('passwordChangePage.passwordChangeSuccessful'));
         navigate('/login');
       })
-      .catch((error) => setEmailError(t('passwordChangePage.emailError')));
+      .catch((error) => {
+        setErrorMessage(true);
+      });
   };
 
   useEffect(() => {}, [resetToken]);
@@ -63,9 +66,9 @@ const PasswordChangeForm = () => {
             </Card>
 
             <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
-              {emailError && (
+              {errorMessage && (
                 <p data-testid="validation-error" style={{ color: 'red' }}>
-                  {emailError}
+                  {t('passwordChangePage.emailError')}
                 </p>
               )}
 
