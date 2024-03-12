@@ -7,7 +7,6 @@ import { Routes, Route } from 'react-router-dom';
 
 import NavigationBar from './components/parts/NavigationBar.jsx';
 import HomePage from './components/pages/HomePage';
-import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import RegistrationPage from './components/pages/RegistrationPage.jsx';
 import LoginPage from './components/pages/LoginPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
