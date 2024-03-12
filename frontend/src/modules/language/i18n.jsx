@@ -55,9 +55,8 @@ i18n
             required: 'This field is required.',
             passwordMinLength: 'Password must be at least 8 characters long.',
             passwordMaxLength: 'Password must not exceed 60 characters.',
-            passwordPattern: `Password must contain at least one uppercase letter, 
-                            one lowercase letter, 
-                            one digit, and can include special characters.`,
+            passwordPattern:
+              'Password must contain only lowercase, uppercase latin letters, numbers and special symbols !@#$%^&*().',
             confirmNewPassword: 'Confirm Password',
             confirmNewPasswordPlaceholder: 'confirm',
             passwordNotMatch:
@@ -272,9 +271,8 @@ i18n
             required: 'Šis laukas privalomas.',
             passwordMinLength: 'Slaptažodis turi būti bent 8 simbolių ilgio.',
             passwordMaxLength: 'Slaptažodis negali viršyti 60 simbolių.',
-            passwordPattern: `Slaptažodis turi turėti bent vieną didžiąją raidę, 
-                              vieną mažąją raidę, 
-                              vieną skaitmenį ir gali būti su specialiais simboliais.`,
+            passwordPattern:
+              'Slaptažodį turi sudaryti tik mažosios, didžiosios lotyniškos raidės, skaitmenys bei specialieji simboliai !@#$%^&*().',
             confirmNewPassword: 'Patvirtinti',
             confirmNewPasswordPlaceholder: 'patvirtinti',
             passwordNotMatch:
