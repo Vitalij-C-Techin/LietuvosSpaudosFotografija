@@ -93,6 +93,7 @@ public class AuthenticationService {
         userRecord.setPassword(
                 passwordEncoder.encode(userRecord.getPassword())
         );
+        userRecord.setDefaultRole();
 
         userRecord = userRepository.save(userRecord);
 

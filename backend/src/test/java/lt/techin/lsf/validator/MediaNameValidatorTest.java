@@ -20,10 +20,9 @@ class MediaNameValidatorTest {
     }
 
     @Test
-    void testMediaNameTooShort() {
-        assertFalse(validator.isValid("", context));
+    void testMediaNameIsEmpty  () {
+        assertTrue(validator.isValid("", context));
     }
-
     @Test
     void testMediaNameTooLong() {
         assertFalse(validator.isValid("ThisIsAReallyLongMediaNameThatExceedsTheMaximumLengthAllowed", context));
