@@ -10,7 +10,7 @@ const LoginForm = (onLogin) => {
     const {t, i18n} = useTranslation();
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const {login, setUser} = useAuth();
+    const {login} = useAuth();
 
     const {
         register,
@@ -73,7 +73,7 @@ const LoginForm = (onLogin) => {
                                     data-testid="email-input"
                                     type="email"
                                     autoComplete="email"
-                                    placeholder="egzamle@egzample.com"
+                                    placeholder="example@example.com"
                                     {...register('email', {required: t('loginPage.required')})}
                                 />
                                 {errors.email && (
@@ -99,7 +99,7 @@ const LoginForm = (onLogin) => {
 
                             <Form.Group controlId="formGroupLinks">
                                 <Row className="align-items-center">
-                                    <Link to="/forgotpassword">{t('loginPage.forgotPassword')}</Link>
+                                    <Link to="/forgot-password">{t('loginPage.forgotPassword')}</Link>
                                 </Row>
                             </Form.Group>
 
