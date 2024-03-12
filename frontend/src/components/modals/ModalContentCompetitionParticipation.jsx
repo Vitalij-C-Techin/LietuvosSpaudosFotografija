@@ -18,7 +18,7 @@ const ModalContentCompetitionParticipation = ({ competition, onParticipate }) =>
       </Modal.Header>
       <Modal.Body>
         <h5>{t('modal.competitionTitle')}</h5>
-        <p>{c.getTitle()}</p>
+        <p>{c.getName()}</p>
         <h5>{t('modal.competitionDescription')}</h5>
         <p>{c.getDescription()}</p>
         <h5>{t('modal.competitionCategories')}</h5>

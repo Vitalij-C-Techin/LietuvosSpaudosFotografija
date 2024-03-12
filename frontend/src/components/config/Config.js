@@ -8,6 +8,11 @@ const Config = {
       registration: '/api/v1/register',
       login: '/api/v1/login',
     },
+    participation: {
+      create: "/api/v1/participation",
+      update: "/api/v1/participation/{uuid}",
+      pending: "/api/v1/participation/all/pending/{page}"
+    },
     competitions: {
       adminAll: '/api/v1/competition/all/{page}',
       userActive: '/api/v1/competition/user/{page}',

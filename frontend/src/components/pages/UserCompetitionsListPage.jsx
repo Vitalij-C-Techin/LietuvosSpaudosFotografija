@@ -15,8 +15,10 @@ const UserCompetitionsListPage = () => {
   const { getTokenHeader } = useAuth();
 
   const [requestData, setRequestData] = useState(null);
-  const [competitions, setCompetitions] = useState(null);
   const [competitionsPage, setCompetitionsPage] = useState(0);
+
+  const [competitions, setCompetitions] = useState(null);
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const UserCompetitionsListPage = () => {
         }
       })
       .catch((error) => {
-        console.log('Errors', error);
+        console.log('Error: ', error);
 
         setCompetitions(null);
       })
@@ -103,7 +105,7 @@ const CompetitionSingle = ({ competition }) => {
   return (
     <tr>
       <td className="col-12">
-        {c.getTitle()}
+        {c.getName()}
         <div>{c.getActiveDates()}</div>
       </td>
       <td>

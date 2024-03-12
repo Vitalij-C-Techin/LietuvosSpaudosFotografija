@@ -43,6 +43,8 @@ public class ParticipationRequestRecord {
     private Timestamp approvedAt;
 
     public void setupNewRequest() {
+        status = ParticipationRequest.Status.PENDING;
+
         setGeneratedUuid();
         setCreatedAtNow();
     }
