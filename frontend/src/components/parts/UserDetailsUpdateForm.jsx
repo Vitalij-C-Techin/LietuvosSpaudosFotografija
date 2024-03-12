@@ -1,4 +1,4 @@
-import { API_BASE_URL } from './../utils/apiConfig';
+import Config from '../config/Config';
 import { useEffect, useState } from 'react';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
@@ -14,7 +14,7 @@ import { Spinner } from 'react-bootstrap';
 const UserDetailsUpdateForm = () => {
   const { t, i18n } = useTranslation(['translation', 'userDetailsUpdateForm']);
   const [selectedActivity, setSelectedActivity] = useState('');
-  const { getUserData, isLoggedIn, getToken } = useAuth();
+  const { getUserData, isLoggedIn, getToken, setUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [userDataFetchError, setUserDataFetchError] = useState(false);
   const [userDataSaveError, setUserDataSaveError] = useState(false);
@@ -45,9 +45,12 @@ const UserDetailsUpdateForm = () => {
       setLoading(true);
       const token = getToken();
       axios
-        .get(`${API_BASE_URL}/user/${getUserData().uuid}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
+        .get(
+          `${Config.apiDomain}${Config.endpoints.userDetailsEdit.getByUuid.replace('{uuid}', getUserData().uuid)}`,
+          {
+            headers: { Authorization: `Bearer ${token}` }
+          }
+        )
         .then((response) => {
           const userData = response.data;
           setValue('name', userData.name);
@@ -75,13 +78,21 @@ const UserDetailsUpdateForm = () => {
   const handleFormSubmit = (formData) => {
     const token = getToken();
     axios
-      .put(`${API_BASE_URL}/user/${getUserData().uuid}/profile`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`
+      .put(
+        `${Config.apiDomain}${Config.endpoints.userDetailsEdit.updateByUuid.replace('{uuid}', getUserData().uuid)}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      })
+      )
       .then((response) => {
+        setUser(response.data);
         setSuccessMessage(true);
+        setTimeout(() => {
+          setSuccessMessage(false);
+        }, 3000);
       })
       .catch((error) => {
         setUserDataSaveError(true);
@@ -114,10 +125,14 @@ const UserDetailsUpdateForm = () => {
               <p style={{ color: 'red' }}>{t('userDetailsUpdateForm.errorMessageGetData')}</p>
             )}
             {userDataSaveError && (
-              <p style={{ color: 'red' }}>{t('userDetailsUpdateForm.errorMessageSetData')}</p>
+              <p style={{ color: 'red' }} className="text-center">
+                {t('userDetailsUpdateForm.errorMessageSetData')}
+              </p>
             )}
             {successMessage && (
-              <p style={{ color: 'green' }}>{t('userDetailsUpdateForm.successMessageSetData')}</p>
+              <p style={{ color: 'green' }} className="text-center">
+                {t('userDetailsUpdateForm.successMessageSetData')}
+              </p>
             )}
             <IsNotAuthenticated>
               <>
@@ -377,10 +392,13 @@ const UserDetailsUpdateForm = () => {
                               maxLength: {
                                 value: 50,
                                 message: t('userDetailsUpdateForm.mediaNameMaxLength')
+                              },
+                              pattern: {
+                                value: /^\S.*\S$|^$/,
+                                message: t('userDetailsUpdateForm.mediaNamePattern')
                               }
                             })}
                           ></Form.Control>
-                          {selectedActivity === 'freelanceWorker' && <>{/* ... */}</>}
                           <ErrorMessage
                             errors={errors}
                             name="media_name"

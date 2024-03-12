@@ -16,7 +16,7 @@ public class CreateParticipationRequest {
     @JsonProperty("user_uuid")
     private UUID userUuid;
 
-    @NotBlank (message = "Field cannot be empty")
+    @NotBlank(message = "Field cannot be empty")
     @JsonProperty("competition_uuid")
     private UUID competitionUuid;
 }

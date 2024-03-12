@@ -15,7 +15,7 @@ import ModalContentCompetitionParticipation from '../modals/ModalContentCompetit
 
 const UserCompetitionsRequestPage = () => {
   const [t] = useTranslation();
-  const { getTokenHeader } = useAuth();
+  const { getUserData, getTokenHeader } = useAuth();
 
   const [requestData, setRequestData] = useState(null);
   const [competitionsPage, setCompetitionsPage] = useState(0);
@@ -26,15 +26,49 @@ const UserCompetitionsRequestPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [modalState, setModalState] = useState(false);
 
+  const removeCompetitions = (uuid) => {
+    const list = competitions.filter((comp) => {
+      return comp.uuid !== competition.uuid;
+    });
+
+    if (!!list.length) {
+      setCompetitions(list);
+
+      return;
+    }
+
+    setCompetitions(null);
+  };
+
   const onDetails = (competition) => {
     setCompetition(competition);
     setModalState(true);
   };
 
   const onParticipate = (competition) => {
-    //TODO
+    const url = Config.apiDomain + Config.endpoints.participation.create;
 
-    setModalState(false);
+    const body = {
+      user_uuid: getUserData().uuid,
+      competition_uuid: competition.uuid
+    };
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .post(url, body, cfg)
+      .then((response) => {
+        setModalState(false);
+
+        removeCompetitions(competition.uuid);
+      })
+      .catch((error) => {
+        console.log('Error: ', error);
+      });
   };
 
   const onModalClose = () => {
@@ -63,6 +97,8 @@ const UserCompetitionsRequestPage = () => {
         }
       })
       .catch((error) => {
+        console.log('Error: ', error);
+
         setCompetitions(null);
       })
       .finally(() => {
@@ -129,9 +165,9 @@ const CompetitionSingle = ({ competition, onDetails }) => {
   return (
     <tr>
       <td className="col-4">
-        {c.getTitle()}
+        {c.getName()}
         <div>
-          {c.getStartDate()} - {c.getEndDate()}{' '}
+          {c.getStartDate()} - {c.getEndDate()}
         </div>
       </td>
       <td className="col-12">Categories</td>

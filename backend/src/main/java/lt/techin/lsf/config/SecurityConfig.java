@@ -52,17 +52,25 @@ public class SecurityConfig {
 
                     //User, Moderator, Admin
                             request.requestMatchers(
+                                    "api/v1/participation",
+                                    "api/v1/participation/{uui}",
+
                                     "api/v1/competition/user/{page}",
                                     "api/v1/competition/user/participate/{page}"
                             ).hasAnyAuthority("USER","MODERATOR", "ADMIN");
 
                     //Moderator, Admin
                             request.requestMatchers(
+                                    "api/v1/participation",
+                                    "api/v1/participation/{uuid}",
+                                    "api/v1/participation/all/pending/{page}",
+
                                     "api/v1/competition",
                                     "api/v1/competition/{uuid}",
                                     "api/v1/competition/all/{page}",
-                                    "api/v1/category/{competitionUuid}",
-                                    "api/v1/category/{categoryUuid}"
+
+                                    "api/v1/category**",
+                                    "api/v1/admin/**"
                             ).hasAnyAuthority("MODERATOR", "ADMIN");
 
                             request.anyRequest().authenticated();

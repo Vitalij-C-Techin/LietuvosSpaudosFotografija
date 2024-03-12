@@ -1,6 +1,9 @@
 package lt.techin.lsf.persistance;
 
+import lt.techin.lsf.model.ParticipationRequest;
 import lt.techin.lsf.persistance.model.ParticipationRequestRecord;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +21,6 @@ public interface ParticipationRequestRepository extends JpaRepository<Participat
     ParticipationRequestRecord findByUserUuidAndCompetitionUuid(UUID userUuid, UUID competitionUuid);
 
     boolean existsByUserUuidAndCompetitionUuid(UUID userUuid, UUID competitionUuid);
+
+    Page<ParticipationRequestRecord> findByStatus(ParticipationRequest.Status status, Pageable pageable);
 }
