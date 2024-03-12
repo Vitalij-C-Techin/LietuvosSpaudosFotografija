@@ -14,7 +14,7 @@ import { Spinner } from 'react-bootstrap';
 const UserDetailsUpdateForm = () => {
   const { t, i18n } = useTranslation(['translation', 'userDetailsUpdateForm']);
   const [selectedActivity, setSelectedActivity] = useState('');
-  const { getUserData, isLoggedIn, getToken } = useAuth();
+  const { getUserData, isLoggedIn, getToken, setUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [userDataFetchError, setUserDataFetchError] = useState(false);
   const [userDataSaveError, setUserDataSaveError] = useState(false);
@@ -81,6 +81,7 @@ const UserDetailsUpdateForm = () => {
         }
       })
       .then((response) => {
+        setUser(response.data);
         setSuccessMessage(true);
       })
       .catch((error) => {
