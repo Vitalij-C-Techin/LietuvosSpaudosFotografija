@@ -7,7 +7,8 @@ import { validateEmail } from './EmailVerification';
 
 const ForgotPasswordForm = () => {
   const { t, i18n } = useTranslation();
-  const [message, setMessage] = useState(null);
+  const [errorSendingMessage, setErrorMessage] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
   const {
     register,
     handleSubmit,
@@ -29,20 +30,13 @@ const ForgotPasswordForm = () => {
       .post('http://localhost:8080/api/v1/forget-password', { email })
       .then((response) => {
         if (response.status === 202) {
-          setMessage(t('forgotPasswordForm.emailFound'));
-        } else {
-          setError('email', { type: 'manual', message: response.data.message });
+          setErrorMessage(false);
+          setSuccessMessage(true);
         }
       })
       .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          setError('email', {
-            type: 'manual',
-            message: t('forgotPasswordForm.userNotFound', { email })
-          });
-        } else {
-          setError('email', { type: 'manual', message: t('forgotPasswordForm.emailSendingError') });
-        }
+        setSuccessMessage(false);
+        setErrorMessage(true);
       });
   };
   useEffect(() => {
@@ -58,10 +52,10 @@ const ForgotPasswordForm = () => {
               <h2 style={{ textAlign: 'center' }}> {t('forgotPasswordForm.resetPassword')}</h2>
             </Card>
             <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-              {message && <p>{message}</p>}
-              {errors.email && (
+              {successMessage && <p>{t('forgotPasswordForm.emailResetMessage')}</p>}
+              {errorSendingMessage && (
                 <p className="text-danger" data-testid="error-message">
-                  {errors.email.message}
+                  {t('forgotPasswordForm.emailSendingError')}
                 </p>
               )}
               <Form.Group className="mb-3" controlId="formGroupEmail">

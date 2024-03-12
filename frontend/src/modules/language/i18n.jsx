@@ -38,9 +38,8 @@ i18n
             invalidEmailFormat: 'Invalid email format!'
           },
           forgotPasswordForm: {
-            emailFound: 'Email found in our database, a password reset link will be sent.',
+            emailResetMessage: 'If the user exists in our database, an email link will be sent.',
             emailSendingError: 'Error sending password recovery email',
-            userNotFound: 'User with {{email}} not found in our database.',
             required: 'This field is required.',
             resetPassword: 'RESET PASSWORD',
             serverErrorMessage: 'An error occurred. Please try again later.',
@@ -255,10 +254,9 @@ i18n
             invalidEmailFormat: 'Netinkamas el.pašto formatas'
           },
           forgotPasswordForm: {
-            emailFound:
-              'El. paštas rastas mūsų duomenų bazėje, slaptažodžio atkūrimo nuoroda bus išsiųsta.',
+            emailResetMessage:
+              'Jei vartotojas egzistuoja mūsų duomenų bazėje, slaptažodžio atkūrimo nuoroda bus išsiųsta.',
             emailSendingError: 'Klaida siunčiant slaptažodžio atkūrimo el. laišką',
-            userNotFound: 'Vartotojas su el. paštu {{email}} nerastas mūsų duomenų bazėje.',
             resetPassword: 'ATKURTI SLAPTAŽODĮ',
             required: 'Šis laukas privalomas.',
             serverErrorMessage: 'Įvyko klaida. Prašome bandyti vėliau.',
