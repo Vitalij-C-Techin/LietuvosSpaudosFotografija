@@ -8,9 +8,11 @@ public class MediaNameValidator implements ConstraintValidator<ValidMediaNameCon
 
     @Override
     public boolean isValid(String mediaName, ConstraintValidatorContext context) {
+
         if (mediaName == null || mediaName.trim().isEmpty()) {
-            return false;
+            return true;
         }
+
         return mediaName.length() <= MAX_MEDIA_NAME_LENGTH;
     }
 }

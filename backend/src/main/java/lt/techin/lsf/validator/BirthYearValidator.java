@@ -6,7 +6,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.time.LocalDate;
 
 public class BirthYearValidator implements ConstraintValidator<ValidBirthYearConstraint, Integer> {
-    private static final int MIN_BIRTH_YEAR = 1900;
+    private static final int MIN_BIRTH_YEAR = LocalDate.now().minusYears(120).getYear();
 
     @Override
     public boolean isValid(Integer birthYear, ConstraintValidatorContext context) {
@@ -20,7 +20,8 @@ public class BirthYearValidator implements ConstraintValidator<ValidBirthYearCon
 
         int currentYear = LocalDate.now().getYear();
         if (birthYear < MIN_BIRTH_YEAR || birthYear > currentYear) {
-            context.buildConstraintViolationWithTemplate("Invalid birth year")
+            String message = String.format("Birth year should be between %d and %d years", MIN_BIRTH_YEAR, currentYear);
+            context.buildConstraintViolationWithTemplate(message)
                     .addConstraintViolation();
             return false;
         }
