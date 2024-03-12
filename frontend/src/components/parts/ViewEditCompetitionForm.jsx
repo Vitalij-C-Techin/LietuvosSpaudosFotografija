@@ -6,43 +6,42 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const ViewEditCompetitionForm = ({ competitionUUID }) => {
-  const location = useLocation();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [selectedStatus, setSelectedStatus] = useState('');
-  const competitionDataFromLocation = location.state || {};
-  const { competitionData } = competitionDataFromLocation;
   const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
   const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
   const [isFormChanged, setIsFormChanged] = useState(false);
   const [photoLimitError, setPhotoLimitError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [photoUploaderror, setPhotoUploadError] = useState('');
+  const { getTokenHeader } = useAuth();
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
     const fetchCompetitionData = async () => {
       try {
         const response = await axios.get(
-          `http//localhost:8080/api/v1/competition/${competitionUUID}`
+          `http://localhost:8080/api/v1/competition/${competitionUUID}`,
+          { headers: getTokenHeader() }
         );
         const competitionData = response.data;
-        console.log('competitionData', competitionData);
-        setFormData({
-          name_en: competitionData.name_en || '',
-          name_lt: competitionData.name_lt || '',
-          description_en: competitionData.description_en || '',
-          description_lt: competitionData.description_lt || '',
-          start_date: competitionData.start_date || '',
-          end_date: competitionData.end_date || '',
-          status: competitionData.status || '',
-          visibility: competitionData.visibility || '',
-          photo_limit: competitionData.photo_limit || ''
-        });
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          name_en: competitionData.data.nameEn || '',
+          name_lt: competitionData.data.nameLt || '',
+          description_en: competitionData.data.descriptionEn || '',
+          description_lt: competitionData.data.descriptionLt || '',
+          start_date: competitionData.data.startDate || '',
+          end_date: competitionData.data.endDate || '',
+          status: competitionData.data.status || '',
+          visibility: competitionData.data.visibility || '',
+          photo_limit: competitionData.data.photoLimit || ''
+        }));
       } catch (error) {
         console.log('Error fetching competition data:', error);
       }
@@ -94,13 +93,28 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
       const confirmSave = window.confirm(t('editcomp.message'));
       if (confirmSave) {
         try {
-          // await axios.put(`http://localhost:8080/api/v1/competition/${uuid}`, formData);
-          setIsFormChanged(false); // Reset form changed flag after saving
+          await axios.put(`http://localhost:8080/api/v1/competition/${competitionUUID}`, formData, {
+            headers: getTokenHeader()
+          });
+          setIsFormChanged(false);
           navigate('/admin-competitions-list');
         } catch (error) {
           console.error('Error saving competition:', error);
         }
       }
+    }
+  };
+
+  //TODO fix cors error
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:8080/api/v1/competition/${competitionUUID}`, {
+        headers: getTokenHeader()
+      });
+      console.log('delete successufull');
+      navigate('/admin-competitions-list');
+    } catch (error) {
+      console.log('Error deleting competition', error);
     }
   };
 
@@ -138,7 +152,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                   </Button>
                 </Col>
                 <Col xl="4">
-                  <Button variant="secondary" className="lsf-Button w-40">
+                  <Button variant="secondary" className="lsf-Button w-40" onClick={handleDelete}>
                     {t('editcomp.delete')}
                   </Button>
                 </Col>
@@ -241,10 +255,10 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                     onChange={handleInputChange}
                   >
                     <option value=""></option>
-                    <option value="coming">{t('editcomp.coming')}</option>
-                    <option value="evaluates">{t('editcomp.evaluates')}</option>
-                    <option value="going">{t('editcomp.going')}</option>
-                    <option value="finished">{t('editcomp.finished')}</option>
+                    <option value="COMING">{t('editcomp.coming')}</option>
+                    <option value="EVALUATES">{t('editcomp.evaluates')}</option>
+                    <option value="GOING">{t('editcomp.going')}</option>
+                    <option value="FINISHED">{t('editcomp.finished')}</option>
                   </Form.Select>
                 </Col>
                 <Col xs="12" md="4">
@@ -256,8 +270,8 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                     onChange={handleInputChange}
                   >
                     <option value=""></option>
-                    <option value="public">{t('editcomp.public')}</option>
-                    <option value="private">{t('editcomp.private')}</option>
+                    <option value="PUBLIC">{t('editcomp.public')}</option>
+                    <option value="PRIVATE">{t('editcomp.private')}</option>
                   </Form.Select>
                 </Col>
               </Row>

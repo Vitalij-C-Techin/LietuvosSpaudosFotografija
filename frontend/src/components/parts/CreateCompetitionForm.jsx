@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
 import ModalCategory from '../modals/ModalCategory';
 import ModalCreateCategory from '../modals/ModalCreateCategory';
+import ModalCancelCreation from '../modals/ModalCancelCreation';
+import ModalSaveCreateCompetition from '../modals/ModalSaveCreateCompetition';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
@@ -9,8 +11,10 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
 const CreateCompetitionForm = () => {
-  const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
-  const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
+  const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
+  const [modalShowAddCategory, setModalShowAddCategory] = useState(false);
+  const [modalShowCancelCreation, setModalShowCancelCreation] = useState(false);
+  const [modalShowCreateCompetition, setModalShowCreateCompetition] = useState(false);
   const [photoUploaderror, setUploadPhotoError] = useState('');
   const [photoLimitError, setPhotoLimitError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
@@ -29,7 +33,6 @@ const CreateCompetitionForm = () => {
     description_en: ''
   });
 
-  //TODO corect layout
   //TODO leave commented code till uploade photo will be awailable in backend
   //TODO add more allowedTypes by need in handleFileChange
 
@@ -42,10 +45,9 @@ const CreateCompetitionForm = () => {
       alert(t('editcomp.dateAllert'));
       return;
     }
-    const confirmSave = window.confirm(t('editcomp.message'));
-    if (!confirmSave) {
-      return;
-    }
+    setModalShowCreateCompetition(true);
+  };
+  const confirmSave = async () => {
     try {
       // const formDataWithFile = new FormData();
       // formDataWithFile.append('image', selectedFile);
@@ -118,20 +120,35 @@ const CreateCompetitionForm = () => {
     }
   };
 
-  const handleCreateCategory = () => {
-    setShowCreateCategoryModal(true);
+  const modalHandleOpenCreateCategory = () => {
+    setModalShowCreateCategory(true);
   };
 
-  const handleAddCategory = () => {
-    setShowAddCategoryModal(true);
+  const modalHandleCloseCreateCategory = () => {
+    setModalShowCreateCategory(false);
   };
 
-  const handleCloseCreateCategoryModal = () => {
-    setShowCreateCategoryModal(false);
+  const modalHandleOpenAddCategory = () => {
+    setModalShowAddCategory(true);
   };
 
-  const handleCloseAddCategoryModal = () => {
-    setShowAddCategoryModal(false);
+  const modalHandleCloseAddCategory = () => {
+    setModalShowAddCategory(false);
+  };
+
+  const modalHadleOpenCancelCreation = () => {
+    setModalShowCancelCreation(true);
+  };
+
+  const modalHandleCloseCancelCreation = () => {
+    setModalShowCancelCreation(false);
+  };
+
+  const modalHandleOpenCreateCompetition = () => {
+    setModalShowCreateCompetition(true);
+  };
+  const modalHandleCloseCreateCompetition = () => {
+    setModalShowCreateCompetition(false);
   };
 
   return (
@@ -152,8 +169,12 @@ const CreateCompetitionForm = () => {
                   </Button>
                 </Col>
                 <Col xl="4">
-                  <Button variant="secondary" className="lsf-Button w-40">
-                    {t('editcomp.delete')}
+                  <Button
+                    variant="secondary"
+                    className="lsf-Button w-40"
+                    onClick={modalHadleOpenCancelCreation}
+                  >
+                    {t('editcomp.cancel')}
                   </Button>
                 </Col>
               </Row>
@@ -311,12 +332,12 @@ const CreateCompetitionForm = () => {
                 <Col xs="6" xl="4" className="justify-content-xl-center">
                   <Row>
                     <Col xl="12">
-                      <Button variant="secondary" onClick={handleCreateCategory}>
+                      <Button variant="secondary" onClick={modalHandleOpenCreateCategory}>
                         {t('modalCategory.titleAdd')}
                       </Button>
                     </Col>
                     <Col xl="12">
-                      <Button variant="secondary" onClick={handleAddCategory}>
+                      <Button variant="secondary" onClick={modalHandleOpenAddCategory}>
                         {t('modalCategory.titleEdit')}
                       </Button>
                     </Col>
@@ -325,12 +346,21 @@ const CreateCompetitionForm = () => {
               </Row>
               <div className="divider"></div>
               <ModalCreateCategory
-                showModal={showCreateCategoryModal}
-                onClose={handleCloseCreateCategoryModal}
+                showModal={modalShowCreateCategory}
+                onClose={modalHandleCloseCreateCategory}
               />
               <ModalCategory
-                showModal={showAddCategoryModal}
-                onClose={handleCloseAddCategoryModal}
+                showModal={modalShowAddCategory}
+                onClose={modalHandleCloseAddCategory}
+              />
+              <ModalCancelCreation
+                showModal={modalShowCancelCreation}
+                onClose={modalHandleCloseCancelCreation}
+              />
+              <ModalSaveCreateCompetition
+                showModal={modalShowCreateCompetition}
+                onClose={modalHandleCloseCreateCompetition}
+                confirmSave={confirmSave}
               />
             </Container>
           </Col>

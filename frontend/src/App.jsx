@@ -45,7 +45,7 @@ function App() {
               path="/admin-user-participation-requests"
               element={<AdminUserParticipationRequestPage />}
             />
-            <Route path="/edit-competition" element={<CompetitionManagementPage />} />
+            <Route path="/edit-competition/:uuid" element={<CompetitionManagementPage />} />
             <Route path="/create-competition" element={<CreateCompetition />} />
             <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
               <Route path="/p" element={<ProfilePage />} />

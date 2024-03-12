@@ -175,11 +175,12 @@ i18n
             headerCreate: 'Create Competition',
             headerView: 'View/Edit competition',
             Save: 'Save competition',
+            cancel: 'Cancel',
             delete: 'Delete competition',
             compPicButton: 'Add photo',
             name: 'Title - EN',
             name2: 'Title - LT',
-            description:'Description - EN',
+            description: 'Description - EN',
             description2: 'Description - LT',
             Plimit: 'Photo limit',
             status: 'Status',
@@ -194,6 +195,17 @@ i18n
             Edate: 'End date',
             Addcategory: 'Added categories',
             limitError: 'Photo limit must be between 1 and 50'
+          },
+          modalCancel: {
+            ask1: 'Are you sure you want to cancel Competition Creation?',
+            ask2: 'All unsave progress will be lost!',
+            confirm: 'Yes',
+            closeButton: 'No'
+          },
+          modalCreate: {
+            confirmSaveTitle: 'Are you sure you want to save?',
+            confirm: 'Yes',
+            cancel: 'No'
           },
           modalCategory: {
             titleCat: 'Title',
@@ -365,18 +377,19 @@ i18n
           editcomp: {
             valid: 'Užpildikyte forma prieš išsaugant',
             message: 'Ar tikrai norite išsaugoti?',
-            error1:'Ivyko klaida išsaugant. Prašome bandyti veliau.',
-            dateAllert:'Pabaigos data negali buti ankstesne negu pradžios data.',
-            alloweTypes:'Galima tik JPEG, JPG, PNG formato fotografija',
+            error1: 'Ivyko klaida išsaugant. Prašome bandyti veliau.',
+            dateAllert: 'Pabaigos data negali buti ankstesne negu pradžios data.',
+            alloweTypes: 'Galima tik JPEG, JPG, PNG formato fotografija',
             headerCreate: 'Sukurti konkursą',
             headerView: 'Peržiūrėti/Redaguoti konkursą',
             Save: 'Išsaugoti',
+            cancel: 'Atšaukti',
             delete: 'Ištrinti konkursą',
-            compPicButton:'Pridėti nuotrauką',
+            compPicButton: 'Pridėti nuotrauką',
             name: 'Pavadinimas - EN',
             name2: 'Pavadinimas - LT',
             description: 'Apie - EN',
-            description2:'Apie - LT',
+            description2: 'Apie - LT',
             Plimit: 'Nuotraukų kiekis',
             status: 'Būsena',
             coming: 'Dar neprasidejo',
@@ -390,6 +403,17 @@ i18n
             Edate: 'Pabaiga',
             Addcategory: 'Pridėtos kategorijos',
             limitError: 'Foto turi buti nuo 1 iki 50'
+          },
+          modalCancel: {
+            ask1: 'Ar tikrai norite nutraikti konkurso kurima?',
+            ask2: 'Visas neišsaugotas progressas bus pamestas!',
+            confirm: 'Taip',
+            closeButton: 'Ne'
+          },
+          modalCreate: {
+            confirmSaveTitle: 'Ar tikrai norite išsaugoti duomeys?',
+            confirm: 'Taip',
+            cancel: 'Ne'
           },
           modalCategory: {
             titleCat: 'Pavadinimas',

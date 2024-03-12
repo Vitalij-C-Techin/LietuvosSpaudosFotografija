@@ -31,9 +31,9 @@ const AdminCompetitionsListForm = () => {
   }, []);
 
   const handleView = (uuid) => {
-    navigate(`/edit-competition?competition=${uuid}`);
+    navigate(`/edit-competition/${uuid}`);
   };
-  
+
   const handleViewRequest = () => {
     navigate('/admin-user-participation-requests');
   };
