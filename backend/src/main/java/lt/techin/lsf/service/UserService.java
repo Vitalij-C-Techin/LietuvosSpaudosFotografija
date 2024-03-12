@@ -50,7 +50,6 @@ public class UserService {
             existingUser.setMediaName(updateUserRequest.getMediaName());
             userRepository.save(existingUser);
 
-//            User user = findUserByEmail(updateUserRequest.getEmail());
             User user = UserMapper.map(existingUser);
             String jwtToken = jwtService.generateToken(user);
             return UserAuthentication.builder().token(jwtToken).user(user).build().getUserAuthenticationResponse();
