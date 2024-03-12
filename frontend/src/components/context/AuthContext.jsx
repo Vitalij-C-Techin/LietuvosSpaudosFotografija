@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { loginRequest } from '../utils/RequestManager';
+import Config from '../config/Config';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -107,26 +108,27 @@ export const AuthProvider = ({ children }) => {
     setStorageUserData(data.user);
   };
 
-  const login = async (email, password, callbacks = {}) => {
-    const receivedThen = callbacks.then;
+  const login = async (email, password, callback = {}) => {
+    const callbackThen = callback.then;
 
-    callbacks.then = (response) => {
+    callback.then = (response) => {
       setUser(response.data);
 
-      if (!!callbacks.then) {
-        receivedThen(response);
+      if (!!callbackThen) {
+        callbackThen(response);
       }
     };
 
-    const d = {
-      data: {
-        email,
-        password
-      },
-      ...callbacks
+    const url = Config.apiDomain + Config.endpoints.auth.login;
+
+    const body = {
+      email,
+      password
     };
 
-    loginRequest(d);
+    console.log("login:", body, url);
+
+    axios.post(url, body).then(callback.then).catch(callback.catch).finally(callback.finally);
   };
 
   const logout = () => {
