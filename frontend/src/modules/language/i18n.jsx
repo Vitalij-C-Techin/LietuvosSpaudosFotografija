@@ -174,6 +174,8 @@ i18n
             birthYearLength: 'Birth year must contain 4 digits.',
             mediaNameMaxLength: 'Must contain less than 50 characters.',
             mediaName: 'Name of media you represent',
+            mediaNamePattern:
+              'Media name must not start or end with a space, be empty, or be only spaces.',
             activity: 'State of work',
             work1: 'Freelancer',
             work2: 'Media worker'
@@ -391,6 +393,8 @@ i18n
             birthYearLength: 'Gimimo metus turi sudaryti 4 skaitmenys.',
             mediaNameMaxLength: 'Turi sudaryti ne daugiau kaip 50 simbolių.',
             mediaName: 'Žiniasklaidos pavadinimas',
+            mediaNamePattern:
+              'Žiniasklaidos pavadinimas negali prasidėti arba baigtis tarpais, būti tuščias arba būti tik iš tarpų.',
             activity: 'Veiklos sritis',
             work1: 'Laisvai samdomas',
             work2: 'Atstovaujama žiniasklaidos priemonė'

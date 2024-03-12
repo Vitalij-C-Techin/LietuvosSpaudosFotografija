@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import NavigationBar from './components/parts/NavigationBar.jsx';
 import HomePage from './components/pages/HomePage';
+import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import RegistrationPage from './components/pages/RegistrationPage.jsx';
 import LoginPage from './components/pages/LoginPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
@@ -34,10 +35,11 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
 
             <Route path="/registration" element={<RegistrationPage />} />
-            <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/change-password" element={<PasswordChangePage />} />
 
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/:uuid" element={<ProfilePage />} />
             <Route path="/profile/edit" element={<UserDetailsUpdatePage />} />
 
             <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
