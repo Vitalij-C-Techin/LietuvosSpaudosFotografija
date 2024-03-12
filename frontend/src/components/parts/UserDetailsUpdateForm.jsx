@@ -1,4 +1,4 @@
-import { API_BASE_URL } from './../utils/apiConfig';
+import Config from '../config/Config';
 import { useEffect, useState } from 'react';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
@@ -45,9 +45,12 @@ const UserDetailsUpdateForm = () => {
       setLoading(true);
       const token = getToken();
       axios
-        .get(`${API_BASE_URL}/user/${getUserData().uuid}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
+        .get(
+          `${Config.apiDomain}${Config.endpoints.userDetailsEdit.getByUuid.replace('{uuid}', getUserData().uuid)}`,
+          {
+            headers: { Authorization: `Bearer ${token}` }
+          }
+        )
         .then((response) => {
           const userData = response.data;
           setValue('name', userData.name);
@@ -75,14 +78,21 @@ const UserDetailsUpdateForm = () => {
   const handleFormSubmit = (formData) => {
     const token = getToken();
     axios
-      .put(`${API_BASE_URL}/user/${getUserData().uuid}/profile`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`
+      .put(
+        `${Config.apiDomain}${Config.endpoints.userDetailsEdit.updateByUuid.replace('{uuid}', getUserData().uuid)}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
-      })
+      )
       .then((response) => {
         setUser(response.data);
         setSuccessMessage(true);
+        setTimeout(() => {
+          setSuccessMessage(false);
+        }, 3000);
       })
       .catch((error) => {
         setUserDataSaveError(true);
