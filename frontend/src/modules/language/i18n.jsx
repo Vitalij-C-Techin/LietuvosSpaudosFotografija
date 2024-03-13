@@ -320,6 +320,14 @@ i18n
             required: 'Šis laukas privalomas.',
             passwordMinLength: 'Slaptažodis turi būti bent 8 simbolių ilgio.',
             passwordMaxLength: 'Slaptažodis negali viršyti 60 simbolių.',
+            passwordChangeSuccessful: 'Slaptažodis pakeistas sėkmingai',
+            emailError: 'Įvyko klaida. Prašome bandyti vėliau.',
+            title: 'Slaptažodžio pakeitimas',
+            newPassword: 'Naujas slaptažodis',
+            newPasswordPlaceholder: 'naujas slaptažodis',
+            required: 'Šis laukas privalomas.',
+            passwordMinLength: 'Slaptažodis turi būti bent 8 simbolių ilgio.',
+            passwordMaxLength: 'Slaptažodis negali viršyti 60 simbolių.',
             passwordPattern: `Slaptažodis turi turėti bent vieną didžiąją raidę, 
                               vieną mažąją raidę, 
                               vieną skaitmenį ir gali būti su specialiais simboliais.`,
@@ -328,6 +336,10 @@ i18n
             passwordNotMatch:
               'Įvesti slaptažodžiai nesutampa. Prašome įsitikinti, kad abu slaptažodžiai yra identiški.',
             button: 'Pakeisti slaptažodį',
+            confirmNewPasswordPlaceholder: 'patvirtinti',
+            passwordNotMatch:
+              'Įvesti slaptažodžiai nesutampa. Prašome įsitikinti, kad abu slaptažodžiai yra identiški.',
+            button: 'Pakeisti slaptažodį'
           },
           registrationPage: {
             passwordNotMatch: 'Slaptažodžiai nesutampa!',
