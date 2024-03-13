@@ -42,7 +42,6 @@ const UserDetailsUpdateForm = () => {
 
   useEffect(() => {
     const fetchUserData = () => {
-      console.log('fetchUserData');
       setLoading(true);
       const token = getToken();
       axios
