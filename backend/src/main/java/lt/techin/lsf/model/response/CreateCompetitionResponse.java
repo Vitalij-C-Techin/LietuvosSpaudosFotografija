@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lt.techin.lsf.model.Category;
-import lt.techin.lsf.model.Competition;
+import lt.techin.lsf.persistance.model.CompetitionRecord;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ import java.util.List;
 @Setter
 @Builder
 public class CreateCompetitionResponse {
-    private Competition competition;
+    private CompetitionRecord competition;
     private List<Category> categories;
 }

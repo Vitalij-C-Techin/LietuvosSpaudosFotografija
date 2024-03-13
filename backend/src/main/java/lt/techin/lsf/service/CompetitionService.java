@@ -28,17 +28,15 @@ public class CompetitionService {
     private final CategoryService categoryService;
 
     public CreateCompetitionResponse createCompetition(CreateCompetitionRequest competitionData) {
-        /*if (hasCompetition(competitionData)) {
+        if (hasCompetition(competitionData)) {
             throw new CompetitionExistsException("Competition exists");
-        }*/
+        }
 
         CompetitionRecord record = CompetitionRecordMapper.map(competitionData);
 
         record.setupNewCompetition();
 
-        Competition competition = new Competition(
-                competitionRepository.save(record)
-        );
+        competitionRepository.save(record);
 
         List<Category> categories = new ArrayList<>();
 
@@ -48,7 +46,7 @@ public class CompetitionService {
                 categories = competitionData.categories.stream()
                         .map((categoryRequest) -> {
                             return categoryService.createCategoryAndAddToCompetition(
-                                    competition.getData().getUuid(),
+                                    record.getUuid(),
                                     categoryRequest
                             );
                         })
@@ -57,7 +55,7 @@ public class CompetitionService {
         }
 
         return CreateCompetitionResponse.builder()
-                .competition(competition)
+                .competition(record)
                 .categories(categories)
                 .build();
     }
