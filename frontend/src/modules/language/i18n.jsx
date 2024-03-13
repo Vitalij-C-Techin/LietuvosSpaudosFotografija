@@ -199,6 +199,8 @@ i18n
           modalCancel: {
             ask1: 'Are you sure you want to cancel Competition Creation?',
             ask2: 'All unsave progress will be lost!',
+            ask3: 'Are you sure you want to delete this competition?',
+            ask4:"All progress will be lost",
             confirm: 'Yes',
             closeButton: 'No'
           },

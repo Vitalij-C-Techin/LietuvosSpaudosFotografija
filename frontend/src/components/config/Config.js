@@ -1,13 +1,29 @@
 const Config = {
   version: 0.1,
 
+  apiDomain: 'http://localhost:8080',
+
   endpoints: {
     auth: {
-      registration: `http://localhost:8080/api/v1/register`,
-      login: `http://localhost:8080/api/v1/login`,
+      registration: '/api/v1/register',
+      login: '/api/v1/login'
+    },
+    participation: {
+      create: '/api/v1/participation',
+      update: '/api/v1/participation/{uuid}',
+      pending: '/api/v1/participation/all/pending/{page}'
+    },
+    competitions: {
+      adminAll: '/api/v1/competition/all/{page}',
+      userActive: '/api/v1/competition/user/{page}',
+      userParticipate: '/api/v1/competition/user/participate/{page}'
     },
     user: {
-      byUuid: `http://localhost:8080/api/v1/user/{uuid}`
+      byUuid: '/api/v1/user/{uuid}'
+    },
+    userDetailsEdit: {
+      getByUuid: '/api/v1/user/{uuid}',
+      updateByUuid: '/api/v1/user/{uuid}/profile'
     }
   }
 };

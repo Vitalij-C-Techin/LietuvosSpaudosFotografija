@@ -33,7 +33,6 @@ const CreateCompetitionForm = () => {
     description_en: ''
   });
 
-  //TODO leave commented code till uploade photo will be awailable in backend
   //TODO add more allowedTypes by need in handleFileChange
 
   const handleSave = async () => {
@@ -49,11 +48,6 @@ const CreateCompetitionForm = () => {
   };
   const confirmSave = async () => {
     try {
-      // const formDataWithFile = new FormData();
-      // formDataWithFile.append('image', selectedFile);
-      // Object.entries(formData).forEach(([key, value]) => {
-      //   formDataWithFile.append(key, value);
-      // });
       await axios.post('http://localhost:8080/api/v1/competition', formData, {
         headers: getTokenHeader()
       });
@@ -144,9 +138,6 @@ const CreateCompetitionForm = () => {
     setModalShowCancelCreation(false);
   };
 
-  const modalHandleOpenCreateCompetition = () => {
-    setModalShowCreateCompetition(true);
-  };
   const modalHandleCloseCreateCompetition = () => {
     setModalShowCreateCompetition(false);
   };

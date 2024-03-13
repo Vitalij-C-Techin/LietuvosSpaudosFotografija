@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
 import ModalCategory from '../modals/ModalCategory';
 import ModalCreateCategory from '../modals/ModalCreateCategory';
+import ModalDeleteCompetition from '../modals/ModalDeleteCompetition';
+import ModalSaveCreateCompetition from '../modals/ModalSaveCreateCompetition';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
@@ -12,9 +14,10 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [selectedStatus, setSelectedStatus] = useState('');
-  const [showCreateCategoryModal, setShowCreateCategoryModal] = useState(false);
-  const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
+  const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
+  const [modalShowAddCategory, setModalShowAddCategory] = useState(false);
+  const [modalShowDeleteCompetition, setModalShowDeleteCompetition] = useState(false);
+  const [modalShowCreateCompetition, setModalShowCreateCompetition] = useState(false);
   const [isFormChanged, setIsFormChanged] = useState(false);
   const [photoLimitError, setPhotoLimitError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
@@ -67,7 +70,6 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
         [name]: value
       });
     }
-    setIsFormChanged(true);
   };
 
   const handleFileChange = (event) => {
@@ -88,50 +90,63 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
     setIsFormChanged(true);
   };
 
-  const handleSave = async () => {
-    if (isFormChanged && !photoLimitError) {
-      const confirmSave = window.confirm(t('editcomp.message'));
-      if (confirmSave) {
-        try {
-          await axios.put(`http://localhost:8080/api/v1/competition/${competitionUUID}`, formData, {
-            headers: getTokenHeader()
-          });
-          setIsFormChanged(false);
-          navigate('/admin-competitions-list');
-        } catch (error) {
-          console.error('Error saving competition:', error);
-        }
-      }
+  const confirmSave = async () => {
+    try {
+      await axios.put(`http://localhost:8080/api/v1/competition/${competitionUUID}`, formData, {
+        headers: getTokenHeader()
+      });
+      navigate('/admin-competitions-list');
+    } catch (error) {
+      console.error('Error saving competition:', error);
     }
   };
+  const handleSave = async () => {
+    if (new Date(formData.end_date) < new Date(formData.start_date)) {
+      alert(t('editcomp.dateAllert'));
+      return;
+    }
+    setModalShowCreateCompetition(true);
+  };
 
-  //TODO fix cors error
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:8080/api/v1/competition/${competitionUUID}`, {
         headers: getTokenHeader()
       });
-      console.log('delete successufull');
-      navigate('/admin-competitions-list');
     } catch (error) {
       console.log('Error deleting competition', error);
     }
   };
+  const deleteCompetition=async()=>{
+    setModalShowDeleteCompetition(true);
+  }
 
-  const handleCreateCategory = () => {
-    setShowCreateCategoryModal(true);
+  const modalHandleOpenCreateCategory = () => {
+    setModalShowCreateCategory(true);
   };
 
-  const handleAddCategory = () => {
-    setShowAddCategoryModal(true);
+  const modalHandleCloseCreateCategory = () => {
+    setModalShowCreateCategory(false);
   };
 
-  const handleCloseCreateCategoryModal = () => {
-    setShowCreateCategoryModal(false);
+  const modalHandleOpenAddCategory = () => {
+    setModalShowAddCategory(true);
   };
 
-  const handleCloseAddCategoryModal = () => {
-    setShowAddCategoryModal(false);
+  const modalHandleCloseAddCategory = () => {
+    setModalShowAddCategory(false);
+  };
+
+  const modalHandelOpenDeleteCompetition = () => {
+    setModalShowDeleteCompetition(true);
+  };
+
+  const modalHandelCloseDeleteCompetition = () => {
+    setModalShowDeleteCompetition(false);
+  };
+
+  const modalHandleCloseCreateCompetition = () => {
+    setModalShowCreateCompetition(false);
   };
 
   return (
@@ -152,7 +167,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                   </Button>
                 </Col>
                 <Col xl="4">
-                  <Button variant="secondary" className="lsf-Button w-40" onClick={handleDelete}>
+                  <Button variant="secondary" className="lsf-Button w-40" onClick={deleteCompetition}>
                     {t('editcomp.delete')}
                   </Button>
                 </Col>
@@ -311,12 +326,12 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                 <Col xs="6" xl="4" className="justify-content-xl-center">
                   <Row>
                     <Col xl="12">
-                      <Button variant="secondary" onClick={handleCreateCategory}>
+                      <Button variant="secondary" onClick={modalHandleOpenCreateCategory}>
                         {t('modalCategory.titleAdd')}
                       </Button>
                     </Col>
                     <Col xl="12">
-                      <Button variant="secondary" onClick={handleAddCategory}>
+                      <Button variant="secondary" onClick={modalHandleOpenAddCategory}>
                         {t('modalCategory.titleEdit')}
                       </Button>
                     </Col>
@@ -325,12 +340,21 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
               </Row>
               <div className="divider"></div>
               <ModalCreateCategory
-                showModal={showCreateCategoryModal}
-                onClose={handleCloseCreateCategoryModal}
+                showModal={modalShowCreateCategory}
+                onClose={modalHandleCloseCreateCategory}
               />
               <ModalCategory
-                showModal={showAddCategoryModal}
-                onClose={handleCloseAddCategoryModal}
+                showModal={modalShowAddCategory}
+                onClose={modalHandleCloseAddCategory}
+              />
+              <ModalDeleteCompetition
+                showModal={modalShowDeleteCompetition}
+                onClose={modalHandelCloseDeleteCompetition}
+              />
+              <ModalSaveCreateCompetition
+                showModal={modalShowCreateCompetition}
+                onClose={modalHandleCloseCreateCompetition}
+                confirmSave={confirmSave}
               />
             </Container>
           </Col>
