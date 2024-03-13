@@ -60,7 +60,7 @@ const NavigationBar = () => {
               {userRole === 'ADMIN' && (
                 <>
                   <Dropdown.Divider />
-                  <Dropdown.Item to="#admin-users-dashboard">
+                  <Dropdown.Item to="/admin-users-dashboard">
                     {t('landingPage.dropDownMenuItem6')}
                   </Dropdown.Item>
                   <Dropdown.Item as={NavLink} to="/admin-competitions-list">
