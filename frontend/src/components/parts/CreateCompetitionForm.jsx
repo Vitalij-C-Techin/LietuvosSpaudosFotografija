@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
 import ModalCategory from '../modals/ModalCategory';
 import ModalCreateCategory from '../modals/ModalCreateCategory';
-import ModalDeleteCompetition from '../modals/ModalDeleteCompetition';
+import ModalCancelCreation from '../modals/ModalCancelCreation';
 import ModalSaveCreateCompetition from '../modals/ModalSaveCreateCompetition';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -10,47 +10,72 @@ import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
-const ViewEditCompetitionForm = ({ competitionUUID }) => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-
+const CreateCompetitionForm = () => {
   const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
   const [modalShowAddCategory, setModalShowAddCategory] = useState(false);
-  const [modalShowDeleteCompetition, setModalShowDeleteCompetition] = useState(false);
+  const [modalShowCancelCreation, setModalShowCancelCreation] = useState(false);
   const [modalShowCreateCompetition, setModalShowCreateCompetition] = useState(false);
-  const [isFormChanged, setIsFormChanged] = useState(false);
+  const [photoUploaderror, setUploadPhotoError] = useState('');
   const [photoLimitError, setPhotoLimitError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
-  const [photoUploaderror, setPhotoUploadError] = useState('');
+  const [t] = useTranslation();
+  const navigate = useNavigate();
   const { getTokenHeader } = useAuth();
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    end_date: '',
+    photo_limit: '',
+    start_date: '',
+    status: '',
+    visibility: '',
+    name_lt: '',
+    name_en: '',
+    description_lt: '',
+    description_en: ''
+  });
 
-  useEffect(() => {
-    const fetchCompetitionData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/api/v1/competition/${competitionUUID}`,
-          { headers: getTokenHeader() }
-        );
-        const competitionData = response.data;
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          name_en: competitionData.data.nameEn || '',
-          name_lt: competitionData.data.nameLt || '',
-          description_en: competitionData.data.descriptionEn || '',
-          description_lt: competitionData.data.descriptionLt || '',
-          start_date: competitionData.data.startDate || '',
-          end_date: competitionData.data.endDate || '',
-          status: competitionData.data.status || '',
-          visibility: competitionData.data.visibility || '',
-          photo_limit: competitionData.data.photoLimit || ''
-        }));
-      } catch (error) {
-        console.log('Error fetching competition data:', error);
+  //TODO add more allowedTypes by need in handleFileChange
+
+  const handleSave = async () => {
+    if (!isFormDataValid(formData)) {
+      alert(t('editcomp.valid'));
+      return;
+    }
+    if (new Date(formData.end_date) < new Date(formData.start_date)) {
+      alert(t('editcomp.dateAllert'));
+      return;
+    }
+    setModalShowCreateCompetition(true);
+  };
+  const confirmSave = async () => {
+    try {
+      await axios.post('http://localhost:8080/api/v1/competition', formData, {
+        headers: getTokenHeader()
+      });
+      navigate('/admin-competitions-list');
+    } catch (error) {
+      alert(t(editcompt.error1));
+    }
+  };
+
+  const isFormDataValid = (data) => {
+    const requiredFields = [
+      'end_date',
+      'photo_limit',
+      'start_date',
+      'status',
+      'visibility',
+      'name_lt',
+      'name_en',
+      'description_lt',
+      'description_en'
+    ];
+    for (const field of requiredFields) {
+      if (!data[field]) {
+        return false;
       }
-    };
-    fetchCompetitionData();
-  }, [competitionUUID]);
+    }
+    return true;
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -78,48 +103,15 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
     if (file) {
       if (!allowedTypes.includes(file.type)) {
         setSelectedFile(file);
-        setPhotoUploadError(t('editcomp.allowedTypes'));
+        setUploadPhotoError(t('editcomp.allowedTypes'));
       } else {
         setSelectedFile(file);
-        setPhotoUploadError('');
+        setUploadPhotoError('');
       }
     } else {
-      setPhotoUploadError('');
+      setUploadPhotoError('');
       setSelectedFile(null);
     }
-    setIsFormChanged(true);
-  };
-
-  const confirmSave = async () => {
-    try {
-      await axios.put(`http://localhost:8080/api/v1/competition/${competitionUUID}`, formData, {
-        headers: getTokenHeader()
-      });
-      navigate('/admin-competitions-list');
-    } catch (error) {
-      console.error('Error saving competition:', error);
-    }
-  };
-  const handleSave = async () => {
-    if (new Date(formData.end_date) < new Date(formData.start_date)) {
-      alert(t('editcomp.dateAllert'));
-      return;
-    }
-    setModalShowCreateCompetition(true);
-  };
-
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`http://localhost:8080/api/v1/competition/${competitionUUID}`, {
-        headers: getTokenHeader()
-      });
-      navigate('/admin-competitions-list');
-    } catch (error) {
-      console.log('Error deleting competition', error);
-    }
-  };
-  const deleteCompetition = async () => {
-    setModalShowDeleteCompetition(true);
   };
 
   const modalHandleOpenCreateCategory = () => {
@@ -138,12 +130,12 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
     setModalShowAddCategory(false);
   };
 
-  const modalHandelOpenDeleteCompetition = () => {
-    setModalShowDeleteCompetition(true);
+  const modalHadleOpenCancelCreation = () => {
+    setModalShowCancelCreation(true);
   };
 
-  const modalHandelCloseDeleteCompetition = () => {
-    setModalShowDeleteCompetition(false);
+  const modalHandleCloseCancelCreation = () => {
+    setModalShowCancelCreation(false);
   };
 
   const modalHandleCloseCreateCompetition = () => {
@@ -157,7 +149,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
           <Row>
             <Col xl="6">
               <Card className="image-header-text">
-                <h2>{t('editcomp.headerView')}</h2>
+                <h2>{t('editcomp.headerCreate')}</h2>
               </Card>
             </Col>
             <Col>
@@ -171,9 +163,9 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                   <Button
                     variant="secondary"
                     className="lsf-Button w-40"
-                    onClick={deleteCompetition}
+                    onClick={modalHadleOpenCancelCreation}
                   >
-                    {t('editcomp.delete')}
+                    {t('editcomp.cancel')}
                   </Button>
                 </Col>
               </Row>
@@ -201,7 +193,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                         type="text"
                         id="name_en"
                         name="name_en"
-                        value={formData.name_en || ''}
+                        value={formData.name_en}
                         onChange={handleInputChange}
                       />
                     </Col>
@@ -211,7 +203,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                         type="text"
                         id="name_lt"
                         name="name_lt"
-                        value={formData.name_lt || ''}
+                        value={formData.name_lt}
                         onChange={handleInputChange}
                       />
                     </Col>
@@ -235,7 +227,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                     as="textarea"
                     name="description_en"
                     id="description_en"
-                    value={formData.description_en || ''}
+                    value={formData.description_en}
                     onChange={handleInputChange}
                   ></Form.Control>
                 </Col>
@@ -246,7 +238,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                     as="textarea"
                     name="description_lt"
                     id="description_lt"
-                    value={formData.description_lt || ''}
+                    value={formData.description_lt}
                     onChange={handleInputChange}
                   ></Form.Control>
                 </Col>
@@ -258,7 +250,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                   <Form.Control
                     name="photo_limit"
                     id="photo_limit"
-                    value={formData.photo_limit || ''}
+                    value={formData.photo_limit}
                     onChange={handleInputChange}
                     type="number"
                     min="1"
@@ -271,14 +263,14 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                   <Form.Select
                     id="status"
                     name="status"
-                    value={formData.status || ''}
+                    value={formData.status}
                     onChange={handleInputChange}
                   >
                     <option value=""></option>
-                    <option value="COMING">{t('editcomp.coming')}</option>
-                    <option value="EVALUATES">{t('editcomp.evaluates')}</option>
-                    <option value="GOING">{t('editcomp.going')}</option>
-                    <option value="FINISHED">{t('editcomp.finished')}</option>
+                    <option value="coming">{t('editcomp.coming')}</option>
+                    <option value="evaluates">{t('editcomp.evaluates')}</option>
+                    <option value="going">{t('editcomp.going')}</option>
+                    <option value="finished">{t('editcomp.finished')}</option>
                   </Form.Select>
                 </Col>
                 <Col xs="12" md="4">
@@ -286,12 +278,12 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                   <Form.Select
                     name="visibility"
                     id="visibility"
-                    value={formData.visibility || ''}
+                    value={formData.visibility}
                     onChange={handleInputChange}
                   >
                     <option value=""></option>
-                    <option value="PUBLIC">{t('editcomp.public')}</option>
-                    <option value="PRIVATE">{t('editcomp.private')}</option>
+                    <option value="public">{t('editcomp.public')}</option>
+                    <option value="private">{t('editcomp.private')}</option>
                   </Form.Select>
                 </Col>
               </Row>
@@ -302,7 +294,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                     type="datetime-local"
                     id="start_date"
                     name="start_date"
-                    value={formData.start_date || ''}
+                    value={formData.start_date}
                     onChange={handleInputChange}
                   />
                 </Col>
@@ -312,7 +304,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                     type="datetime-local"
                     id="end_date"
                     name="end_date"
-                    value={formData.end_date || ''}
+                    value={formData.end_date}
                     onChange={handleInputChange}
                   />
                 </Col>
@@ -352,10 +344,9 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                 showModal={modalShowAddCategory}
                 onClose={modalHandleCloseAddCategory}
               />
-              <ModalDeleteCompetition
-                showModal={modalShowDeleteCompetition}
-                onClose={modalHandelCloseDeleteCompetition}
-                confirmDelete={handleDelete}
+              <ModalCancelCreation
+                showModal={modalShowCancelCreation}
+                onClose={modalHandleCloseCancelCreation}
               />
               <ModalSaveCreateCompetition
                 showModal={modalShowCreateCompetition}
@@ -370,4 +361,4 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
   );
 };
 
-export default ViewEditCompetitionForm;
+export default CreateCompetitionForm;

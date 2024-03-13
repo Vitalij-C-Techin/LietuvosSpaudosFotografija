@@ -1,17 +1,18 @@
-import {useEffect, useState} from 'react';
-import PhoneInput, {isValidPhoneNumber} from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
-import {Button, Card, Col, Container, Form, Row} from 'react-bootstrap';
-import axios from 'axios';
-import {useTranslation} from 'react-i18next';
-import {Controller, useForm} from 'react-hook-form';
-import {ErrorMessage} from '@hookform/error-message';
-import {useNavigate} from 'react-router-dom';
-import Config from '../config/Config';
+import {useTranslation} from "react-i18next";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {Controller, useForm} from "react-hook-form";
+import Config from "../config/Config.js";
+import axios from "axios";
+import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {ErrorMessage} from "@hookform/error-message";
+import PhoneInput, {isValidPhoneNumber} from "react-phone-number-input";
+import {useAuth} from "../context/AuthContext.jsx";
 import ModalRegistrationSuccess from "../modals/ModalRegistrationSuccess.jsx";
 
-const RegistrationForm = () => {
+const AdminCreateUserForm = () => {
     const {t, i18n} = useTranslation();
+    const {getTokenHeader} = useAuth();
     const [selectedActivity, setSelectedActivity] = useState(``);
     const [showModal, setShowModal] = useState(false);
     const [emailError, setEmailError] = useState('');
@@ -34,21 +35,46 @@ const RegistrationForm = () => {
             phone_number: '',
             email: '',
             password: '',
-            media_name: ''
+            media_name: '',
+            role: ''
         },
         criteriaMode: 'all'
     });
 
+    const selectedRole = watch("role");
     const password = watch('password');
+
+    const roles = [
+        {value: '', displayName: t('adminManageUsersPage.chooseRole')},
+        {value: 'JURY', displayName: t('adminManageUsersPage.jury')},
+        {value: 'USER', displayName: t('adminManageUsersPage.user')},
+        {value: 'MODERATOR', displayName: t('adminManageUsersPage.moderator')},
+        {value: 'ADMIN', displayName: t('adminManageUsersPage.admin')},
+    ];
 
     const handleFormSubmit = async (formData) => {
         setEmailError('');
         clearErrors();
 
-        const url = Config.apiDomain + Config.endpoints.auth.registration;
+        const cfg = {
+            headers: {
+                ...(getTokenHeader() || {})
+            }
+        };
+
+        let url;
+
+        switch (selectedRole) {
+            case 'JURY':
+                url = Config.apiDomain + Config.endpoints.users.addJury;
+                break;
+            default:
+                url = Config.apiDomain + Config.endpoints.users.addUser;
+                break;
+        }
 
         axios
-            .post(url, formData)
+            .post(url, formData, cfg)
             .then((response) => {
                 setShowModal(true);
             })
@@ -68,7 +94,7 @@ const RegistrationForm = () => {
 
     const closeModal = () => {
         setShowModal(false);
-        navigate('/login');
+        navigate('/admin-manage-users');
     };
 
     const handleChangeActivity = (e) => {
@@ -96,6 +122,25 @@ const RegistrationForm = () => {
                                     {emailError || dataSaveError}
                                 </p>
                             )}
+                            <Form.Group className="mb-3">
+                                <Form.Label htmlFor="role">{t('adminManageUsersPage.role')}</Form.Label>
+
+                                <Form.Select
+                                    data-testid="role-input"
+                                    name="role"
+                                    id="role"
+                                    {...register('role', {required: t('registrationPage.required')})}
+                                >
+                                    {roles.map(role => (
+                                        <option key={role.value} value={role.value}>
+                                            {role.displayName}
+                                        </option>
+                                    ))}
+                                </Form.Select>
+                                {errors.role && (
+                                    <Form.Text className="text-danger">{errors.role.message}</Form.Text>
+                                )}
+                            </Form.Group>
                             <Row>
                                 <Col xs="12" sm="6">
                                     <Form.Group className="mb-3">
@@ -287,162 +332,152 @@ const RegistrationForm = () => {
                                     </Form.Group>
                                 </Col>
                             </Row>
+                            {selectedRole !== 'JURY' && (
+                                <>
+                                    <Row>
+                                        <Col md="6">
+                                            <Form.Group className="mb-3">
+                                                <Form.Label
+                                                    htmlFor="birth_year">{t('registrationPage.birthYear')}</Form.Label>
 
-                            <Row>
-                                <Col md="6">
-                                    <Form.Group className="mb-3">
-                                        <Form.Label htmlFor="birth_year">{t('registrationPage.birthYear')}</Form.Label>
-
-                                        <Form.Control
-                                            data-testid="birth-year-input"
-                                            type="number"
-                                            name="birth_year"
-                                            id="birth_year"
-                                            placeholder={t('registrationPage.birthYearPlaceholder')}
-                                            {...register('birth_year', {
-                                                required: t('registrationPage.required'),
-                                                maxLength: {
-                                                    value: 4,
-                                                    message: t('registrationPage.birthYearLength')
-                                                },
-                                                minLength: {
-                                                    value: 4,
-                                                    message: t('registrationPage.birthYearLength')
-                                                },
-                                                max: {
-                                                    value: new Date().getFullYear() - 18,
-                                                    message: t('registrationPage.birthYearMax')
-                                                },
-                                                min: {
-                                                    value: new Date().getFullYear() - 120,
-                                                    message: t('registrationPage.birthYearMin')
-                                                }
-                                            })}
-                                        />
-                                        <ErrorMessage
-                                            errors={errors}
-                                            name="birth_year"
-                                            render={({messages}) =>
-                                                messages &&
-                                                Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}}
-                                                       key={type}>
-                                                        {message}
-                                                    </p>
-                                                ))
-                                            }
-                                        />
-                                    </Form.Group>
-                                </Col>
-                                <Col md="6">
-                                    <Form.Group className="mb-3">
-                                        <Form.Label htmlFor="phone_number">
-                                            {t('registrationPage.phoneNumber')}
-                                        </Form.Label>
-                                        <Controller
-                                            name="phone_number"
-                                            control={control}
-                                            rules={{
-                                                validate: (value) =>
-                                                    isValidPhoneNumber(`${value}`) || t('registrationPage.phoneError'),
-                                                required: t('registrationPage.required')
-                                            }}
-                                            render={({field: {onChange, value}}) => (
-                                                <PhoneInput
-                                                    data-testid="phone-input"
-                                                    value={value}
-                                                    onChange={onChange}
-                                                    defaultCountry="LT"
-                                                    international
-                                                    id="phone_number"
+                                                <Form.Control
+                                                    data-testid="birth-year-input"
+                                                    type="number"
+                                                    name="birth_year"
+                                                    id="birth_year"
+                                                    placeholder={t('registrationPage.birthYearPlaceholder')}
+                                                    {...register('birth_year', {
+                                                        required: t('registrationPage.required'),
+                                                        maxLength: {
+                                                            value: 4,
+                                                            message: t('registrationPage.birthYearLength')
+                                                        },
+                                                        minLength: {
+                                                            value: 4,
+                                                            message: t('registrationPage.birthYearLength')
+                                                        },
+                                                        max: {
+                                                            value: new Date().getFullYear() - 18,
+                                                            message: t('registrationPage.birthYearMax')
+                                                        },
+                                                        min: {
+                                                            value: new Date().getFullYear() - 120,
+                                                            message: t('registrationPage.birthYearMin')
+                                                        }
+                                                    })}
                                                 />
-                                            )}
-                                        />
-                                        <ErrorMessage
-                                            errors={errors}
-                                            name="phone_number"
-                                            render={({messages}) =>
-                                                messages &&
-                                                Object.entries(messages).map(([type, message]) => (
-                                                    <p
-                                                        className="text-danger mx-5 mb-1 "
-                                                        style={{fontSize: '14px'}}
-                                                        key={type}
-                                                    >
-                                                        {message}
-                                                    </p>
-                                                ))
-                                            }
-                                        />
+                                                <ErrorMessage
+                                                    errors={errors}
+                                                    name="birth_year"
+                                                    render={({messages}) =>
+                                                        messages &&
+                                                        Object.entries(messages).map(([type, message]) => (
+                                                            <p className="text-danger mb-1" style={{fontSize: '14px'}}
+                                                               key={type}>
+                                                                {message}
+                                                            </p>
+                                                        ))
+                                                    }
+                                                />
+                                            </Form.Group>
+                                        </Col>
+                                        <Col md="6">
+                                            <Form.Group className="mb-3">
+                                                <Form.Label htmlFor="phone_number">
+                                                    {t('registrationPage.phoneNumber')}
+                                                </Form.Label>
+                                                <Controller
+                                                    name="phone_number"
+                                                    control={control}
+                                                    rules={{
+                                                        validate: (value) =>
+                                                            isValidPhoneNumber(`${value}`) || t('registrationPage.phoneError'),
+                                                        required: t('registrationPage.required')
+                                                    }}
+                                                    render={({field: {onChange, value}}) => (
+                                                        <PhoneInput
+                                                            data-testid="phone-input"
+                                                            value={value}
+                                                            onChange={onChange}
+                                                            defaultCountry="LT"
+                                                            international
+                                                            id="phone_number"
+                                                        />
+                                                    )}
+                                                />
+                                                <ErrorMessage
+                                                    errors={errors}
+                                                    name="phone_number"
+                                                    render={({messages}) =>
+                                                        messages &&
+                                                        Object.entries(messages).map(([type, message]) => (
+                                                            <p
+                                                                className="text-danger mx-5 mb-1 "
+                                                                style={{fontSize: '14px'}}
+                                                                key={type}
+                                                            >
+                                                                {message}
+                                                            </p>
+                                                        ))
+                                                    }
+                                                />
+                                            </Form.Group>
+                                        </Col>
+                                    </Row>
+
+                                    <Form.Group className="mb-3">
+                                        <Form.Label htmlFor="activity">{t('registrationPage.activity')}</Form.Label>
+
+                                        <Form.Select
+                                            data-testid="activity-input"
+                                            name="activity"
+                                            id="activity"
+                                            size={1}
+                                            value={selectedActivity}
+                                            onChange={handleChangeActivity}
+                                        >
+                                            <option value="freelanceWorker">{t('registrationPage.work1')}</option>
+                                            <option value="mediaWorker">{t('registrationPage.work2')}</option>
+                                        </Form.Select>
+
+                                        {selectedActivity === 'mediaWorker' && (
+                                            <>
+                                                <Form.Label htmlFor="media_name" className="mt-3">
+                                                    {t('registrationPage.mediaName')}
+                                                </Form.Label>
+                                                <Form.Control
+                                                    data-testid="media-name-input"
+                                                    id="media_name"
+                                                    as="textarea"
+                                                    {...register('media_name', {
+                                                        required: t('registrationPage.required'),
+                                                        maxLength: {
+                                                            value: 50,
+                                                            message: t('registrationPage.mediaNameMaxLength')
+                                                        }
+                                                    })}
+                                                ></Form.Control>
+                                                <ErrorMessage
+                                                    errors={errors}
+                                                    name="media_name"
+                                                    render={({messages}) =>
+                                                        messages &&
+                                                        Object.entries(messages).map(([type, message]) => (
+                                                            <p className="text-danger mb-1" style={{fontSize: '14px'}}
+                                                               key={type}>
+                                                                {message}
+                                                            </p>
+                                                        ))
+                                                    }
+                                                />
+                                            </>
+                                        )}
                                     </Form.Group>
-                                </Col>
-                            </Row>
-
-                            <Form.Group className="mb-3">
-                                <Form.Label htmlFor="activity">{t('registrationPage.activity')}</Form.Label>
-
-                                <Form.Select
-                                    data-testid="activity-input"
-                                    name="activity"
-                                    id="activity"
-                                    size={1}
-                                    value={selectedActivity}
-                                    onChange={handleChangeActivity}
-                                >
-                                    <option value="freelanceWorker">{t('registrationPage.work1')}</option>
-                                    <option value="mediaWorker">{t('registrationPage.work2')}</option>
-                                </Form.Select>
-
-                                {selectedActivity === 'mediaWorker' && (
-                                    <>
-                                        <Form.Label htmlFor="media_name" className="mt-3">
-                                            {t('registrationPage.mediaName')}
-                                        </Form.Label>
-                                        <Form.Control
-                                            data-testid="media-name-input"
-                                            id="media_name"
-                                            as="textarea"
-                                            {...register('media_name', {
-                                                required: t('registrationPage.required'),
-                                                maxLength: {
-                                                    value: 50,
-                                                    message: t('registrationPage.mediaNameMaxLength')
-                                                }
-                                            })}
-                                        ></Form.Control>
-                                        <ErrorMessage
-                                            errors={errors}
-                                            name="media_name"
-                                            render={({messages}) =>
-                                                messages &&
-                                                Object.entries(messages).map(([type, message]) => (
-                                                    <p className="text-danger mb-1" style={{fontSize: '14px'}}
-                                                       key={type}>
-                                                        {message}
-                                                    </p>
-                                                ))
-                                            }
-                                        />
-                                    </>
-                                )}
-                            </Form.Group>
-                            <Form.Group className="mb-3">
-                                <Form.Check
-                                    data-testid="agreement-input"
-                                    type="checkbox"
-                                    id="user_agreement"
-                                    name="user_agreement"
-                                    label={t('registrationPage.userAgreement')}
-                                    htmlFor="user_agreement"
-                                    {...register('user_agreement', {required: t('registrationPage.required')})}
-                                />
-                                {errors.user_agreement && (
-                                    <Form.Text className="text-danger">{errors.user_agreement.message}</Form.Text>
-                                )}
-                            </Form.Group>
+                                </>
+                            )}
 
                             <Button variant="secondary" type="submit" data-testid="submit-button">
-                                {t('registrationPage.button')}
+                                {t('adminManageUsersPage.button')}
                             </Button>
                         </Form>
                     </Col>
@@ -452,5 +487,4 @@ const RegistrationForm = () => {
         </>
     );
 };
-
-export default RegistrationForm;
+export default AdminCreateUserForm;
