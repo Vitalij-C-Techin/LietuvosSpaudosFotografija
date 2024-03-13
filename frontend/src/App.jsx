@@ -1,9 +1,9 @@
-import {I18nextProvider} from 'react-i18next';
+import { I18nextProvider } from 'react-i18next';
 import i18n from './modules/language/i18n.jsx';
 
-import {AuthProvider} from './components/context/AuthContext.jsx';
+import { AuthProvider } from './components/context/AuthContext.jsx';
 
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import NavigationBar from './components/parts/NavigationBar.jsx';
 import HomePage from './components/pages/HomePage';
@@ -21,8 +21,8 @@ import CompetitionManagementPage from './components/pages/adminPages/Competition
 
 import { Authorization } from './components/utils/Authorization.jsx';
 import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx';
-import AdminManageUsersPage from "./components/pages/AdminManageUsersPage.jsx";
-import AdminCreateUserPage from "./components/pages/AdminCreateUserPage.jsx";
+import AdminManageUsersPage from './components/pages/AdminManageUsersPage.jsx';
+import AdminCreateUserPage from './components/pages/AdminCreateUserPage.jsx';
 import CreateCompetition from './components/pages/adminPages/CreateCompetitionPage.jsx';
 
 function App() {
