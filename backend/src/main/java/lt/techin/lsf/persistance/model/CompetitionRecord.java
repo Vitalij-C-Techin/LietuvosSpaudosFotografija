@@ -1,7 +1,11 @@
 package lt.techin.lsf.persistance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lt.techin.lsf.model.Competition;
 
 import java.sql.Timestamp;
@@ -55,10 +59,11 @@ public class CompetitionRecord {
     @Enumerated(STRING)
     private Competition.Visibility visibility;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "competitionRecord",
             cascade = {CascadeType.DETACH, CascadeType.MERGE,
-                    CascadeType.PERSIST, CascadeType.REFRESH},
-            fetch = FetchType.LAZY)
+                    CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}
+    )
     private List<CategoryRecord> categoryRecordList;
 
     public CompetitionRecord setupNewCompetition() {

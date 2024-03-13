@@ -1,45 +1,109 @@
 import { useEffect, useState } from 'react';
-import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import ModalInfo from '../modals/ModalInfo';
+import axios from 'axios';
+import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
+
+import Config from '../config/Config';
+import { useAuth } from '../context/AuthContext';
+import Competition from '../utils/Competition';
 
 import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
+
+import ModalInfo from '../modals/ModalInfo';
 import ModalContentCompetitionParticipation from '../modals/ModalContentCompetitionParticipation';
 
 const UserCompetitionsRequestPage = () => {
   const [t] = useTranslation();
+  const { getUserData, getTokenHeader } = useAuth();
+
+  const [requestData, setRequestData] = useState(null);
+  const [competitionsPage, setCompetitionsPage] = useState(0);
 
   const [competitions, setCompetitions] = useState(null);
   const [competition, setCompetition] = useState(false);
+
   const [isLoading, setIsLoading] = useState(true);
+  const [modalState, setModalState] = useState(false);
 
-  const onDetails = (competition) => {
-    console.log('Competition details');
+  const removeCompetitions = (uuid) => {
+    const list = competitions.filter((comp) => {
+      return comp.uuid !== competition.uuid;
+    });
 
-    setCompetition(competition);
+    if (!!list.length) {
+      setCompetitions(list);
+
+      return;
+    }
+
+    setCompetitions(null);
   };
 
-  const onParticipate = () => {
-    console.log('Request to participate');
+  const onDetails = (competition) => {
+    setCompetition(competition);
+    setModalState(true);
+  };
 
-    setCompetition(null);
+  const onParticipate = (competition) => {
+    const url = Config.apiDomain + Config.endpoints.participation.create;
+
+    const body = {
+      user_uuid: getUserData().uuid,
+      competition_uuid: competition.uuid
+    };
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .post(url, body, cfg)
+      .then((response) => {
+        setModalState(false);
+
+        removeCompetitions(competition.uuid);
+      })
+      .catch((error) => {
+        console.log('Error: ', error);
+      });
   };
 
   const onModalClose = () => {
-    setCompetition(null);
-  };
-
-  const ModalArgs = {
-    show: !!competition,
-    onClose: onModalClose
+    setModalState(false);
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      setCompetitions([{}, {}, {}]);
-      setIsLoading(false);
-    }, 1500);
+    let url = Config.apiDomain + Config.endpoints.competitions.userParticipate;
+    url = url.replace('{page}', competitionsPage);
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .get(url, cfg)
+      .then((response) => {
+        setRequestData(response.data);
+
+        if (!response.data.empty) {
+          setCompetitions(response.data.content);
+        } else {
+          setCompetitions(null);
+        }
+      })
+      .catch((error) => {
+        console.log('Error: ', error);
+
+        setCompetitions(null);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -58,7 +122,7 @@ const UserCompetitionsRequestPage = () => {
         <CompetitionList competitions={competitions} onDetails={onDetails} />
       )}
 
-      <ModalInfo args={ModalArgs}>
+      <ModalInfo show={modalState} onHide={onModalClose}>
         <ModalContentCompetitionParticipation
           competition={competition}
           onParticipate={onParticipate}
@@ -92,11 +156,19 @@ const CompetitionList = ({ competitions, onDetails }) => {
 };
 
 const CompetitionSingle = ({ competition, onDetails }) => {
+  const c = new Competition(competition);
+
+  const handleOnDetails = () => {
+    onDetails(competition);
+  };
+
   return (
     <tr>
       <td className="col-4">
-        Competition name
-        <div>Date: 2024.01.01 - 2024.03.01 </div>
+        {c.getName()}
+        <div>
+          {c.getStartDate()} - {c.getEndDate()}
+        </div>
       </td>
       <td className="col-12">Categories</td>
       <td>
@@ -104,7 +176,7 @@ const CompetitionSingle = ({ competition, onDetails }) => {
           <Button
             variant="outline-primary"
             className="align-content-center d-inline-flex"
-            onClick={onDetails}
+            onClick={handleOnDetails}
           >
             <span className="material-icons">visibility</span>
           </Button>

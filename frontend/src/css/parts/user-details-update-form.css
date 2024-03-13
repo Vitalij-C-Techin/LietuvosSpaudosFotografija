@@ -1,0 +1,47 @@
+.user-details-update-form-container {
+  font-family: "Montserrat", sans-serif;
+}
+.user-details-update-form-container h2 {
+  font-weight: 900;
+}
+.user-details-update-form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+.user-details-update-form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.user-details-update-form-container input,
+.user-details-update-form-container textarea,
+.user-details-update-form-container select,
+.user-details-update-form-container .form-check-input {
+  border-radius: 0%;
+  border: 0.2em solid black;
+}
+.user-details-update-form-container .PhoneInputInput {
+  padding: 6px;
+  border: solid;
+  border-color: black;
+}
+.user-details-update-form-container:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(131, 130, 130);
+  border-color: rgb(206, 203, 203);
+}
+.user-details-update-form-container .form-check-input:checked {
+  background-color: gray;
+  border-color: rgb(206, 203, 203);
+  border-radius: 0%;
+}
+.user-details-update-form-container select {
+  border-radius: 0%;
+  border: 0.2em solid black;
+}/*# sourceMappingURL=user-details-update-form.css.map */

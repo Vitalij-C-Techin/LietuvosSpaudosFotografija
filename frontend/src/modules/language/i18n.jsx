@@ -46,8 +46,17 @@ i18n
             serverErrorMessage: 'An error occurred. Please try again later.',
             formPlaceholderText: 'Enter your email here',
             recoverButton: 'SUBMIT'
+            recoverButton: 'SUBMIT'
           },
           passwordChangePage: {
+            passwordChangeSuccessful: 'Password Changed Successfully',
+            emailError: 'An error occurred. Please try again later.',
+            title: 'Password change',
+            newPassword: 'New password',
+            newPasswordPlaceholder: 'new password',
+            required: 'This field is required.',
+            passwordMinLength: 'Password must be at least 8 characters long.',
+            passwordMaxLength: 'Password must not exceed 60 characters.',
             passwordChangeSuccessful: 'Password Changed Successfully',
             emailError: 'An error occurred. Please try again later.',
             title: 'Password change',
@@ -59,6 +68,11 @@ i18n
             passwordPattern: `Password must contain at least one uppercase letter, 
                             one lowercase letter, 
                             one digit, and can include special characters.`,
+            confirmNewPassword: 'Confirm Password',
+            confirmNewPasswordPlaceholder: 'confirm',
+            passwordNotMatch:
+              'The entered passwords do not match. Please make sure both passwords are identical.',
+            button: 'Change Password'
             confirmNewPassword: 'Confirm Password',
             confirmNewPasswordPlaceholder: 'confirm',
             passwordNotMatch:
@@ -133,13 +147,53 @@ i18n
             birthYear: 'Birth year',
             phoneNumber: 'Phone number',
             media: 'Media',
-            createdAt: 'Created at'
+            createdAt: 'Created at',
+            updateProfile: 'Update Profile'
           },
           userCompetitionPage: {
             title: 'My Competitions',
             competitionName: 'Competition',
             competitionCategories: 'Categories',
             participateCompetition: 'Participate in competition'
+          },
+          userDetailsUpdateForm: {
+            title: 'Edit profile',
+            userIsNotLoggedIn: 'User is not logged in',
+            name: 'Name',
+            surname: 'Surname',
+            email: 'Email',
+            birthYear: 'Birth year',
+            phoneNumber: 'Phone number',
+            phoneError: 'Invalid phone number.',
+            media: 'Media',
+            button: 'SAVE',
+            namePlaceholder: 'Enter your name',
+            surnamePlaceholder: 'Enter your surname',
+            birthYearPlaceholder: 'e.g. 1990',
+            phoneNumberPlaceholder: 'e.g. +37060000000',
+            mediaPlaceholder: 'Enter media name',
+            required: 'This field is required.',
+            nameMinLength: 'Name must contain at least 2 characters.',
+            nameMaxLength: 'Name must contain less than 50 characters.',
+            namePattern: 'Name must contain only letters.',
+            surnameMinLength: 'Surname must contain at least 2 characters.',
+            surnameMaxLength: 'Surname must contain less than 50 characters.',
+            surnamePattern: 'Surname must contain only letters.',
+            successMessageSetData: 'User data updated successfully.',
+            errorMessageSetData: 'Failed to update user data. Please try again later.',
+            successMessageGetData: 'User data loaded successfully.',
+            errorMessageGetData: 'Failed to load user data. Please try again later.',
+            emailPattern: 'Email address does not mach the pattern.',
+            birthYearMax: 'Only individuals who are born can register.',
+            birthYearMin: 'Only persons younger than 120 years can register.',
+            birthYearLength: 'Birth year must contain 4 digits.',
+            mediaNameMaxLength: 'Must contain less than 50 characters.',
+            mediaName: 'Name of media you represent',
+            mediaNamePattern:
+              'Media name must not start or end with a space, be empty, or be only spaces.',
+            activity: 'State of work',
+            work1: 'Freelancer',
+            work2: 'Media worker'
           },
           adminCompetitionPage: {
             title: 'Competition management',
@@ -249,12 +303,13 @@ i18n
           forgotPasswordForm: {
             emailFound:
               'El. paštas rastas mūsų duomenų bazėje, slaptažodžio atkūrimo nuoroda bus išsiųsta.',
-            emailSendingError: 'Klaida siunčiant slaptažodžio atkūrimo el. laišką.',
+            emailSendingError: 'Klaida siunčiant slaptažodžio atkūrimo el. laišką',
             userNotFound: 'Vartotojas su el. paštu {{email}} nerastas mūsų duomenų bazėje.',
             resetPassword: 'ATKURTI SLAPTAŽODĮ',
             required: 'Šis laukas privalomas.',
             serverErrorMessage: 'Įvyko klaida. Prašome bandyti vėliau.',
             formPlaceholderText: 'Įveskite savo el. paštą čia',
+            recoverButton: 'PATEIKTI'
             recoverButton: 'PATEIKTI'
           },
           passwordChangePage: {
@@ -266,9 +321,22 @@ i18n
             required: 'Šis laukas privalomas.',
             passwordMinLength: 'Slaptažodis turi būti bent 8 simbolių ilgio.',
             passwordMaxLength: 'Slaptažodis negali viršyti 60 simbolių.',
+            passwordChangeSuccessful: 'Slaptažodis pakeistas sėkmingai',
+            emailError: 'Įvyko klaida. Prašome bandyti vėliau.',
+            title: 'Slaptažodžio pakeitimas',
+            newPassword: 'Naujas slaptažodis',
+            newPasswordPlaceholder: 'naujas slaptažodis',
+            required: 'Šis laukas privalomas.',
+            passwordMinLength: 'Slaptažodis turi būti bent 8 simbolių ilgio.',
+            passwordMaxLength: 'Slaptažodis negali viršyti 60 simbolių.',
             passwordPattern: `Slaptažodis turi turėti bent vieną didžiąją raidę, 
                               vieną mažąją raidę, 
                               vieną skaitmenį ir gali būti su specialiais simboliais.`,
+            confirmNewPassword: 'Patvirtinti',
+            confirmNewPasswordPlaceholder: 'patvirtinti',
+            passwordNotMatch:
+              'Įvesti slaptažodžiai nesutampa. Prašome įsitikinti, kad abu slaptažodžiai yra identiški.',
+            button: 'Pakeisti slaptažodį'
             confirmNewPassword: 'Patvirtinti',
             confirmNewPasswordPlaceholder: 'patvirtinti',
             passwordNotMatch:
@@ -343,7 +411,8 @@ i18n
             birthYear: 'Gimimo metai',
             phoneNumber: 'Telefono numeris',
             media: 'Žiniasklaida',
-            createdAt: 'Sukurta'
+            createdAt: 'Sukurta',
+            updateProfile: 'Redaguoti profilį'
           },
           userCompetitionPage: {
             title: 'Mano konkursai',
@@ -351,6 +420,46 @@ i18n
             competitionCategories: 'Kategorijos',
             participateCompetition: 'Dalyvauti konkurse'
           },
+          userDetailsUpdateForm: {
+            title: 'Redaguoti profilį',
+            userIsNotLoggedIn: 'Esate neprisijungęs',
+            name: 'Vardas',
+            surname: 'Pavardė',
+            email: 'El. paštas',
+            birthYear: 'Gimimo metai',
+            phoneNumber: 'Telefono numeris',
+            phoneError: 'Netinkamas telefono numeris.',
+            media: 'Žiniasklaida',
+            button: 'IŠSAUGOTI',
+            namePlaceholder: 'Įveskite savo vardą',
+            surnamePlaceholder: 'Įveskite savo pavardę',
+            birthYearPlaceholder: 'pvz. 1990',
+            phoneNumberPlaceholder: 'pvz. +37060000000',
+            mediaPlaceholder: 'Įveskite žiniasklaidos pavadinimą',
+            required: 'Šis laukas privalomas.',
+            nameMinLength: 'Vardą turi sudaryti bent 2 simboliai.',
+            nameMaxLength: 'Vardą turi sudaryti mažiau nei 50 simbolių.',
+            namePattern: 'Vardą turi sudaryti tik raidės.',
+            surnameMinLength: 'Pavardę turi sudaryti bent 2 simboliai.',
+            surnameMaxLength: 'Pavardę turi sudaryti mažiau nei 50 simbolių.',
+            surnamePattern: 'Pavardę turi sudaryti tik raidės.',
+            successMessageSetData: 'Vartotojo duomenys atnaujinti sėkmingai.',
+            errorMessageSetData: 'Nepavyko atnaujinti vartotojo duomenų. Prašome bandyti vėliau.',
+            successMessageGetData: 'Vartotojo duomenys įkelti sėkmingai.',
+            errorMessageGetData: 'Nepavyko įkelti vartotojo duomenų. Prašome bandyti vėliau.',
+            emailPattern: 'Elektroninio pašto adresas neatitinka formato.',
+            birthYearMax: 'Gali registruotis tik gimusieji.',
+            birthYearMin: 'Gali registruotis ne vyresni nei 120 metų asmenys.',
+            birthYearLength: 'Gimimo metus turi sudaryti 4 skaitmenys.',
+            mediaNameMaxLength: 'Turi sudaryti ne daugiau kaip 50 simbolių.',
+            mediaName: 'Žiniasklaidos pavadinimas',
+            mediaNamePattern:
+              'Žiniasklaidos pavadinimas negali prasidėti arba baigtis tarpais, būti tuščias arba būti tik iš tarpų.',
+            activity: 'Veiklos sritis',
+            work1: 'Laisvai samdomas',
+            work2: 'Atstovaujama žiniasklaidos priemonė'
+          },
+
           adminCompetitionPage: {
             title: 'Konkursų valdymas',
             viewParticipantRequest: 'Peržiūrėti dalyvio užklausą',

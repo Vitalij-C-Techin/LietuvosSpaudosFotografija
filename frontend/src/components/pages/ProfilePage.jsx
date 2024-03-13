@@ -1,6 +1,7 @@
 import { useTransition } from 'react';
 import { useAuth } from '../context/AuthContext';
-
+import { Button } from 'react-bootstrap';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { Authentication, IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication';
@@ -52,6 +53,9 @@ const ProfilePage = () => {
               </p>
             </>
           )}
+          <Button as={NavLink} to="/profile/edit">
+            {t('profile.updateProfile')}
+          </Button>
         </IsAuthenticated>
       </Container>
     </>

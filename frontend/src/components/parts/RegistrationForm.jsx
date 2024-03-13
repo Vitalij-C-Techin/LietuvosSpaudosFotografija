@@ -1,14 +1,22 @@
 import { useEffect, useState } from 'react';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import { useEffect, useState } from 'react';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import { Controller, useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate } from 'react-router-dom';
+import Config from '../config/Config';
 
 const RegistrationForm = () => {
+  const { t, i18n } = useTranslation();
+  const [selectedActivity, setSelectedActivity] = useState(``);
+  const [emailError, setEmailError] = useState('');
+  const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [selectedActivity, setSelectedActivity] = useState(``);
   const [emailError, setEmailError] = useState('');
@@ -34,15 +42,38 @@ const RegistrationForm = () => {
     },
     criteriaMode: 'all'
   });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+    clearErrors
+  } = useForm({
+    reValidateMode: 'onChange',
+    defaultValues: {
+      name: '',
+      surname: '',
+      birth_year: '',
+      phone_number: '',
+      email: '',
+      password: '',
+      media_name: ''
+    },
+    criteriaMode: 'all'
+  });
 
+  const password = watch('password');
   const password = watch('password');
 
   const handleFormSubmit = async (formData) => {
     setEmailError('');
     clearErrors();
 
+    const url = Config.apiDomain + Config.endpoints.auth.registration;
+
     axios
-      .post('http://localhost:8080/api/v1/register', formData)
+      .post(url, formData)
       .then((response) => {
         alert(t('registrationPage.registerSuccessful'));
         navigate('/login');

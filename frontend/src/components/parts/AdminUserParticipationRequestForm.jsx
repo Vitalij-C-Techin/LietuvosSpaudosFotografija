@@ -4,19 +4,97 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
+import Config from '../config/Config';
+import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
+import User from '../utils/User';
+import Competition from '../utils/Competition';
 
 const AdminUserParticipationRequestForm = () => {
   const [t] = useTranslation();
+  const { getTokenHeader } = useAuth();
+
+  const [requestData, setRequestData] = useState(null);
+  const [userRequestsPage, setUserRequestsPage] = useState(0);
 
   const [userRequests, setUserRequests] = useState(null);
+
   const [isLoading, setIsLoading] = useState(true);
 
+  const removeUserRequest = (uuid) => {
+    const list = userRequests.filter((req) => {
+      return req.request.uuid != uuid;
+    });
+
+    if (!!list.length) {
+      setUserRequests(list);
+
+      return;
+    }
+
+    setUserRequests(null);
+  };
+
+  const updateRequest = (request, status) => {
+    let url = Config.apiDomain + Config.endpoints.participation.update;
+    url = url.replace('{uuid}', request.request.uuid);
+
+    const body = {
+      status
+    };
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .put(url, body, cfg)
+      .then((response) => {
+        removeUserRequest(request.request.uuid);
+      })
+      .catch((e) => {
+        console.log('Error: ', e);
+      });
+  };
+
+  const onPermit = (request) => {
+    updateRequest(request, 'PERMIT');
+  };
+
+  const onReject = (request) => {
+    updateRequest(request, 'REJECT');
+  };
+
   useEffect(() => {
-    setTimeout(() => {
-      setUserRequests([{}, {}, {}]);
-      setIsLoading(false);
-    }, 1500);
-  }, []);
+    let url = Config.apiDomain + Config.endpoints.participation.pending;
+    url = url.replace('{page}', userRequestsPage);
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .get(url, cfg)
+      .then((response) => {
+        setRequestData(response.data);
+
+        if (!response.data.empty) {
+          setUserRequests(response.data.content);
+        } else {
+          setUserRequests(null);
+        }
+      })
+      .catch((error) => {
+        console.log('Error: ', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, [userRequestsPage]);
 
   return (
     <>
@@ -30,16 +108,25 @@ const AdminUserParticipationRequestForm = () => {
 
       {!!!isLoading && !!!userRequests && <EmptyMessage />}
 
-      {!!!isLoading && !!userRequests && <UserRequestList userRequests={userRequests} />}
+      {!!!isLoading && !!userRequests && (
+        <UserRequestList userRequests={userRequests} onPermit={onPermit} onReject={onReject} />
+      )}
     </>
   );
 };
 
-const UserRequestList = ({ userRequests }) => {
+const UserRequestList = ({ userRequests, onPermit, onReject }) => {
   const [t] = useTranslation();
 
   const list = userRequests.map((userRequest, i) => {
-    return <UserRequestSingle userRequest={userRequest} key={i} />;
+    return (
+      <UserRequestSingle
+        userRequest={userRequest}
+        onPermit={onPermit}
+        onReject={onReject}
+        key={i}
+      />
+    );
   });
 
   return (
@@ -58,31 +145,34 @@ const UserRequestList = ({ userRequests }) => {
   );
 };
 
-const UserRequestSingle = ({ userRequest }) => {
+const UserRequestSingle = ({ userRequest, onPermit, onReject }) => {
   const [t] = useTranslation();
 
+  const user = new User(userRequest.user);
+  const competition = new Competition(userRequest.competition.data);
+
   const handleInfo = () => {
-    console.log('Handle Info');
+    console.log('Handle Info', user, competition);
   };
 
   const handleConfirm = () => {
-    console.log('Handle Confirm');
+    onPermit(userRequest);
   };
 
   const handleRefuse = () => {
-    console.log('Handle Refuse');
+    onReject(userRequest);
   };
 
   return (
     <tr>
       <td className="col-4">
-        <Link to="#link-to-user?" target="_blank">
-          Username Usersurname
+        <Link to={user.getAdminUrl()} target="_blank">
+          {user.getName()} {user.getSurname()}
         </Link>
       </td>
       <td className="col-12">
-        <Link to="#link-to-competition?" target="_blank">
-          Competition name
+        <Link to={competition.getAdminUrl()} target="_blank">
+          {competition.getName()}
         </Link>
       </td>
       <td>
