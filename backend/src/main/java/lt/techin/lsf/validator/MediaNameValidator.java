@@ -16,5 +16,3 @@ public class MediaNameValidator implements ConstraintValidator<ValidMediaNameCon
         return mediaName.length() <= MAX_MEDIA_NAME_LENGTH;
     }
 }
-
-

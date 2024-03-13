@@ -6,12 +6,12 @@ const Config = {
   endpoints: {
     auth: {
       registration: '/api/v1/register',
-      login: '/api/v1/login',
+      login: '/api/v1/login'
     },
     participation: {
-      create: "/api/v1/participation",
-      update: "/api/v1/participation/{uuid}",
-      pending: "/api/v1/participation/all/pending/{page}"
+      create: '/api/v1/participation',
+      update: '/api/v1/participation/{uuid}',
+      pending: '/api/v1/participation/all/pending/{page}'
     },
     competitions: {
       adminAll: '/api/v1/competition/all/{page}',
@@ -20,6 +20,10 @@ const Config = {
     },
     user: {
       byUuid: '/api/v1/user/{uuid}'
+    },
+    userDetailsEdit: {
+      getByUuid: '/api/v1/user/{uuid}',
+      updateByUuid: '/api/v1/user/{uuid}/profile'
     }
   }
 };

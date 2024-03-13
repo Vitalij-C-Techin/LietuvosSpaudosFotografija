@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 
 import NavigationBar from './components/parts/NavigationBar.jsx';
 import HomePage from './components/pages/HomePage';
+import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import RegistrationPage from './components/pages/RegistrationPage.jsx';
 import LoginPage from './components/pages/LoginPage';
 import ForgotPasswordPage from './components/pages/ForgotPasswordPage';
@@ -17,8 +18,9 @@ import AdminCompetitionsListPage from './components/pages/AdminCompetitionsListP
 import AdminUserParticipationRequestPage from './components/pages/AdminUserParticipationRequestPage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
 import CompetitionManagementPage from './components/pages/CompetitionManagementPage.jsx';
-import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
+
 import { Authorization } from './components/utils/Authorization.jsx';
+import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx';
 
 function App() {
   return (
@@ -37,6 +39,7 @@ function App() {
 
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/profile/:uuid" element={<ProfilePage />} />
+            <Route path="/profile/edit" element={<UserDetailsUpdatePage />} />
 
             <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
             <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
