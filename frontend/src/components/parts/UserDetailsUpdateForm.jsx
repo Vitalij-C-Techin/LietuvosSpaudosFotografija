@@ -42,6 +42,7 @@ const UserDetailsUpdateForm = () => {
 
   useEffect(() => {
     const fetchUserData = () => {
+      console.log('fetchUserData');
       setLoading(true);
       const token = getToken();
       axios
@@ -335,7 +336,9 @@ const UserDetailsUpdateForm = () => {
                               <PhoneInput
                                 data-testid="phone-input"
                                 value={value}
-                                onChange={onChange}
+                                onChange={(newValue) => {
+                                  onChange(newValue || '');
+                                }}
                                 defaultCountry="LT"
                                 international
                                 id="phone_number"
