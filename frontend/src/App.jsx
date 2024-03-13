@@ -47,7 +47,7 @@ function App() {
             <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
             <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
 
-            <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
+            <Route path="/admin-competition-list" element={<AdminCompetitionsListPage />} />
             <Route
               path="/admin-user-participation-requests"
               element={<AdminUserParticipationRequestPage />}
