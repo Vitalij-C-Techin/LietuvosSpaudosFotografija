@@ -9,6 +9,7 @@ import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import User from '../utils/User';
 import Competition from '../utils/Competition';
+import Pagination from '../parts/Pagination';
 
 const AdminUserParticipationRequestForm = () => {
   const [t] = useTranslation();
@@ -21,53 +22,9 @@ const AdminUserParticipationRequestForm = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const removeUserRequest = (uuid) => {
-    const list = userRequests.filter((req) => {
-      return req.request.uuid != uuid;
-    });
+  const updateList = () => {
+    setIsLoading(true);
 
-    if (!!list.length) {
-      setUserRequests(list);
-
-      return;
-    }
-
-    setUserRequests(null);
-  };
-
-  const updateRequest = (request, status) => {
-    let url = Config.apiDomain + Config.endpoints.participation.update;
-    url = url.replace('{uuid}', request.request.uuid);
-
-    const body = {
-      status
-    };
-
-    const cfg = {
-      headers: {
-        ...(getTokenHeader() || {})
-      }
-    };
-
-    axios
-      .put(url, body, cfg)
-      .then((response) => {
-        removeUserRequest(request.request.uuid);
-      })
-      .catch((e) => {
-        console.log('Error: ', e);
-      });
-  };
-
-  const onPermit = (request) => {
-    updateRequest(request, 'PERMIT');
-  };
-
-  const onReject = (request) => {
-    updateRequest(request, 'REJECT');
-  };
-
-  useEffect(() => {
     let url = Config.apiDomain + Config.endpoints.participation.pending;
     url = url.replace('{page}', userRequestsPage);
 
@@ -84,16 +41,66 @@ const AdminUserParticipationRequestForm = () => {
 
         if (!response.data.empty) {
           setUserRequests(response.data.content);
-        } else {
-          setUserRequests(null);
+
+          return;
         }
+
+        if (0 < userRequestsPage) {
+          setUserRequestsPage(userRequestsPage - 1);
+
+          return;
+        }
+
+        setUserRequests(null);
       })
       .catch((error) => {
-        console.log('Error: ', error);
+        console.error('Error: ', error);
+
+        setUserRequests(null);
       })
       .finally(() => {
         setIsLoading(false);
       });
+  };
+
+  const onPageChange = (e, page) => {
+    setUserRequestsPage(page - 1);
+  };
+
+  const updateRequestStatus = (request, status) => {
+    let url = Config.apiDomain + Config.endpoints.participation.update;
+    url = url.replace('{uuid}', request.request.uuid);
+
+    const body = {
+      status
+    };
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .put(url, body, cfg)
+      .then((response) => {
+        updateList();
+      })
+      .catch((e) => {
+        console.error('Error: ', e);
+      });
+  };
+
+  const onPermit = (request) => {
+    updateRequestStatus(request, 'PERMIT');
+  };
+
+  const onReject = (request) => {
+    updateRequestStatus(request, 'REJECT');
+  };
+
+  useEffect(() => {
+    updateList();
   }, [userRequestsPage]);
 
   return (
@@ -110,6 +117,10 @@ const AdminUserParticipationRequestForm = () => {
 
       {!!!isLoading && !!userRequests && (
         <UserRequestList userRequests={userRequests} onPermit={onPermit} onReject={onReject} />
+      )}
+
+      {!!requestData && (
+        <Pagination totalPages={requestData.totalPages} onPageChange={onPageChange} />
       )}
     </>
   );

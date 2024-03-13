@@ -35,7 +35,6 @@ function App() {
             <Route path="/" element={<HomePage />} />
 
             <Route path="/login" element={<LoginPage />} />
-
             <Route path="/registration" element={<RegistrationPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
             <Route path="/change-password" element={<PasswordChangePage />} />
@@ -49,17 +48,17 @@ function App() {
 
             <Route element={<Authorization allowedRoles={'ADMIN'} />}>
               <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
+
+              <Route path="/create-competition" element={<CreateCompetition />} />
+              <Route path="/admin-competition-edit/:uuid" element={<CompetitionManagementPage />} />
+
               <Route
                 path="/admin-user-participation-requests"
                 element={<AdminUserParticipationRequestPage />}
               />
-              <Route path="/create-competition" element={<CreateCompetition />} />
-              <Route path="/admin-competition-edit/:uuid" element={<CompetitionManagementPage />} />
+
               <Route path="/admin-manage-users" element={<AdminManageUsersPage />} />
               <Route path="/admin-create-user" element={<AdminCreateUserPage />} />
-            </Route>
-            <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
-              <Route path="/p" element={<ProfilePage />} />
             </Route>
 
             <Route path="/*" element={<ErrorPage />} />

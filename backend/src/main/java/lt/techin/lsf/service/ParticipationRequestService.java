@@ -86,7 +86,7 @@ public class ParticipationRequestService {
     public Page<ParticipationRequestResponse> getPendingRequest(int page) {
         return requestRepository.findByStatus(
                 ParticipationRequest.Status.PENDING,
-                PageRequest.of(page, 20)
+                PageRequest.of(page, CompetitionService.recordsPerPage)
         ).map((req) -> {
             return ParticipationRequestResponse.builder()
                     .request(req)

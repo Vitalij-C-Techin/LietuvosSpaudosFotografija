@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
+import { Container, Card, Row, Col, Button, Table } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import LoadingMessage from '../messages/LoadingMessage';
@@ -9,6 +9,7 @@ import EmptyMessage from '../messages/EmptyMessage';
 import { useAuth } from '../context/AuthContext';
 import Config from '../config/Config';
 import Competition from '../utils/Competition';
+import Pagination from '../parts/Pagination';
 
 const UserCompetitionsListPage = () => {
   const [t] = useTranslation();
@@ -21,7 +22,13 @@ const UserCompetitionsListPage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const onPageChange = (e, page) => {
+    setCompetitionsPage(page - 1);
+  };
+
   useEffect(() => {
+    setIsLoading(true);
+
     let url = Config.apiDomain + Config.endpoints.competitions.userActive;
     url = url.replace('{page}', competitionsPage);
 
@@ -38,19 +45,21 @@ const UserCompetitionsListPage = () => {
 
         if (!response.data.empty) {
           setCompetitions(response.data.content);
-        } else {
-          setCompetitions(null);
+
+          return;
         }
+
+        setCompetitions(null);
       })
       .catch((error) => {
-        console.log('Error: ', error);
+        console.error('Error: ', error);
 
         setCompetitions(null);
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [competitionsPage]);
 
   return (
     <>
@@ -67,6 +76,10 @@ const UserCompetitionsListPage = () => {
       {!!!isLoading && !!!competitions && <EmptyMessage />}
 
       {!!!isLoading && !!competitions && <CompetitionList competitions={competitions} />}
+
+      {!!requestData && (
+        <Pagination totalPages={requestData.totalPages} onPageChange={onPageChange} />
+      )}
     </>
   );
 };
