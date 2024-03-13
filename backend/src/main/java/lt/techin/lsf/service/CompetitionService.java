@@ -16,7 +16,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class CompetitionService {
-    private static final int recordsPerPage = 20;
+    public static final int recordsPerPage = 3;
 
     private final CompetitionRepository competitionRepository;
     private final AuthenticationService authenticationService;

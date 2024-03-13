@@ -9,6 +9,7 @@ import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
 import { useAuth } from '../context/AuthContext';
 import Competition from '../utils/Competition';
+import Pagination from '../parts/Pagination';
 
 const AdminCompetitionsListPage = () => {
   const [t] = useTranslation();
@@ -22,7 +23,13 @@ const AdminCompetitionsListPage = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
+  const onPageChange = (e, page) => {
+    setCompetitionsPage(page - 1);
+  };
+
   useEffect(() => {
+    setIsLoading(true);
+
     let url = Config.apiDomain + Config.endpoints.competitions.adminAll;
     url = url.replace('{page}', competitionsPage);
 
@@ -39,17 +46,21 @@ const AdminCompetitionsListPage = () => {
 
         if (!response.data.empty) {
           setCompetitions(response.data.content);
-        } else {
-          setCompetitions(null);
+
+          return;
         }
+
+        setCompetitions(null);
       })
       .catch((error) => {
+        console.error('Error: ', error);
+
         setCompetitions(null);
       })
       .finally(() => {
         setIsLoading(false);
       });
-  }, []);
+  }, [competitionsPage]);
 
   return (
     <>
@@ -66,6 +77,10 @@ const AdminCompetitionsListPage = () => {
       {!!!isLoading && !!!competitions && <EmptyMessage />}
 
       {!!!isLoading && !!competitions && <CompetitionList competitions={competitions} />}
+
+      {!!requestData && (
+        <Pagination totalPages={requestData.totalPages} onPageChange={onPageChange} />
+      )}
     </>
   );
 };

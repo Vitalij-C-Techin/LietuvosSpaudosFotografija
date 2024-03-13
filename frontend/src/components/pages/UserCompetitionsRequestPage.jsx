@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { Container, Card, Row, Col, Image, Button, Table } from 'react-bootstrap';
+import { Container, Card, Button, Table } from 'react-bootstrap';
 
 import Config from '../config/Config';
 import { useAuth } from '../context/AuthContext';
@@ -12,6 +12,7 @@ import EmptyMessage from '../messages/EmptyMessage';
 
 import ModalInfo from '../modals/ModalInfo';
 import ModalContentCompetitionParticipation from '../modals/ModalContentCompetitionParticipation';
+import Pagination from '../parts/Pagination';
 
 const UserCompetitionsRequestPage = () => {
   const [t] = useTranslation();
@@ -26,18 +27,50 @@ const UserCompetitionsRequestPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [modalState, setModalState] = useState(false);
 
-  const removeCompetitions = (uuid) => {
-    const list = competitions.filter((comp) => {
-      return comp.uuid !== competition.uuid;
-    });
+  const updateList = () => {
+    setIsLoading(true);
 
-    if (!!list.length) {
-      setCompetitions(list);
+    let url = Config.apiDomain + Config.endpoints.competitions.userParticipate;
+    url = url.replace('{page}', competitionsPage);
 
-      return;
-    }
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
 
-    setCompetitions(null);
+    axios
+      .get(url, cfg)
+      .then((response) => {
+        setRequestData(response.data);
+
+        if (!response.data.empty) {
+          setCompetitions(response.data.content);
+
+          return;
+        }
+
+        if (0 < competitionsPage) {
+          setCompetitionsPage(competitionsPage - 1);
+
+          return;
+        }
+
+        setCompetitions(null);
+      })
+      .catch((error) => {
+        console.error('Error: ', error);
+
+        setCompetitions(null);
+        setCompetition(null);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const onPageChange = (e, page) => {
+    setCompetitionsPage(page - 1);
   };
 
   const onDetails = (competition) => {
@@ -64,7 +97,7 @@ const UserCompetitionsRequestPage = () => {
       .then((response) => {
         setModalState(false);
 
-        removeCompetitions(competition.uuid);
+        updateList();
       })
       .catch((error) => {
         console.log('Error: ', error);
@@ -76,35 +109,8 @@ const UserCompetitionsRequestPage = () => {
   };
 
   useEffect(() => {
-    let url = Config.apiDomain + Config.endpoints.competitions.userParticipate;
-    url = url.replace('{page}', competitionsPage);
-
-    const cfg = {
-      headers: {
-        ...(getTokenHeader() || {})
-      }
-    };
-
-    axios
-      .get(url, cfg)
-      .then((response) => {
-        setRequestData(response.data);
-
-        if (!response.data.empty) {
-          setCompetitions(response.data.content);
-        } else {
-          setCompetitions(null);
-        }
-      })
-      .catch((error) => {
-        console.log('Error: ', error);
-
-        setCompetitions(null);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+    updateList();
+  }, [competitionsPage]);
 
   return (
     <>
@@ -120,6 +126,10 @@ const UserCompetitionsRequestPage = () => {
 
       {!!!isLoading && !!competitions && (
         <CompetitionList competitions={competitions} onDetails={onDetails} />
+      )}
+
+      {!!requestData && (
+        <Pagination totalPages={requestData.totalPages} onPageChange={onPageChange} />
       )}
 
       <ModalInfo show={modalState} onHide={onModalClose}>
