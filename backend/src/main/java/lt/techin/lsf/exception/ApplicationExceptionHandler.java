@@ -51,6 +51,17 @@ public class ApplicationExceptionHandler {
                 );
     }
 
+    @ExceptionHandler({CategoryExistsException.class})
+    protected ResponseEntity<ErrorResponse> handle(CategoryExistsException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
     @ExceptionHandler({NullPointerException.class})
     protected ResponseEntity<ErrorResponse> handle(NullPointerException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

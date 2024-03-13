@@ -8,4 +8,10 @@ import java.util.UUID;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryRecord, UUID> {
+
+    boolean existsByNameLtAndNameEnAndDescriptionLtAndDescriptionEnIgnoreCase(String nameLt,
+                                                                               String nameEn,
+                                                                               String descriptionLt,
+                                                                               String descriptionEn);
+
 }

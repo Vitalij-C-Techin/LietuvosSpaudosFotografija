@@ -1,6 +1,7 @@
 package lt.techin.lsf.service;
 
 import jakarta.persistence.EntityNotFoundException;
+import lt.techin.lsf.exception.CategoryExistsException;
 import lt.techin.lsf.model.Category;
 import lt.techin.lsf.model.mapper.CategoryRecordMapper;
 import lt.techin.lsf.model.requests.CategoryRequest;
@@ -28,6 +29,10 @@ public class CategoryService {
     }
 
     public Category createCategoryAndAddToCompetition(CompetitionRecord competitionRecord, CategoryRequest categoryRequest) {
+        if (hasCategory(categoryRequest)) {
+            throw new CategoryExistsException("Category exists");
+        }
+
         CategoryRecord categoryRecord = createCategoryRecord(categoryRequest, competitionRecord);
 
         return new Category(
@@ -92,5 +97,14 @@ public class CategoryService {
         categoryRecord.setPhotoSize(categoryRequest.getPhotoSize());
 
         return categoryRecord;
+    }
+
+    public boolean hasCategory(CategoryRequest categoryRequest) {
+        return categoryRepository.existsByNameLtAndNameEnAndDescriptionLtAndDescriptionEnIgnoreCase(
+                categoryRequest.getCategoryNameLt(),
+                categoryRequest.getCategoryNameEn(),
+                categoryRequest.getCategoryDescriptionLt(),
+                categoryRequest.getCategoryDescriptionEn()
+        );
     }
 }
