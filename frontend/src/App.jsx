@@ -1,9 +1,9 @@
-import { I18nextProvider } from 'react-i18next';
+import {I18nextProvider} from 'react-i18next';
 import i18n from './modules/language/i18n.jsx';
 
-import { AuthProvider } from './components/context/AuthContext.jsx';
+import {AuthProvider} from './components/context/AuthContext.jsx';
 
-import { Routes, Route } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 
 import NavigationBar from './components/parts/NavigationBar.jsx';
 import HomePage from './components/pages/HomePage';
@@ -21,6 +21,8 @@ import CompetitionManagementPage from './components/pages/CompetitionManagementP
 
 import { Authorization } from './components/utils/Authorization.jsx';
 import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx';
+import AdminManageUsersPage from "./components/pages/AdminManageUsersPage.jsx";
+import AdminCreateUserPage from "./components/pages/AdminCreateUserPage.jsx";
 
 function App() {
   return (
@@ -56,6 +58,9 @@ function App() {
 
             <Route path="/admin-competition-edit" element={<CompetitionManagementPage />} />
             <Route path="/admin-competition-edit/:uuid" element={<CompetitionManagementPage />} />
+
+            <Route path="/admin-manage-users" element={<AdminManageUsersPage />} />
+            <Route path="/admin-create-user" element={<AdminCreateUserPage />} />
 
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
