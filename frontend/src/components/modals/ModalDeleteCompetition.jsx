@@ -3,13 +3,9 @@ import { Modal, Button, Form, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-const ModalDeleteCompetition = ({ showModal, onClose }) => {
+const ModalDeleteCompetition = ({ showModal, onClose, confirmDelete }) => {
   const [t] = useTranslation();
   const navigate = useNavigate();
-
-  const handleDelete = () => {
-    navigate('/admin-competitions-list');
-  };
   return (
     <Modal show={showModal} onHide={onClose}>
       <Modal.Body>
@@ -21,7 +17,7 @@ const ModalDeleteCompetition = ({ showModal, onClose }) => {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleDelete}>
+        <Button variant="secondary" onClick={confirmDelete}>
           {t('modalCancel.confirm')}
         </Button>
         <Button variant="secondary" onClick={onClose}>

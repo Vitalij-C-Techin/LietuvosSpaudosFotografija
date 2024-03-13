@@ -1,5 +1,5 @@
 import i18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
+import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 const savedLanguage = localStorage.getItem('i18nextLng');
@@ -63,7 +63,7 @@ i18n
             confirmNewPasswordPlaceholder: 'confirm',
             passwordNotMatch:
               'The entered passwords do not match. Please make sure both passwords are identical.',
-            button: 'Change Password',
+            button: 'Change Password'
           },
           registrationPage: {
             passwordNotMatch: 'Passwords do not match!',
@@ -186,8 +186,7 @@ i18n
             title: 'Competition management',
             viewParticipantRequest: 'View participant request',
             createCompetition: 'Create competition',
-            competitionStartDate: 'Starting at:',
-            competitionEndDate: 'Ending at:',
+            competitionDates: 'Date',
             competitionView: 'View'
           },
           adminUserParticipationRequestPage: {
@@ -204,7 +203,7 @@ i18n
             moderator: 'Moderator',
             user: 'User',
             jury: 'Jury',
-            button: 'REGISTER',
+            button: 'REGISTER'
           },
           notificationMessages: {
             loading: 'Loading',
@@ -218,7 +217,7 @@ i18n
             competitionCategories: 'Categories',
             participate: 'Participate',
             registrationSuccess: 'Registration successful',
-            continue: "Continue"
+            continue: 'Continue'
           },
           editcomp: {
             valid: 'Please fill out the form before saving.',
@@ -254,7 +253,7 @@ i18n
             ask1: 'Are you sure you want to cancel Competition Creation?',
             ask2: 'All unsave progress will be lost!',
             ask3: 'Are you sure you want to delete this competition?',
-            ask4:"All progress will be lost",
+            ask4: 'All progress will be lost',
             confirm: 'Yes',
             closeButton: 'No'
           },
@@ -327,7 +326,7 @@ i18n
             confirmNewPasswordPlaceholder: 'patvirtinti',
             passwordNotMatch:
               'Įvesti slaptažodžiai nesutampa. Prašome įsitikinti, kad abu slaptažodžiai yra identiški.',
-            button: 'Pakeisti slaptažodį',
+            button: 'Pakeisti slaptažodį'
           },
           registrationPage: {
             passwordNotMatch: 'Slaptažodžiai nesutampa!',
@@ -451,8 +450,7 @@ i18n
             title: 'Konkursų valdymas',
             viewParticipantRequest: 'Peržiūrėti dalyvio užklausą',
             createCompetition: 'Sukurti konkursą',
-            competitionStartDate: 'Prasideda:',
-            competitionEndDate: 'Baigesi:',
+            competitionDates: 'Datos',
             competitionView: 'Peržiūrėti'
           },
           adminUserParticipationRequestPage: {
@@ -463,14 +461,13 @@ i18n
           adminManageUsersPage: {
             title: 'Naudotojo valdymas',
             addUser: 'Sukurti naudotoją',
-            role: "Rolė",
-            chooseRole: "Prašome pasirinkti rolę",
+            role: 'Rolė',
+            chooseRole: 'Prašome pasirinkti rolę',
             admin: 'Administratorius',
             moderator: 'Moderatorius',
             user: 'Naudotojas',
             jury: 'Vertintojas',
-            button: "REGISTRUOTI"
-
+            button: 'REGISTRUOTI'
           },
           notificationMessages: {
             loading: 'Vyksta duomenų įkėlimas',
@@ -484,7 +481,7 @@ i18n
             competitionCategories: 'Kategorijos',
             participate: 'Dalyvauti',
             registrationSuccess: 'Registracija sėkminga',
-            continue: "Tęsti",
+            continue: 'Tęsti'
           },
           editcomp: {
             valid: 'Užpildikyte forma prieš išsaugant',
@@ -519,6 +516,8 @@ i18n
           modalCancel: {
             ask1: 'Ar tikrai norite nutraikti konkurso kurima?',
             ask2: 'Visas neišsaugotas progressas bus pamestas!',
+            ask3: 'Ar jus tikrai norite ištrinti šita konkursą?',
+            ask4: 'Visas progressas bus pamestas',
             confirm: 'Taip',
             closeButton: 'Ne'
           },

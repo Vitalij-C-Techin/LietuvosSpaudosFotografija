@@ -113,13 +113,14 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
       await axios.delete(`http://localhost:8080/api/v1/competition/${competitionUUID}`, {
         headers: getTokenHeader()
       });
+      navigate('/admin-competitions-list');
     } catch (error) {
       console.log('Error deleting competition', error);
     }
   };
-  const deleteCompetition=async()=>{
+  const deleteCompetition = async () => {
     setModalShowDeleteCompetition(true);
-  }
+  };
 
   const modalHandleOpenCreateCategory = () => {
     setModalShowCreateCategory(true);
@@ -167,7 +168,11 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
                   </Button>
                 </Col>
                 <Col xl="4">
-                  <Button variant="secondary" className="lsf-Button w-40" onClick={deleteCompetition}>
+                  <Button
+                    variant="secondary"
+                    className="lsf-Button w-40"
+                    onClick={deleteCompetition}
+                  >
                     {t('editcomp.delete')}
                   </Button>
                 </Col>
@@ -350,6 +355,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
               <ModalDeleteCompetition
                 showModal={modalShowDeleteCompetition}
                 onClose={modalHandelCloseDeleteCompetition}
+                confirmDelete={handleDelete}
               />
               <ModalSaveCreateCompetition
                 showModal={modalShowCreateCompetition}
