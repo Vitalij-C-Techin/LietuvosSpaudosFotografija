@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.model.Competition;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
+import lt.techin.lsf.model.response.CreateCompetitionResponse;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import lt.techin.lsf.service.CompetitionService;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,7 @@ public class CompetitionController {
     private final CompetitionService competitionService;
 
     @PostMapping
-    public Competition createCompetition(
+    public CreateCompetitionResponse createCompetition(
             @RequestBody CreateCompetitionRequest competition
     ) {
         return competitionService.createCompetition(competition);

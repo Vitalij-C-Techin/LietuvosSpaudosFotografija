@@ -27,8 +27,7 @@ public class CategoryService {
         this.competitionRepository = competitionRepository;
     }
 
-    public Category createCategoryAndAddToCompetition(UUID competitionUuid, CategoryRequest categoryRequest) {
-        CompetitionRecord competitionRecord = getCompetitionByUuid(competitionUuid);
+    public Category createCategoryAndAddToCompetition(CompetitionRecord competitionRecord, CategoryRequest categoryRequest) {
         CategoryRecord categoryRecord = createCategoryRecord(categoryRequest, competitionRecord);
 
         return new Category(
@@ -58,7 +57,7 @@ public class CategoryService {
         categoryRepository.deleteById(categoryUuid);
     }
 
-    private CompetitionRecord getCompetitionByUuid(UUID competitionUuid) {
+    public CompetitionRecord getCompetitionByUuid(UUID competitionUuid) {
 
         return competitionRepository
                 .findById(competitionUuid)
@@ -76,7 +75,6 @@ public class CategoryService {
                                                 CompetitionRecord competitionRecord) {
         CategoryRecord categoryRecord = CategoryRecordMapper.categoryRequestToRecord(categoryRequest);
         categoryRecord.setupNewCategory();
-        categoryRecord.setCompetitionRecord(competitionRecord);
         competitionRecord.addCategory(categoryRecord);
 
         return categoryRecord;

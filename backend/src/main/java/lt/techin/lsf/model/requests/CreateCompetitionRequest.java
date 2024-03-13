@@ -9,6 +9,7 @@ import lombok.*;
 import lt.techin.lsf.model.Competition;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -50,4 +51,6 @@ public class CreateCompetitionRequest {
 
     @NotBlank (message = "Field cannot be empty")
     public Competition.Visibility visibility;
+
+    public List<CategoryRequest> categories;
 }
