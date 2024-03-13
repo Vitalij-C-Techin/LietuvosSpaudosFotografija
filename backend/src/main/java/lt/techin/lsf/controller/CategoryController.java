@@ -3,6 +3,7 @@ package lt.techin.lsf.controller;
 import jakarta.validation.Valid;
 import lt.techin.lsf.model.Category;
 import lt.techin.lsf.model.requests.CategoryRequest;
+import lt.techin.lsf.persistance.model.CompetitionRecord;
 import lt.techin.lsf.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,8 @@ public class CategoryController {
             @PathVariable UUID competitionUuid,
             @RequestBody @Valid CategoryRequest categoryRequest
     ) {
-        return categoryService.createCategoryAndAddToCompetition(competitionUuid, categoryRequest);
+        CompetitionRecord competitionRecord = categoryService.getCompetitionByUuid(competitionUuid);
+        return categoryService.createCategoryAndAddToCompetition(competitionRecord, categoryRequest);
     }
 
     @GetMapping("/{categoryUuid}")

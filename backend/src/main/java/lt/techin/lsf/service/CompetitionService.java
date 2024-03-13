@@ -46,7 +46,7 @@ public class CompetitionService {
                 categories = competitionData.categories.stream()
                         .map((categoryRequest) -> {
                             return categoryService.createCategoryAndAddToCompetition(
-                                    record.getUuid(),
+                                    record,
                                     categoryRequest
                             );
                         })
