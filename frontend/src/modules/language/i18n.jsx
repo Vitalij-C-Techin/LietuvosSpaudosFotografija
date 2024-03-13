@@ -1,5 +1,5 @@
 import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import {initReactI18next} from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 const savedLanguage = localStorage.getItem('i18nextLng');
@@ -74,6 +74,7 @@ i18n
             phoneError: 'Invalid phone number.',
             registerSuccessful: 'Registration successful.',
             emailError: 'Email already exists.',
+            dataSaveError: 'Problem while saving data. Please try again.',
             title: 'User Registration',
             name: 'Name',
             surname: 'Surname',
@@ -193,6 +194,17 @@ i18n
             participator: 'Participator',
             competition: 'Competition'
           },
+          adminManageUsersPage: {
+            title: 'User management',
+            addUser: 'Create user',
+            role: 'Role',
+            chooseRole: 'Please chose the role',
+            admin: 'Administrator',
+            moderator: 'Moderator',
+            user: 'User',
+            jury: 'Jury',
+            button: 'REGISTER',
+          },
           notificationMessages: {
             loading: 'Loading',
             empty: 'Empty'
@@ -203,7 +215,9 @@ i18n
             competitionDescription: 'Description',
             competitionDates: 'Registration is ongoing',
             competitionCategories: 'Categories',
-            participate: 'Participate'
+            participate: 'Participate',
+            registrationSuccess: 'Registration successful',
+            continue: "Continue"
           },
           editcomp: {
             header: 'View/Edit competition',
@@ -294,6 +308,7 @@ i18n
             phoneError: 'Netinkamas telefono numeris.',
             registerSuccessful: 'Registracija sėkminga.',
             emailError: 'Toks el. paštas jau egzistuoja.',
+            dataSaveError: 'Iškilo problema saugant duomenis. Bandykite dar kartą.',
             title: 'Naudotojo registracija',
             name: 'Vardas',
             surname: 'Pavardė',
@@ -414,6 +429,18 @@ i18n
             participator: 'Dalyvis',
             competition: 'Konkursas'
           },
+          adminManageUsersPage: {
+            title: 'Naudotojo valdymas',
+            addUser: 'Sukurti naudotoją',
+            role: "Rolė",
+            chooseRole: "Prašome pasirinkti rolę",
+            admin: 'Administratorius',
+            moderator: 'Moderatorius',
+            user: 'Naudotojas',
+            jury: 'Vertintojas',
+            button: "REGISTRUOTI"
+
+          },
           notificationMessages: {
             loading: 'Vyksta duomenų įkėlimas',
             empty: 'Tuščia'
@@ -424,7 +451,9 @@ i18n
             competitionDescription: 'Aprašymas',
             competitionDates: 'Registracija vyksta',
             competitionCategories: 'Kategorijos',
-            participate: 'Dalyvauti'
+            participate: 'Dalyvauti',
+            registrationSuccess: 'Registracija sėkminga',
+            continue: "Tęsti",
           },
           editcomp: {
             header: 'Perziureti/Pakeisti rengyni',
