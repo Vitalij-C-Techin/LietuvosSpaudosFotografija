@@ -17,6 +17,8 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
 
     boolean existsByUuid(UUID uuid);
 
+    boolean existsByNameLtAndNameEnAndDescriptionLtAndDescriptionEn(String nameLt, String nameEn, String descriptionLt, String descriptionEn);
+
     @Transactional
     void deleteByUuid(UUID uuid);
 

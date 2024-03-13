@@ -1,16 +1,21 @@
 package lt.techin.lsf.service;
 
 import lombok.RequiredArgsConstructor;
+import lt.techin.lsf.exception.CompetitionExistsException;
+import lt.techin.lsf.model.Category;
 import lt.techin.lsf.model.Competition;
 import lt.techin.lsf.model.mapper.CompetitionRecordMapper;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
+import lt.techin.lsf.model.response.CreateCompetitionResponse;
 import lt.techin.lsf.persistance.CompetitionRepository;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,14 +25,49 @@ public class CompetitionService {
 
     private final CompetitionRepository competitionRepository;
     private final AuthenticationService authenticationService;
+    private final CategoryService categoryService;
 
-    public Competition createCompetition(CreateCompetitionRequest competitionData) {
+    public CreateCompetitionResponse createCompetition(CreateCompetitionRequest competitionData) {
+        /*if (hasCompetition(competitionData)) {
+            throw new CompetitionExistsException("Competition exists");
+        }*/
+
         CompetitionRecord record = CompetitionRecordMapper.map(competitionData);
 
         record.setupNewCompetition();
 
-        return new Competition(
+        Competition competition = new Competition(
                 competitionRepository.save(record)
+        );
+
+        List<Category> categories = new ArrayList<>();
+
+        if (null != competitionData.categories) {
+            if (!competitionData.categories.isEmpty()) {
+
+                categories = competitionData.categories.stream()
+                        .map((categoryRequest) -> {
+                            return categoryService.createCategoryAndAddToCompetition(
+                                    competition.getData().getUuid(),
+                                    categoryRequest
+                            );
+                        })
+                        .toList();
+            }
+        }
+
+        return CreateCompetitionResponse.builder()
+                .competition(competition)
+                .categories(categories)
+                .build();
+    }
+
+    public boolean hasCompetition(CreateCompetitionRequest competitionRequest) {
+        return competitionRepository.existsByNameLtAndNameEnAndDescriptionLtAndDescriptionEn(
+                competitionRequest.getNameLt(),
+                competitionRequest.getNameEn(),
+                competitionRequest.getDescriptionLt(),
+                competitionRequest.getDescriptionEn()
         );
     }
 
@@ -85,7 +125,7 @@ public class CompetitionService {
         );
     }
 
-    public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(int page){
+    public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(int page) {
         return competitionRepository.findJuryActiveCompetitions(PageRequest.of(page, recordsPerPage));
     }
 }
