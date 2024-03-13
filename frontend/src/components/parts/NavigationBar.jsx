@@ -73,19 +73,6 @@ const NavigationBar = () => {
               )}
               <Dropdown.Divider />
             </IsAuthenticated>
-
-            <IsAuthenticated>
-              <Dropdown.Item as={NavLink} to="/admin-manage-users">
-                {t('landingPage.dropDownMenuItem6')}
-              </Dropdown.Item>
-              <Dropdown.Item as={NavLink} to="/admin-competition-list">
-                {t('landingPage.dropDownMenuItem7')}
-              </Dropdown.Item>
-              <Dropdown.Item to="#admin-category-dashboard">
-                {t('landingPage.dropDownMenuItem8')}
-              </Dropdown.Item>
-            </IsAuthenticated>
-
             <Dropdown.Divider />
 
             <LanguageSwitch data-testid="change-language-menu-item" />
