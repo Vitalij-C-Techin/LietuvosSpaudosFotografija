@@ -335,7 +335,9 @@ const UserDetailsUpdateForm = () => {
                               <PhoneInput
                                 data-testid="phone-input"
                                 value={value}
-                                onChange={onChange}
+                                onChange={(newValue) => {
+                                  onChange(newValue || '');
+                                }}
                                 defaultCountry="LT"
                                 international
                                 id="phone_number"

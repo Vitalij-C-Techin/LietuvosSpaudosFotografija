@@ -7,12 +7,12 @@ import { validateEmail } from './EmailVerification';
 
 const ForgotPasswordForm = () => {
   const { t, i18n } = useTranslation();
-  const [errorSendingMessage, setErrorMessage] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(false);
+  const [message, setMessage] = useState(null);
   const {
     register,
     handleSubmit,
     setError,
+    trigger,
     formState: { errors },
     clearErrors
   } = useForm();
@@ -30,13 +30,20 @@ const ForgotPasswordForm = () => {
       .post('http://localhost:8080/api/v1/forget-password', { email })
       .then((response) => {
         if (response.status === 202) {
-          setErrorMessage(false);
-          setSuccessMessage(true);
+          setMessage(t('forgotPasswordForm.emailFound'));
+        } else {
+          setError('email', { type: 'manual', message: response.data.message });
         }
       })
       .catch((error) => {
-        setSuccessMessage(false);
-        setErrorMessage(true);
+        if (error.response && error.response.status === 404) {
+          setError('email', {
+            type: 'manual',
+            message: t('forgotPasswordForm.userNotFound', { email })
+          });
+        } else {
+          setError('email', { type: 'manual', message: t('forgotPasswordForm.emailSendingError') });
+        }
       });
   };
   useEffect(() => {
@@ -52,10 +59,10 @@ const ForgotPasswordForm = () => {
               <h2 style={{ textAlign: 'center' }}> {t('forgotPasswordForm.resetPassword')}</h2>
             </Card>
             <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-              {successMessage && <p>{t('forgotPasswordForm.emailResetMessage')}</p>}
-              {errorSendingMessage && (
+              {message && <p data-testid="success-message">{message}</p>}
+              {errors.email && (
                 <p className="text-danger" data-testid="error-message">
-                  {t('forgotPasswordForm.emailSendingError')}
+                  {errors.email.message}
                 </p>
               )}
               <Form.Group className="mb-3" controlId="formGroupEmail">
