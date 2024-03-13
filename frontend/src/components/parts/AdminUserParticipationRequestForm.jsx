@@ -11,7 +11,7 @@ import User from '../utils/User';
 import Competition from '../utils/Competition';
 import Pagination from '../parts/Pagination';
 
-const AdminUserParticipationRequestPage = () => {
+const AdminUserParticipationRequestForm = () => {
   const [t] = useTranslation();
   const { getTokenHeader } = useAuth();
 
@@ -215,4 +215,4 @@ const UserRequestSingle = ({ userRequest, onPermit, onReject }) => {
   );
 };
 
-export default AdminUserParticipationRequestPage;
+export default AdminUserParticipationRequestForm;

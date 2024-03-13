@@ -145,7 +145,7 @@ const ActionList = () => {
   };
 
   const handleCreateCompetition = () => {
-    navigate('/admin-competition-edit');
+    navigate('/create-competition');
   };
 
   return (
