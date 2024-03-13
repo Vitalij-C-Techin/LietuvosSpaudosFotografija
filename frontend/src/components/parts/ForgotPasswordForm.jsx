@@ -4,18 +4,20 @@ import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { validateEmail } from './EmailVerification';
+import { ErrorMessage } from '@hookform/error-message';
 
 const ForgotPasswordForm = () => {
   const { t, i18n } = useTranslation();
   const [errorSendingMessage, setErrorMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
+
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
-    clearErrors
-  } = useForm();
+    trigger
+  } = useForm({ criteriaMode: 'all' });
 
   const onSubmit = (data) => {
     const { email } = data;
@@ -34,14 +36,15 @@ const ForgotPasswordForm = () => {
           setSuccessMessage(true);
         }
       })
-      .catch((error) => {
+      .catch(() => {
         setSuccessMessage(false);
         setErrorMessage(true);
       });
   };
+
   useEffect(() => {
-    clearErrors();
-  }, [i18n.language, clearErrors]);
+    trigger();
+  }, [i18n.language, trigger]);
 
   return (
     <>
@@ -61,14 +64,25 @@ const ForgotPasswordForm = () => {
               <Form.Group className="mb-3" controlId="formGroupEmail">
                 <Form.Control
                   type="email"
+                  name="email"
                   {...register('email', {
                     required: t('forgotPasswordForm.required'),
                     pattern: {
-                      validate: (value) => validateEmail(value)
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      message: t('userDetailsUpdateForm.emailPattern')
                     }
                   })}
                   placeholder={t('forgotPasswordForm.formPlaceholderText')}
                   data-testid="email-input"
+                />
+
+                <ErrorMessage
+                  errors={errors}
+                  name="email"
+                  render={({ messages }) =>
+                    messages &&
+                    Object.entries(messages).map(([type, message]) => <p key={type}>{message}</p>)
+                  }
                 />
               </Form.Group>
 
