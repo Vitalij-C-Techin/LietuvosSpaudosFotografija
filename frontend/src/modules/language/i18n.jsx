@@ -46,7 +46,6 @@ i18n
             serverErrorMessage: 'An error occurred. Please try again later.',
             formPlaceholderText: 'Enter your email here',
             recoverButton: 'SUBMIT'
-            recoverButton: 'SUBMIT'
           },
           passwordChangePage: {
             passwordChangeSuccessful: 'Password Changed Successfully',
@@ -72,8 +71,7 @@ i18n
             confirmNewPasswordPlaceholder: 'confirm',
             passwordNotMatch:
               'The entered passwords do not match. Please make sure both passwords are identical.',
-            button: 'Change Password'
-            confirmNewPassword: 'Confirm Password',
+            button: 'Change Password',
             confirmNewPasswordPlaceholder: 'confirm',
             passwordNotMatch:
               'The entered passwords do not match. Please make sure both passwords are identical.',
@@ -310,7 +308,6 @@ i18n
             serverErrorMessage: 'Įvyko klaida. Prašome bandyti vėliau.',
             formPlaceholderText: 'Įveskite savo el. paštą čia',
             recoverButton: 'PATEIKTI'
-            recoverButton: 'PATEIKTI'
           },
           passwordChangePage: {
             passwordChangeSuccessful: 'Slaptažodis pakeistas sėkmingai',
@@ -336,8 +333,7 @@ i18n
             confirmNewPasswordPlaceholder: 'patvirtinti',
             passwordNotMatch:
               'Įvesti slaptažodžiai nesutampa. Prašome įsitikinti, kad abu slaptažodžiai yra identiški.',
-            button: 'Pakeisti slaptažodį'
-            confirmNewPassword: 'Patvirtinti',
+            button: 'Pakeisti slaptažodį',
             confirmNewPasswordPlaceholder: 'patvirtinti',
             passwordNotMatch:
               'Įvesti slaptažodžiai nesutampa. Prašome įsitikinti, kad abu slaptažodžiai yra identiški.',

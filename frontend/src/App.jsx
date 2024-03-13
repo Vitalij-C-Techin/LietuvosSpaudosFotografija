@@ -18,8 +18,6 @@ import AdminCompetitionsListPage from './components/pages/adminPages/AdminCompet
 import AdminUserParticipationRequestPage from './components/pages/adminPages/AdminUserParticipationRequestPage.jsx';
 import ErrorPage from './components/pages/ErrorPage.jsx';
 import CompetitionManagementPage from './components/pages/adminPages/CompetitionManagementPage.jsx';
-import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
-import CompetitionManagementPage from './components/pages/CompetitionManagementPage.jsx';
 
 import { Authorization } from './components/utils/Authorization.jsx';
 import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx';
@@ -47,18 +45,15 @@ function App() {
             <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
             <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
 
-            <Route path="/admin-competition-list" element={<AdminCompetitionsListPage />} />
+            <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
             <Route
               path="/admin-user-participation-requests"
               element={<AdminUserParticipationRequestPage />}
             />
-            <Route path="/admin-competition-edit/:uuid" element={<CompetitionManagementPage />} />
             <Route path="/create-competition" element={<CreateCompetition />} />
             <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
               <Route path="/p" element={<ProfilePage />} />
             </Route>
-
-            <Route path="/admin-competition-edit" element={<CompetitionManagementPage />} />
             <Route path="/admin-competition-edit/:uuid" element={<CompetitionManagementPage />} />
 
             <Route path="/*" element={<ErrorPage />} />

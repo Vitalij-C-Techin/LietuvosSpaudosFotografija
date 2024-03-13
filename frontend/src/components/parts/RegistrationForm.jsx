@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
-import { useEffect, useState } from 'react';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
-import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -17,10 +14,6 @@ const RegistrationForm = () => {
   const [selectedActivity, setSelectedActivity] = useState(``);
   const [emailError, setEmailError] = useState('');
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
-  const [selectedActivity, setSelectedActivity] = useState(``);
-  const [emailError, setEmailError] = useState('');
-  const navigate = useNavigate();
 
   const {
     register,
@@ -42,28 +35,7 @@ const RegistrationForm = () => {
     },
     criteriaMode: 'all'
   });
-  const {
-    register,
-    handleSubmit,
-    watch,
-    control,
-    formState: { errors },
-    clearErrors
-  } = useForm({
-    reValidateMode: 'onChange',
-    defaultValues: {
-      name: '',
-      surname: '',
-      birth_year: '',
-      phone_number: '',
-      email: '',
-      password: '',
-      media_name: ''
-    },
-    criteriaMode: 'all'
-  });
 
-  const password = watch('password');
   const password = watch('password');
 
   const handleFormSubmit = async (formData) => {
