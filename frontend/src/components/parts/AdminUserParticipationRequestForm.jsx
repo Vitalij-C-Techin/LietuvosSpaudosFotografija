@@ -10,7 +10,7 @@ import axios from 'axios';
 import User from '../utils/User';
 import Competition from '../utils/Competition';
 
-const AdminUserParticipationRequestPage = () => {
+const AdminUserParticipationRequestForm = () => {
   const [t] = useTranslation();
   const { getTokenHeader } = useAuth();
 
@@ -204,4 +204,4 @@ const UserRequestSingle = ({ userRequest, onPermit, onReject }) => {
   );
 };
 
-export default AdminUserParticipationRequestPage;
+export default AdminUserParticipationRequestForm;
