@@ -18,7 +18,8 @@ public class NameValidator implements ConstraintValidator<ValidNameConstraint, S
 
         if (name.length() < MIN_NAME_LENGTH || name.length() > MAX_NAME_LENGTH) {
             context.disableDefaultConstraintViolation();
-            String message = String.format("Name length should be between %d and %d characters", MIN_NAME_LENGTH, MAX_NAME_LENGTH);
+            String message = String.format("Name length should be between %d and %d characters", MIN_NAME_LENGTH,
+                    MAX_NAME_LENGTH);
             context.buildConstraintViolationWithTemplate(message)
                     .addConstraintViolation();
             return false;
