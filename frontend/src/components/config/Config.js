@@ -18,6 +18,11 @@ const Config = {
       userActive: '/api/v1/competition/user/{page}',
       userParticipate: '/api/v1/competition/user/participate/{page}'
     },
+    users: {
+      adminAll: '/api/v1/admin/all/{page}',
+      addUser: '/api/v1/admin/register/user',
+      addJury: '/api/v1/admin/register/jury'
+    },
     user: {
       byUuid: '/api/v1/user/{uuid}'
     },
