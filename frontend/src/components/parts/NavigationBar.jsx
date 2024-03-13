@@ -8,8 +8,8 @@ import { useAuth } from '../context/AuthContext.jsx';
 import { IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication.jsx';
 
 const NavigationBar = () => {
-  const { logout } = useAuth();
-
+  const { logout, getRole } = useAuth();
+  const userRole = getRole();
   const { t } = useTranslation();
 
   return (
@@ -46,40 +46,36 @@ const NavigationBar = () => {
               <Dropdown.Item as={Link} to="/" onClick={logout}>
                 {t('landingPage.dropDownMenuItem11')}
               </Dropdown.Item>
-            </IsAuthenticated>
 
-            <IsAuthenticated>
               <Dropdown.Divider />
               <Dropdown.Item as={NavLink} to="/user-competition-list">
                 {t('landingPage.dropDownMenuItem4')}
               </Dropdown.Item>
               <Dropdown.Divider />
-            </IsAuthenticated>
 
-            <IsAuthenticated>
               <Dropdown.Item to="#jury-competition">
                 {t('landingPage.dropDownMenuItem5')}
               </Dropdown.Item>
+
+              {userRole === 'ADMIN' && (
+                <>
+                  <Dropdown.Divider />
+                  <Dropdown.Item as={NavLink} to="/admin-manage-users">
+                    {t('landingPage.dropDownMenuItem6')}
+                  </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/admin-competitions-list">
+                    {t('landingPage.dropDownMenuItem7')}
+                  </Dropdown.Item>
+                  <Dropdown.Item to="#admin-category-dashboard">
+                    {t('landingPage.dropDownMenuItem8')}
+                  </Dropdown.Item>
+                </>
+              )}
               <Dropdown.Divider />
             </IsAuthenticated>
-
-            <IsAuthenticated>
-              <Dropdown.Item as={NavLink} to="/admin-manage-users">
-                {t('landingPage.dropDownMenuItem6')}
-              </Dropdown.Item>
-              <Dropdown.Item as={NavLink} to="/admin-competition-list">
-                {t('landingPage.dropDownMenuItem7')}
-              </Dropdown.Item>
-              <Dropdown.Item to="#admin-category-dashboard">
-                {t('landingPage.dropDownMenuItem8')}
-              </Dropdown.Item>
-            </IsAuthenticated>
-
             <Dropdown.Divider />
 
-            <LanguageSwitch
-              data-testid="change-language-menu-item"
-            />
+            <LanguageSwitch data-testid="change-language-menu-item" />
           </Dropdown.Menu>
         </Dropdown>
       </Nav>

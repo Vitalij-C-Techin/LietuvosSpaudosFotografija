@@ -1,5 +1,5 @@
 import i18n from 'i18next';
-import {initReactI18next} from 'react-i18next';
+import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 const savedLanguage = localStorage.getItem('i18nextLng');
@@ -186,7 +186,7 @@ i18n
             title: 'Competition management',
             viewParticipantRequest: 'View participant request',
             createCompetition: 'Create competition',
-            competitionDates: 'Dates',
+            competitionDates: 'Date',
             competitionView: 'View'
           },
           adminUserParticipationRequestPage: {
@@ -203,7 +203,7 @@ i18n
             moderator: 'Moderator',
             user: 'User',
             jury: 'Jury',
-            button: 'REGISTER',
+            button: 'REGISTER'
           },
           notificationMessages: {
             loading: 'Loading',
@@ -217,31 +217,60 @@ i18n
             competitionCategories: 'Categories',
             participate: 'Participate',
             registrationSuccess: 'Registration successful',
-            continue: "Continue"
+            continue: 'Continue'
           },
           editcomp: {
-            header: 'View/Edit competition',
-            delete: 'Delete competition',
-            name: 'Name',
-            description: 'Description',
-            Sdate: 'Start date',
-            Plimit: 'Photo limit',
-            Status: 'Status',
-            solo: 'Solo',
-            number: 'Number',
-            group: 'Group',
-            active: 'Active',
-            closed: 'Closed',
-            visible: 'Visible',
-            Edate: 'End date',
-            active2: 'Visible',
-            closed2: 'Hidden',
-            Addcategory: 'Added categories',
-            Ccategory: 'Create category',
-            status: 'Status',
-            Acategory: 'Add category',
+            valid: 'Please fill out the form before saving.',
             message: 'Are you sure you want to save?',
-            Save: 'Save'
+            error1: 'An error occurred while saving the competition. Please try again later.',
+            dateAllert: 'End date cannot be less than start date.',
+            allowedTypes: 'Photo allowed only in JPEG, JPG, PNG. format',
+            headerCreate: 'Create Competition',
+            headerView: 'View/Edit competition',
+            Save: 'Save competition',
+            cancel: 'Cancel',
+            delete: 'Delete competition',
+            compPicButton: 'Add photo',
+            name: 'Title - EN',
+            name2: 'Title - LT',
+            description: 'Description - EN',
+            description2: 'Description - LT',
+            Plimit: 'Photo limit',
+            status: 'Status',
+            coming: 'coming',
+            evaluates: 'evaluates',
+            going: 'going',
+            finished: 'finished',
+            visible: 'Visible',
+            public: 'public',
+            private: 'private',
+            Sdate: 'Start date',
+            Edate: 'End date',
+            Addcategory: 'Added categories',
+            limitError: 'Photo limit must be between 1 and 50'
+          },
+          modalCancel: {
+            ask1: 'Are you sure you want to cancel Competition Creation?',
+            ask2: 'All unsave progress will be lost!',
+            ask3: 'Are you sure you want to delete this competition?',
+            ask4: 'All progress will be lost',
+            confirm: 'Yes',
+            closeButton: 'No'
+          },
+          modalCreate: {
+            confirmSaveTitle: 'Are you sure you want to save?',
+            confirm: 'Yes',
+            cancel: 'No'
+          },
+          modalCategory: {
+            titleCat: 'Title',
+            titleAdd: 'Add category',
+            titleEdit: 'Edit',
+            closeButton: 'Close',
+            type: 'Type',
+            single: 'Single',
+            series: 'Series',
+            photoLimit: 'Photo limit'
           }
         }
       },
@@ -257,7 +286,7 @@ i18n
             dropDownMenuItem7: 'Tvarkyti konkursus (administratorius)',
             dropDownMenuItem8: 'Tvarkyti kategorijas (administratorius)',
             dropDownMenuItem9: 'Pagalba',
-            dropDownMenuItem10: 'Keisti kalba',
+            dropDownMenuItem10: 'Keisti kalbą',
             dropDownMenuItem11: 'Atsijungti',
             dropDownMenuItem12: 'Registruotis'
           },
@@ -432,14 +461,13 @@ i18n
           adminManageUsersPage: {
             title: 'Naudotojo valdymas',
             addUser: 'Sukurti naudotoją',
-            role: "Rolė",
-            chooseRole: "Prašome pasirinkti rolę",
+            role: 'Rolė',
+            chooseRole: 'Prašome pasirinkti rolę',
             admin: 'Administratorius',
             moderator: 'Moderatorius',
             user: 'Naudotojas',
             jury: 'Vertintojas',
-            button: "REGISTRUOTI"
-
+            button: 'REGISTRUOTI'
           },
           notificationMessages: {
             loading: 'Vyksta duomenų įkėlimas',
@@ -453,31 +481,60 @@ i18n
             competitionCategories: 'Kategorijos',
             participate: 'Dalyvauti',
             registrationSuccess: 'Registracija sėkminga',
-            continue: "Tęsti",
+            continue: 'Tęsti'
           },
           editcomp: {
-            header: 'Peržiūrėti/Pakeisti konkursą',
-            delete: 'Ištrinti konkursą',
-            name: 'Pavadinimas',
-            description: 'Apie',
-            Sdate: 'Pradžios data',
-            Plimit: 'Foto limitas',
-            Status: 'Statusas',
-            solo: 'Pavienė',
-            number: 'Kelios',
-            group: 'Grupinė',
-            active: 'Vyksta',
-            closed: 'Uždarytas',
-            visible: 'Matosi',
-            Edate: 'Pabaigos data',
-            active2: 'Matosi',
-            closed2: 'Paslėptas',
-            Addcategory: 'Pridėtos kategorijos',
-            Ccategory: 'Sukurti kategoriją',
-            status: 'Statusas',
-            Acategory: 'Pridėti kategoriją',
+            valid: 'Užpildikyte forma prieš išsaugant',
             message: 'Ar tikrai norite išsaugoti?',
-            Save: 'Išsaugoti'
+            error1: 'Ivyko klaida išsaugant. Prašome bandyti veliau.',
+            dateAllert: 'Pabaigos data negali buti ankstesne negu pradžios data.',
+            alloweTypes: 'Galima tik JPEG, JPG, PNG formato fotografija',
+            headerCreate: 'Sukurti konkursą',
+            headerView: 'Peržiūrėti/Redaguoti konkursą',
+            Save: 'Išsaugoti',
+            cancel: 'Atšaukti',
+            delete: 'Ištrinti konkursą',
+            compPicButton: 'Pridėti nuotrauką',
+            name: 'Pavadinimas - EN',
+            name2: 'Pavadinimas - LT',
+            description: 'Apie - EN',
+            description2: 'Apie - LT',
+            Plimit: 'Nuotraukų kiekis',
+            status: 'Būsena',
+            coming: 'Dar neprasidejo',
+            evaluates: 'Vertinama',
+            going: 'Vyksta',
+            finished: 'Pasibaige',
+            visible: 'Matomumas',
+            public: 'matomas',
+            private: 'nematomas',
+            Sdate: 'Pradžia',
+            Edate: 'Pabaiga',
+            Addcategory: 'Pridėtos kategorijos',
+            limitError: 'Foto turi buti nuo 1 iki 50'
+          },
+          modalCancel: {
+            ask1: 'Ar tikrai norite nutraikti konkurso kurima?',
+            ask2: 'Visas neišsaugotas progressas bus pamestas!',
+            ask3: 'Ar jus tikrai norite ištrinti šita konkursą?',
+            ask4: 'Visas progressas bus pamestas',
+            confirm: 'Taip',
+            closeButton: 'Ne'
+          },
+          modalCreate: {
+            confirmSaveTitle: 'Ar tikrai norite išsaugoti duomeys?',
+            confirm: 'Taip',
+            cancel: 'Ne'
+          },
+          modalCategory: {
+            titleCat: 'Pavadinimas',
+            titleAdd: 'Pridėti kategoriją',
+            titleEdit: 'Redaguoti',
+            closeButton: 'Uždaryti',
+            type: 'Tipas',
+            single: 'Viena nuotrauka',
+            series: 'Nuotraukų serija',
+            photoLimit: 'Nuotraukų kiekis'
           }
         }
       }
