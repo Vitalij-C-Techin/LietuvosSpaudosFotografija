@@ -13,8 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 @Service
-@PropertySource(
-        value = "classpath:credentials.yaml")
+@PropertySource(value = "classpath:credentials.yaml")
 @RequiredArgsConstructor
 public class EmailService {
 
@@ -22,12 +21,6 @@ public class EmailService {
 
     @Value("${email}")
     private String senderMail;
-
-    private String recipientMail;
-
-    private String subject;
-
-    private String htmlMailMessage;
 
     public void sendMailUsingMailjet(String recipientMail, String subject, String htmlMailMessage) {
         try {
@@ -47,7 +40,6 @@ public class EmailService {
                     .message(message1)
                     .build();
 
-
             SendEmailsResponse response = request.sendWith(mailjetClient);
 
         } catch (MailjetException e) {
@@ -55,5 +47,3 @@ public class EmailService {
         }
     }
 }
-
-
