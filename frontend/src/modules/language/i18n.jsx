@@ -520,7 +520,7 @@ i18n
             closeButton: 'Ne'
           },
           modalCreate: {
-            confirmSaveTitle: 'Ar tikrai norite išsaugoti duomeys?',
+            confirmSaveTitle: 'Ar tikrai norite išsaugoti duomenis?',
             confirm: 'Taip',
             cancel: 'Ne'
           },
