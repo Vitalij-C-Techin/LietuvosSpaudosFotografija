@@ -3,6 +3,7 @@ package lt.techin.lsf.service;
 import jakarta.persistence.EntityNotFoundException;
 import lt.techin.lsf.exception.CategoryExistsException;
 import lt.techin.lsf.model.Category;
+import lt.techin.lsf.model.mapper.CategoryMapper;
 import lt.techin.lsf.model.mapper.CategoryRecordMapper;
 import lt.techin.lsf.model.requests.CategoryRequest;
 import lt.techin.lsf.persistance.CategoryRepository;
@@ -34,14 +35,14 @@ public class CategoryService {
         }
 
         CategoryRecord categoryRecord = createCategoryRecord(categoryRequest, competitionRecord);
+        CategoryRecord savedCategoryRecord = categoryRepository.save(categoryRecord);
 
-        return new Category(
-                categoryRepository.save(categoryRecord)
-        );
+        return CategoryMapper.categoryRecordToCategory(savedCategoryRecord);
     }
 
     public Category getCategory(UUID uuid) {
-        Category category = new Category(getCategoryByUuid(uuid));
+        CategoryRecord categoryRecord = getCategoryByUuid(uuid);
+        Category category = CategoryMapper.categoryRecordToCategory(categoryRecord);
 
         return category;
     }
@@ -49,10 +50,9 @@ public class CategoryService {
     public Category updateCategory(UUID categoryUuid, CategoryRequest categoryRequest) {
         CategoryRecord categoryRecordToUpdate = getCategoryByUuid(categoryUuid);
         CategoryRecord updatedCategoryRecord = updateCategoryRecord(categoryRequest, categoryRecordToUpdate);
+        CategoryRecord savedCategory = categoryRepository.save(updatedCategoryRecord);
 
-        return new Category(
-                categoryRepository.save(updatedCategoryRecord)
-        );
+        return CategoryMapper.categoryRecordToCategory(savedCategory);
     }
 
     public void deleteCategoryAndUpdateCompetition(UUID categoryUuid) {
