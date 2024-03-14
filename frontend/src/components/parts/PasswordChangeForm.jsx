@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useNavigate, useLocation } from 'react-router-dom';
+import Config from '../config/Config';
 
 const PasswordChangeForm = () => {
   const { t, i18n } = useTranslation();
@@ -13,6 +14,7 @@ const PasswordChangeForm = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const resetToken = searchParams.get('token');
+  const [errorMessage, setErrorMessage] = useState(false);
 
   const {
     register,
@@ -33,16 +35,18 @@ const PasswordChangeForm = () => {
 
   const handleFormSubmit = async (formData) => {
     const { new_password } = formData;
-
+    const url = Config.apiDomain + Config.endpoints.user.passwordChange + resetToken;
     axios
-      .post(`http://localhost:8080/api/v1/change-password?token=${resetToken}`, {
+      .post(url, {
         password: new_password
       })
       .then((response) => {
         alert(t('passwordChangePage.passwordChangeSuccessful'));
         navigate('/login');
       })
-      .catch((error) => setEmailError(t('passwordChangePage.emailError')));
+      .catch((error) => {
+        setErrorMessage(true);
+      });
   };
 
   useEffect(() => {}, [resetToken]);
@@ -63,9 +67,9 @@ const PasswordChangeForm = () => {
             </Card>
 
             <Form noValidate onSubmit={handleSubmit(handleFormSubmit)}>
-              {emailError && (
+              {errorMessage && (
                 <p data-testid="validation-error" style={{ color: 'red' }}>
-                  {emailError}
+                  {t('passwordChangePage.emailError')}
                 </p>
               )}
 
@@ -91,7 +95,7 @@ const PasswordChangeForm = () => {
                       message: t('passwordChangePage.passwordMaxLength')
                     },
                     pattern: {
-                      value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+                      value: /^(?!.*\s)(?=.*[A-Z])(?=.*\d)(?=.*[a-z])(?=.*[!@#$%^&*()]).+$/,
                       message: t('passwordChangePage.passwordPattern')
                     }
                   })}
