@@ -126,7 +126,6 @@ export const AuthProvider = ({ children }) => {
       password
     };
 
-    console.log("login:", body, url);
 
     axios.post(url, body).then(callback.then).catch(callback.catch).finally(callback.finally);
   };
