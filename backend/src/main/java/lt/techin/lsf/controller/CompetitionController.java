@@ -1,6 +1,7 @@
 package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
+import lt.techin.lsf.model.Category;
 import lt.techin.lsf.model.Competition;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
@@ -10,6 +11,7 @@ import lt.techin.lsf.service.CompetitionService;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -46,6 +48,14 @@ public class CompetitionController {
             @RequestBody UpdateCompetitionRequest data
     ) {
         return competitionService.updateCompetition(uuid, data);
+    }
+
+    @GetMapping("/{uuid}/categories")
+    public List<Category> getCompetitionCategories(
+            @PathVariable UUID uuid
+    ) {
+        CompetitionRecord competitionRecord = competitionService.getCompetitionByUuid(uuid);
+        return competitionService.getCompetitionWithCategories(competitionRecord);
     }
 
     @GetMapping("/all/{page}")

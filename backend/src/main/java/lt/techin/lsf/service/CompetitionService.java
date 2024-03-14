@@ -1,9 +1,11 @@
 package lt.techin.lsf.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.exception.CompetitionExistsException;
 import lt.techin.lsf.model.Category;
 import lt.techin.lsf.model.Competition;
+import lt.techin.lsf.model.mapper.CategoryMapper;
 import lt.techin.lsf.model.mapper.CompetitionRecordMapper;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
@@ -103,6 +105,16 @@ public class CompetitionService {
         );
     }
 
+    public List<Category> getCompetitionWithCategories(CompetitionRecord competitionRecord) {
+
+        List<Category> categoryList = competitionRecord.getCategoryRecordList()
+                .stream()
+                .map(CategoryMapper::categoryRecordToCategory)
+                .toList();
+
+        return categoryList;
+    }
+
     public Page<CompetitionRecord> getAllCompetitionsWithPagination(int page) {
         return competitionRepository.findAll(
                 PageRequest.of(page, recordsPerPage)
@@ -125,5 +137,11 @@ public class CompetitionService {
 
     public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(int page) {
         return competitionRepository.findJuryActiveCompetitions(PageRequest.of(page, recordsPerPage));
+    }
+
+    public CompetitionRecord getCompetitionByUuid(UUID uuid) {
+        return competitionRepository
+                .findById(uuid)
+                .orElseThrow(() -> new EntityNotFoundException("Competition not found."));
     }
 }
