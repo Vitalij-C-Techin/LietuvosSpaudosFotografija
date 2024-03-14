@@ -133,7 +133,7 @@ i18n
             phoneNumber: 'Phone number',
             media: 'Media',
             createdAt: 'Created at',
-            updateProfile: 'Update Profile'
+            editProfile: 'Edit Profile'
           },
           userCompetitionPage: {
             title: 'My Competitions',
@@ -394,7 +394,7 @@ i18n
             phoneNumber: 'Telefono numeris',
             media: 'Žiniasklaida',
             createdAt: 'Sukurta',
-            updateProfile: 'Redaguoti profilį'
+            editProfile: 'Redaguoti profilį'
           },
           userCompetitionPage: {
             title: 'Mano konkursai',

@@ -3,47 +3,36 @@ import { useTranslation } from 'react-i18next';
 import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import { validateEmail } from './EmailVerification';
+import { ErrorMessage } from '@hookform/error-message';
 
 const ForgotPasswordForm = () => {
   const { t, i18n } = useTranslation();
-  const [message, setMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
+
   const {
     register,
     handleSubmit,
-    setError,
-    trigger,
     formState: { errors },
     clearErrors
-  } = useForm();
+  } = useForm({ reValidateMode: 'onChange', criteriaMode: 'all' });
 
   const onSubmit = (data) => {
     const { email } = data;
-    const { isValid, errorMessage } = validateEmail(email, t);
-
-    if (!isValid) {
-      setError('email', { type: 'manual', message: errorMessage });
-      return;
-    }
-
     axios
       .post('http://localhost:8080/api/v1/forget-password', { email })
       .then((response) => {
         if (response.status === 202) {
-          setMessage(t('forgotPasswordForm.emailFound'));
-        } else {
-          setError('email', { type: 'manual', message: response.data.message });
+          setSuccessMessage(true);
+          setErrorMessage(false);
         }
       })
       .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          setError('email', {
-            type: 'manual',
-            message: t('forgotPasswordForm.userNotFound', { email })
-          });
-        } else {
-          setError('email', { type: 'manual', message: t('forgotPasswordForm.emailSendingError') });
-        }
+        setSuccessMessage(false);
+        setErrorMessage(true);
+        setTimeout(() => {
+          setErrorMessage(false);
+        }, 5000);
       });
   };
   useEffect(() => {
@@ -58,27 +47,42 @@ const ForgotPasswordForm = () => {
             <Card className="my-5">
               <h2 style={{ textAlign: 'center' }}> {t('forgotPasswordForm.resetPassword')}</h2>
             </Card>
-            <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-              {message && <p data-testid="success-message">{message}</p>}
-              {errors.email && (
+            <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+              {successMessage && <p>{t('forgotPasswordForm.emailResetMessage')}</p>}
+              {errorMessage && (
                 <p className="text-danger" data-testid="error-message">
-                  {errors.email.message}
+                  {t('forgotPasswordForm.emailSendingError')}
                 </p>
               )}
-              <Form.Group className="mb-3" controlId="formGroupEmail">
+              <Form.Group className="mb-3">
+                <Form.Label htmlFor="email">{t('userDetailsUpdateForm.email')}</Form.Label>
                 <Form.Control
-                  type="email"
+                  data-testid="email-input"
+                  name="email"
+                  id="email"
+                  placeholder="example@example.com"
+                  autoComplete="email"
                   {...register('email', {
                     required: t('forgotPasswordForm.required'),
                     pattern: {
-                      validate: (value) => validateEmail(value)
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      message: t('userDetailsUpdateForm.emailPattern')
                     }
                   })}
-                  placeholder={t('forgotPasswordForm.formPlaceholderText')}
-                  data-testid="email-input"
+                />
+                <ErrorMessage
+                  errors={errors}
+                  name="email"
+                  render={({ messages }) =>
+                    messages &&
+                    Object.entries(messages).map(([type, message]) => (
+                      <p className="text-danger mb-1" style={{ fontSize: '14px' }} key={type}>
+                        {message}
+                      </p>
+                    ))
+                  }
                 />
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formGroupButton">
                 <Row className="align-items-center">
                   <Col>

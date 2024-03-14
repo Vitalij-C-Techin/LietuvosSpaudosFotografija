@@ -54,7 +54,7 @@ const ProfilePage = () => {
             </>
           )}
           <Button as={NavLink} to="/profile/edit">
-            {t('profile.updateProfile')}
+            {t('profile.editProfile')}
           </Button>
         </IsAuthenticated>
       </Container>
