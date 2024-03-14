@@ -4,6 +4,7 @@ import { Container, Card, Col, Form, Row, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { ErrorMessage } from '@hookform/error-message';
+import Config from '../config/Config';
 
 const ForgotPasswordForm = () => {
   const { t, i18n } = useTranslation();
@@ -18,9 +19,10 @@ const ForgotPasswordForm = () => {
   } = useForm({ reValidateMode: 'onChange', criteriaMode: 'all' });
 
   const onSubmit = (data) => {
+    const url = Config.apiDomain + Config.endpoints.user.forgetPassword;
     const { email } = data;
     axios
-      .post('http://localhost:8080/api/v1/forget-password', { email })
+      .post(url, { email })
       .then((response) => {
         if (response.status === 202) {
           setSuccessMessage(true);

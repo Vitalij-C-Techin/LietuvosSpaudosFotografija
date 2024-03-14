@@ -24,7 +24,9 @@ const Config = {
       addJury: '/api/v1/admin/register/jury'
     },
     user: {
-      byUuid: '/api/v1/user/{uuid}'
+      byUuid: '/api/v1/user/{uuid}',
+      forgetPassword: '/api/v1/forget-password',
+      passwordChange: '/api/v1/change-password?token='
     },
     userDetailsEdit: {
       getByUuid: '/api/v1/user/{uuid}',
