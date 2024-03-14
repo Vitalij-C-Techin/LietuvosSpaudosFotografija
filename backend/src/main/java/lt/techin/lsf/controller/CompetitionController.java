@@ -5,6 +5,7 @@ import lt.techin.lsf.model.Category;
 import lt.techin.lsf.model.Competition;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
+import lt.techin.lsf.model.response.CompetitionWithCategoriesResponse;
 import lt.techin.lsf.model.response.CreateCompetitionResponse;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import lt.techin.lsf.service.CompetitionService;
@@ -31,7 +32,7 @@ public class CompetitionController {
     @DeleteMapping("/{uuid}")
     public void deleteCompetition(
             @PathVariable UUID uuid
-    ){
+    ) {
         competitionService.deleteCompetition(uuid);
     }
 
@@ -68,7 +69,7 @@ public class CompetitionController {
     @GetMapping("/all/active/{page}")
     public Page<CompetitionRecord> getActiveCompetitionsWithPagination(
             @PathVariable int page
-    ){
+    ) {
         return competitionService.getActiveCompetitionsWithPagination(page);
     }
 
@@ -80,7 +81,7 @@ public class CompetitionController {
     }
 
     @GetMapping("/user/participate/{page}")
-    public Page<CompetitionRecord> getUserParticipateCompetitionsWithPagination(
+    public Page<CompetitionWithCategoriesResponse> getUserParticipateCompetitionsWithPagination(
             @PathVariable int page
     ) {
         return competitionService.getUserNotParticipatedCompetitionsWithPagination(page);
@@ -89,7 +90,7 @@ public class CompetitionController {
     @GetMapping("/jury/{page}")
     public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(
             @PathVariable int page
-    ){
+    ) {
         return competitionService.getJuryActiveCompetitionsWithPagination(page);
     }
 }

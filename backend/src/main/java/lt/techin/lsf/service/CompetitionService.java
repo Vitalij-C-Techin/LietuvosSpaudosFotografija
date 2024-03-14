@@ -9,8 +9,10 @@ import lt.techin.lsf.model.mapper.CategoryMapper;
 import lt.techin.lsf.model.mapper.CompetitionRecordMapper;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
+import lt.techin.lsf.model.response.CompetitionWithCategoriesResponse;
 import lt.techin.lsf.model.response.CreateCompetitionResponse;
 import lt.techin.lsf.persistance.CompetitionRepository;
+import lt.techin.lsf.persistance.model.CategoryRecord;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -107,7 +109,6 @@ public class CompetitionService {
     }
 
     public List<Category> getCompetitionWithCategories(CompetitionRecord competitionRecord) {
-
         List<Category> categoryList = competitionRecord.getCategoryRecordList()
                 .stream()
                 .map(CategoryMapper::categoryRecordToCategory)
@@ -116,13 +117,17 @@ public class CompetitionService {
         return categoryList;
     }
 
+    public List<CategoryRecord> getCompetitionWithCategoriesRecord(CompetitionRecord competitionRecord) {
+        return competitionRecord.getCategoryRecordList();
+    }
+
     public Page<CompetitionRecord> getAllCompetitionsWithPagination(int page) {
         return competitionRepository.findAll(
                 PageRequest.of(page, recordsPerPage)
         );
     }
 
-    public Page<CompetitionRecord> getActiveCompetitionsWithPagination(int page){
+    public Page<CompetitionRecord> getActiveCompetitionsWithPagination(int page) {
         return competitionRepository.findActiveCompetitions(
                 PageRequest.of(page, recordsPerPage)
         );
@@ -135,11 +140,16 @@ public class CompetitionService {
         );
     }
 
-    public Page<CompetitionRecord> getUserNotParticipatedCompetitionsWithPagination(int page) {
+    public Page<CompetitionWithCategoriesResponse> getUserNotParticipatedCompetitionsWithPagination(int page) {
         return competitionRepository.findUserParticipateCompetitions(
                 authenticationService.getAuthenticatedUser().getUuid(),
                 PageRequest.of(page, recordsPerPage)
-        );
+        ).map(c -> {
+            return CompetitionWithCategoriesResponse.builder()
+                    .competition(c)
+                    .categories(getCompetitionWithCategoriesRecord(c))
+                    .build();
+        });
     }
 
     public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(int page) {
