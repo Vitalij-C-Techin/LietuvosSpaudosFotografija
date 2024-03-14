@@ -48,8 +48,6 @@ function HomePage() {
     axios
       .get(url)
       .then((response) => {
-        console.log(response);
-
         if (!response.data.empty) {
           setCompetitions(response.data.content);
 

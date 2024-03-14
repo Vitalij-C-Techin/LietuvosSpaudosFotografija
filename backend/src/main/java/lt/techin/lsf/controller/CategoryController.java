@@ -22,7 +22,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping("/{competitionUuid}")
+    @PostMapping("/competition/{competitionUuid}")
     public Category createCategory(
             @PathVariable UUID competitionUuid,
             @RequestBody @Valid CategoryRequest categoryRequest

@@ -47,8 +47,6 @@ export default class Competition {
         const month = String(d.getMonth() + 1).padStart(2, '0');
         const day = String(d.getDate()).padStart(2, '0');
 
-        console.log("3: ", date, month + '.' + day);
-
         return d.getFullYear() + "." + month + '.' + day;
     }
 

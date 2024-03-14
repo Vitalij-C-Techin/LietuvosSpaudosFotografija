@@ -68,8 +68,9 @@ public class SecurityConfig {
                                     "api/v1/competition",
                                     "api/v1/competition/{uuid}",
                                     "api/v1/competition/all/{page}",
+                                    "api/v1/competition/{uuid}/categories",
 
-                                    "api/v1/category**",
+                                    "api/v1/category/**",
                                     "api/v1/admin/**"
                             ).hasAnyAuthority("MODERATOR", "ADMIN");
 
