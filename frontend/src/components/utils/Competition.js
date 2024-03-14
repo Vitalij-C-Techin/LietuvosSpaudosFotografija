@@ -42,19 +42,21 @@ export default class Competition {
     }
 
     static formatDate(date) {
-        const d = new Date(date)
+        const d = new Date(date);
 
-        const month = String(d.getMonth()).padStart(2, '0');
-        const day = String(d.getDay()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+
+        console.log("3: ", date, month + '.' + day);
 
         return d.getFullYear() + "." + month + '.' + day;
     }
 
     static formatDateTime(date) {
-        const d = new Date(date)
+        const d = new Date(date);
 
-        const month = String(d.getMonth()).padStart(2, '0');
-        const day = String(d.getDay()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
 
         const hours = String(d.getHours()).padStart(2, '0');
         const minutes = String(d.getMinutes()).padStart(2, '0');
@@ -62,7 +64,7 @@ export default class Competition {
         return d.getFullYear() + "." + month + '.' + day + ' ' + hours + ":" + minutes;
     }
 
-    getAdminUrl(){
+    getAdminUrl() {
         return "/admin-competition-edit/" + this.getUuid();
     }
 }

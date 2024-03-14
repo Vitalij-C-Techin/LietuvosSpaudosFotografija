@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final String[] publicGetEndpoints = {
-            "api/v1/test",
+            "api/v1/competition/all/active/{page}",
 
             "swagger-ui/**", // Swagger
             "v3/api-docs/**" // Swagger

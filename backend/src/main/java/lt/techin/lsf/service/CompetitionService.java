@@ -21,9 +21,10 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class CompetitionService {
-    public static final int recordsPerPage = 3;
+    public static final int recordsPerPage = 10;
 
     private final CompetitionRepository competitionRepository;
+
     private final AuthenticationService authenticationService;
     private final CategoryService categoryService;
 
@@ -105,6 +106,12 @@ public class CompetitionService {
 
     public Page<CompetitionRecord> getAllCompetitionsWithPagination(int page) {
         return competitionRepository.findAll(
+                PageRequest.of(page, recordsPerPage)
+        );
+    }
+
+    public Page<CompetitionRecord> getActiveCompetitionsWithPagination(int page){
+        return competitionRepository.findActiveCompetitions(
                 PageRequest.of(page, recordsPerPage)
         );
     }
