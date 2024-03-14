@@ -7,16 +7,26 @@ import { useTranslation } from 'react-i18next';
 import Button from 'react-bootstrap/Button';
 import React, { useState, useEffect } from 'react';
 import { Image, Container, Card, Row, Col } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, useNavigation } from 'react-router-dom';
+import Config from '../config/Config';
+import axios from 'axios';
+import Competition from '../utils/Competition';
+import { useAuth } from '../context/AuthContext';
 
 function HomePage() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { getUserData, getTokenHeader } = useAuth();
+
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
 
-  const navigate = useNavigate();
+  const [competitions, setCompetitions] = useState(null);
+  const [isLoading, setIsLoading] = useState(null);
+
   const navigateToRegistrationPage = () => {
     navigate('/registration');
   };
+
   const navigateToLoginPage = () => {
     navigate('/login');
   };
@@ -27,6 +37,33 @@ function HomePage() {
     image.onload = () => {
       setImageSize({ width: image.naturalWidth, height: image.naturalHeight });
     };
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    let url = Config.apiDomain + Config.endpoints.competitions.active;
+    url = url.replace('{page}', 0);
+
+    axios
+      .get(url)
+      .then((response) => {
+        if (!response.data.empty) {
+          setCompetitions(response.data.content);
+
+          return;
+        }
+
+        setCompetitions(null);
+      })
+      .catch((error) => {
+        console.error('Error: ', error);
+
+        setCompetitions(null);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -78,118 +115,77 @@ function HomePage() {
           </Row>
         </Card>
 
-        <Card className="py-5">
-          <h3 className="contest">{t('homePage.constestListTitle')}</h3>
-          <div className="divider"></div>
-        </Card>
-
-        <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
-          <Card.Body>
-            <Row className="justify-content-center">
-              <Col xs="" md={4} lg={2} className="card-image-container">
-                <Image src={imagePlaceHolder} />
-              </Col>
-              <Col>
-                <Card.Title className="mt-5">{t('loginPage.competitionTitle')}</Card.Title>
-                <Card.Text>
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum."
-                </Card.Text>
-                <Row className="justify-content-center">
-                  <Col xs="12" lg="10">
-                    <Card.Text className="pe-3 competition-end">
-                      {t('loginPage.competitionEnd')}
-                    </Card.Text>
-                  </Col>
-                  <Col xs="12" lg="2">
-                    {' '}
-                    <Button variant="secondary" className="mt-2">
-                      {' '}
-                      {t('loginPage.participate')}
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-
-        <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
-          <Card.Body>
-            <Row>
-              <Col xs="" md={4} lg={2} className="card-image-container justify-content-center">
-                <Image src={imagePlaceHolder} />
-              </Col>
-              <Col>
-                <Card.Title className="mt-5">{t('loginPage.competitionTitle')}</Card.Title>
-                <Card.Text>
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum."
-                </Card.Text>
-                <Row className="justify-content-center">
-                  <Col xs="12" lg="10">
-                    <Card.Text className="pe-3 competition-end">
-                      {t('loginPage.competitionEnd')}
-                    </Card.Text>
-                  </Col>
-                  <Col xs="12" lg="2">
-                    {' '}
-                    <Button variant="secondary" className="mt-2">
-                      {' '}
-                      {t('loginPage.participate')}
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
-
-        <Card className="contest-card" style={{ width: imageSize.width, maxWidth: '100%' }}>
-          <Card.Body>
-            <Row className="justify-content-center">
-              <Col xs="12" md={4} lg={2} className="card-image-container">
-                <Image src={imagePlaceHolder} />
-              </Col>
-              <Col>
-                <Card.Title className="mt-5">{t('loginPage.competitionTitle')}</Card.Title>
-                <Card.Text>
-                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                  pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                  officia deserunt mollit anim id est laborum."
-                </Card.Text>
-                <Row className="justify-content-center">
-                  <Col xs="12" lg="10">
-                    <Card.Text className="pe-3 competition-end">
-                      {t('loginPage.competitionEnd')}
-                    </Card.Text>
-                  </Col>
-                  <Col xs="12" lg="2">
-                    {' '}
-                    <Button variant="secondary" className="mt-2">
-                      {' '}
-                      {t('loginPage.participate')}
-                    </Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </Card.Body>
-        </Card>
+        {!!!isLoading && !!competitions && (
+          <CompetitionList competitions={competitions} imageSize={imageSize} />
+        )}
       </Container>
     </>
   );
 }
+
+const CompetitionList = ({ competitions, imageSize }) => {
+  const { t } = useTranslation();
+
+  const list = competitions.map((competition, i) => {
+    return <CompetitionSignle competition={competition} imageSize={imageSize} key={i} />;
+  });
+
+  return (
+    <>
+      <Card className="py-5">
+        <h3 className="contest">{t('homePage.constestListTitle')}</h3>
+        <div className="divider"></div>
+      </Card>
+
+      {list}
+    </>
+  );
+};
+
+const CompetitionSignle = ({ competition, imageSize }) => {
+  const { t } = useTranslation();
+  const { isLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const c = new Competition(competition);
+
+  const onParticipate = () => {
+    if (isLoggedIn()) {
+      navigate('/user-competition-request');
+
+      return;
+    }
+
+    navigate('/login');
+  };
+
+  return (
+    <Card className="contest-card mb-3" style={{ width: imageSize.width, maxWidth: '100%' }}>
+      <Card.Body>
+        <Row className="justify-content-center">
+          <Col xs="" md={4} lg={2} className="card-image-container">
+            <Image src={imagePlaceHolder} />
+          </Col>
+          <Col>
+            <Card.Title>{c.getName()}</Card.Title>
+            <Card.Text>{c.getDescription()}</Card.Text>
+            <Row className="justify-content-center">
+              <Col xs="12" lg="10">
+                <Card.Text className="pe-3 competition-end">
+                  {t('loginPage.competitionEnd')} {c.getEndDate()}
+                </Card.Text>
+              </Col>
+              <Col xs="12" lg="2">
+                <Button variant="secondary" className="mt-2" onClick={onParticipate}>
+                  {t('loginPage.participate')}
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Card.Body>
+    </Card>
+  );
+};
 
 export default HomePage;

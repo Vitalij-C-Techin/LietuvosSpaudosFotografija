@@ -30,6 +30,15 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
 
     @Query("SELECT c " +
             "FROM CompetitionRecord c " +
+            "WHERE c.visibility = 'PUBLIC' " +
+            "AND c.startDate < CURRENT_TIMESTAMP " +
+            "AND c.endDate > CURRENT_TIMESTAMP " +
+            "ORDER BY c.endDate ASC "
+    )
+    Page<CompetitionRecord> findActiveCompetitions(Pageable pageable);
+
+    @Query("SELECT c " +
+            "FROM CompetitionRecord c " +
             "JOIN ParticipationRequestRecord r ON c.uuid = r.competitionUuid " +
             "WHERE r.userUuid = :userUuid " +
             "AND r.status = 'PERMIT' " +

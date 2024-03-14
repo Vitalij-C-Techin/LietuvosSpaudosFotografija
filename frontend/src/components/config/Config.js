@@ -15,6 +15,7 @@ const Config = {
     },
     competitions: {
       adminAll: '/api/v1/competition/all/{page}',
+      active: '/api/v1/competition/all/active/{page}',
       userActive: '/api/v1/competition/user/{page}',
       userParticipate: '/api/v1/competition/user/participate/{page}'
     },
