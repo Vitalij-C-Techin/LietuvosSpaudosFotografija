@@ -29,8 +29,8 @@ public class CategoryService {
     }
 
     public Category createCategoryAndAddToCompetition(CompetitionRecord competitionRecord, CategoryRequest categoryRequest) {
-        if (hasCategory(categoryRequest)) {
-            throw new CategoryExistsException("Category exists");
+        if (hasCategoryInCompetition(competitionRecord, categoryRequest)) {
+            throw new CategoryExistsException("Category exists in this competition");
         }
 
         CategoryRecord categoryRecord = createCategoryRecord(categoryRequest, competitionRecord);
@@ -99,8 +99,9 @@ public class CategoryService {
         return categoryRecord;
     }
 
-    public boolean hasCategory(CategoryRequest categoryRequest) {
-        return categoryRepository.existsByNameLtAndNameEnAndDescriptionLtAndDescriptionEnIgnoreCase(
+    public boolean hasCategoryInCompetition(CompetitionRecord competitionRecord, CategoryRequest categoryRequest) {
+        return categoryRepository.existsByCompetitionRecordAndNameLtAndNameEnAndDescriptionLtAndDescriptionEnIgnoreCase(
+                competitionRecord,
                 categoryRequest.getCategoryNameLt(),
                 categoryRequest.getCategoryNameEn(),
                 categoryRequest.getCategoryDescriptionLt(),
