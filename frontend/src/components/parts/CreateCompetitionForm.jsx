@@ -53,7 +53,7 @@ const CreateCompetitionForm = () => {
       });
       navigate('/admin-competitions-list');
     } catch (error) {
-      alert(t(editcompt.error1));
+      alert(t('editcompt.error1'));
     }
   };
 
