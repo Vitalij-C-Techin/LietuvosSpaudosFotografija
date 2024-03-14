@@ -10,7 +10,7 @@ import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
-const ViewEditCompetitionForm = ({ competitionUUID }) => {
+const ViewEditCompetitionForm = ({ uuid }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -28,10 +28,9 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
   useEffect(() => {
     const fetchCompetitionData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8080/api/v1/competition/${competitionUUID}`,
-          { headers: getTokenHeader() }
-        );
+        const response = await axios.get(`http://localhost:8080/api/v1/competition/${uuid}`, {
+          headers: getTokenHeader()
+        });
         const competitionData = response.data;
         setFormData((prevFormData) => ({
           ...prevFormData,
@@ -50,7 +49,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
       }
     };
     fetchCompetitionData();
-  }, [competitionUUID]);
+  }, [uuid]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -92,7 +91,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
 
   const confirmSave = async () => {
     try {
-      await axios.put(`http://localhost:8080/api/v1/competition/${competitionUUID}`, formData, {
+      await axios.put(`http://localhost:8080/api/v1/competition/${uuid}`, formData, {
         headers: getTokenHeader()
       });
       navigate('/admin-competitions-list');
@@ -110,7 +109,7 @@ const ViewEditCompetitionForm = ({ competitionUUID }) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8080/api/v1/competition/${competitionUUID}`, {
+      await axios.delete(`http://localhost:8080/api/v1/competition/${uuid}`, {
         headers: getTokenHeader()
       });
       navigate('/admin-competitions-list');
