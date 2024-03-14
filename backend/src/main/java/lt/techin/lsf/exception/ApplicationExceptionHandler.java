@@ -1,5 +1,6 @@
 package lt.techin.lsf.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import lt.techin.lsf.model.response.ErrorResponse;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,29 @@ public class ApplicationExceptionHandler {
                         .build());
     }
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handle(EntityNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ErrorResponse.builder()
+                        .code(exception.getClass().getSimpleName())
+                        .message(exception.getMessage())
+                        .build()
+                );
+    }
+
     @ExceptionHandler({CompetitionExistsException.class})
     protected ResponseEntity<ErrorResponse> handle(CompetitionExistsException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler({CategoryExistsException.class})
+    protected ResponseEntity<ErrorResponse> handle(CategoryExistsException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
