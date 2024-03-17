@@ -114,73 +114,15 @@ To get started with using Mailjet for sending emails, follow these steps:
 it's crucial to understand that the security of these keys is ultimately your responsibility.
 We strongly recommend adding the `credentials.yaml` file to your project's `.gitignore` to prevent accidental exposure of sensitive information.
 
+## Predefined Users
+
+- user@mail.com (role: user)
+- jury@mail.com (role: jury)
+- moderator@mail.com (role: moderator)
+- admin@mail.com (role: admin)
+
+Password: qweQWE123!
+
 ## Endpoints
 
 Swagger url: /swagger-ui/index.html
-
-### User registration
-
-Request POST /api/v1/registration
-```
-{
-    "name": "string",
-    "surname": "string",
-    "email": "string",
-    "password": "string",
-    "birth_year": 0,
-    "phone_number": "string",
-    "media_name": "string"
-}
-```
-Response
-```
-{
-    "token": "string",
-    "user": {
-        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "name": "string",
-        "surname": "string",
-        "email": "string",
-        "role": "USER",
-        "birth_year": 0,
-        "phone_number": "string",
-        "media_name": "string",
-        "created_at": "2024-02-14T18:42:31.547Z"
-    }
-}
-```
-
-### Login
-
-Request GET /api/v1/login
-
-```
-{
-    "name": "string",
-    "surname": "string",
-    "email": "string",
-    "password": "string",
-    "birth_year": 0,
-    "phone_number": "string",
-    "media_name": "string"
-}
-```
-
-Response
-
-```
-{
-    "token": "string",
-    "user": {
-        "uuid": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "name": "string",
-        "surname": "string",
-        "email": "string",
-        "role": "USER",
-        "birth_year": 0,
-        "phone_number": "string",
-        "media_name": "string",
-        "created_at": "2024-02-14T18:38:59.102Z"
-    }
-}
-```
