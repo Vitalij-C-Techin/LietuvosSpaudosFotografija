@@ -50,7 +50,9 @@ const ForgotPasswordForm = () => {
               <h2 style={{ textAlign: 'center' }}> {t('forgotPasswordForm.resetPassword')}</h2>
             </Card>
             <Form noValidate onSubmit={handleSubmit(onSubmit)}>
-              {successMessage && <p>{t('forgotPasswordForm.emailResetMessage')}</p>}
+              {successMessage && (
+                <p data-testid="success-message">{t('forgotPasswordForm.emailResetMessage')}</p>
+              )}
               {errorMessage && (
                 <p className="text-danger" data-testid="error-message">
                   {t('forgotPasswordForm.emailSendingError')}
