@@ -1,35 +1,45 @@
 package lt.techin.lsf.service;
 
 import lt.techin.lsf.exception.UserExistsException;
+import lt.techin.lsf.exception.UserNotFoundException;
 import lt.techin.lsf.model.User;
+import lt.techin.lsf.model.mapper.UserDataForListMapper;
 import lt.techin.lsf.model.mapper.UserRecordMapper;
+import lt.techin.lsf.model.mapper.UserResponseMapper;
 import lt.techin.lsf.model.requests.AdminRegisterJuryRequest;
 import lt.techin.lsf.model.requests.AdminRegisterUserRequest;
+import lt.techin.lsf.model.response.UserDataForListResponse;
+import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.persistance.UserRepository;
 import lt.techin.lsf.persistance.model.UserRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class AdminService {
 
     private final UserRepository userRepository;
-    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
 
     private static final String USER_EXISTS_MESSAGE = "User exists";
+    private static final String USER_NOT_FOUND_MESSAGE = "User not found";
 
     @Autowired
-    public AdminService(UserRepository userRepository, UserService userService, PasswordEncoder passwordEncoder) {
+    public AdminService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
     public UserRecord registerUser(AdminRegisterUserRequest registerUserAdminRequest) {
 
-        if (userService.existsUserWithEmail(registerUserAdminRequest.getEmail())) {
+        if (userRepository.existsByEmail(registerUserAdminRequest.getEmail())) {
             throw new UserExistsException(USER_EXISTS_MESSAGE);
         }
 
@@ -44,7 +54,7 @@ public class AdminService {
 
     public UserRecord registerJury(AdminRegisterJuryRequest registerJuryAdminRequest) {
 
-        if (userService.existsUserWithEmail(registerJuryAdminRequest.getEmail())) {
+        if (userRepository.existsByEmail(registerJuryAdminRequest.getEmail())) {
             throw new UserExistsException(USER_EXISTS_MESSAGE);
         }
 
@@ -56,5 +66,21 @@ public class AdminService {
         );
 
         return userRepository.save(userRecord);
+    }
+
+    public UserResponse getUserByUuid(UUID userUuid) {
+
+        UserRecord userDetails = userRepository.findById(userUuid)
+                .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
+
+        return UserResponseMapper.userRecordToUserResponse(userDetails);
+    }
+
+    public Page<UserDataForListResponse> getAllUsers(int pageNumber, int pageSize, String sortBy, String sortDirection) {
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(sortDirection), sortBy);
+        Page<UserRecord> userPage = userRepository.findAll(pageable);
+
+        return userPage.map(UserDataForListMapper::userRecordToUserResponseForList);
     }
 }

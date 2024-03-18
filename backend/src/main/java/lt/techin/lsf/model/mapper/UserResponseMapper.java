@@ -22,4 +22,20 @@ public class UserResponseMapper {
                 .createdAt(user.getCreatedAt())
                 .build();
     }
+
+    public static UserResponse userRecordToUserResponse(UserRecord userRecord) {
+
+        return UserResponse.builder()
+                .uuid(userRecord.getUuid())
+                .name(userRecord.getName())
+                .surname(userRecord.getSurname())
+                .birthYear(userRecord.getBirthYear())
+                .email(userRecord.getEmail())
+                .phoneNumber(userRecord.getPhoneNumber())
+                .mediaName(userRecord.getMediaName())
+                .role(userRecord.getRole())
+                .createdAt(userRecord.getCreatedAt())
+                .build();
+    }
+
 }
