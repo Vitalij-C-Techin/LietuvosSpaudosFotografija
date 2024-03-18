@@ -229,7 +229,7 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler({UserRegistrationMediaNameIsTooLongException.class})
     protected ResponseEntity<ErrorResponse> handle(UserRegistrationMediaNameIsTooLongException exception) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
                                 .code(exception.getClass().getSimpleName())
