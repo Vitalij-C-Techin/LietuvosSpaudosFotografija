@@ -19,6 +19,8 @@ public class SecurityConfig {
     private final String[] publicGetEndpoints = {
             "api/v1/competition/all/active/{page}",
 
+            "api/v1/photo/{filename}",
+
             "swagger-ui/**", // Swagger
             "v3/api-docs/**" // Swagger
     };
@@ -27,7 +29,10 @@ public class SecurityConfig {
             "api/v1/login",
             "api/v1/logout",
             "api/v1/forget-password",
-            "api/v1/change-password"
+            "api/v1/change-password",
+
+            "api/v1/photo",
+            "api/v1/photo/**",
     };
     private final String[] publicPutEndpoints = {
 
@@ -44,22 +49,22 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
-                    //Public
+                            //Public
                             request.requestMatchers(HttpMethod.GET, publicGetEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.POST, publicPostEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.PUT, publicPutEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.DELETE, publicDeleteEndpoints).permitAll();
 
-                    //User, Moderator, Admin
+                            //User, Moderator, Admin
                             request.requestMatchers(
                                     "api/v1/participation",
                                     "api/v1/participation/{uui}",
 
                                     "api/v1/competition/user/{page}",
                                     "api/v1/competition/user/participate/{page}"
-                            ).hasAnyAuthority("USER","MODERATOR", "ADMIN");
+                            ).hasAnyAuthority("USER", "MODERATOR", "ADMIN");
 
-                    //Moderator, Admin
+                            //Moderator, Admin
                             request.requestMatchers(
                                     "api/v1/participation",
                                     "api/v1/participation/{uuid}",
