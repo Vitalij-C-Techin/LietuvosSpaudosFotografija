@@ -13,6 +13,7 @@ import EmptyMessage from '../messages/EmptyMessage';
 import ModalInfo from '../modals/ModalInfo';
 import ModalContentCompetitionParticipation from '../modals/ModalContentCompetitionParticipation';
 import Pagination from '../parts/Pagination';
+import Category from '../utils/Category';
 
 const UserCompetitionsRequestPage = () => {
   const [t] = useTranslation();
@@ -166,21 +167,30 @@ const CompetitionList = ({ competitions, onDetails }) => {
 };
 
 const CompetitionSingle = ({ competition, onDetails }) => {
-  const c = new Competition(competition);
+  const com = new Competition(competition.competition);
+
+  const categoryList = competition.categories.map((categoryData, i) => {
+    const category = new Category(categoryData);
+
+    return <div key={i}>{category.getName()}</div>;
+  });
 
   const handleOnDetails = () => {
-    onDetails(competition);
+    onDetails({
+      ...competition.competition,
+      categories: competition.categories
+    });
   };
 
   return (
     <tr>
       <td className="col-4">
-        {c.getName()}
+        {com.getName()}
         <div>
-          {c.getStartDate()} - {c.getEndDate()}
+          {com.getStartDate()} - {com.getEndDate()}
         </div>
       </td>
-      <td className="col-12">Categories</td>
+      <td className="col-12">{categoryList}</td>
       <td>
         <div className="d-flex gap-1 flex-column flex-lg-row flex-md-row align-end">
           <Button

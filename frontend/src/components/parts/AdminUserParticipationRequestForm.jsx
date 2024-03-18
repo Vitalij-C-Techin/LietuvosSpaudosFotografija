@@ -190,7 +190,7 @@ const UserRequestSingle = ({ userRequest, onPermit, onReject }) => {
         <div className="d-flex gap-1 flex-column flex-lg-row flex-md-row align-end">
           <Button
             variant="outline-primary"
-            className="align-content-center d-inline-flex"
+            className="align-content-center d-inline-flex d-none "
             onClick={handleInfo}
           >
             <span className="material-icons">visibility</span>
