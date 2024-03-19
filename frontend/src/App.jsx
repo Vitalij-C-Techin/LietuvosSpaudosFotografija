@@ -24,7 +24,7 @@ import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx'
 import AdminManageUsersPage from './components/pages/AdminManageUsersPage.jsx';
 import AdminCreateUserPage from './components/pages/AdminCreateUserPage.jsx';
 import CreateCompetition from './components/pages/adminPages/CreateCompetitionPage.jsx';
-import Competition from './components/pages/Competition.jsx';
+import CompetitionPage from './components/pages/CompetitionPage.jsx';
 
 function App() {
   return (
@@ -61,8 +61,10 @@ function App() {
               <Route path="/admin-manage-users" element={<AdminManageUsersPage />} />
               <Route path="/admin-create-user" element={<AdminCreateUserPage />} />
             </Route>
+            <Route element={<Authorization allowedRoles={'JURY'} />}>
+              <Route path="/competition" element={<CompetitionPage />} />
+            </Route>
 
-            <Route path="/competition" element={<Competition />} />
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </AuthProvider>
