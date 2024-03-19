@@ -12,10 +12,7 @@ import lt.techin.lsf.model.requests.AuthenticationRequest;
 import lt.techin.lsf.model.requests.RegisterRequest;
 import lt.techin.lsf.persistance.UserRepository;
 import lt.techin.lsf.persistance.model.UserRecord;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -49,6 +46,13 @@ public class AuthenticationService {
     }
 
     public UserAuthentication authentication(@NonNull AuthenticationRequest request) {
+
+        UserRecord userRecord = userRepository.findByEmailIgnoreCase(request.getEmail());
+
+        if(!userRecord.isActive()) {
+            throw new DisabledException("Account is disabled");
+        }
+
         Authentication authentication = null;
 
         try {
