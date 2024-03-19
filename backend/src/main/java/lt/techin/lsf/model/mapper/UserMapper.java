@@ -1,8 +1,6 @@
 package lt.techin.lsf.model.mapper;
 
 import lt.techin.lsf.model.User;
-import lt.techin.lsf.model.requests.RegisterRequest;
-import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.persistance.model.UserRecord;
 
 import java.util.List;
@@ -26,6 +24,7 @@ public class UserMapper {
                 .passwordResetToken(userRecord.getPasswordResetToken())
                 .passwordResetRequestAt(userRecord.getPasswordResetRequestAt())
                 .createdAt(userRecord.getCreatedAt())
+                .isActive(userRecord.isActive())
                 .build();
     }
 

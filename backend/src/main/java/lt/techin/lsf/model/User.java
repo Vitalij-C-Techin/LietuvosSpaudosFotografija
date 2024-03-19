@@ -1,7 +1,10 @@
 package lt.techin.lsf.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +37,7 @@ public class User implements UserDetails {
     private String passwordResetToken;
     private LocalDateTime passwordResetRequestAt;
 
+    private boolean isActive;
     private Timestamp createdAt;
 
     @Override

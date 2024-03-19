@@ -53,8 +53,22 @@ public class UserRecord {
     @Enumerated(STRING)
     private User.Role role;
 
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
+
+    @PrePersist
+    public void prePersist() {
+        setDefaultActive();
+    }
+
+    private UserRecord setDefaultActive() {
+        isActive = true;
+
+        return this;
+    }
 
     public UserRecord setupNewUser() {
         setGeneratedUuid();

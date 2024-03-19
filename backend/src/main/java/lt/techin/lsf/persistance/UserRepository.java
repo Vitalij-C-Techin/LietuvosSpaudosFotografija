@@ -2,6 +2,8 @@ package lt.techin.lsf.persistance;
 
 import jakarta.transaction.Transactional;
 import lt.techin.lsf.persistance.model.UserRecord;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -22,4 +24,6 @@ public interface UserRepository extends JpaRepository<UserRecord, UUID> {
     void deleteByEmail(String email);
 
     UserRecord findByPasswordResetToken(String passwordResetToken);
+
+    Page<UserRecord> findAll(Pageable pageable);
 }

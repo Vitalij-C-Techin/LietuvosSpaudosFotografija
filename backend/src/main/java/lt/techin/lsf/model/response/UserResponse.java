@@ -1,8 +1,6 @@
 package lt.techin.lsf.model.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.*;
 import lt.techin.lsf.model.User;
 
@@ -33,6 +31,9 @@ public class UserResponse {
     private String mediaName;
 
     private User.Role role;
+
+    @JsonProperty("is_active")
+    private boolean isActive;
 
     @JsonProperty("created_at")
     private Timestamp createdAt;
