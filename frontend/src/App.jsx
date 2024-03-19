@@ -24,6 +24,7 @@ import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx'
 import AdminManageUsersPage from './components/pages/AdminManageUsersPage.jsx';
 import AdminCreateUserPage from './components/pages/AdminCreateUserPage.jsx';
 import CreateCompetition from './components/pages/adminPages/CreateCompetitionPage.jsx';
+import Competition from './components/pages/Competition.jsx';
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
               <Route path="/admin-create-user" element={<AdminCreateUserPage />} />
             </Route>
 
+            <Route path="/competition" element={<Competition />} />
             <Route path="/*" element={<ErrorPage />} />
           </Routes>
         </AuthProvider>
