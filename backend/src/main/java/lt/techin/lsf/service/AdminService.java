@@ -8,6 +8,7 @@ import lt.techin.lsf.model.mapper.UserRecordMapper;
 import lt.techin.lsf.model.mapper.UserResponseMapper;
 import lt.techin.lsf.model.requests.AdminRegisterJuryRequest;
 import lt.techin.lsf.model.requests.AdminRegisterUserRequest;
+import lt.techin.lsf.model.requests.AdminUpdateUserIsActiveRequest;
 import lt.techin.lsf.model.requests.AdminUpdateUserRoleRequest;
 import lt.techin.lsf.model.response.UserDataForListResponse;
 import lt.techin.lsf.model.response.UserResponse;
@@ -85,7 +86,7 @@ public class AdminService {
         return userPage.map(UserDataForListMapper::userRecordToUserResponseForList);
     }
 
-    public UserResponse updateUser(UUID userUuid, AdminUpdateUserRoleRequest updateUserRoleRequest) {
+    public UserResponse updateUserRole(UUID userUuid, AdminUpdateUserRoleRequest updateUserRoleRequest) {
 
         UserRecord userDetails = userRepository.findById(userUuid)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
@@ -95,6 +96,21 @@ public class AdminService {
 
         if (!givenRole.equals(updateRole)) {
             userDetails.setRole(updateRole);
+        }
+
+        return UserResponseMapper.userRecordToUserResponse(userRepository.save(userDetails));
+    }
+
+    public UserResponse updateUserIsActive(UUID userUuid, AdminUpdateUserIsActiveRequest updateUserIsActiveRequest) {
+
+        UserRecord userDetails = userRepository.findById(userUuid)
+                .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
+
+        boolean userIsActive = userDetails.isActive();
+        boolean updateUserIsActive = updateUserIsActiveRequest.isActive();
+
+        if(userIsActive != updateUserIsActive) {
+            userDetails.setActive(updateUserIsActive);
         }
 
         return UserResponseMapper.userRecordToUserResponse(userRepository.save(userDetails));
