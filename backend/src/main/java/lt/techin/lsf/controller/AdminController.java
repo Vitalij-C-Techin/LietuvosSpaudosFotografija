@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.requests.AdminRegisterJuryRequest;
 import lt.techin.lsf.model.requests.AdminRegisterUserRequest;
+import lt.techin.lsf.model.requests.AdminUpdateUserRoleRequest;
 import lt.techin.lsf.model.response.UserCreationResponse;
 import lt.techin.lsf.model.response.UserDataForListResponse;
 import lt.techin.lsf.model.response.UserResponse;
@@ -74,6 +75,15 @@ public class AdminController {
     ) {
 
         return adminService.getAllUsers(page, size, sortBy, direction);
+    }
+
+    @PatchMapping("/user/{userUuid}")
+    public UserResponse getAllUsers(
+            @PathVariable UUID userUuid,
+            @RequestBody AdminUpdateUserRoleRequest updateUserRoleRequest
+    ) {
+
+        return adminService.updateUser(userUuid, updateUserRoleRequest);
     }
 
 

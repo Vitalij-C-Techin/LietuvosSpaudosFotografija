@@ -8,6 +8,7 @@ import lt.techin.lsf.model.mapper.UserRecordMapper;
 import lt.techin.lsf.model.mapper.UserResponseMapper;
 import lt.techin.lsf.model.requests.AdminRegisterJuryRequest;
 import lt.techin.lsf.model.requests.AdminRegisterUserRequest;
+import lt.techin.lsf.model.requests.AdminUpdateUserRoleRequest;
 import lt.techin.lsf.model.response.UserDataForListResponse;
 import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.persistance.UserRepository;
@@ -82,5 +83,20 @@ public class AdminService {
         Page<UserRecord> userPage = userRepository.findAll(pageable);
 
         return userPage.map(UserDataForListMapper::userRecordToUserResponseForList);
+    }
+
+    public UserResponse updateUser(UUID userUuid, AdminUpdateUserRoleRequest updateUserRoleRequest) {
+
+        UserRecord userDetails = userRepository.findById(userUuid)
+                .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
+
+        User.Role givenRole = userDetails.getRole();
+        User.Role updateRole = updateUserRoleRequest.getRole();
+
+        if (!givenRole.equals(updateRole)) {
+            userDetails.setRole(updateRole);
+        }
+
+        return UserResponseMapper.userRecordToUserResponse(userRepository.save(userDetails));
     }
 }
