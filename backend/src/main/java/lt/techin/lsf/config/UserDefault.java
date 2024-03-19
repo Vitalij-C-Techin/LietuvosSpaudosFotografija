@@ -6,12 +6,15 @@ import lt.techin.lsf.persistance.UserRepository;
 import lt.techin.lsf.persistance.model.UserRecord;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
 public class UserDefault implements ApplicationRunner {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Override
     public void run(ApplicationArguments args) {
@@ -28,7 +31,7 @@ public class UserDefault implements ApplicationRunner {
                 .phoneNumber("+37060000000")
                 .birthYear(2000)
                 .email("user@mail.com")
-                .password("qweQWE123!")
+                .password(passwordEncoder.encode("qweQWE123!"))
                 .role(User.Role.USER)
                 .build();
 
@@ -46,7 +49,7 @@ public class UserDefault implements ApplicationRunner {
                 .phoneNumber("+37060000000")
                 .birthYear(2000)
                 .email("jury@mail.com")
-                .password("qweQWE123!")
+                .password(passwordEncoder.encode("qweQWE123!"))
                 .role(User.Role.JURY)
                 .build();
 
@@ -64,7 +67,7 @@ public class UserDefault implements ApplicationRunner {
                 .phoneNumber("+37060000000")
                 .birthYear(2000)
                 .email("moderator@mail.com")
-                .password("qweQWE123!")
+                .password(passwordEncoder.encode("qweQWE123!"))
                 .role(User.Role.MODERATOR)
                 .build();
 
@@ -83,7 +86,7 @@ public class UserDefault implements ApplicationRunner {
                 .phoneNumber("+37060000000")
                 .birthYear(2000)
                 .email("admin@mail.com")
-                .password("qweQWE123!")
+                .password(passwordEncoder.encode("qweQWE123!"))
                 .role(User.Role.ADMIN)
                 .build();
 
