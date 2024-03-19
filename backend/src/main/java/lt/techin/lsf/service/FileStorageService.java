@@ -3,8 +3,8 @@ package lt.techin.lsf.service;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,52 +17,61 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class FileStorageService {
 
-    public boolean save(String path, String filename, MultipartFile file) {
-        if (!createPath(path)) {
-            return false;
-        }
+    public boolean save(String path, String filename, File file) {
+        createPath(path);
 
-        Path uploadPath = Paths.get(path);
-
-        try (InputStream inputStream = file.getInputStream()) {
-
+        try {
+            Path uploadPath = Paths.get(path);
             Path filePath = uploadPath.resolve(filename);
 
+            InputStream inputStream = new ByteArrayInputStream(
+                    Files.readAllBytes(
+                            file.toPath()
+                    )
+            );
+
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ioe) {
-            return false;
+
+            return true;
+        } catch (Exception ignored) {
+
         }
 
-        return true;
+        return false;
     }
 
-    public Resource load(String file) {
+    public File load(String path) {
         try {
-            Path p = Path.of(file);
+            File file = new File(path);
 
-            Resource resource = new UrlResource(p.toUri());
-
-            if (resource.exists() || resource.isReadable()) {
-                return resource;
+            if (file.exists() || file.canRead()) {
+                return file;
             }
-        } catch (MalformedURLException ignored) {
+        } catch (Exception ignored) {
+
         }
 
         return null;
     }
 
-    public boolean remove(String path){
+    public boolean remove(String path) {
         try {
-            Files.deleteIfExists(Paths.get(path));
-        } catch (IOException e) {
-            return false;
+            Files.deleteIfExists(
+                    Paths.get(path)
+            );
+
+            return true;
+        } catch (Exception ignored) {
+
         }
 
-        return true;
+        return false;
     }
 
-    public boolean exists(String filePath) {
-        return Files.exists(Path.of(filePath));
+    public boolean exists(String path) {
+        return Files.exists(
+                Path.of(path)
+        );
     }
 
     public boolean createPath(String path) {
@@ -70,10 +79,12 @@ public class FileStorageService {
             Files.createDirectories(
                     Paths.get(path)
             );
-        } catch (IOException e) {
-            return false;
+
+            return true;
+        } catch (IOException ignored) {
+
         }
 
-        return true;
+        return false;
     }
 }

@@ -1,20 +1,14 @@
 package lt.techin.lsf.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
+@Getter
+@AllArgsConstructor
 public class FileData {
 
-    @Getter
     private MultipartFile file;
-
-    public FileData(MultipartFile file) {
-        this.file = file;
-    }
-
-    public MultipartFile getFile() {
-        return file;
-    }
 
     public String getName() {
         return file.getOriginalFilename();

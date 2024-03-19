@@ -1,21 +1,21 @@
 package lt.techin.lsf.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 @Service
 @RequiredArgsConstructor
 public class PhotoStorageService {
     private final FileStorageService fileStorageService;
 
-    public boolean save(String path, String fileName, MultipartFile file) {
+    public boolean save(String path, String fileName, File file) {
         return fileStorageService.save(path, fileName, file);
     }
 
-    public Resource get(String filePath) {
-        return fileStorageService.load(filePath);
+    public File get(String path) {
+        return fileStorageService.load(path);
     }
 
     public boolean remove(String path) {
