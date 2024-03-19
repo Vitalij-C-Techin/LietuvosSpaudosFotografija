@@ -20,6 +20,7 @@ public class UserResponseMapper {
                 .mediaName(user.getMediaName())
                 .role(user.getRole())
                 .createdAt(user.getCreatedAt())
+                .isActive(user.isActive())
                 .build();
     }
 
@@ -34,6 +35,7 @@ public class UserResponseMapper {
                 .phoneNumber(userRecord.getPhoneNumber())
                 .mediaName(userRecord.getMediaName())
                 .role(userRecord.getRole())
+                .isActive(userRecord.isActive())
                 .createdAt(userRecord.getCreatedAt())
                 .build();
     }
