@@ -21,8 +21,8 @@ import CompetitionManagementPage from './components/pages/adminPages/Competition
 
 import { Authorization } from './components/utils/Authorization.jsx';
 import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx';
-import AdminManageUsersPage from './components/pages/AdminManageUsersPage.jsx';
-import AdminCreateUserPage from './components/pages/AdminCreateUserPage.jsx';
+import AdminManageUsersPage from './components/pages/adminPages/AdminManageUsersPage.jsx';
+import AdminCreateUserPage from './components/pages/adminPages/AdminCreateUserPage.jsx';
 import CreateCompetition from './components/pages/adminPages/CreateCompetitionPage.jsx';
 import CompetitionPage from './components/pages/CompetitionPage.jsx';
 
