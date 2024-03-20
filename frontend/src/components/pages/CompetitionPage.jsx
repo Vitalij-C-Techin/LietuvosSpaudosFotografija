@@ -86,14 +86,13 @@ const CompetitionPage = () => {
     };
 
     return (
-      <div
-        className="custom-controls-container"
-        style={{ display: 'flex', justifyContent: 'center' }}
+      <Button
+        variant="outline-secondary"
+        onClick={handleButtonClick}
+        className="image-gallery-icon"
       >
-        <Button variant="outline-secondary" onClick={handleButtonClick}>
-          👍
-        </Button>
-      </div>
+        👍
+      </Button>
     );
   };
 
