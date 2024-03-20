@@ -1,13 +1,7 @@
-import {useEffect, useState} from 'react';
 import {Button, Card, Col, Container, Row} from 'react-bootstrap';
 import {useTranslation} from 'react-i18next';
 import {useNavigate} from 'react-router-dom';
-import Config from '../config/Config';
-import axios from 'axios';
-
-import LoadingMessage from '../messages/LoadingMessage';
-import EmptyMessage from '../messages/EmptyMessage';
-import {useAuth} from '../context/AuthContext';
+import AdminMangeUsersListForm from "../../parts/AdminMangeUsersListForm.jsx";
 
 const AdminManageUsersPage = () => {
     const [t] = useTranslation();
@@ -21,6 +15,8 @@ const AdminManageUsersPage = () => {
             </Container>
 
             <ActionList/>
+
+            <AdminMangeUsersListForm/>
 
         </>
     );
