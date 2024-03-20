@@ -81,7 +81,8 @@ const CompetitionPage = () => {
 
   const renderCustomControls = () => {
     const handleButtonClick = () => {
-      console.log('Custom button clicked!');
+      const currentIndex = toggleFullScreenRef.current.getCurrentIndex();
+      console.log('Custom button clicked!', currentIndex);
     };
 
     return (
@@ -89,8 +90,8 @@ const CompetitionPage = () => {
         className="custom-controls-container"
         style={{ display: 'flex', justifyContent: 'center' }}
       >
-        <Button variant="primary" onClick={handleButtonClick}>
-          Custom Button
+        <Button variant="outline-secondary" onClick={handleButtonClick}>
+          👍
         </Button>
       </div>
     );
@@ -101,12 +102,7 @@ const CompetitionPage = () => {
       <Container>
         <Row>
           <Col xxl="2" xl="2" lg="2" md="3" sm="3" className="d-flex justify-content-center">
-            <Image
-              src={imagePlaceHolder}
-              rounded
-              style={{ width: '100%', height: 'auto' }}
-              onClick={handleImageClick}
-            />
+            <Image src={imagePlaceHolder} rounded style={{ width: '100%', height: 'auto' }} />
           </Col>
 
           <Col>
@@ -123,12 +119,24 @@ const CompetitionPage = () => {
         {getPaginatedImages().map((image, index) => (
           <Col key={index} xl="4" className="my-3">
             <Card>
-              <Image
+              <Card.Img thumbnail src={image.original} onClick={() => handleImageClick(index)} />
+              {/* <Image
                 src={image.original}
                 rounded
                 style={{ width: '100%', height: 'auto' }}
                 onClick={() => handleImageClick(index)}
-              />
+              /> */}
+              <Card body>
+                <Card body>This is some text within a card body.</Card>
+              </Card>
+              <Button variant="outline-light">
+                {' '}
+                <Card.Text>
+                  <span role="img" aria-label="like">
+                    👍
+                  </span>
+                </Card.Text>
+              </Button>
             </Card>
           </Col>
         ))}
@@ -145,7 +153,7 @@ const CompetitionPage = () => {
           startIndex={clickedImageIndex}
           onScreenChange={handleScreenChange}
           autoPlay={false}
-          renderCustomControls={renderCustomControls}
+          renderCustomControls={(currentIndex) => renderCustomControls(currentIndex)}
         />
       )}
 
