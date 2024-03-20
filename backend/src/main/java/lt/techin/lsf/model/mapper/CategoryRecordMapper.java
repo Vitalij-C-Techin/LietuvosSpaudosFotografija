@@ -14,8 +14,6 @@ public class CategoryRecordMapper {
                 .descriptionEn(categoryRequest.getCategoryDescriptionEn())
                 .albumType(categoryRequest.getAlbumType())
                 .photoLimit(categoryRequest.getPhotoLimit())
-                .photoFormat(categoryRequest.getPhotoFormatType())
-                .photoSize(categoryRequest.getPhotoSize())
                 .build();
     }
 }

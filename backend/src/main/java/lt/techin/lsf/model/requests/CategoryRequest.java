@@ -37,13 +37,4 @@ public class CategoryRequest {
     @Max(value = 50, message = "Maximum limit is {value} photos")
     @JsonProperty("photo_limit")
     private int photoLimit;
-
-    @NotBlank(message = "Field cannot be empty")
-    @JsonProperty("photo_format_type")
-    private String photoFormatType;
-
-    @Min(value = 100, message = "Minimum size limit is {value}kB")
-    @JsonProperty("photo_size")
-    private int photoSize;
-
 }

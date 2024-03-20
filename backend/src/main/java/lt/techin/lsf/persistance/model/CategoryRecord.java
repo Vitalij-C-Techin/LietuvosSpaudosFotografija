@@ -1,13 +1,13 @@
 package lt.techin.lsf.persistance.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -37,18 +37,13 @@ public class CategoryRecord {
     @Column(name = "photo_limit", nullable = false)
     private int photoLimit;
 
-    @Column(name = "photo_size", nullable = false)
-    private int photoSize;
-
-    @Column(name = "photo_format", nullable = false)
-    private String photoFormat;
-
     @Column(name = "is_preset")
     private String isPreset;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "competition_uuid")
     private CompetitionRecord competitionRecord;

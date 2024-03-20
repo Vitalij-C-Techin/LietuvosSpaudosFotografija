@@ -13,8 +13,6 @@ public class CategoryMapper {
                 .descriptionEn(categoryRecord.getDescriptionEn())
                 .albumType(categoryRecord.getAlbumType())
                 .photoLimit(categoryRecord.getPhotoLimit())
-                .photoFormat(categoryRecord.getPhotoFormat())
-                .photoSize(categoryRecord.getPhotoSize())
                 .isPreset(categoryRecord.getIsPreset())
                 .competitionUuid(categoryRecord.getCompetitionRecord().getUuid())
                 .build();
