@@ -16,8 +16,6 @@ public class Category {
     private String descriptionEn;
     private String albumType;
     private int photoLimit;
-    private int photoSize;
-    private String photoFormat;
     private String isPreset;
     private UUID competitionUuid;
 }

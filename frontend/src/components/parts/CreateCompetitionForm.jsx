@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
-import ModalCategory from '../modals/ModalCategory';
-import ModalCreateCategory from '../modals/ModalCreateCategory';
-import ModalCancelCreation from '../modals/ModalCancelCreation';
-import ModalSaveCreateCompetition from '../modals/ModalSaveCreateCompetition';
+import ModalEditCategory from '../modals/category/ModalEditCategory';
+import ModalCreateCategory from '../modals/category/ModalCreateCategory';
+import ModalCancelCreation from '../modals/competition/ModalCancelCreation'
+import ModalSaveCreateCompetition from '../modals/competition/ModalSaveCreateCompetition';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
@@ -340,7 +340,7 @@ const CreateCompetitionForm = () => {
                 showModal={modalShowCreateCategory}
                 onClose={modalHandleCloseCreateCategory}
               />
-              <ModalCategory
+              <ModalEditCategory
                 showModal={modalShowAddCategory}
                 onClose={modalHandleCloseAddCategory}
               />

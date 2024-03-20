@@ -11,7 +11,7 @@ import LoadingMessage from '../messages/LoadingMessage';
 import EmptyMessage from '../messages/EmptyMessage';
 
 import ModalInfo from '../modals/ModalInfo';
-import ModalContentCompetitionParticipation from '../modals/ModalContentCompetitionParticipation';
+import ModalContentCompetitionParticipation from '../modals/competition/ModalContentCompetitionParticipation';
 import Pagination from '../parts/Pagination';
 import Category from '../utils/Category';
 

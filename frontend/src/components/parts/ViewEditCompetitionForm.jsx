@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
-import ModalCategory from '../modals/ModalCategory';
-import ModalCreateCategory from '../modals/ModalCreateCategory';
-import ModalDeleteCompetition from '../modals/ModalDeleteCompetition';
-import ModalSaveCreateCompetition from '../modals/ModalSaveCreateCompetition';
+import ModalEditCategory from '../modals/category/ModalEditCategory';
+import ModalCreateCategory from '../modals/category/ModalCreateCategory';
+import ModalAddCategory from '../modals/category/ModalAddCategory';
+
+import ModalDeleteCompetition from '../modals/competition/ModalDeleteCompetition';
+import ModalSaveCreateCompetition from '../modals/competition/ModalSaveCreateCompetition';
+
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
@@ -16,8 +19,10 @@ const ViewEditCompetitionForm = ({ uuid }) => {
 
   const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
   const [modalShowAddCategory, setModalShowAddCategory] = useState(false);
+  const [modalShowEditCategory, setModalShowEditCategory] = useState(false);
   const [modalShowDeleteCompetition, setModalShowDeleteCompetition] = useState(false);
   const [modalShowCreateCompetition, setModalShowCreateCompetition] = useState(false);
+
   const [isFormChanged, setIsFormChanged] = useState(false);
   const [photoLimitError, setPhotoLimitError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
@@ -147,6 +152,14 @@ const ViewEditCompetitionForm = ({ uuid }) => {
 
   const modalHandleCloseCreateCompetition = () => {
     setModalShowCreateCompetition(false);
+  };
+
+  const modalHandleOpenEditCategory = () => {
+    setModalShowEditCategory(true);
+  };
+
+  const modalHandleCloseEditCategory = () => {
+    setModalShowEditCategory(false);
   };
 
   return (
@@ -331,12 +344,12 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                   <Row>
                     <Col xl="12">
                       <Button variant="secondary" onClick={modalHandleOpenCreateCategory}>
-                        {t('modalCategory.titleAdd')}
+                        {t('modalCategory.titleCreate')}
                       </Button>
                     </Col>
                     <Col xl="12">
                       <Button variant="secondary" onClick={modalHandleOpenAddCategory}>
-                        {t('modalCategory.titleEdit')}
+                        {t('modalCategory.titleAdd')}
                       </Button>
                     </Col>
                   </Row>
@@ -346,10 +359,16 @@ const ViewEditCompetitionForm = ({ uuid }) => {
               <ModalCreateCategory
                 showModal={modalShowCreateCategory}
                 onClose={modalHandleCloseCreateCategory}
+                uuid={uuid}
               />
-              <ModalCategory
+              <ModalEditCategory
+                showModal={modalShowEditCategory}
+                onClose={modalHandleCloseEditCategory}
+              />
+              <ModalAddCategory
                 showModal={modalShowAddCategory}
                 onClose={modalHandleCloseAddCategory}
+                uuid={uuid}
               />
               <ModalDeleteCompetition
                 showModal={modalShowDeleteCompetition}

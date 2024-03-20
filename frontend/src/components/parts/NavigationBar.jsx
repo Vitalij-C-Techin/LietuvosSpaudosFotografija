@@ -66,7 +66,7 @@ const NavigationBar = () => {
                   <Dropdown.Item as={NavLink} to="/admin-competitions-list">
                     {t('landingPage.dropDownMenuItem7')}
                   </Dropdown.Item>
-                  <Dropdown.Item to="#admin-category-dashboard">
+                  <Dropdown.Item  to="#admin-manage-categories">
                     {t('landingPage.dropDownMenuItem8')}
                   </Dropdown.Item>
                 </>
