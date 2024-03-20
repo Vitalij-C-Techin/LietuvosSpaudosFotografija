@@ -6,6 +6,7 @@ import axios from "axios";
 import {useTranslation} from "react-i18next";
 import {useAuth} from "../context/AuthContext.jsx";
 import EmptyMessage from "../messages/EmptyMessage.jsx";
+import Config from "../config/Config.js";
 
 const AdminMangeUsersListForm = () => {
     const [t] = useTranslation();
@@ -13,7 +14,6 @@ const AdminMangeUsersListForm = () => {
     const [userList, setUserList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
-    const [search, setSearch] = useState('');
 
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -22,7 +22,12 @@ const AdminMangeUsersListForm = () => {
     const [direction, setDirection] = useState('asc');
 
     useEffect(() => {
-        let url = `http://localhost:8080/api/v1/admin/users?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`;
+        const url = Config.apiDomain + Config.endpoints.users.adminAllUsers({
+            page,
+            size,
+            sortBy,
+            direction
+        });
 
         const cfg = {
             headers: {
@@ -42,9 +47,9 @@ const AdminMangeUsersListForm = () => {
 
     return (
         <>
-            {isLoading && <LoadingMessage />}
+            {isLoading && <LoadingMessage/>}
 
-            {!isLoading && !userList?.length && <EmptyMessage />}
+            {!isLoading && !userList?.length && <EmptyMessage/>}
 
             <Container className="justify-content-xl-center">
                 <Table responsive hover striped className="lsf-table">
