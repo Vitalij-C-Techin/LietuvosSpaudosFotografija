@@ -7,9 +7,10 @@ public class UserDataForListMapper {
     public static UserDataForListResponse userRecordToUserResponseForList(UserRecord userRecord) {
 
         return UserDataForListResponse.builder()
+                .uuid(userRecord.getUuid())
                 .name(userRecord.getName())
                 .surname(userRecord.getSurname())
-                .email(userRecord.getEmail())
+                .role(userRecord.getRole())
                 .birthYear(userRecord.getBirthYear())
                 .build();
     }
