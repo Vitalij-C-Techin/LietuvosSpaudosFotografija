@@ -93,8 +93,6 @@ public class CategoryService {
         categoryRecord.setDescriptionEn(categoryRequest.getCategoryDescriptionEn());
         categoryRecord.setPhotoLimit(categoryRequest.getPhotoLimit());
         categoryRecord.setAlbumType(categoryRequest.getAlbumType());
-        categoryRecord.setPhotoFormat(categoryRequest.getPhotoFormatType());
-        categoryRecord.setPhotoSize(categoryRequest.getPhotoSize());
 
         return categoryRecord;
     }

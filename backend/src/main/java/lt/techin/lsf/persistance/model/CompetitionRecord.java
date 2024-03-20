@@ -1,6 +1,5 @@
 package lt.techin.lsf.persistance.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -59,7 +58,6 @@ public class CompetitionRecord {
     @Enumerated(STRING)
     private Competition.Visibility visibility;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "competitionRecord",
             cascade = {CascadeType.DETACH, CascadeType.MERGE,
                     CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}
