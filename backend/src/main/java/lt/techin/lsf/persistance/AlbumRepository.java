@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface AlbumRepository extends JpaRepository<AlbumRecord, UUID> {
+    AlbumRecord findByUuid(UUID uuid);
 }

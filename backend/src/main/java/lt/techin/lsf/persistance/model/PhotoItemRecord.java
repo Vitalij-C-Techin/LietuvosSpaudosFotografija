@@ -1,10 +1,8 @@
 package lt.techin.lsf.persistance.model;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.UUID;
@@ -19,10 +17,11 @@ import java.util.UUID;
 public class PhotoItemRecord {
     @Id
     @Column(name = "uuid", nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @Column(name = "photo_uuid")
-    private UUID photoUuid;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "width")
     private int width;
@@ -36,6 +35,18 @@ public class PhotoItemRecord {
     @Column(name = "format")
     private String format;
 
-    @Column(name = "path")
-    private String path;
+    @Column(name = "type")
+    private String type;
+
+    @Column(name = "position")
+    private int position;
+
+
+    /* --- */
+
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "photo_uuid")
+    private PhotoRecord photo;
 }

@@ -1,11 +1,11 @@
 package lt.techin.lsf.persistance.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -18,10 +18,8 @@ import java.util.UUID;
 public class PhotoRecord {
     @Id
     @Column(name = "uuid", nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
-
-    @Column(name = "album_uuid")
-    private UUID albumUuid;
 
     @Column(name = "name_lt")
     private String nameLt;
@@ -40,4 +38,36 @@ public class PhotoRecord {
 
     @Column(name = "status")
     private String status;
+
+
+    /* --- */
+
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "album_uuid")
+    private AlbumRecord album;
+
+
+    @OneToMany(
+            mappedBy = "photo",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
+    private Set<PhotoItemRecord> photoItemList;
+
+    public void addPhotoItem(PhotoItemRecord photoItem) {
+        Set<PhotoItemRecord> photoItemList = getPhotoItemList();
+
+        if (null == photoItemList) {
+            photoItemList = new HashSet<>();
+        }
+
+        photoItemList.add(photoItem);
+
+        photoItem.setPhoto(this);
+        setPhotoItemList(photoItemList);
+    }
 }
+
+

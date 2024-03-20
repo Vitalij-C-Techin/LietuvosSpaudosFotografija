@@ -1,11 +1,10 @@
 package lt.techin.lsf.persistance.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -18,10 +17,11 @@ import java.util.UUID;
 public class AlbumRecord {
     @Id
     @Column(name = "uuid", nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
     @Column(name = "submission_uuid")
-    private UUID albumUuid;
+    private UUID submissionUuid;
 
     @Column(name = "name_lt")
     private String nameLt;
@@ -35,6 +35,28 @@ public class AlbumRecord {
     @Column(name = "description_en")
     private String descriptionEn;
 
+    @Column(name = "type")
+    private String type;
+
     @Column(name = "status")
     private String status;
+
+
+    /* --- */
+
+
+    @OneToMany(
+            mappedBy = "album",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL
+    )
+    private Set<PhotoRecord> photoList = new HashSet<>();
+
+    public void addPhoto(PhotoRecord photo) {
+        if (null == photoList) {
+            photoList = new HashSet<>();
+        }
+
+        photoList.add(photo);
+    }
 }

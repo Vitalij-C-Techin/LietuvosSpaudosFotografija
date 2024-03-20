@@ -19,10 +19,14 @@ public class SecurityConfig {
     private final String[] publicGetEndpoints = {
             "api/v1/competition/all/active/{page}",
 
-            "api/v1/photo/{filename}",
+            "photo/{filename}",
 
             "swagger-ui/**", // Swagger
             "v3/api-docs/**" // Swagger
+
+
+            ,"api/v1/album",
+            "api/v1/album/**",
     };
     private final String[] publicPostEndpoints = {
             "api/v1/register",
@@ -31,8 +35,8 @@ public class SecurityConfig {
             "api/v1/forget-password",
             "api/v1/change-password",
 
-            "api/v1/photo",
-            "api/v1/photo/**",
+            "api/v1/album",
+            "api/v1/album/**",
     };
     private final String[] publicPutEndpoints = {
 
@@ -62,6 +66,8 @@ public class SecurityConfig {
 
                                     "api/v1/competition/user/{page}",
                                     "api/v1/competition/user/participate/{page}"
+
+
                             ).hasAnyAuthority("USER", "MODERATOR", "ADMIN");
 
                             //Moderator, Admin
@@ -81,7 +87,6 @@ public class SecurityConfig {
 
                             request.anyRequest().authenticated();
                         }
-
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

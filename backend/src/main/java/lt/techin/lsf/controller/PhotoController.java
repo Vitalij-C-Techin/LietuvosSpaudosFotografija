@@ -5,33 +5,25 @@ import lt.techin.lsf.service.PhotoService;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.file.Path;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/photo")
 @CrossOrigin(origins = "http://localhost:5173")
 public class PhotoController {
 
     private final PhotoService photoService;
 
-    @PostMapping
-    public void uploadPhoto(
-            @RequestParam("image") MultipartFile file
-    ) {
-        photoService.savePhotoFile(UUID.randomUUID(), file);
-    }
-
-    @GetMapping("/{filename}")
+    @GetMapping("/photo/{filename}")
     public ResponseEntity<Resource> getPhoto(
             @PathVariable String filename
     ) {
