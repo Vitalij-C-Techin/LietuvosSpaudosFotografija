@@ -23,7 +23,10 @@ const Config = {
             adminAllUsers: ({page, size, sortBy, direction}) =>
                 `/api/v1/admin/users?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
             addUser: '/api/v1/admin/register/user',
-            addJury: '/api/v1/admin/register/jury'
+            addJury: '/api/v1/admin/register/jury',
+            userDetails: '/api/v1/admin/user/{uuid}',
+            updateRole: '/api/v1/admin/user/{uuid}/role',
+            blockUser: '/api/v1/admin/user/{uuid}/status'
         },
         user: {
             byUuid: '/api/v1/user/{uuid}',
