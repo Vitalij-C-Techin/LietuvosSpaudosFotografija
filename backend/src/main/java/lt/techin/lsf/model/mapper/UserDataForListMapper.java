@@ -12,6 +12,7 @@ public class UserDataForListMapper {
                 .surname(userRecord.getSurname())
                 .role(userRecord.getRole())
                 .birthYear(userRecord.getBirthYear())
+                .isActive(userRecord.isActive())
                 .build();
     }
 }

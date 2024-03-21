@@ -22,4 +22,7 @@ public class UserDataForListResponse {
 
     @JsonProperty("birth_year")
     private int birthYear;
+
+    @JsonProperty("is_active")
+    private boolean isActive;
 }
