@@ -215,9 +215,16 @@ i18n
             competitionCategories: 'Categories',
             participate: 'Participate',
             registrationSuccess: 'Registration successful',
-            continue: 'Continue'
+            continue: 'Continue',
+            confirmDeleteMessage: 'Are you sure you want to delete category',
+            confirmUpdateMessage: 'Are you sure you want to save changes',
+            confirmTitle: 'Confirmation'
           },
           editcomp: {
+            error: 'Error updating competition',
+            error2: 'Error competitions not found',
+            error3: 'Erro updating competition',
+            error4: 'Error deleting competition',
             valid: 'Please fill out the form before saving.',
             message: 'Are you sure you want to save?',
             error1: 'An error occurred while saving the competition. Please try again later.',
@@ -256,18 +263,27 @@ i18n
             closeButton: 'No'
           },
           modalCreate: {
+            error: 'Error creating category',
+            titleCreate: 'Create Category',
+            createCategory: 'Create',
             confirmSaveTitle: 'Are you sure you want to save?',
             confirm: 'Yes',
             cancel: 'No'
           },
-          modalCategory: {
-            titleCat: 'Title',
-            titleAdd: 'Add category',
-            titleEdit: 'Edit',
-            closeButton: 'Close',
+          modaleEdit: {
+            error: 'Error category data missing',
+            error2: 'Error deleting category',
+            titleEdit: 'Edit category',
+            titleCat_en: 'Name-En',
+            titleCat_lt: 'Name-Lt',
+            description_lt: 'Description-Lt',
+            description_en: 'Description-En',
             type: 'Type',
             single: 'Single',
             series: 'Series',
+            closeButton: 'Close',
+            updateCategory: 'Update',
+            deleteCategory: 'Delete',
             photoLimit: 'Photo limit'
           }
         }
@@ -477,9 +493,16 @@ i18n
             competitionCategories: 'Kategorijos',
             participate: 'Dalyvauti',
             registrationSuccess: 'Registracija sėkminga',
-            continue: 'Tęsti'
+            continue: 'Tęsti',
+            confirmDeleteMessage: 'Ar jus tikrai norite ištrinti kategorija',
+            confirmUpdateMessage: 'Ar jus tikrai norite išsaugoti pakeitimus',
+            confirmTitle: 'Patvirtinimas'
           },
           editcomp: {
+            error: 'Klaida naujinant konkursa',
+            error2: 'Klaida konkursas nerastas',
+            error3: 'Klaida naujinant konkursa',
+            error4: 'Klaida trinant konkursa',
             valid: 'Užpildikyte forma prieš išsaugant',
             message: 'Ar tikrai norite išsaugoti?',
             error1: 'Ivyko klaida išsaugant. Prašome bandyti veliau.',
@@ -518,19 +541,28 @@ i18n
             closeButton: 'Ne'
           },
           modalCreate: {
+            error: 'Klaida kuriant kategorija',
+            titleCreate: 'Sukurti kategorija',
+            createCategory: 'Sukurti',
             confirmSaveTitle: 'Ar tikrai norite išsaugoti duomenis?',
             confirm: 'Taip',
             cancel: 'Ne'
           },
-          modalCategory: {
-            titleCat: 'Pavadinimas',
-            titleAdd: 'Pridėti kategoriją',
-            titleEdit: 'Redaguoti',
-            closeButton: 'Uždaryti',
+          modaleEdit: {
+            error: 'Klaida kategorijos nerastos',
+            error2: 'Klaida trinant kategorijas',
+            titleEdit: 'Keisti kategorija',
+            titleCat_en: 'Pavadinimas-En',
+            titleCat_lt: 'Pavadinimas-Lt',
+            description_lt: 'Apie-Lt',
+            description_en: 'Apie-En',
             type: 'Tipas',
-            single: 'Viena nuotrauka',
-            series: 'Nuotraukų serija',
-            photoLimit: 'Nuotraukų kiekis'
+            single: 'Paviene',
+            series: 'Serijos',
+            closeButton: 'Uždaryti',
+            updateCategory: 'Atnaujinti',
+            deleteCategory: 'Trinti',
+            photoLimit: 'Nuotrauku kiekis'
           }
         }
       }

@@ -142,6 +142,18 @@ const CreateCompetitionForm = () => {
     setModalShowCreateCompetition(false);
   };
 
+  const maxLengthCheck = (event) => {
+    let date = event.target.value;
+    if (date) {
+      let dateArr = date.split('-');
+      if (dateArr[0] && dateArr[0].length > 4) {
+        dateArr[0] = dateArr[0].substr(0, 4);
+        date = dateArr.join('-');
+        event.target.value = date;
+      }
+    }
+  };
+
   return (
     <>
       <Container className="view-edit-competition-container">
@@ -296,6 +308,7 @@ const CreateCompetitionForm = () => {
                     name="start_date"
                     value={formData.start_date}
                     onChange={handleInputChange}
+                    onInput={maxLengthCheck}
                   />
                 </Col>
                 <Col>
@@ -306,6 +319,7 @@ const CreateCompetitionForm = () => {
                     name="end_date"
                     value={formData.end_date}
                     onChange={handleInputChange}
+                    onInput={maxLengthCheck}
                   />
                 </Col>
               </Row>

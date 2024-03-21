@@ -13,7 +13,6 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
 const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
-  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [modalShowEditCategory, setModalShowEditCategory] = useState(false);
@@ -25,6 +24,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
   const [shouldRefetchCategories, setShouldRefetchCategories] = useState(false);
 
   const [isFormChanged, setIsFormChanged] = useState(false);
+  const { t, i18n } = useTranslation();
   const [photoLimitError, setPhotoLimitError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
   const [photoUploaderror, setPhotoUploadError] = useState('');
@@ -59,7 +59,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
         const categoriesData = categoriesResponse.data;
         setCategories([...categoriesData]);
       } catch (error) {
-        console.log('Error fetching competition data:', error);
+        alert(t('editcomp.error2'), error);
       }
     };
     fetchCompetitionData();
@@ -87,7 +87,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    const allowedTypes = ['image/jpg'];
     if (file) {
       if (!allowedTypes.includes(file.type)) {
         setSelectedFile(file);
@@ -110,7 +110,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
       });
       navigate('/admin-competitions-list');
     } catch (error) {
-      console.error('Error saving competition:', error);
+      alert(t('editcomp.error3'), error);
     }
   };
   const handleSave = async () => {
@@ -128,7 +128,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
       });
       navigate('/admin-competitions-list');
     } catch (error) {
-      console.log('Error deleting competition', error);
+      console.log(t('editcomp.error4'), error);
     }
   };
 
@@ -136,21 +136,24 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
     setModalShowEditCategory(true);
     setSelectedCategoryUUID(categoryUUID);
   };
-  console.log('categories', categories);
 
-  const handleCategoryChange = (updatedCategoryUUID, updatedCategoryData) => {
-    if (updatedCategoryData) {
-      // Update the category with the specified UUID
-      const updatedCategories = categories.map((category) =>
-        category.uuid === updatedCategoryUUID ? { ...category, ...updatedCategoryData } : category
+  const handleCategoryChange = async (updatedCategoryUUID, updatedCategoryData) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/v1/category/${updatedCategoryUUID}`,
+        updatedCategoryData,
+        {
+          headers: getTokenHeader()
+        }
       );
-      setCategories(updatedCategories);
-    } else {
-      // Remove the category with the specified UUID
-      const updatedCategories = categories.filter(
-        (category) => category.uuid !== updatedCategoryUUID
+      const updatedCategory = response.data;
+      setCategories((prevCategories) =>
+        prevCategories.map((category) =>
+          category.uuid === updatedCategoryUUID ? updatedCategory : category
+        )
       );
-      setCategories(updatedCategories);
+    } catch (error) {
+      alert(t('editcomp.error'), error);
     }
   };
 
@@ -176,6 +179,18 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
 
   const modalHandleCloseEditCategory = () => {
     setModalShowEditCategory(false);
+  };
+
+  const maxLengthCheck = (event) => {
+    let date = event.target.value;
+    if (date) {
+      let dateArr = date.split('-');
+      if (dateArr[0] && dateArr[0].length > 4) {
+        dateArr[0] = dateArr[0].substr(0, 4);
+        date = dateArr.join('-');
+        event.target.value = date;
+      }
+    }
   };
 
   return (
@@ -281,11 +296,11 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
               </Row>
               <Row className="competition-selections-row">
                 <Col xs="12" md="4">
-                  <Form.Label htmlFor="photo_limit">{t('editcomp.Plimit')}</Form.Label>
+                  <Form.Label htmlFor={`photo_limit_${uuid}`}>{t('editcomp.Plimit')}</Form.Label>
 
                   <Form.Control
                     name="photo_limit"
-                    id="photo_limit"
+                    id={`photo_limit_${uuid}`}
                     value={formData.photo_limit || ''}
                     onChange={handleInputChange}
                     type="number"
@@ -332,6 +347,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
                     name="start_date"
                     value={formData.start_date || ''}
                     onChange={handleInputChange}
+                    onInput={maxLengthCheck}
                   />
                 </Col>
                 <Col>
@@ -342,6 +358,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
                     name="end_date"
                     value={formData.end_date || ''}
                     onChange={handleInputChange}
+                    onInput={maxLengthCheck}
                   />
                 </Col>
               </Row>
@@ -356,7 +373,9 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
                     <h2>{t('editcomp.Addcategory')}</h2>
                     {categories.map((category) => (
                       <div key={category.uuid} onClick={() => handleCategoryOpen(category.uuid)}>
-                        <Form.Label>{category.nameEn}</Form.Label>
+                        <Form.Label>
+                          {i18n.language === 'en' ? category.nameEn : category.nameLt}
+                        </Form.Label>
                       </div>
                     ))}
                   </Container>
@@ -365,7 +384,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
                   <Row>
                     <Col xl="12">
                       <Button variant="secondary" onClick={modalHandleOpenCreateCategory}>
-                        {t('modalCategory.titleCreate')}
+                        {t('modalCreate.titleCreate')}
                       </Button>
                     </Col>
                     <Col xl="12"></Col>
