@@ -63,7 +63,6 @@ const ViewEditCompetitionForm = ({ uuid }) => {
     fetchCompetitionData();
   }, [uuid]);
 
-  console.log(categories);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     if (name === 'photo_limit') {
@@ -134,10 +133,8 @@ const ViewEditCompetitionForm = ({ uuid }) => {
   const handleCategoryOpen = (category) => {
     setSelectedCategoryUUID(category.uuid);
     setModalShowEditCategory(true);
-
-    console.log(categories);
+    
   };
-
   const deleteCompetition = async () => {
     setModalShowDeleteCompetition(true);
   };
@@ -347,7 +344,10 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                   <Container className="pt-3">
                     <h2>{t('editcomp.Addcategory')}</h2>
                     {categories.map((category, index) => (
-                      <div key={index} onClick={() => handleCategoryOpen(category)}>
+                      <div
+                        key={category.uuid ? `category_${category.uuid}` : `default_key_${index}`}
+                        onClick={() => handleCategoryOpen(category)}
+                      >
                         <Form.Label>{category.nameEn}</Form.Label>
                       </div>
                     ))}
