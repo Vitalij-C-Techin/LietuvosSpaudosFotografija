@@ -30,9 +30,6 @@ public class SecurityConfig {
             "api/v1/logout",
             "api/v1/forget-password",
             "api/v1/change-password",
-
-            "api/v1/album",
-            "api/v1/album/**",
     };
     private final String[] publicPutEndpoints = {
 
