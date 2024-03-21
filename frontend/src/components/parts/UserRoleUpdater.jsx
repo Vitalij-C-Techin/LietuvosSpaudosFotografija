@@ -6,7 +6,7 @@ import {useAuth} from "../context/AuthContext.jsx";
 import {Button} from "react-bootstrap";
 import ModalRoleUpdateSuccess from "../modals/ModalRoleUpdateSuccess.jsx";
 
-const UserRoleUpdater = ({userUuid, currentRole, closeModal, handleCancel}) => {
+const UserRoleUpdater = ({userUuid, currentRole, handleCancel, getAndUpdateRoles}) => {
     const [t] = useTranslation();
     const {getTokenHeader} = useAuth();
     const [selectedRole, setSelectedRole] = useState(currentRole);
@@ -31,7 +31,7 @@ const UserRoleUpdater = ({userUuid, currentRole, closeModal, handleCancel}) => {
             .patch(url, {role: selectedRole}, cfg)
             .then(() => {
                 setShowModal(true);
-
+                getAndUpdateRoles();
             })
             .catch((error) => console.error(error));
     };
@@ -43,7 +43,6 @@ const UserRoleUpdater = ({userUuid, currentRole, closeModal, handleCancel}) => {
     const handleCloseModal = () => {
         setShowModal(false);
         handleCancel();
-        window.location.reload();
     }
 
     return (
@@ -76,7 +75,7 @@ const UserRoleUpdater = ({userUuid, currentRole, closeModal, handleCancel}) => {
                     <span>{t('adminManageUsersPage.cancel')}</span>
                 </Button>
             </div>
-            <ModalRoleUpdateSuccess show={showModal} handleClose={handleCloseModal} />
+            <ModalRoleUpdateSuccess show={showModal} handleClose={handleCloseModal}/>
         </>
     );
 };

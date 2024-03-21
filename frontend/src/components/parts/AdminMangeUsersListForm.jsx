@@ -23,7 +23,7 @@ const AdminMangeUsersListForm = () => {
     const [sortBy, setSortBy] = useState('surname');
     const [direction, setDirection] = useState('asc');
 
-    useEffect(() => {
+    const getUserList = () => {
         const url = Config.apiDomain + Config.endpoints.users.adminAllUsers({
             page,
             size,
@@ -44,6 +44,10 @@ const AdminMangeUsersListForm = () => {
                 setIsLoading(false);
             })
             .catch((error) => console.log(error));
+    };
+
+    useEffect(() => {
+        getUserList();
     }, [page, size, sortBy, direction]);
 
     const handleUpdateClick = (userUuid) => {
@@ -85,8 +89,12 @@ const AdminMangeUsersListForm = () => {
                             <td className="col">
                                 {user.role}
                                 {userUuid === user.uuid && (
-                                    <UserRoleUpdater userUuid={user.uuid} currentRole={user.role}
-                                                     handleCancel={handleCancel}/>
+                                    <UserRoleUpdater
+                                        userUuid={user.uuid}
+                                        currentRole={user.role}
+                                        handleCancel={handleCancel}
+                                        getAndUpdateRoles={getUserList}
+                                    />
                                 )}
                             </td>
                             <td>
