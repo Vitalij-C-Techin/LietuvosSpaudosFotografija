@@ -14,11 +14,13 @@ const ProfilePage = () => {
     <>
       <Container>
         <Row className="profile-header">
-          <Col>
+          <Col xs="12">
             <h3>{t('profile.myProfile')}</h3>
           </Col>
           <IsAuthenticated>
-            <Col className="profile-role">{getUserData().role}</Col>
+            <Col xs="12" className="profile-role">
+              <p>{getUserData().role}</p>
+            </Col>
           </IsAuthenticated>
         </Row>
 
@@ -27,27 +29,28 @@ const ProfilePage = () => {
             <p>{t('profile.userIsNotLoggedIn')}</p>
           </>
         </IsNotAuthenticated>
-
+        <div className="profile-divider"></div>
         <IsAuthenticated>
           {!!getUserData() && (
             <>
               <Row>
-                <Col>
+                <Col xs="12">
                   {t('profile.name')}: {getUserData().name}
                 </Col>
-                <Col>
+                <Col xs="12">
                   {t('profile.surname')}: {getUserData().surname}
                 </Col>
-                <Col>
+                <Col xs="12">
                   {t('profile.email')}: {getUserData().email}
                 </Col>
-                <Col>
+                <Col xs="12">
                   {t('profile.birthYear')}: {getUserData().birth_year}
                 </Col>
-                <Col>
+                <Col xs="12">
                   {t('profile.phoneNumber')}: {getUserData().phone_number}
                 </Col>
-                <Col>
+                <div className="profile-divider"></div>
+                <Col xs="12">
                   {t('profile.media')}: {getUserData().media_name}
                 </Col>
               </Row>
@@ -57,10 +60,10 @@ const ProfilePage = () => {
             {t('profile.editProfile')}
           </Button>
           <Row>
-            <Col>
+            <Col xs="12">
               {t('profile.id')}: {getUserData().uuid}
             </Col>
-            <Col>
+            <Col xs="12">
               {t('profile.createdAt')}: {getUserData().created_at}
             </Col>
           </Row>
