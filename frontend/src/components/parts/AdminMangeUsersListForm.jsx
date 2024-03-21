@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import {useAuth} from "../context/AuthContext.jsx";
 import EmptyMessage from "../messages/EmptyMessage.jsx";
 import Config from "../config/Config.js";
+import UserRoleUpdater from "./UserRoleUpdater.jsx";
 
 const AdminMangeUsersListForm = () => {
     const [t] = useTranslation();
@@ -14,6 +15,7 @@ const AdminMangeUsersListForm = () => {
     const [userList, setUserList] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
+    const [userUuid, setUserUuid] = useState(false);
 
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -28,7 +30,6 @@ const AdminMangeUsersListForm = () => {
             sortBy,
             direction
         });
-
         const cfg = {
             headers: {
                 ...(getTokenHeader() || {})
@@ -44,6 +45,14 @@ const AdminMangeUsersListForm = () => {
             })
             .catch((error) => console.log(error));
     }, [page, size, sortBy, direction]);
+
+    const handleUpdateClick = (userUuid) => {
+        setUserUuid(userUuid);
+    };
+
+    const handleCancel = () => {
+        setUserUuid(false);
+    };
 
     return (
         <>
@@ -75,31 +84,42 @@ const AdminMangeUsersListForm = () => {
                             </td>
                             <td className="col">
                                 {user.role}
+                                {userUuid === user.uuid && (
+                                    <UserRoleUpdater userUuid={user.uuid} currentRole={user.role}
+                                                     handleCancel={handleCancel}/>
+                                )}
                             </td>
                             <td>
                                 <div className="d-flex gap-2 flex-column flex-lg-row flex-md-row align-end">
                                     <Button
                                         onClick={() => navigate(`/profile/${user.uuid}`)}
                                         variant="outline-success"
-                                        // size="sm"
                                         className="align-content-center d-inline-flex"
                                     >
                                         <span>{t('adminManageUsersPage.userDetails')}</span>
                                     </Button>
                                     <Button
+                                        onClick={() => handleUpdateClick(user.uuid)}
                                         variant="outline-warning"
-                                        // size="sm"
                                         className="align-content-center d-inline-flex"
                                     >
                                         <span>{t('adminManageUsersPage.updateRole')}</span>
                                     </Button>
-                                    <Button
-                                        variant="outline-danger"
-                                        // size="sm"
-                                        className="align-content-center d-inline-flex"
-                                    >
-                                        <span>{t('adminManageUsersPage.blockUser')}</span>
-                                    </Button>
+                                    {user.is_active ?
+                                        <Button
+                                            variant="outline-danger"
+                                            className="align-content-center d-inline-flex"
+                                        >
+                                            <span>{t('adminManageUsersPage.blockUser')}</span>
+                                        </Button> :
+                                        <Button
+                                            variant="outline-danger"
+                                            className="align-content-center d-inline-flex"
+                                        >
+                                            <span>{t('adminManageUsersPage.unblockUser')}</span>
+                                        </Button>
+                                    }
+
                                 </div>
                             </td>
                         </tr>
