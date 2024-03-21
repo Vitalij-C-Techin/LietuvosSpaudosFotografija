@@ -18,7 +18,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,25 +42,19 @@ public class CompetitionService {
 
         competitionRepository.save(record);
 
-        List<Category> categories = new ArrayList<>();
-
         if (null != competitionData.categories) {
             if (!competitionData.categories.isEmpty()) {
 
-                categories = competitionData.categories.stream()
-                        .map((categoryRequest) -> {
-                            return categoryService.createCategoryAndAddToCompetition(
-                                    record,
-                                    categoryRequest
-                            );
-                        })
-                        .toList();
+                competitionData.categories
+                        .forEach(categoryRequest -> categoryService.createCategoryAndAddToCompetition(
+                                record,
+                                categoryRequest
+                        ));
             }
         }
 
         return CreateCompetitionResponse.builder()
                 .competition(record)
-                .categories(categories)
                 .build();
     }
 
@@ -147,7 +140,6 @@ public class CompetitionService {
         ).map(c -> {
             return CompetitionWithCategoriesResponse.builder()
                     .competition(c)
-                    .categories(getCompetitionWithCategoriesRecord(c))
                     .build();
         });
     }
