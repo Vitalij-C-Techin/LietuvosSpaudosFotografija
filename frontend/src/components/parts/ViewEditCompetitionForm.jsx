@@ -63,6 +63,7 @@ const ViewEditCompetitionForm = ({ uuid }) => {
     fetchCompetitionData();
   }, [uuid]);
 
+  console.log(categories);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     if (name === 'photo_limit') {
