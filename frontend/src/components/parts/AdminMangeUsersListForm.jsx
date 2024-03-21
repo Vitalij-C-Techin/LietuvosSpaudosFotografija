@@ -8,6 +8,7 @@ import {useAuth} from "../context/AuthContext.jsx";
 import EmptyMessage from "../messages/EmptyMessage.jsx";
 import Config from "../config/Config.js";
 import UserRoleUpdater from "./UserRoleUpdater.jsx";
+import UserBlocker from "./UserBlocker.jsx";
 
 const AdminMangeUsersListForm = () => {
     const [t] = useTranslation();
@@ -113,21 +114,11 @@ const AdminMangeUsersListForm = () => {
                                     >
                                         <span>{t('adminManageUsersPage.updateRole')}</span>
                                     </Button>
-                                    {user.is_active ?
-                                        <Button
-                                            variant="outline-danger"
-                                            className="align-content-center d-inline-flex"
-                                        >
-                                            <span>{t('adminManageUsersPage.blockUser')}</span>
-                                        </Button> :
-                                        <Button
-                                            variant="outline-danger"
-                                            className="align-content-center d-inline-flex"
-                                        >
-                                            <span>{t('adminManageUsersPage.unblockUser')}</span>
-                                        </Button>
-                                    }
-
+                                    <UserBlocker
+                                        userUuid={user.uuid}
+                                        currentStatus={user.is_active}
+                                        getAndUpdateStatus={getUserList}
+                                    />
                                 </div>
                             </td>
                         </tr>
