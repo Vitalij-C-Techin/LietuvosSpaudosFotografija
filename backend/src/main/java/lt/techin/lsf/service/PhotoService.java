@@ -1,7 +1,8 @@
 package lt.techin.lsf.service;
 
 import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.model.FileData;
+import lt.techin.lsf.model.ImageData;
+import lt.techin.lsf.model.requests.UpdatePhotoRequest;
 import lt.techin.lsf.persistance.PhotoItemRepository;
 import lt.techin.lsf.persistance.PhotoRepository;
 import lt.techin.lsf.persistance.model.AlbumRecord;
@@ -13,7 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,109 +27,226 @@ public class PhotoService {
     private final PhotoStorageService photoStorageService;
     private final PhotoResizeService photoResizeService;
 
-    public PhotoRecord save(
+    public PhotoRecord savePhoto(
             MultipartFile file
     ) {
-        FileData imgData = new FileData(file);
+        ImageData imgData = new ImageData(file);
 
         if (!imgData.isImage()) {
             return null;
         }
 
         PhotoRecord photo = new PhotoRecord();
+        photoRepository.save(photo);
 
-        save(photo, file);
+        _processPhoto(photo, file);
 
         return photo;
     }
 
-    public boolean save(
-            PhotoRecord photo,
-            MultipartFile file
+    public List<PhotoRecord> savePhoto(
+            MultipartFile[] files
     ) {
-        FileData imgData = new FileData(file);
+        return Arrays.stream(files)
+                .map(this::savePhoto)
+                .toList();
+    }
 
-        if (!imgData.isImage()) {
+    public PhotoRecord getPhoto(
+            UUID uuid
+    ) {
+        return photoRepository.findByUuid(uuid);
+    }
+
+    public List<PhotoRecord> getAlbumPhoto(
+            UUID uuid
+    ) {
+        return photoRepository.findByAlbumUuid(uuid);
+    }
+
+    public PhotoRecord updatePhoto(
+            UUID uuid,
+            UpdatePhotoRequest update
+    ) {
+        PhotoRecord photo = getPhoto(uuid);
+
+        if (null == photo) {
+            return null;
+        }
+
+        photo.setNameLt(update.getNameLt());
+        photo.setNameEn(update.getNameEn());
+        photo.setDescriptionLt(update.getDescriptionEn());
+        photo.setDescriptionEn(update.getDescriptionEn());
+        photo.setPosition(update.getPosition());
+        photo.setStage(update.getStage());
+
+        photoRepository.save(photo);
+
+        return photo;
+    }
+
+    public List<PhotoRecord> updatePhoto(
+            List<UpdatePhotoRequest> updates
+    ) {
+        return updates.stream()
+                .map(update -> {
+                    return updatePhoto(update.getUuid(), update);
+                })
+                .toList();
+    }
+
+    public boolean deletePhoto(
+            UUID uuid
+    ) {
+        PhotoRecord photo = getPhoto(uuid);
+
+        if (null == photo) {
             return false;
         }
 
-        BufferedImage imageSource = PhotoResizeService.map(file);
-        PhotoItemRecord imageSourceRecord = _savePhoto(imageSource, imgData.getName(photo.getUuid() + "-source"));
+        photo.getPhotoItemList().forEach((item) -> {
+            photoStorageService.remove(getStoragePath() + "/" + item.getName());
 
-        imageSourceRecord.setFormat(imgData.getExtension());
-        imageSourceRecord.setType("source");
-        imageSourceRecord.setPhoto(photo);
+            photoItemRepository.delete(item);
+        });
 
-        imageSourceRecord = photoItemRepository.save(imageSourceRecord);
-
-        photo.addPhotoItem(imageSourceRecord);
-
-
-        BufferedImage imageSmall = photoResizeService.resize(file, 500);
-        PhotoItemRecord imageSmallRecord = _savePhoto(imageSmall, photo.getUuid() + "-small.jpg");
-
-        imageSmallRecord.setFormat("jpg");
-        imageSmallRecord.setType("small");
-        imageSmallRecord.setPhoto(photo);
-
-        imageSmallRecord = photoItemRepository.save(imageSmallRecord);
-
-        photo.addPhotoItem(imageSmallRecord);
-
-
-        BufferedImage imageLarge = photoResizeService.resize(file, 2000);
-        PhotoItemRecord imageLargeRecord = _savePhoto(imageLarge, photo.getUuid() + "-large.jpg");
-
-        imageLargeRecord.setFormat("jpg");
-        imageLargeRecord.setType("large");
-        imageLargeRecord.setPhoto(photo);
-
-        imageLargeRecord = photoItemRepository.save(imageLargeRecord);
-
-        photo.addPhotoItem(imageLargeRecord);
+        photoRepository.delete(photo);
 
         return true;
     }
 
-    private PhotoItemRecord _savePhoto(BufferedImage image, String name) {
-        File file = PhotoResizeService.mapBufferedImageToFile(image);
+    public boolean deletePhoto(
+            List<UUID> uuids
+    ) {
+        uuids.forEach(this::deletePhoto);
 
-        photoStorageService.save(
+        return true;
+    }
+
+    public boolean hasPhoto(
+            UUID uuid
+    ) {
+        return null != getPhoto(uuid);
+    }
+
+    /* --- */
+
+    public File getPhotoFile(String name) {
+        return photoStorageService.get(getStoragePath() + "/" + name);
+    }
+
+    /* --- */
+
+    private boolean _processPhoto(
+            PhotoRecord photo,
+            MultipartFile file
+    ) {
+        ImageData imageData = new ImageData(file);
+
+        if (!imageData.isImage()) {
+            return false;
+        }
+
+        imageData.setName(photo.getUuid().toString());
+
+        /*
+        Save Original
+        */
+
+        PhotoItemRecord itemSource = _saveImageSource(imageData);
+        itemSource.setPhoto(photo);
+
+        photoItemRepository.save(itemSource);
+
+        photo.addPhotoItem(itemSource);
+
+        /*
+        Save large thumbnail
+        */
+
+        PhotoItemRecord itemLarge = _saveImageThumbnail(imageData, 2000, "large");
+        itemLarge.setPhoto(photo);
+
+        photoItemRepository.save(itemLarge);
+
+        photo.addPhotoItem(itemLarge);
+
+        /*
+        Save small thumbnail
+        */
+
+        PhotoItemRecord itemSmall = _saveImageThumbnail(imageData, 500, "small");
+        itemSmall.setPhoto(photo);
+
+        photoItemRepository.save(itemSmall);
+
+        photo.addPhotoItem(itemSmall);
+
+        return true;
+    }
+
+    private PhotoItemRecord _saveImageSource(
+            ImageData imageData
+    ) {
+        BufferedImage image = PhotoResizeService.map(imageData.getFile());
+
+        File file = PhotoResizeService.mapBufferedImageToFile(
+                image,
+                imageData.getName(),
+                imageData.getFormat()
+        );
+
+        _saveImageFile(file, imageData.getName());
+
+        return PhotoItemRecord.builder()
+                .name(imageData.getName())
+                .width(image.getWidth())
+                .height(image.getHeight())
+                .size(file.length())
+                .format(imageData.getFormat())
+                .type("source")
+                .build();
+    }
+
+    private PhotoItemRecord _saveImageThumbnail(
+            ImageData imageData,
+            int size,
+            String imageType
+    ) {
+        String imageName = imageData.getNameWithType(imageType);
+
+        BufferedImage image = photoResizeService.resize(imageData.getFile(), size);
+
+        File file = PhotoResizeService.mapBufferedImageToFile(
+                image,
+                imageName,
+                imageData.getFormat()
+        );
+
+        _saveImageFile(file, imageName);
+
+        return PhotoItemRecord.builder()
+                .name(imageName)
+                .width(image.getWidth())
+                .height(image.getHeight())
+                .size(file.length())
+                .format(imageData.getFormat())
+                .type(imageType)
+                .build();
+    }
+
+    private boolean _saveImageFile(
+            File file,
+            String name
+    ) {
+        return photoStorageService.save(
                 getStoragePath(),
                 name,
                 file
         );
-
-        return PhotoItemRecord.builder()
-                .name(name)
-                .width(image.getWidth())
-                .height(image.getHeight())
-                .size(file.length())
-                .build();
     }
 
-    public List<PhotoRecord> savePhotoFiles(
-            AlbumRecord album,
-            MultipartFile[] files
-    ) {
-        return null;
-    }
-
-    public File getPhotoFile(
-            String filename
-    ) {
-        Path filePath = Path.of(getStoragePath(), filename);
-
-        return photoStorageService.get(filePath.toString());
-    }
-
-    public boolean deletePhotoFile(
-            String filename
-    ) {
-        Path filePath = Path.of(getStoragePath(), filename);
-
-        return photoStorageService.remove(filePath.toString());
-    }
 
     public static String getStoragePath() {
         return System.getProperty("user.dir") + "/../storage";

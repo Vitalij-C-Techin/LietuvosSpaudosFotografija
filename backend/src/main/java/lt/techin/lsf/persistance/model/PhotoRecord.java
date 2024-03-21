@@ -36,8 +36,8 @@ public class PhotoRecord {
     @Column(name = "position")
     private int position;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "stage")
+    private String stage;
 
 
     /* --- */
@@ -45,7 +45,7 @@ public class PhotoRecord {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "album_uuid")
+    @JoinColumn(name = "album_uuid")
     private AlbumRecord album;
 
 
@@ -54,7 +54,7 @@ public class PhotoRecord {
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
-    private Set<PhotoItemRecord> photoItemList;
+    private Set<PhotoItemRecord> photoItemList = new HashSet<>();
 
     public void addPhotoItem(PhotoItemRecord photoItem) {
         Set<PhotoItemRecord> photoItemList = getPhotoItemList();

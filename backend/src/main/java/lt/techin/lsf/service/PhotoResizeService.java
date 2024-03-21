@@ -16,14 +16,14 @@ public class PhotoResizeService {
         return process(image, size);
     }
 
-    public BufferedImage resize(File file, int size) {
+    public BufferedImage resize(MultipartFile file, int size) {
         return resize(
                 map(file),
                 size
         );
     }
 
-    public BufferedImage resize(MultipartFile file, int size) {
+    public BufferedImage resize(File file, int size) {
         return resize(
                 map(file),
                 size
@@ -79,7 +79,7 @@ public class PhotoResizeService {
         try {
             File file = new File(name);
 
-            ImageIO.write(image, format, file);
+            ImageIO.write(image, format, new File(name));
 
             return file;
         } catch (Exception ignored) {

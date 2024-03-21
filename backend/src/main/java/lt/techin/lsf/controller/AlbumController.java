@@ -31,11 +31,14 @@ public class AlbumController {
         AlbumRecord album = new AlbumRecord();
         albumRepository.save(album);
 
-        PhotoRecord photo = new PhotoRecord();
+
+        PhotoRecord photo = photoService.savePhoto(file);
         photo.setAlbum(album);
+
         photoRepository.save(photo);
 
-        photoService.save(photo, file);
+
+        album.addPhoto(photo);
 
         return album;
     }
