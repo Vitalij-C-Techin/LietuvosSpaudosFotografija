@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
 import ModalEditCategory from '../modals/category/ModalEditCategory';
 import ModalCreateCategory from '../modals/category/ModalCreateCategory';
-import ModalAddCategory from '../modals/category/ModalAddCategory';
 
 import ModalDeleteCompetition from '../modals/competition/ModalDeleteCompetition';
 import ModalSaveCreateCompetition from '../modals/competition/ModalSaveCreateCompetition';
@@ -18,10 +17,12 @@ const ViewEditCompetitionForm = ({ uuid }) => {
   const navigate = useNavigate();
 
   const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
-  const [modalShowAddCategory, setModalShowAddCategory] = useState(false);
   const [modalShowEditCategory, setModalShowEditCategory] = useState(false);
   const [modalShowDeleteCompetition, setModalShowDeleteCompetition] = useState(false);
   const [modalShowCreateCompetition, setModalShowCreateCompetition] = useState(false);
+
+  const [categories, setCategories] = useState([]);
+  const [selectedCategoryUUID, setSelectedCategoryUUID] = useState(null);
 
   const [isFormChanged, setIsFormChanged] = useState(false);
   const [photoLimitError, setPhotoLimitError] = useState('');
@@ -49,6 +50,12 @@ const ViewEditCompetitionForm = ({ uuid }) => {
           visibility: competitionData.data.visibility || '',
           photo_limit: competitionData.data.photoLimit || ''
         }));
+        const categoriesResponse = await axios.get(
+          `http://localhost:8080/api/v1/competition/${uuid}/categories`,
+          { headers: getTokenHeader() }
+        );
+        const categoriesData = categoriesResponse.data;
+        setCategories(categoriesData);
       } catch (error) {
         console.log('Error fetching competition data:', error);
       }
@@ -122,6 +129,14 @@ const ViewEditCompetitionForm = ({ uuid }) => {
       console.log('Error deleting competition', error);
     }
   };
+
+  const handleCategoryOpen = (category) => {
+    setSelectedCategoryUUID(category.uuid);
+    setModalShowEditCategory(true);
+
+    console.log(categories);
+  };
+
   const deleteCompetition = async () => {
     setModalShowDeleteCompetition(true);
   };
@@ -132,14 +147,6 @@ const ViewEditCompetitionForm = ({ uuid }) => {
 
   const modalHandleCloseCreateCategory = () => {
     setModalShowCreateCategory(false);
-  };
-
-  const modalHandleOpenAddCategory = () => {
-    setModalShowAddCategory(true);
-  };
-
-  const modalHandleCloseAddCategory = () => {
-    setModalShowAddCategory(false);
   };
 
   const modalHandelOpenDeleteCompetition = () => {
@@ -338,6 +345,11 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                 <Col xs="6" xl="8" className="justify-content-xl-center py-3">
                   <Container className="pt-3">
                     <h2>{t('editcomp.Addcategory')}</h2>
+                    {categories.map((category, index) => (
+                      <div key={index} onClick={() => handleCategoryOpen(category)}>
+                        <Form.Label>{category.nameEn}</Form.Label>
+                      </div>
+                    ))}
                   </Container>
                 </Col>
                 <Col xs="6" xl="4" className="justify-content-xl-center">
@@ -347,11 +359,7 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                         {t('modalCategory.titleCreate')}
                       </Button>
                     </Col>
-                    <Col xl="12">
-                      <Button variant="secondary" onClick={modalHandleOpenAddCategory}>
-                        {t('modalCategory.titleAdd')}
-                      </Button>
-                    </Col>
+                    <Col xl="12"></Col>
                   </Row>
                 </Col>
               </Row>
@@ -364,11 +372,7 @@ const ViewEditCompetitionForm = ({ uuid }) => {
               <ModalEditCategory
                 showModal={modalShowEditCategory}
                 onClose={modalHandleCloseEditCategory}
-              />
-              <ModalAddCategory
-                showModal={modalShowAddCategory}
-                onClose={modalHandleCloseAddCategory}
-                uuid={uuid}
+                selectedCategoryUUID={selectedCategoryUUID}
               />
               <ModalDeleteCompetition
                 showModal={modalShowDeleteCompetition}

@@ -1,25 +1,48 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Button, Form, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useState } from 'react';
+import { useAuth } from '../../context/AuthContext'
 
+const ModalEditCategory = ({ showModal, onClose, selectedCategoryUUID }) => {
+  const [formData, setFormData] = useState([]);
+  const { getTokenHeader } = useAuth();
+  // console.log(selectedCategoryUUID);
 
+  useEffect(() => {
+    const fetchCategoryData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/v1/category/${selectedCategoryUUID}`,
+          {
+            headers: getTokenHeader()
+          }
+        );
 
-const ModalEditCategory = ({ showModal, onClose }) => {
-  const [formData, setFormData] = useState({
-    category_name_lt: '',
-    category_name_en: '',
-    category_description_lt: '',
-    category_description_en: '',
-    album_type: '',
-    photo_limit: '',
-    photo_format_type: 'JPG',
-    photo_size: '100'
-  });
+        const categoryData = response.data;
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          category_name_lt: categoryData.data.nameLt || '',
+          category_name_en: categoryData.data.nameEn || '',
+          category_description_lt: categoryData.data.descriptionLt || '',
+          category_description_en: categoryData.data.descriptionEn || '',
+          album_type: categoryData.data.albumType || '',
+          photo_limit: categoryData.data.photoLimit || ''
+        }));
+      } catch (error) {
+        console.log('Error fetching category data:', error);
+      }
+    };
+
+    if (selectedCategoryUUID) {
+      fetchCategoryData();
+    }
+  }, [selectedCategoryUUID, getTokenHeader, setFormData]);
+
   const confirmSave = async () => {
     try {
-      await axios.put(`http://localhost:8080/api/v1/category/${uuid}`, formData, {
+      await axios.put(`http://localhost:8080/api/v1/category/${selectedCategoryUUID}`, formData, {
         headers: getTokenHeader()
       });
     } catch (error) {
@@ -30,7 +53,7 @@ const ModalEditCategory = ({ showModal, onClose }) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8080/api/v1/category/${uuid}`, {
+      await axios.delete(`http://localhost:8080/api/v1/category/${selectedCategoryUUID}`, {
         headers: getTokenHeader()
       });
     } catch (error) {
@@ -63,7 +86,7 @@ const ModalEditCategory = ({ showModal, onClose }) => {
   return (
     <Modal show={showModal} onHide={onClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{t('modalCategory.titleCreate')}</Modal.Title>
+        <Modal.Title>{t('modalCategory.titleEdit')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form.Label> {t('modalCategory.titleCat_en')}</Form.Label>
@@ -71,7 +94,7 @@ const ModalEditCategory = ({ showModal, onClose }) => {
           type="text"
           name="category_name_en"
           id="category_name_en"
-          value={formData.category_name_en}
+          value={formData.category_name_en || ''}
           onChange={handleInputChange2}
         ></Form.Control>
         <Form.Label> {t('modalCategory.titleCat_lt')}</Form.Label>
@@ -79,7 +102,7 @@ const ModalEditCategory = ({ showModal, onClose }) => {
           type="text"
           name="category_name_lt"
           id="category_name_lt"
-          value={formData.category_name_lt}
+          value={formData.category_name_lt || ''}
           onChange={handleInputChange2}
         ></Form.Control>
         <Form.Label> {t('modalCategory.description_lt')}</Form.Label>
@@ -87,7 +110,7 @@ const ModalEditCategory = ({ showModal, onClose }) => {
           type="text"
           name="category_description_lt"
           id="category_description_lt"
-          value={formData.category_description_lt}
+          value={formData.category_description_lt || ''}
           onChange={handleInputChange2}
         ></Form.Control>
         <Form.Label> {t('modalCategory.description_en')}</Form.Label>
@@ -95,7 +118,7 @@ const ModalEditCategory = ({ showModal, onClose }) => {
           type="text"
           name="category_description_en"
           id="category_description_en"
-          value={formData.category_description_en}
+          value={formData.category_description_en || ''}
           onChange={handleInputChange2}
         ></Form.Control>
         <Form.Label> {t('modalCategory.type')}</Form.Label>
@@ -104,7 +127,7 @@ const ModalEditCategory = ({ showModal, onClose }) => {
           name="album_type"
           id="album_type"
           onChange={handleInputChange2}
-          value={formData.album_type}
+          value={formData.album_type || ''}
         >
           <option value=""></option>
           <option value="SINGLE">{t('modalCategory.single')}</option>
@@ -114,7 +137,7 @@ const ModalEditCategory = ({ showModal, onClose }) => {
         <Form.Control
           name="photo_limit"
           id="photo_limit"
-          value={formData.photo_limit}
+          value={formData.photo_limit || ''}
           onChange={handleInputChange2}
           min="1"
           max="15"

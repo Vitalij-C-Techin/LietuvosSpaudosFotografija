@@ -19,10 +19,9 @@ const ModalCreateCategory = ({ showModal, onClose, uuid }) => {
 
   const createCategory = async () => {
     try {
-      await axios.post(`http://localhost:8080/api/v1/competition/${uuid}`, formData, {
+      await axios.post(`http://localhost:8080/api/v1/category/competition/${uuid}`, formData, {
         headers: getTokenHeader()
       });
-      
     } catch (error) {
       console.log('something went wront', error);
     }

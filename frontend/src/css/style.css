@@ -413,3 +413,8 @@ nav button {
   border-color: black;
   border-width: 0.2em;
 }/*# sourceMappingURL=style.css.map */
+
+.underline-hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
