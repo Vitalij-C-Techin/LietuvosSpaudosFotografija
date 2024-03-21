@@ -10,7 +10,9 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @Builder
-public class CreateAlbumRequest {
+public class UpdateAlbumRequest {
+    private UUID uuid;
+
     @JsonProperty("submission_uuid")
     private UUID submissionUuid;
 

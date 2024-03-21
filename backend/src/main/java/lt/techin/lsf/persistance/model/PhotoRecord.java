@@ -1,6 +1,7 @@
 package lt.techin.lsf.persistance.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,15 +22,19 @@ public class PhotoRecord {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
+    @JsonProperty("name_lt")
     @Column(name = "name_lt")
     private String nameLt;
 
+    @JsonProperty("name_en")
     @Column(name = "name_en")
     private String nameEn;
 
+    @JsonProperty("description_lt")
     @Column(name = "description_lt")
     private String descriptionLt;
 
+    @JsonProperty("description_en")
     @Column(name = "description_en")
     private String descriptionEn;
 

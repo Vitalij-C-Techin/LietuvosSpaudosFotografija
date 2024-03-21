@@ -17,16 +17,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final String[] publicGetEndpoints = {
-            "api/v1/competition/all/active/{page}",
-
             "photo/{filename}",
+
+            "api/v1/competition/all/active/{page}",
 
             "swagger-ui/**", // Swagger
             "v3/api-docs/**" // Swagger
-
-
-            ,"api/v1/album",
-            "api/v1/album/**",
     };
     private final String[] publicPostEndpoints = {
             "api/v1/register",
@@ -65,9 +61,9 @@ public class SecurityConfig {
                                     "api/v1/participation/{uui}",
 
                                     "api/v1/competition/user/{page}",
-                                    "api/v1/competition/user/participate/{page}"
+                                    "api/v1/competition/user/participate/{page}",
 
-
+                                    "api/v1/album**"
                             ).hasAnyAuthority("USER", "MODERATOR", "ADMIN");
 
                             //Moderator, Admin

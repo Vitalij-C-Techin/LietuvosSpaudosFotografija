@@ -16,6 +16,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -65,25 +66,30 @@ public class PhotoService {
     }
 
     public PhotoRecord updatePhoto(
-            UUID uuid,
-            UpdatePhotoRequest update
+            PhotoRecord photo,
+            UpdatePhotoRequest request
     ) {
-        PhotoRecord photo = getPhoto(uuid);
-
         if (null == photo) {
             return null;
         }
 
-        photo.setNameLt(update.getNameLt());
-        photo.setNameEn(update.getNameEn());
-        photo.setDescriptionLt(update.getDescriptionEn());
-        photo.setDescriptionEn(update.getDescriptionEn());
-        photo.setPosition(update.getPosition());
-        photo.setStage(update.getStage());
+        photo.setNameLt(request.getNameLt());
+        photo.setNameEn(request.getNameEn());
+        photo.setDescriptionLt(request.getDescriptionEn());
+        photo.setDescriptionEn(request.getDescriptionEn());
+        photo.setPosition(request.getPosition());
+        photo.setStage(request.getStage());
 
         photoRepository.save(photo);
 
         return photo;
+    }
+
+    public PhotoRecord updatePhoto(
+            UUID uuid,
+            UpdatePhotoRequest request
+    ) {
+        return updatePhoto(getPhoto(uuid), request);
     }
 
     public List<PhotoRecord> updatePhoto(
@@ -97,10 +103,8 @@ public class PhotoService {
     }
 
     public boolean deletePhoto(
-            UUID uuid
+            PhotoRecord photo
     ) {
-        PhotoRecord photo = getPhoto(uuid);
-
         if (null == photo) {
             return false;
         }
@@ -117,11 +121,33 @@ public class PhotoService {
     }
 
     public boolean deletePhoto(
+            UUID uuid
+    ) {
+        return deletePhoto(
+                getPhoto(uuid)
+        );
+    }
+
+    public boolean deletePhoto(
+            Set<PhotoRecord> records
+    ) {
+        records.forEach(this::deletePhoto);
+
+        return true;
+    }
+
+    public boolean deletePhoto(
             List<UUID> uuids
     ) {
         uuids.forEach(this::deletePhoto);
 
         return true;
+    }
+
+    public boolean deletePhoto(
+            AlbumRecord album
+    ) {
+        return deletePhoto(album.getPhotoList());
     }
 
     public boolean hasPhoto(
