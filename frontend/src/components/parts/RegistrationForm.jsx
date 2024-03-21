@@ -448,7 +448,7 @@ const RegistrationForm = () => {
                     </Col>
                 </Row>
             </Container>
-            {showModal && (<ModalRegistrationSuccess show={showModal} handleClose={closeModal}/>)}
+            <ModalRegistrationSuccess show={showModal} handleClose={closeModal}/>
         </>
     );
 };

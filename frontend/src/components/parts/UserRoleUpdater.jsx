@@ -1,18 +1,16 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import axios from 'axios';
 import Config from '../config/Config.js';
 import {useTranslation} from "react-i18next";
 import {useAuth} from "../context/AuthContext.jsx";
 import {Button} from "react-bootstrap";
 import ModalRoleUpdateSuccess from "../modals/ModalRoleUpdateSuccess.jsx";
-import {useNavigate} from "react-router-dom";
 
 const UserRoleUpdater = ({userUuid, currentRole, closeModal, handleCancel}) => {
     const [t] = useTranslation();
     const {getTokenHeader} = useAuth();
     const [selectedRole, setSelectedRole] = useState(currentRole);
     const [showModal, setShowModal] = useState(false);
-    const navigate = useNavigate();
 
     const roles = [
         {value: '', displayName: t('adminManageUsersPage.chooseRole')},
@@ -23,7 +21,6 @@ const UserRoleUpdater = ({userUuid, currentRole, closeModal, handleCancel}) => {
     ];
 
     const updateRole = () => {
-        console.log("user uuid: " + userUuid);
         const url = Config.apiDomain + Config.endpoints.users.updateRole.replace("{uuid}", userUuid);
         const cfg = {
             headers: {
@@ -34,6 +31,7 @@ const UserRoleUpdater = ({userUuid, currentRole, closeModal, handleCancel}) => {
             .patch(url, {role: selectedRole}, cfg)
             .then(() => {
                 setShowModal(true);
+
             })
             .catch((error) => console.error(error));
     };
