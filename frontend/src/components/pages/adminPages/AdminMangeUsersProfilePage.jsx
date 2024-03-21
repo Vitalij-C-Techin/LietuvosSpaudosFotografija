@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
 import {Container} from 'react-bootstrap';
 import {useTranslation} from 'react-i18next';
-import Config from "../config/Config.js";
+import Config from "../../config/Config.js";
 import axios from "axios";
-import {useAuth} from "../context/AuthContext.jsx";
-import LoadingMessage from "../messages/LoadingMessage.jsx";
+import {useAuth} from "../../context/AuthContext.jsx";
+import LoadingMessage from "../../messages/LoadingMessage.jsx";
 import {useParams} from "react-router-dom";
 
 const AdminManageUsersProfilePage = () => {
