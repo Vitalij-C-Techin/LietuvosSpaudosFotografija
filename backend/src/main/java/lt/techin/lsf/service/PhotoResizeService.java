@@ -71,15 +71,13 @@ public class PhotoResizeService {
         return null;
     }
 
-    public static File mapBufferedImageToFile(BufferedImage image) {
-        return mapBufferedImageToFile(image, "image", "jpg");
-    }
-
     public static File mapBufferedImageToFile(BufferedImage image, String name, String format) {
-        try {
-            File file = new File(name);
+        String path = PhotoService.getStoragePath() + "/" + name;
 
-            ImageIO.write(image, format, new File(name));
+        try {
+            File file = new File(path);
+
+            ImageIO.write(image, format, file);
 
             return file;
         } catch (Exception ignored) {

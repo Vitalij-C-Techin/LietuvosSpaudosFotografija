@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -64,17 +65,33 @@ public class AlbumController {
         return ResponseEntity.ok().body(album);
     }
 
-    @DeleteMapping("/{uuid")
+    @DeleteMapping("/{uuid}")
     public void deleteAlbum(
             @PathVariable UUID uuid
     ) {
         albumService.deleteAlbum(uuid);
     }
 
-    @PutMapping("/{uuid}/add")
+    @PostMapping("/{uuid}/add")
     public ResponseEntity<PhotoRecord> addPhoto(
-            @PathVariable UUID albumUuid,
+            @PathVariable("uuid") UUID albumUuid,
             @RequestParam("image") MultipartFile file
+    ) {
+        AlbumRecord album = albumService.getAlbum(albumUuid);
+
+        if (null == album) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(
+                albumService.addPhoto(album, file)
+        );
+    }
+
+    @PostMapping("/{uuid}/addMultiple")
+    public ResponseEntity<List<PhotoRecord>> addPhoto(
+            @PathVariable("uuid") UUID albumUuid,
+            @RequestParam("image") MultipartFile[] file
     ) {
         AlbumRecord album = albumService.getAlbum(albumUuid);
 
@@ -89,7 +106,7 @@ public class AlbumController {
 
     @PutMapping("/photo/{uuid}")
     public ResponseEntity<PhotoRecord> updatePhoto(
-            @PathVariable UUID photoUuid,
+            @PathVariable("uuid") UUID photoUuid,
             @RequestBody UpdatePhotoRequest request
     ) {
         PhotoRecord photo = photoService.getPhoto(photoUuid);
@@ -103,9 +120,10 @@ public class AlbumController {
         return ResponseEntity.ok().body(photo);
     }
 
+    //TODO NOT WORKING
     @DeleteMapping("/photo/{uuid}")
     public void deletePhoto(
-            @PathVariable UUID photoUuid
+            @PathVariable("uuid") UUID photoUuid
     ) {
         photoService.deletePhoto(photoUuid);
     }
