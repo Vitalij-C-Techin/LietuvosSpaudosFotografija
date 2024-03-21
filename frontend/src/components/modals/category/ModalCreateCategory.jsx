@@ -22,10 +22,18 @@ const ModalCreateCategory = ({ showModal, onClose, uuid }) => {
       await axios.post(`http://localhost:8080/api/v1/category/competition/${uuid}`, formData, {
         headers: getTokenHeader()
       });
+      setFormData({
+        category_name_lt: '',
+        category_name_en: '',
+        category_description_lt: '',
+        category_description_en: '',
+        album_type: '',
+        photo_limit: ''
+      });
     } catch (error) {
       console.log('something went wront', error);
     }
-    onClose(true);
+    onClose();
   };
 
   const handleInputChange2 = (event) => {

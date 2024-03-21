@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
 import ModalEditCategory from '../modals/category/ModalEditCategory';
 import ModalCreateCategory from '../modals/category/ModalCreateCategory';
@@ -12,17 +12,17 @@ import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
-const ViewEditCompetitionForm = ({ uuid }) => {
+const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
   const [modalShowEditCategory, setModalShowEditCategory] = useState(false);
   const [modalShowDeleteCompetition, setModalShowDeleteCompetition] = useState(false);
   const [modalShowCreateCompetition, setModalShowCreateCompetition] = useState(false);
 
   const [categories, setCategories] = useState([]);
   const [selectedCategoryUUID, setSelectedCategoryUUID] = useState(null);
+  const [shouldRefetchCategories, setShouldRefetchCategories] = useState(false);
 
   const [isFormChanged, setIsFormChanged] = useState(false);
   const [photoLimitError, setPhotoLimitError] = useState('');
@@ -50,18 +50,20 @@ const ViewEditCompetitionForm = ({ uuid }) => {
           visibility: competitionData.data.visibility || '',
           photo_limit: competitionData.data.photoLimit || ''
         }));
+
         const categoriesResponse = await axios.get(
           `http://localhost:8080/api/v1/competition/${uuid}/categories`,
           { headers: getTokenHeader() }
         );
+
         const categoriesData = categoriesResponse.data;
-        setCategories(categoriesData);
+        setCategories([...categoriesData]);
       } catch (error) {
         console.log('Error fetching competition data:', error);
       }
     };
     fetchCompetitionData();
-  }, [uuid]);
+  }, [uuid, useCallback(modalHandleOpenCreateCategory)]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -130,21 +132,30 @@ const ViewEditCompetitionForm = ({ uuid }) => {
     }
   };
 
-  const handleCategoryOpen = (category) => {
-    setSelectedCategoryUUID(category.uuid);
+  const handleCategoryOpen = (categoryUUID) => {
     setModalShowEditCategory(true);
-    
+    setSelectedCategoryUUID(categoryUUID);
   };
+  console.log('categories', categories);
+
+  const handleCategoryChange = (updatedCategoryUUID, updatedCategoryData) => {
+    if (updatedCategoryData) {
+      // Update the category with the specified UUID
+      const updatedCategories = categories.map((category) =>
+        category.uuid === updatedCategoryUUID ? { ...category, ...updatedCategoryData } : category
+      );
+      setCategories(updatedCategories);
+    } else {
+      // Remove the category with the specified UUID
+      const updatedCategories = categories.filter(
+        (category) => category.uuid !== updatedCategoryUUID
+      );
+      setCategories(updatedCategories);
+    }
+  };
+
   const deleteCompetition = async () => {
     setModalShowDeleteCompetition(true);
-  };
-
-  const modalHandleOpenCreateCategory = () => {
-    setModalShowCreateCategory(true);
-  };
-
-  const modalHandleCloseCreateCategory = () => {
-    setModalShowCreateCategory(false);
   };
 
   const modalHandelOpenDeleteCompetition = () => {
@@ -343,11 +354,8 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                 <Col xs="6" xl="8" className="justify-content-xl-center py-3">
                   <Container className="pt-3">
                     <h2>{t('editcomp.Addcategory')}</h2>
-                    {categories.map((category, index) => (
-                      <div
-                        key={category.uuid ? `category_${category.uuid}` : `default_key_${index}`}
-                        onClick={() => handleCategoryOpen(category)}
-                      >
+                    {categories.map((category) => (
+                      <div key={category.uuid} onClick={() => handleCategoryOpen(category.uuid)}>
                         <Form.Label>{category.nameEn}</Form.Label>
                       </div>
                     ))}
@@ -365,15 +373,11 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                 </Col>
               </Row>
               <div className="divider"></div>
-              <ModalCreateCategory
-                showModal={modalShowCreateCategory}
-                onClose={modalHandleCloseCreateCategory}
-                uuid={uuid}
-              />
               <ModalEditCategory
                 showModal={modalShowEditCategory}
                 onClose={modalHandleCloseEditCategory}
                 selectedCategoryUUID={selectedCategoryUUID}
+                handleCategoryChange={handleCategoryChange}
               />
               <ModalDeleteCompetition
                 showModal={modalShowDeleteCompetition}
