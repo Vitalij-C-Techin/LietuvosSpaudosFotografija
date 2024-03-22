@@ -1,9 +1,6 @@
 package lt.techin.lsf.persistance.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,13 +25,17 @@ public class EvaluationRecord {
     private UUID juryId;
 
     @Column(name = "submission_id")
-    private UUID submissionId;
+    private int submissionId;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
 
     @Column(name = "liked")
     private boolean liked;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "photo_id")
+    private PhotoRecord photoRecord;
 
 
     public EvaluationRecord setupNewEvaluation() {

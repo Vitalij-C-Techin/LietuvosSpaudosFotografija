@@ -4,56 +4,93 @@ import { useTranslation } from 'react-i18next';
 import imagePlaceHolder from '../../images/image.jpg';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
+import { useAuth } from '../context/AuthContext';
+import axios from 'axios';
 
 const CompetitionPage = () => {
-  const { t } = useTranslation();
-  const images = [
+  const [images, setImages] = useState([
     {
       original: 'https://picsum.photos/id/1018/1000/600/',
-      description: '1'
+      description: '1',
+      isLiked: false
     },
     {
       original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '2'
+      description: '2',
+      isLiked: true
     },
     {
       original: 'https://picsum.photos/id/1019/1000/600/',
-      description: '3'
+      description: '3',
+      isLiked: false
     },
     {
       original: 'https://picsum.photos/id/1018/1000/600/',
-      description: '4'
+      description: '4',
+      isLiked: false
     },
     {
       original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '5'
+      description: '5',
+      isLiked: false
     },
     {
       original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '6'
+      description: '6',
+      isLiked: true
     },
     {
       original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '4'
+      description: '7',
+      isLiked: true
     },
     {
       original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '5'
+      description: '8',
+      isLiked: false
     },
     {
       original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '6'
+      description: '9',
+      isLiked: true
     }
-  ];
+  ]);
+
+  const { t } = useTranslation();
+  const { getUserData } = useAuth();
+  const juryId = getUserData().uuid;
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const onImageLike = (imageId) => {
+    console.log(juryId);
+    console.log('Image liked', imageId, images[imageId].isLiked);
+    const liked = true;
+    const submissionId = imageId;
+    const updatedImages = images.map((image, index) => {
+      if (index === imageId) {
+        return { ...image, isLiked: true };
+      }
+      return image;
+    });
+    setImages(updatedImages);
+    axios
+      .post('http://localhost:8080/api/v1/evaluation', { juryId, liked, submissionId })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const [showGallery, setShowGallery] = useState(false);
   const toggleFullScreenRef = useRef();
   const [clickedImageIndex, setClickedImageIndex] = useState(null);
-  const [activePage, setActivePage] = useState(1);
-  const itemsPerPage = 3;
-  const totalPages = Math.ceil(images.length / itemsPerPage);
 
   useEffect(() => {
     if (showGallery) {
+      console.log('now here');
       toggleFullScreenRef.current && toggleFullScreenRef.current.fullScreen();
     }
   }, [showGallery]);
@@ -67,32 +104,36 @@ const CompetitionPage = () => {
   const handleImageClick = (index) => {
     setShowGallery(true);
     setClickedImageIndex(index);
-  };
-
-  const handlePageChange = (pageNumber) => {
-    setActivePage(pageNumber);
-  };
-
-  const getPaginatedImages = () => {
-    const startIndex = (activePage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    return images.slice(startIndex, endIndex);
+    setCurrentIndex(index);
   };
 
   const renderCustomControls = () => {
     const handleButtonClick = () => {
       const currentIndex = toggleFullScreenRef.current.getCurrentIndex();
+      onImageLike(currentIndex);
       console.log('Custom button clicked!', currentIndex);
     };
 
     return (
-      <Button
-        variant="outline-secondary"
-        onClick={handleButtonClick}
-        className="image-gallery-icon"
-      >
-        👍
-      </Button>
+      <>
+        {images[currentIndex].isLiked ? (
+          <Button
+            variant="outline-secondary"
+            onClick={handleButtonClick}
+            className="image-gallery-icon"
+          >
+            👍
+          </Button>
+        ) : (
+          <Button
+            variant="outline-secondary"
+            onClick={handleButtonClick}
+            className="image-gallery-icon"
+          >
+            no likes
+          </Button>
+        )}
+      </>
     );
   };
 
@@ -115,7 +156,7 @@ const CompetitionPage = () => {
       </Container>
       <div className="divider"></div>
       <Row className="mx-1">
-        {getPaginatedImages().map((image, index) => (
+        {images.map((image, index) => (
           <Col key={index} xl="4" className="my-3">
             <Card>
               <Card.Img thumbnail src={image.original} onClick={() => handleImageClick(index)} />
@@ -152,21 +193,10 @@ const CompetitionPage = () => {
           startIndex={clickedImageIndex}
           onScreenChange={handleScreenChange}
           autoPlay={false}
+          onSlide={setCurrentIndex}
           renderCustomControls={(currentIndex) => renderCustomControls(currentIndex)}
         />
       )}
-
-      <Pagination className="mt-3 justify-content-center custom-pagination">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <Pagination.Item
-            key={index + 1}
-            active={activePage === index + 1}
-            onClick={() => handlePageChange(index + 1)}
-          >
-            {index + 1}
-          </Pagination.Item>
-        ))}
-      </Pagination>
     </Container>
   );
 };

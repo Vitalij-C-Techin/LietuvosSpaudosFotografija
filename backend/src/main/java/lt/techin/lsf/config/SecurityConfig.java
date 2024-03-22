@@ -28,7 +28,8 @@ public class SecurityConfig {
             "api/v1/logout",
             "api/v1/forget-password",
             "api/v1/change-password",
-            "api/v1/evaluation"
+            "api/v1/evaluation",
+            "api/v1/add-photo"
     };
     private final String[] publicPutEndpoints = {
 
