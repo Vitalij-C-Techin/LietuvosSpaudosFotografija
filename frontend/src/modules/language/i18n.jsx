@@ -132,6 +132,9 @@ i18n
             birthYear: 'Birth year',
             phoneNumber: 'Phone number',
             media: 'Media',
+            isActive: 'Status',
+            blocked: 'Blocked',
+            unblocked: 'Active',
             createdAt: 'Created at',
             editProfile: 'Edit Profile'
           },
@@ -201,7 +204,27 @@ i18n
             moderator: 'Moderator',
             user: 'User',
             jury: 'Jury',
-            button: 'REGISTER'
+            button: 'REGISTER',
+            name: 'Name',
+            surname: 'Surname',
+            birthYear: 'Birth year',
+            email: 'Email',
+            phone: 'Phone number',
+            mediaName: 'Media name',
+            created: 'Created',
+            userDetails: 'Details',
+            blockUser: 'Block',
+            updateRole:'Update role',
+            unblockUser: 'Unblock',
+            previous: 'Previous',
+            next: 'Next',
+            first: 'First',
+            last: 'Last',
+            page: 'Page',
+            of: 'of',
+            save: 'Save',
+            cancel: 'Cancel'
+
           },
           notificationMessages: {
             loading: 'Loading',
@@ -215,7 +238,8 @@ i18n
             competitionCategories: 'Categories',
             participate: 'Participate',
             registrationSuccess: 'Registration successful',
-            continue: 'Continue'
+            continue: 'Continue',
+            updated: 'Data updated'
           },
           editcomp: {
             valid: 'Please fill out the form before saving.',
@@ -393,6 +417,9 @@ i18n
             birthYear: 'Gimimo metai',
             phoneNumber: 'Telefono numeris',
             media: 'Žiniasklaida',
+            isActive: 'Statusas',
+            blocked: 'Užblokuotas',
+            unblocked: 'Aktyvus',
             createdAt: 'Sukurta',
             editProfile: 'Redaguoti profilį'
           },
@@ -463,7 +490,26 @@ i18n
             moderator: 'Moderatorius',
             user: 'Naudotojas',
             jury: 'Vertintojas',
-            button: 'REGISTRUOTI'
+            button: 'REGISTRUOTI',
+            name: 'Vardas',
+            surname: 'Pavardė',
+            birthYear: 'Gimimo metai',
+            email: 'El. paštas',
+            phone: 'Telefono numeris',
+            mediaName: 'Atstovaujama žiniasklaida',
+            created: 'Sukurta',
+            userDetails: 'Peržiūrėti',
+            blockUser: 'Blokuoti',
+            updateRole:'Keisti rolę',
+            unblockUser: 'Atblokuoti',
+            previous: 'Ankstesnis',
+            next: 'Sekantis',
+            first: 'Pirmas',
+            last: 'Paskutinis',
+            page: 'Puslapis',
+            of: 'iš',
+            save: 'Išsaugoti',
+            cancel: 'Atšaukti'
           },
           notificationMessages: {
             loading: 'Vyksta duomenų įkėlimas',
@@ -477,7 +523,8 @@ i18n
             competitionCategories: 'Kategorijos',
             participate: 'Dalyvauti',
             registrationSuccess: 'Registracija sėkminga',
-            continue: 'Tęsti'
+            continue: 'Tęsti',
+            updated: 'Duomenys atnaujinti'
           },
           editcomp: {
             valid: 'Užpildikyte forma prieš išsaugant',

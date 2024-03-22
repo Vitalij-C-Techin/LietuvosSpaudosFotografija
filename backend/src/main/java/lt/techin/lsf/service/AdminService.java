@@ -107,7 +107,7 @@ public class AdminService {
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
 
         boolean userIsActive = userDetails.isActive();
-        boolean updateUserIsActive = updateUserIsActiveRequest.isActive();
+        boolean updateUserIsActive = updateUserIsActiveRequest.getIsActive();
 
         if(userIsActive != updateUserIsActive) {
             userDetails.setActive(updateUserIsActive);
