@@ -9,6 +9,7 @@ import EmptyMessage from "../messages/EmptyMessage.jsx";
 import Config from "../config/Config.js";
 import UserRoleUpdater from "./UserRoleUpdater.jsx";
 import UserBlocker from "./UserBlocker.jsx";
+import Pagination from '../parts/Pagination';
 
 const AdminMangeUsersListForm = () => {
     const [t] = useTranslation();
@@ -57,6 +58,10 @@ const AdminMangeUsersListForm = () => {
 
     const handleCancel = () => {
         setUserUuid(false);
+    };
+
+    const handlePageChange = (event, value) => {
+        setPage(value - 1);
     };
 
     return (
@@ -126,42 +131,7 @@ const AdminMangeUsersListForm = () => {
                     </tbody>
                 </Table>
                 <div className="pagination-controls-container d-flex justify-content-center">
-                    <div className="pagination-controls">
-                        <Button
-                            variant="dark"
-                            className="rounded-0 mx-2"
-                            disabled={page === 0}
-                            onClick={() => setPage(0)}
-                        >
-                            {t('adminManageUsersPage.first')}
-                        </Button>
-                        <Button
-                            variant="dark"
-                            className="rounded-0 mx-2"
-                            disabled={page === 0}
-                            onClick={() => setPage(page - 1)}
-                        >
-                            {t('adminManageUsersPage.previous')}
-                        </Button>
-                        <span>{t('adminManageUsersPage.page')} {page + 1} {t('adminManageUsersPage.of')} {totalPages}
-                        </span>
-                        <Button
-                            variant="dark"
-                            className="rounded-0 mx-2"
-                            disabled={page === totalPages - 1}
-                            onClick={() => setPage(page + 1)}
-                        >
-                            {t('adminManageUsersPage.next')}
-                        </Button>
-                        <Button
-                            variant="dark"
-                            className="rounded-0 mx-2"
-                            disabled={page === totalPages - 1}
-                            onClick={() => setPage(totalPages - 1)}
-                        >
-                            {t('adminManageUsersPage.last')}
-                        </Button>
-                    </div>
+                    <Pagination totalPages={totalPages} onPageChange={handlePageChange} />
                 </div>
             </Container>
         </>
