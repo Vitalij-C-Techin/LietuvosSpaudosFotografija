@@ -68,7 +68,7 @@
       display: none;
     }
     .profile-top-button {
-      display: inline;
+      display: inline-block;
       font-size: 1.2rem;
       border-radius: 0%;
       border: solid;
@@ -76,7 +76,7 @@
       border-color: black;
       color: white;
       background-color: black;
-      width: 100%;
+      // width: 100%;
       margin-top: 0.5rem;
       margin-bottom: 0.5rem;
     }
@@ -93,7 +93,7 @@
       display: none;
     }
     .profile-role {
-      padding: 60px 0px 0px 100px;
+      padding: 60px 0px 0px 120px;
     }
     .profile-about-column {
       margin: 0rem 0rem 0rem 2rem;
@@ -109,6 +109,9 @@
     .profile-footer {
       margin: 2rem 0rem 1rem 0rem;
       text-align: center;
+    }
+    .profile-role {
+      padding: 60px 0px 0px 300px;
     }
   }
 }
