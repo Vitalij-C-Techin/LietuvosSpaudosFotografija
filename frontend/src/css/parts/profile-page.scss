@@ -58,6 +58,8 @@
 
   @media only screen and (min-width: 768px) {
     text-align: left;
+    padding: auto;
+    margin:auto;
 
     .profile-bottom-button {
       display: none;
@@ -76,15 +78,19 @@
       margin-bottom: 0.5rem;
     }
 
-    .profile-divider-media-bottom {
+    .profile-divider-media-bottom, .profile-divider {
       height: 0.2rem;
       background-color: black;
       width: auto;
-      margin: 0px 50px 0px 50px;
+      margin: 0px 50px 0px 0px;
     }
 
     .profile-divider-media-top {
       display: none;
     }
+    .profile-role {
+      padding: 60px 0px 0px 100px;
+    }
+
   }
 }
