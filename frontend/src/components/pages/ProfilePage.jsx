@@ -38,7 +38,7 @@ const ProfilePage = () => {
                   <p className="profile-name"> {getUserData().name}</p>
                 </Col>
                 <Col xs="12">
-                  <p className="profile-name"> {getUserData().surname}</p>
+                  <p className="profile-lastname"> {getUserData().surname}</p>
                 </Col>
                 <Col xs="12">
                   <p> {getUserData().email}</p>
