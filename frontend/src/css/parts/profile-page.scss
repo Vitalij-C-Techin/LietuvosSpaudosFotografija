@@ -64,6 +64,15 @@
     margin: auto;
     width: 50%;
 
+    .profile-header {
+      position: relative;
+    }
+
+    .profile-role {
+      position: absolute;
+      bottom: 0;
+      right: 2rem;
+    }
     .profile-bottom-button {
       display: none;
     }
@@ -103,11 +112,10 @@
     .profile-about-column {
       margin: 0rem 0rem 0rem 13rem;
     }
-    
+
     .profile-footer {
       margin: 2rem 0rem 1rem 0rem;
       text-align: center;
     }
-
   }
 }

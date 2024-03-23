@@ -21,8 +21,8 @@ const ProfilePage = () => {
             <h3>{t('profile.myProfile')}</h3>
           </Col>
           <IsAuthenticated>
-            <Col xs="12" md="6" className="profile-role">
-              <p>{getUserData().role}</p>
+            <Col xs="12" md="6" >
+              <p className="profile-role">{getUserData().role}</p>
             </Col>
           </IsAuthenticated>
         </Row>
