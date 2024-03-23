@@ -33,42 +33,30 @@ const ProfilePage = () => {
         <IsAuthenticated>
           {!!getUserData() && (
             <>
-              <Row>
+              <Row className="profile-about">
                 <Col xs="12">
-                  <p className="profile-name">
-                    {' '}
-                     {getUserData().name}
-                  </p>
+                  <p className="profile-name"> {getUserData().name}</p>
                 </Col>
                 <Col xs="12">
-                  <p  className="profile-name">
-                    {' '}
-                     {getUserData().surname}
-                  </p>
+                  <p className="profile-name"> {getUserData().surname}</p>
                 </Col>
                 <Col xs="12">
-                  <p>
-                    {' '}
-                   {getUserData().email}
-                  </p>
+                  <p> {getUserData().email}</p>
                 </Col>
-          
+
                 <Col xs="12">
-                  <p>
-                    {' '}
-                     {getUserData().phone_number}
-                  </p>
+                  <p> {getUserData().phone_number}</p>
                 </Col>
                 <Col xs="12">
                   <p>
                     {' '}
-                    {t('profile.birthYear')}: {getUserData().birth_year}
+                    {t('profile.birthYear')} : {getUserData().birth_year}
                   </p>
                 </Col>
               </Row>
               <div className="profile-divider"></div>
               <Col xs="12">
-                <p>
+                <p className="profile-media">
                   {t('profile.media')}: {getUserData().media_name}
                 </p>
               </Col>
@@ -76,18 +64,18 @@ const ProfilePage = () => {
           )}
           <Col xs="12">
             <Button variant="secondary" as={NavLink} to="/profile/edit">
-               {t('profile.editProfile')}
+              {t('profile.editProfile')}
             </Button>
           </Col>
-          <Row>
+          <Row className="profile-footer">
             <Col xs="12">
-              <p className='profile-id'>
+              <p className="profile-id">
                 {' '}
                 {t('profile.id')}: {getUserData().uuid}
               </p>
             </Col>
             <Col xs="12">
-              <p className='profile-create-date'>
+              <p className="profile-create-date">
                 {t('profile.createdAt')}: {getUserData().created_at}
               </p>
             </Col>
