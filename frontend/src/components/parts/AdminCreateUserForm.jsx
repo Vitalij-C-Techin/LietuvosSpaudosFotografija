@@ -83,8 +83,6 @@ const AdminCreateUserForm = () => {
                     const {message} = error.response.data;
                     if (message === 'User exists') {
                         setEmailError(t('registrationPage.emailError'));
-                    } else if (message === 'User not registered') {
-                        setDataSaveError(t('registrationPage.dataSaveError'));
                     }
                 } else {
                     setDataSaveError(t('registrationPage.dataSaveError'));
