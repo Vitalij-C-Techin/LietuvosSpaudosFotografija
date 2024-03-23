@@ -1,38 +1,41 @@
 .profile-page-container {
   text-align: center;
 
-  h3{
+  h3 {
     margin: 2rem 0rem 1rem 0rem;
     font-size: 3rem;
   }
-  .profile-divider, .profile-divider-media-top {
+  .profile-divider,
+  .profile-divider-media-top {
     height: 0.2rem;
     background-color: black;
     width: auto;
-    margin: 0px 50px 0px 50px;;
+    margin: 0px 50px 0px 50px;
   }
-  .profile-name{
+  .profile-name {
     margin-bottom: 0.25rem;
   }
-  .profile-name, .profile-lastname{
+  .profile-name,
+  .profile-lastname {
     font-size: 1.5rem;
   }
-  .profile-id, .profile-create-date{
+  .profile-id,
+  .profile-create-date {
     font-size: 0.8rem;
   }
-  .profile-about{
+  .profile-about {
     margin: 1rem 0rem 0rem 0rem;
   }
-  .profile-footer{
+  .profile-footer {
     margin: 2rem 0rem 1rem 0rem;
   }
-  .profile-media{
+  .profile-media {
     margin: 1rem 0rem 1rem 0rem;
   }
 
-  .btn {
+  .profile-bottom-button {
     font-size: 1.2rem;
-      border-radius: 0%;
+    border-radius: 0%;
     border: solid;
     border-width: medium;
     border-color: black;
@@ -43,7 +46,7 @@
     margin-bottom: 0.5rem;
   }
 
- .btn:hover {
+  .profile-bottom-button:hover {
     background-color: white;
     border-color: black;
     color: black;

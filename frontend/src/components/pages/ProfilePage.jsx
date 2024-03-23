@@ -13,6 +13,9 @@ const ProfilePage = () => {
   return (
     <>
       <Container xs="4" className="profile-page-container">
+        <Button className="profile-top-button" variant="secondary" as={NavLink} to="/profile/edit">
+          {t('profile.editProfile')}
+        </Button>
         <Row className="profile-header">
           <Col xs="12" md="6">
             <h3>{t('profile.myProfile')}</h3>
@@ -64,7 +67,12 @@ const ProfilePage = () => {
             </>
           )}
           <Col xs="12">
-            <Button variant="secondary" as={NavLink} to="/profile/edit">
+            <Button
+              className="profile-bottom-button"
+              variant="secondary"
+              as={NavLink}
+              to="/profile/edit"
+            >
               {t('profile.editProfile')}
             </Button>
           </Col>
