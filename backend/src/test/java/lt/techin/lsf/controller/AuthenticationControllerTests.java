@@ -1,7 +1,6 @@
 package lt.techin.lsf.controller;
 
 
-import lt.techin.lsf.exception.UserNotFoundByEmailException;
 import lt.techin.lsf.model.requests.ForgetPasswordRequest;
 import lt.techin.lsf.persistance.model.UserRecord;
 import lt.techin.lsf.service.ChangePasswordService;
