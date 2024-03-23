@@ -36,32 +36,38 @@ const ProfilePage = () => {
         <IsAuthenticated>
           {!!getUserData() && (
             <>
-              <Row className="profile-about">
-                <Col xs="12" md="6">
-                  <p className="profile-name"> {getUserData().name}</p>
-                </Col>
-                <Col xs="12" md="6">
-                  <p className="profile-lastname"> {getUserData().surname}</p>
-                </Col>
-                <Col xs="12" md="6">
-                  <p> {getUserData().email}</p>
-                </Col>
+              <Col>
+              
+                  <Row>
+                    <Col xs="12" md="auto">
+                      <p className="profile-name"> {getUserData().name}</p>
+                    </Col>
+                    <Col xs="12" md="auto">
+                      <p className="profile-lastname"> {getUserData().surname}</p>
+                    </Col>
+                    </Row>
+                  <Row>
+                  <Col xs="12" md="auto">
+                    <p> {getUserData().email}</p>
+                  </Col>
 
-                <Col xs="12" md="6">
-                  <p> {getUserData().phone_number}</p>
-                </Col>
+                  <Col xs="12" md="auto">
+                    <p> {getUserData().phone_number}</p>
+                  </Col>
+                  </Row>
+                  <Col xs="12">
+                    <p>
+                      {' '}
+                      {t('profile.birthYear')} : {getUserData().birth_year}
+                    </p>
+                  </Col>
+               
+                <div className="profile-divider-media-top"></div>
                 <Col xs="12">
-                  <p>
-                    {' '}
-                    {t('profile.birthYear')} : {getUserData().birth_year}
+                  <p className="profile-media">
+                    {t('profile.media')}: {getUserData().media_name}
                   </p>
                 </Col>
-              </Row>
-              <div className="profile-divider-media-top"></div>
-              <Col xs="12">
-                <p className="profile-media">
-                  {t('profile.media')}: {getUserData().media_name}
-                </p>
               </Col>
               <div className="profile-divider-media-bottom"></div>
             </>
