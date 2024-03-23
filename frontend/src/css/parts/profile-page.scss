@@ -19,6 +19,9 @@
   .profile-lastname {
     font-size: 1.5rem;
   }
+  .profile-name-lastname-row{
+    margin-top: 1rem;
+  }
   .profile-id,
   .profile-create-date {
     font-size: 0.8rem;
@@ -80,7 +83,7 @@
       height: 0.2rem;
       background-color: black;
       width: auto;
-      margin: 0px 50px 0px 0px;
+      margin: 0px 0px 0px 0px;
     }
 
     .profile-divider-media-top {
