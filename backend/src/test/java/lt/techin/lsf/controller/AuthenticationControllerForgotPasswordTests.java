@@ -5,7 +5,6 @@ import lt.techin.lsf.model.requests.ForgetPasswordRequest;
 import lt.techin.lsf.persistance.model.UserRecord;
 import lt.techin.lsf.service.ChangePasswordService;
 import lt.techin.lsf.service.PasswordResetService;
-import lt.techin.lsf.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,16 +16,13 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class AuthenticationControllerTests {
+class AuthenticationControllerForgotPasswordTests {
 
     @Mock
     private PasswordResetService passwordResetService;
 
     @Mock
     private ChangePasswordService changePasswordService;
-
-    @Mock
-    private UserService userService;
 
     @InjectMocks
     private AuthenticationController authenticationController;
