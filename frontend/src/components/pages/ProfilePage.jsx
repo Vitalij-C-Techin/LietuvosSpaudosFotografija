@@ -37,31 +37,32 @@ const ProfilePage = () => {
                 <Col xs="12">
                   <p className="profile-name">
                     {' '}
-                    {t('profile.name')}: {getUserData().name}
+                     {getUserData().name}
                   </p>
                 </Col>
                 <Col xs="12">
                   <p  className="profile-name">
                     {' '}
-                    {t('profile.surname')}: {getUserData().surname}
+                     {getUserData().surname}
                   </p>
                 </Col>
                 <Col xs="12">
                   <p>
                     {' '}
-                    {t('profile.email')}: {getUserData().email}
+                   {getUserData().email}
+                  </p>
+                </Col>
+          
+                <Col xs="12">
+                  <p>
+                    {' '}
+                     {getUserData().phone_number}
                   </p>
                 </Col>
                 <Col xs="12">
                   <p>
                     {' '}
                     {t('profile.birthYear')}: {getUserData().birth_year}
-                  </p>
-                </Col>
-                <Col xs="12">
-                  <p>
-                    {' '}
-                    {t('profile.phoneNumber')}: {getUserData().phone_number}
                   </p>
                 </Col>
               </Row>
