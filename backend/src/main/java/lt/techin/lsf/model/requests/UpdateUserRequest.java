@@ -12,11 +12,9 @@ import lt.techin.lsf.validator.*;
 public class UpdateUserRequest {
 
     @ValidNameConstraint
-    @JsonProperty("name")
     private String name;
 
     @ValidSurnameConstraint
-    @JsonProperty("surname")
     private String surname;
 
     @ValidBirthYearConstraint
@@ -28,7 +26,6 @@ public class UpdateUserRequest {
     private String phoneNumber;
 
     @ValidEmailConstraint
-    @JsonProperty("email")
     private String email;
 
     @ValidMediaNameConstraint
