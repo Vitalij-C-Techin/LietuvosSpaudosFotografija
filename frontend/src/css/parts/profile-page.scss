@@ -10,7 +10,12 @@
     width: auto;
     margin: 0px 50px 0px 50px;;
   }
-
+  .profile-name{
+    font-size: 1.5rem;
+  }
+  .profile-id, .profile-create-date{
+    font-size: 0.8rem;
+  }
   .btn {
     font-size: 12px;
     border-radius: 0%;
