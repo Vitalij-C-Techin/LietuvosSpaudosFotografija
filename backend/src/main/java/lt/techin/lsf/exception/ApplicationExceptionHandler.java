@@ -94,116 +94,6 @@ public class ApplicationExceptionHandler {
                 );
     }
 
-    @ExceptionHandler({UserRegistrationException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationPhoneNumberInvalidFormatException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationPhoneNumberInvalidFormatException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationSurnameInvalidFormatException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationSurnameInvalidFormatException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationSurnameIsTooLongException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationSurnameIsTooLongException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationSurnameIsTooShortException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationSurnameIsTooShortException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationNameInvalidFormatException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationNameInvalidFormatException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationNameIsTooLongException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationNameIsTooLongException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationNameIsTooShortException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationNameIsTooShortException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationTooOldException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationTooOldException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationTooYoungException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationTooYoungException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
     @ExceptionHandler({UserRegistrationPasswordFormatException.class})
     protected ResponseEntity<ErrorResponse> handle(UserRegistrationPasswordFormatException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -228,28 +118,6 @@ public class ApplicationExceptionHandler {
 
     @ExceptionHandler({UserRegistrationPasswordIsTooShortException.class})
     protected ResponseEntity<ErrorResponse> handle(UserRegistrationPasswordIsTooShortException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationEmailInvalidFormatException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationEmailInvalidFormatException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body(
-                        ErrorResponse.builder()
-                                .code(exception.getClass().getSimpleName())
-                                .message(exception.getMessage())
-                                .build()
-                );
-    }
-
-    @ExceptionHandler({UserRegistrationMediaNameIsTooLongException.class})
-    protected ResponseEntity<ErrorResponse> handle(UserRegistrationMediaNameIsTooLongException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
                         ErrorResponse.builder()
@@ -303,7 +171,6 @@ public class ApplicationExceptionHandler {
                                 .build()
                 );
     }
-
 
     @ExceptionHandler({BadRequestException.class})
     protected ResponseEntity<ErrorResponse> handle(BadRequestException exception) {
