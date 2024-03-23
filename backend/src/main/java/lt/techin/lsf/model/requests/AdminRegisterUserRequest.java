@@ -3,12 +3,14 @@ package lt.techin.lsf.model.requests;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.validator.*;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminRegisterUserRequest {
