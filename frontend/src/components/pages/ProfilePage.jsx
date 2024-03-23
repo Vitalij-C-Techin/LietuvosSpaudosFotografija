@@ -14,11 +14,11 @@ const ProfilePage = () => {
     <>
       <Container xs="4" className="profile-page-container">
         <Row className="profile-header">
-          <Col xs="12">
+          <Col xs="12" md="6">
             <h3>{t('profile.myProfile')}</h3>
           </Col>
           <IsAuthenticated>
-            <Col xs="12" className="profile-role">
+            <Col xs="12" md="6" className="profile-role">
               <p>{getUserData().role}</p>
             </Col>
           </IsAuthenticated>
@@ -34,17 +34,17 @@ const ProfilePage = () => {
           {!!getUserData() && (
             <>
               <Row className="profile-about">
-                <Col xs="12">
+                <Col xs="12" md="6">
                   <p className="profile-name"> {getUserData().name}</p>
                 </Col>
-                <Col xs="12">
+                <Col xs="12" md="6">
                   <p className="profile-lastname"> {getUserData().surname}</p>
                 </Col>
-                <Col xs="12">
+                <Col xs="12" md="6">
                   <p> {getUserData().email}</p>
                 </Col>
 
-                <Col xs="12">
+                <Col xs="12" md="6">
                   <p> {getUserData().phone_number}</p>
                 </Col>
                 <Col xs="12">
@@ -54,12 +54,13 @@ const ProfilePage = () => {
                   </p>
                 </Col>
               </Row>
-              <div className="profile-divider"></div>
+              <div className="profile-divider-media-top"></div>
               <Col xs="12">
                 <p className="profile-media">
                   {t('profile.media')}: {getUserData().media_name}
                 </p>
               </Col>
+              <div className="profile-divider-media-bottom"></div>
             </>
           )}
           <Col xs="12">
