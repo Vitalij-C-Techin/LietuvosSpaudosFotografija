@@ -2,15 +2,13 @@ package lt.techin.lsf.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lt.techin.lsf.exception.UserNotFoundByUuidException;
+import lt.techin.lsf.exception.UserNotFoundException;
 import lt.techin.lsf.model.User;
-import lt.techin.lsf.model.UserAuthentication;
 import lt.techin.lsf.model.mapper.UserResponseMapper;
 import lt.techin.lsf.model.requests.UpdateUserRequest;
 import lt.techin.lsf.model.response.UserAuthenticationResponse;
 import lt.techin.lsf.model.response.UserResponse;
 import lt.techin.lsf.service.UserService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -28,7 +26,7 @@ public class UserController {
         User user = userService.findUserByUuid(uuid);
 
         if (null == user) {
-            throw new UserNotFoundByUuidException("User not found");
+            throw new UserNotFoundException("User not found");
         }
 
         return UserResponseMapper.map(user);

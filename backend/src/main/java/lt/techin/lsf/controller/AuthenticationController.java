@@ -58,7 +58,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public UserAuthenticationResponse register(
-            @RequestBody RegisterRequest registerRequest
+            @RequestBody @Valid RegisterRequest registerRequest
     ) {
         UserAuthentication userAuthentication = authenticationService.register(registerRequest);
 
