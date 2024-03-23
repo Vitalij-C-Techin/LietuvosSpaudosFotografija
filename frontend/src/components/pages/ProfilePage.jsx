@@ -35,13 +35,13 @@ const ProfilePage = () => {
             <>
               <Row>
                 <Col xs="12">
-                  <p>
+                  <p className="profile-name">
                     {' '}
                     {t('profile.name')}: {getUserData().name}
                   </p>
                 </Col>
                 <Col xs="12">
-                  <p>
+                  <p  className="profile-name">
                     {' '}
                     {t('profile.surname')}: {getUserData().surname}
                   </p>
@@ -75,7 +75,7 @@ const ProfilePage = () => {
           )}
           <Col xs="12">
             <Button variant="secondary" as={NavLink} to="/profile/edit">
-              <p> {t('profile.editProfile')}</p>
+               {t('profile.editProfile')}
             </Button>
           </Col>
           <Row>
