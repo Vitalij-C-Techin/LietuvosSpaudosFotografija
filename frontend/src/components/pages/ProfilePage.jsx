@@ -12,7 +12,7 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Container xs="4" className='profile-page-container'>
+      <Container xs="4" className="profile-page-container">
         <Row className="profile-header">
           <Col xs="12">
             <h3>{t('profile.myProfile')}</h3>
@@ -35,38 +35,60 @@ const ProfilePage = () => {
             <>
               <Row>
                 <Col xs="12">
-                  {t('profile.name')}: {getUserData().name}
+                  <p>
+                    {' '}
+                    {t('profile.name')}: {getUserData().name}
+                  </p>
                 </Col>
                 <Col xs="12">
-                  {t('profile.surname')}: {getUserData().surname}
+                  <p>
+                    {' '}
+                    {t('profile.surname')}: {getUserData().surname}
+                  </p>
                 </Col>
                 <Col xs="12">
-                  {t('profile.email')}: {getUserData().email}
+                  <p>
+                    {' '}
+                    {t('profile.email')}: {getUserData().email}
+                  </p>
                 </Col>
                 <Col xs="12">
-                  {t('profile.birthYear')}: {getUserData().birth_year}
+                  <p>
+                    {' '}
+                    {t('profile.birthYear')}: {getUserData().birth_year}
+                  </p>
                 </Col>
                 <Col xs="12">
-                  {t('profile.phoneNumber')}: {getUserData().phone_number}
+                  <p>
+                    {' '}
+                    {t('profile.phoneNumber')}: {getUserData().phone_number}
+                  </p>
                 </Col>
               </Row>
               <div className="profile-divider"></div>
               <Col xs="12">
-                {t('profile.media')}: {getUserData().media_name}
+                <p>
+                  {t('profile.media')}: {getUserData().media_name}
+                </p>
               </Col>
             </>
           )}
           <Col xs="12">
-          <Button variant="secondary" as={NavLink} to="/profile/edit">
-            {t('profile.editProfile')}
-          </Button>
+            <Button variant="secondary" as={NavLink} to="/profile/edit">
+              <p> {t('profile.editProfile')}</p>
+            </Button>
           </Col>
           <Row>
             <Col xs="12">
-              {t('profile.id')}: {getUserData().uuid}
+              <p>
+                {' '}
+                {t('profile.id')}: {getUserData().uuid}
+              </p>
             </Col>
             <Col xs="12">
-              {t('profile.createdAt')}: {getUserData().created_at}
+              <p>
+                {t('profile.createdAt')}: {getUserData().created_at}
+              </p>
             </Col>
           </Row>
         </IsAuthenticated>
