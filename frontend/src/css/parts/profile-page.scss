@@ -19,7 +19,7 @@
   .profile-lastname {
     font-size: 1.5rem;
   }
-  .profile-name-lastname-row{
+  .profile-name-lastname-row {
     margin-top: 1rem;
   }
   .profile-id,
@@ -61,7 +61,7 @@
   @media only screen and (min-width: 768px) {
     text-align: left;
     padding: auto;
-    margin:auto;
+    margin: auto;
     width: 50%;
 
     .profile-bottom-button {
@@ -81,12 +81,12 @@
       margin-bottom: 0.5rem;
     }
 
-    .profile-divider-media-bottom, .profile-divider {
+    .profile-divider-media-bottom,
+    .profile-divider {
       height: 0.2rem;
       background-color: black;
       width: auto;
       margin: 0px 0px 0px 0px;
-      
     }
 
     .profile-divider-media-top {
@@ -95,6 +95,20 @@
     .profile-role {
       padding: 60px 0px 0px 100px;
     }
+    .profile-about-column {
+      margin: 0rem 0rem 0rem 2rem;
+    }
+  }
+  @media only screen and (min-width: 992px) {
+    width: 40%;
 
+    .profile-about-column {
+      margin: 0rem 0rem 0rem 13rem;
+    }
+    
+    .profile-footer {
+      margin: 2rem 0rem 1rem 0rem;
+      text-align: center;
+    }
   }
 }

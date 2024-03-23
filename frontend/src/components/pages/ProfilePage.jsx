@@ -36,7 +36,7 @@ const ProfilePage = () => {
         <IsAuthenticated>
           {!!getUserData() && (
             <>
-              <Col >         
+              <Col className='profile-about-column' >         
                   <Row className='profile-name-lastname-row'>
                     <Col xs="12" md="auto">
                       <p className="profile-name"> {getUserData().name}</p>
@@ -82,13 +82,13 @@ const ProfilePage = () => {
             </Button>
           </Col>
           <Row className="profile-footer">
-            <Col xs="12">
+            <Col xs="12" lg="6">
               <p className="profile-id">
                 {' '}
                 {t('profile.id')}: {getUserData().uuid}
               </p>
             </Col>
-            <Col xs="12">
+            <Col xs="12" lg="6">
               <p className="profile-create-date">
                 {t('profile.createdAt')}: {getUserData().created_at}
               </p>
