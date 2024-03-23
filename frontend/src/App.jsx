@@ -21,10 +21,11 @@ import CompetitionManagementPage from './components/pages/adminPages/Competition
 
 import { Authorization } from './components/utils/Authorization.jsx';
 import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx';
-import AdminManageUsersPage from './components/pages/AdminManageUsersPage.jsx';
-import AdminCreateUserPage from './components/pages/AdminCreateUserPage.jsx';
+import AdminManageUsersPage from './components/pages/adminPages/AdminManageUsersPage.jsx';
+import AdminCreateUserPage from './components/pages/adminPages/AdminCreateUserPage.jsx';
 import CreateCompetition from './components/pages/adminPages/CreateCompetitionPage.jsx';
 import CompetitionPage from './components/pages/CompetitionPage.jsx';
+import AdminManageUsersProfilePage from "./components/pages/adminPages/AdminMangeUsersProfilePage.jsx";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
             <Route path="/change-password" element={<PasswordChangePage />} />
 
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/profile/:uuid" element={<ProfilePage />} />
+            <Route path="/profile/:uuid" element={<AdminManageUsersProfilePage />} />
             <Route path="/profile/edit" element={<UserDetailsUpdatePage />} />
 
             <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />

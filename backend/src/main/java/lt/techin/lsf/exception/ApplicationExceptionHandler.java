@@ -5,6 +5,7 @@ import lt.techin.lsf.model.response.ErrorResponse;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -28,6 +29,15 @@ public class ApplicationExceptionHandler {
                 .body(ErrorResponse.builder()
                         .code(exception.getClass().getSimpleName())
                         .message(errorMessage)
+                        .build());
+    }
+
+    @ExceptionHandler({HttpMessageConversionException.class})
+    protected ResponseEntity<ErrorResponse> handle(Exception exception) {
+        return ResponseEntity.badRequest()
+                .body(ErrorResponse.builder()
+                        .code(exception.getClass().getSimpleName())
+                        .message(exception.getMessage())
                         .build());
     }
 
@@ -351,13 +361,13 @@ public class ApplicationExceptionHandler {
     }
 
     @ExceptionHandler({TokenExpiredException.class})
-    protected ResponseEntity<ErrorResponse> handle(TokenExpiredException exception){
+    protected ResponseEntity<ErrorResponse> handle(TokenExpiredException exception) {
         return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT)
                 .body(
                         ErrorResponse.builder()
-                         .code(exception.getClass().getSimpleName())
-                         .message(exception.getMessage())
-                         .build()
+                                .code(exception.getClass().getSimpleName())
+                                .message(exception.getMessage())
+                                .build()
                 );
     }
 }
