@@ -82,13 +82,13 @@ const ProfilePage = () => {
             </Button>
           </Col>
           <Row className="profile-footer">
-            <Col xs="12" md="6">
+            <Col xs="12">
               <p className="profile-id">
                 {' '}
                 {t('profile.id')}: {getUserData().uuid}
               </p>
             </Col>
-            <Col xs="12" md="6">
+            <Col xs="12">
               <p className="profile-create-date">
                 {t('profile.createdAt')}: {getUserData().created_at}
               </p>
