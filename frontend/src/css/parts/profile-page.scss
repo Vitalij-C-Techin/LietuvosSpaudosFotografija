@@ -51,4 +51,40 @@
     border-color: black;
     color: black;
   }
+
+  .profile-top-button {
+    display: none;
+  }
+
+  @media only screen and (min-width: 768px) {
+    text-align: left;
+
+    .profile-bottom-button {
+      display: none;
+    }
+    .profile-top-button {
+      display: inline;
+      font-size: 1.2rem;
+      border-radius: 0%;
+      border: solid;
+      border-width: medium;
+      border-color: black;
+      color: white;
+      background-color: black;
+      width: 100%;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .profile-divider-media-bottom {
+      height: 0.2rem;
+      background-color: black;
+      width: auto;
+      margin: 0px 50px 0px 50px;
+    }
+
+    .profile-divider-media-top {
+      display: none;
+    }
+  }
 }
