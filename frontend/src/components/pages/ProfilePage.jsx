@@ -70,14 +70,14 @@ const ProfilePage = () => {
                 </Row>
                 <Col xs="12">
                   <p>
-                    {t('profile.birthYear')} : {getUserData().birth_year}
+                    {t('profile.birthYear')}: {getUserData().birth_year}
                   </p>
                 </Col>
 
                 <div className="profile-divider-media-top"></div>
                 <Col xs="12">
                   <p className="profile-media">
-                    {t('profile.media')}: {getUserData().media_name}
+                    {t('profile.media')}: {getUserData().media_name ?? t('profile.noMedia')}
                   </p>
                 </Col>
               </Col>
