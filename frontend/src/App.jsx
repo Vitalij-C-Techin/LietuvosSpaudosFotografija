@@ -26,6 +26,7 @@ import AdminCreateUserPage from './components/pages/adminPages/AdminCreateUserPa
 import CreateCompetition from './components/pages/adminPages/CreateCompetitionPage.jsx';
 import CompetitionPage from './components/pages/CompetitionPage.jsx';
 import AdminManageUsersProfilePage from "./components/pages/adminPages/AdminMangeUsersProfilePage.jsx";
+import ParticipationData from './components/parts/ParticipationData.jsx';
 
 function App() {
   return (
@@ -35,7 +36,7 @@ function App() {
           <NavigationBar />
           <Routes>
             <Route path="/" element={<HomePage />} />
-
+            <Route path="/participation-data" element={<ParticipationData />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/registration" element={<RegistrationPage />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -67,6 +68,7 @@ function App() {
             </Route>
 
             <Route path="/*" element={<ErrorPage />} />
+           
           </Routes>
         </AuthProvider>
       </I18nextProvider>
