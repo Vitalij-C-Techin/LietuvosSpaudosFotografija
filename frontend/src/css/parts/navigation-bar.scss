@@ -11,10 +11,10 @@
 }
 
 nav {
+  padding-right: 3rem !important;
   .dropdown-menu {
     border-radius: 0%;
     border: solid 1px rgba(0, 0, 0, 0.175);
-
   }
 
   .dropdown-item.active {
@@ -33,5 +33,9 @@ nav {
 
   button {
     border: none !important;
+  }
+
+  @media only screen and (max-width: 576px) {
+    padding-right: 0 !important;
   }
 }

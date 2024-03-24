@@ -13,7 +13,7 @@ const NavigationBar = () => {
   const { t } = useTranslation();
 
   return (
-    <Navbar data-testid="NavigationBar" className="px-5">
+    <Navbar data-testid="NavigationBar">
       <Nav className="ms-auto">
         <Dropdown>
           <Dropdown.Toggle
