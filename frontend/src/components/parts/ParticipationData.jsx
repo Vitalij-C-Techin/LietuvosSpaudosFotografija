@@ -1,19 +1,39 @@
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Container } from 'react-bootstrap';
+import { useDropzone } from 'react-dropzone';
 
 const ParticipationData = () => {
+  const { t } = useTranslation();
+  const [photo, setPhoto] = useState(null);
+
+  const onDrop = (acceptedFiles) => {
+    setPhoto(acceptedFiles[0]);
+  };
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*' });
+
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the bulk of the card's
-          content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
+    <Container>
+      <Card style={{ width: '18rem' }}>
+        <div {...getRootProps()} style={{ cursor: 'pointer' }}>
+          <input {...getInputProps()} />
+          <Card.Img variant="top" src={photo ? URL.createObjectURL(photo) : 'holder.js/100px180'} />
+        </div>
+        <Card.Body>
+          <Card.Title>{t('Card Title')}</Card.Title>
+          <Card.Text>
+            {t(
+              "Some quick example text to build on the card title and make up the bulk of the card's content."
+            )}
+          </Card.Text>
+          <Button {...getRootProps()} variant="primary">
+            Upload
+          </Button>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
+
 export default ParticipationData;
