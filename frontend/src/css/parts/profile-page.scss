@@ -111,6 +111,9 @@
     .profile-divider-media-top {
       display: none;
     }
+    .profile-about-column{
+      padding-left: 10%;
+    }
   }
   @media only screen and (min-width: 992px) {
     width: 40%;
@@ -119,8 +122,6 @@
       margin: 2rem 0rem 1rem 0rem;
       text-align: center;
     }
-    .profile-about-column{
-      padding-left: 10%;
-    }
+ 
   }
 }
