@@ -40,7 +40,7 @@ const ProfilePage = () => {
             <>
               <Col className='profile-about-column' >         
                   <Row className='profile-name-lastname-row'>
-                    <Col xs="12" md="auto">
+                    <Col xs="12" md="auto" className="pe-0">
                       <p className="profile-name"> {getUserData().name}</p>
                     </Col>
                     <Col xs="12" md="auto">
@@ -48,7 +48,7 @@ const ProfilePage = () => {
                     </Col>
                     </Row>
                   <Row>
-                  <Col xs="12" md="auto">
+                  <Col xs="12" md="auto" className="pe-0">
                     <p> {getUserData().email}</p>
                   </Col>
 
