@@ -58,7 +58,6 @@ const ProfilePage = () => {
                   </Row>
                   <Col xs="12">
                     <p>
-                      {' '}
                       {t('profile.birthYear')} : {getUserData().birth_year}
                     </p>
                   </Col>
@@ -86,7 +85,6 @@ const ProfilePage = () => {
           <Row className="profile-footer">
             <Col xs="12" lg="6">
               <p className="profile-id">
-                {' '}
                 {t('profile.id')}: {getUserData().uuid}
               </p>
             </Col>
