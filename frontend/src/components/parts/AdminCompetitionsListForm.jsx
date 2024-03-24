@@ -10,6 +10,7 @@ import EmptyMessage from '../messages/EmptyMessage';
 import { useAuth } from '../context/AuthContext';
 import Competition from '../utils/Competition';
 import Pagination from '../parts/Pagination';
+import Photo from '../utils/Photo';
 
 const AdminCompetitionsListPage = () => {
   const [t] = useTranslation();
@@ -99,7 +100,10 @@ const CompetitionSingle = ({ competition }) => {
   const [t] = useTranslation();
   const navigate = useNavigate();
 
+  const imagePlaceHolder= "/src/tmp/placeholder-500.jpg";
+
   const c = new Competition(competition);
+  const p = new Photo(competition.photo);
 
   const handleView = () => {
     navigate('/admin-competition-edit/' + c.getUuid());
@@ -111,7 +115,7 @@ const CompetitionSingle = ({ competition }) => {
         <Row className="m-0">
           <Col xs="12" md="4" lg="3" className="p-0 p-md-3 p-lg-3 bg-light">
             <Image
-              src="/src/tmp/placeholder-500.jpg"
+              src={p.getPhotoSmallUrl() || imagePlaceHolder}
               alt="competition photo"
               className="lsf-image-cover"
             />

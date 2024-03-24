@@ -40,7 +40,8 @@ const Config = {
         },
         photo: {
             add: '/api/v1/photo',
-            manage: '/api/v1/photo/{uuid}'
+            manage: '/api/v1/photo/{uuid}',
+            storage: 'photo/{filename}'
         }
     }
 };

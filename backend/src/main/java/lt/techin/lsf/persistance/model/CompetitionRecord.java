@@ -61,9 +61,15 @@ public class CompetitionRecord {
     @Enumerated(STRING)
     private Competition.Visibility visibility;
 
-    @OneToMany(mappedBy = "competitionRecord",
-            cascade = {CascadeType.DETACH, CascadeType.MERGE,
-                    CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE}
+    @OneToMany(
+            mappedBy = "competitionRecord",
+            cascade = {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.REMOVE
+            }
     )
     private List<CategoryRecord> categoryRecordList;
 
@@ -94,4 +100,8 @@ public class CompetitionRecord {
         categoryRecord.setCompetitionRecord(this);
     }
 
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_uuid", referencedColumnName = "uuid", insertable = false, updatable = false)
+    private PhotoRecord photo;
 }
