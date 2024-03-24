@@ -1,7 +1,7 @@
 package lt.techin.lsf.service;
 
 import lombok.AllArgsConstructor;
-import lt.techin.lsf.exception.UserNotFoundByUuidException;
+import lt.techin.lsf.exception.UserNotFoundException;
 import lt.techin.lsf.model.User;
 import lt.techin.lsf.model.UserAuthentication;
 import lt.techin.lsf.model.mapper.UserMapper;
@@ -39,7 +39,7 @@ public class UserService {
 
     public UserAuthenticationResponse updateUserProfile(UpdateUserRequest updateUserRequest, UUID uuid) {
         if (userRepository.findByUuidAllIgnoreCase(uuid) == null) {
-            throw new UserNotFoundByUuidException("User not found");
+            throw new UserNotFoundException("User not found");
         } else {
             UserRecord existingUser = userRepository.findByUuidAllIgnoreCase(uuid);
             existingUser.setEmail(updateUserRequest.getEmail());

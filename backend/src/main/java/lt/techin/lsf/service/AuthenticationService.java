@@ -84,7 +84,6 @@ public class AuthenticationService {
     }
 
     public UserAuthentication register(@NotNull RegisterRequest register) {
-        register.validateData();
         register.sanitizeData();
 
         if (userService.existsUserWithEmail(register.getEmail())) {

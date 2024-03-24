@@ -1,7 +1,6 @@
 package lt.techin.lsf.controller;
 
 import jakarta.validation.Valid;
-import lt.techin.lsf.exception.UserNotRegisteredException;
 import lt.techin.lsf.model.requests.AdminRegisterJuryRequest;
 import lt.techin.lsf.model.requests.AdminRegisterUserRequest;
 import lt.techin.lsf.model.requests.AdminUpdateUserIsActiveRequest;
@@ -36,13 +35,9 @@ public class AdminController {
             @RequestBody @Valid AdminRegisterUserRequest registerUserAdminRequest
     ) {
         UserRecord registeredUser = adminService.registerUser(registerUserAdminRequest);
+        UserCreationResponse response = new UserCreationResponse("User created successfully.", registeredUser);
 
-        if (registeredUser != null) {
-            UserCreationResponse response = new UserCreationResponse("User created successfully.", registeredUser);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } else {
-            throw new UserNotRegisteredException("User not registered");
-        }
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("register/jury")
@@ -50,13 +45,9 @@ public class AdminController {
             @RequestBody @Valid AdminRegisterJuryRequest registerJuryAdminRequest
     ) {
         UserRecord registeredJury = adminService.registerJury(registerJuryAdminRequest);
+        UserCreationResponse response = new UserCreationResponse("Jury created successfully.", registeredJury);
 
-        if (registeredJury != null) {
-            UserCreationResponse response = new UserCreationResponse("Jury created successfully.", registeredJury);
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } else {
-            throw new UserNotRegisteredException("User not registered.");
-        }
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/user/{userUuid}")
