@@ -26,7 +26,8 @@ i18n
             dropDownMenuItem9: 'Support',
             dropDownMenuItem10: 'Change Language',
             dropDownMenuItem11: 'Logout',
-            dropDownMenuItem12: 'Register'
+            dropDownMenuItem12: 'Register',
+            dropDownMenuItem13: 'Participation requests'
           },
           layoutPage: {
             imageHeaderText: 'WINNERS OF PREVIOUS COMPETITIONS'
@@ -310,7 +311,8 @@ i18n
             dropDownMenuItem9: 'Pagalba',
             dropDownMenuItem10: 'Keisti kalbą',
             dropDownMenuItem11: 'Atsijungti',
-            dropDownMenuItem12: 'Registruotis'
+            dropDownMenuItem12: 'Registruotis',
+            dropDownMenuItem13: 'Dalyvavimo užklausos'
           },
           layoutPage: {
             imageHeaderText: 'PRAEITŲ KONKURSŲ NUGALĖTOJAI'
