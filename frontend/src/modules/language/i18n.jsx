@@ -137,7 +137,8 @@ i18n
             blocked: 'Blocked',
             unblocked: 'Active',
             createdAt: 'Created at',
-            editProfile: 'Edit Profile'
+            editProfile: 'Edit Profile',
+            noMedia: 'Freelancer'
           },
           userCompetitionPage: {
             title: 'My Competitions',
@@ -423,7 +424,8 @@ i18n
             blocked: 'Užblokuotas',
             unblocked: 'Aktyvus',
             createdAt: 'Sukurta',
-            editProfile: 'Redaguoti profilį'
+            editProfile: 'Redaguoti profilį',
+            noMedia: 'Laisvai samdomas'
           },
           userCompetitionPage: {
             title: 'Mano konkursai',
