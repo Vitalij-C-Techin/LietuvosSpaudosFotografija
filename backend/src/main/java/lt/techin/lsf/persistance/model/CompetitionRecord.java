@@ -47,6 +47,9 @@ public class CompetitionRecord {
     @Column(name = "end_date", nullable = false)
     private LocalDateTime endDate;
 
+    @Column(name = "image_uuid")
+    private UUID imageUuid;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 

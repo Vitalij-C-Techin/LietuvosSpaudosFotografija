@@ -26,27 +26,32 @@ const ViewEditCompetitionForm = ({ uuid }) => {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    const fetchCompetitionData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/api/v1/competition/${uuid}`, {
+    const fetchCompetitionData = () => {
+      axios
+        .get(`http://localhost:8080/api/v1/competition/${uuid}`, {
           headers: getTokenHeader()
+        })
+        .then((response) => {
+          const competitionData = response.data;
+
+          console.log('Response data', competitionData);
+
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            name_en: competitionData.data.nameEn || '',
+            name_lt: competitionData.data.nameLt || '',
+            description_en: competitionData.data.descriptionEn || '',
+            description_lt: competitionData.data.descriptionLt || '',
+            start_date: competitionData.data.startDate || '',
+            end_date: competitionData.data.endDate || '',
+            status: competitionData.data.status || '',
+            visibility: competitionData.data.visibility || '',
+            photo_limit: competitionData.data.photoLimit || ''
+          }));
+        })
+        .catch((error) => {
+          console.log('Error fetching competition data:', error);
         });
-        const competitionData = response.data;
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          name_en: competitionData.data.nameEn || '',
-          name_lt: competitionData.data.nameLt || '',
-          description_en: competitionData.data.descriptionEn || '',
-          description_lt: competitionData.data.descriptionLt || '',
-          start_date: competitionData.data.startDate || '',
-          end_date: competitionData.data.endDate || '',
-          status: competitionData.data.status || '',
-          visibility: competitionData.data.visibility || '',
-          photo_limit: competitionData.data.photoLimit || ''
-        }));
-      } catch (error) {
-        console.log('Error fetching competition data:', error);
-      }
     };
     fetchCompetitionData();
   }, [uuid]);
@@ -89,15 +94,17 @@ const ViewEditCompetitionForm = ({ uuid }) => {
     setIsFormChanged(true);
   };
 
-  const confirmSave = async () => {
-    try {
-      await axios.put(`http://localhost:8080/api/v1/competition/${uuid}`, formData, {
+  const confirmSave = () => {
+    axios
+      .put(`http://localhost:8080/api/v1/competition/${uuid}`, formData, {
         headers: getTokenHeader()
+      })
+      .then((response) => {
+        //navigate('/admin-competitions-list');
+      })
+      .catch((error) => {
+        console.error('Error saving competition:', error);
       });
-      navigate('/admin-competitions-list');
-    } catch (error) {
-      console.error('Error saving competition:', error);
-    }
   };
   const handleSave = async () => {
     if (new Date(formData.end_date) < new Date(formData.start_date)) {
