@@ -69,9 +69,13 @@ const NavigationBar = () => {
                   <Dropdown.Item to="#admin-category-dashboard">
                     {t('landingPage.dropDownMenuItem8')}
                   </Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item as={NavLink} to="/admin-user-participation-requests">
+                    {t('landingPage.dropDownMenuItem13')}
+                  </Dropdown.Item>
                 </>
               )}
-              <Dropdown.Divider />
+              
             </IsAuthenticated>
             <Dropdown.Divider />
 
