@@ -7,6 +7,7 @@ public class CategoryMapper {
     public static Category categoryRecordToCategory (CategoryRecord categoryRecord) {
 
         return Category.builder()
+                .uuid(categoryRecord.getUuid())
                 .nameLt(categoryRecord.getNameLt())
                 .nameEn(categoryRecord.getNameEn())
                 .descriptionLt(categoryRecord.getDescriptionLt())
