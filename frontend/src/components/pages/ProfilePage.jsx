@@ -12,10 +12,12 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Container xs="4" className="profile-page-container">
+      <Container className="profile-page-container">
+        <Col className="profile-btn-column-container">
         <Button className="profile-top-button" variant="secondary" as={NavLink} to="/profile/edit">
           {t('profile.editProfile')}
         </Button>
+        </Col>
         <Row className="profile-header">
           <Col xs="12" md="6">
             <h3>{t('profile.myProfile')}</h3>
