@@ -1,6 +1,5 @@
 package lt.techin.lsf.persistance.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,12 +14,16 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "photo")
-public class PhotoRecord {
+@Table(name = "album")
+public class AlbumRecord {
     @Id
     @Column(name = "uuid", nullable = false)
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
+
+    @Column(name = "submission_uuid")
+    @JsonProperty("submission_uuid")
+    private UUID submissionUuid;
 
     @JsonProperty("name_lt")
     @Column(name = "name_lt")
@@ -38,32 +41,29 @@ public class PhotoRecord {
     @Column(name = "description_en")
     private String descriptionEn;
 
-    @Column(name = "position")
-    private int position;
+    @Column(name = "type")
+    private String type;
 
-    @Column(name = "stage")
-    private String stage;
+    @Column(name = "status")
+    private String status;
+
 
     /* --- */
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "album_uuid")
-    private AlbumRecord album;
 
-    @OneToMany(mappedBy = "photo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<PhotoItemRecord> photoItemList = new HashSet<>();
+    @OneToMany(
+            mappedBy = "album",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<PhotoRecord> photoList = new HashSet<>();
 
-    public void addPhotoItem(PhotoItemRecord photoItem) {
-        Set<PhotoItemRecord> photoItemList = getPhotoItemList();
-
-        if (null == photoItemList) {
-            photoItemList = new HashSet<>();
+    public void addPhoto(PhotoRecord photo) {
+        if (null == photoList) {
+            photoList = new HashSet<>();
         }
 
-        photoItemList.add(photoItem);
-
-        photoItem.setPhoto(this);
-        setPhotoItemList(photoItemList);
+        photoList.add(photo);
     }
 }

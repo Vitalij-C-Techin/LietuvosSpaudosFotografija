@@ -17,6 +17,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final String[] publicGetEndpoints = {
+            "photo/{filename}",
+
             "api/v1/competition/all/active/{page}",
 
             "swagger-ui/**", // Swagger
@@ -46,22 +48,24 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
-                    //Public
+                            //Public
                             request.requestMatchers(HttpMethod.GET, publicGetEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.POST, publicPostEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.PUT, publicPutEndpoints).permitAll();
                             request.requestMatchers(HttpMethod.DELETE, publicDeleteEndpoints).permitAll();
 
-                    //User, Moderator, Admin
+                            //User, Moderator, Admin
                             request.requestMatchers(
                                     "api/v1/participation",
                                     "api/v1/participation/{uui}",
 
                                     "api/v1/competition/user/{page}",
-                                    "api/v1/competition/user/participate/{page}"
-                            ).hasAnyAuthority("USER","MODERATOR", "ADMIN");
+                                    "api/v1/competition/user/participate/{page}",
 
-                    //Moderator, Admin
+                                    "api/v1/album**"
+                            ).hasAnyAuthority("USER", "MODERATOR", "ADMIN");
+
+                            //Moderator, Admin
                             request.requestMatchers(
                                     "api/v1/participation",
                                     "api/v1/participation/{uuid}",
@@ -78,7 +82,6 @@ public class SecurityConfig {
 
                             request.anyRequest().authenticated();
                         }
-
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

@@ -10,6 +10,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 public class Category {
+    private UUID uuid;
     private String nameLt;
     private String nameEn;
     private String descriptionLt;
