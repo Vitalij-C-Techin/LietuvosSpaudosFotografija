@@ -58,9 +58,9 @@
     display: none;
   }
 
+
   .profile-btn-column-container{
-    position: relative;
-    height: 100px;
+    display:none;
   }
 
 
@@ -114,6 +114,13 @@
     .profile-about-column{
       padding-left: 10%;
     }
+
+    .profile-btn-column-container{
+      display: block;
+      position: relative;
+      height: 100px;
+    }
+    
   }
   @media only screen and (min-width: 992px) {
     width: 40%;
@@ -122,6 +129,6 @@
       margin: 2rem 0rem 1rem 0rem;
       text-align: center;
     }
- 
+  
   }
 }
