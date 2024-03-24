@@ -46,7 +46,7 @@ public class PhotoItemRecord {
 
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "photo_uuid")
     private PhotoRecord photo;
 }

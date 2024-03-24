@@ -88,7 +88,7 @@ public class AlbumController {
         );
     }
 
-    @PostMapping("/{uuid}/addMultiple")
+    @PostMapping("/{uuid}/add/multiple")
     public ResponseEntity<List<PhotoRecord>> addPhoto(
             @PathVariable("uuid") UUID albumUuid,
             @RequestParam("image") MultipartFile[] file
@@ -102,6 +102,20 @@ public class AlbumController {
         return ResponseEntity.ok().body(
                 albumService.addPhoto(album, file)
         );
+    }
+
+    @GetMapping("/photo/{uuid}")
+    public ResponseEntity<PhotoRecord> getPhoto(
+            @PathVariable("uuid") UUID photoUuid,
+            @RequestBody UpdatePhotoRequest request
+    ) {
+        PhotoRecord photo = photoService.getPhoto(photoUuid);
+
+        if (null == photo) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().body(photo);
     }
 
     @PutMapping("/photo/{uuid}")
@@ -120,7 +134,6 @@ public class AlbumController {
         return ResponseEntity.ok().body(photo);
     }
 
-    //TODO NOT WORKING
     @DeleteMapping("/photo/{uuid}")
     public void deletePhoto(
             @PathVariable("uuid") UUID photoUuid
