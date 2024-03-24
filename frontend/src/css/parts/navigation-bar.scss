@@ -37,5 +37,9 @@ nav {
 
   @media only screen and (max-width: 576px) {
     padding-right: 0 !important;
+    .dropdown-menu {
+      width: 100vw;
+      height: 100vh;
+    }
   }
 }
