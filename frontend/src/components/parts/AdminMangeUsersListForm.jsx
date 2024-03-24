@@ -78,60 +78,78 @@ const AdminMangeUsersListForm = () => {
                         <th className="col-2">{t('adminManageUsersPage.surname')}</th>
                         <th className="col-2">{t('adminManageUsersPage.birthYear')}</th>
                         <th className="col-2">{t('adminManageUsersPage.role')}</th>
-                        <th></th>
+                        <th className="d-none d-lg-table-cell"></th>
                     </tr>
                     </thead>
                     <tbody>{userList.map((user) => (
-                        <tr key={user.uuid}>
-                            <td className="col">
-                                {user.name}
-                            </td>
-                            <td className="col">
-                                {user.surname}
-                            </td>
-                            <td className="col">
-                                {user.birth_year}
-                            </td>
-                            <td className="col">
-                                {user.role}
-                                {userUuid === user.uuid && (
-                                    <UserRoleUpdater
-                                        userUuid={user.uuid}
-                                        currentRole={user.role}
-                                        handleCancel={handleCancel}
-                                        getAndUpdateRoles={getUserList}
-                                    />
-                                )}
-                            </td>
-                            <td>
-                                <div className="d-flex gap-2 flex-column flex-lg-row flex-md-row align-end">
-                                    <Button
-                                        onClick={() => navigate(`/profile/${user.uuid}`)}
-                                        variant="outline-success"
-                                        className="align-content-center d-inline-flex"
-                                    >
-                                        <span>{t('adminManageUsersPage.userDetails')}</span>
-                                    </Button>
-                                    <Button
-                                        onClick={() => handleUpdateClick(user.uuid)}
-                                        variant="outline-warning"
-                                        className="align-content-center d-inline-flex"
-                                    >
-                                        <span>{t('adminManageUsersPage.updateRole')}</span>
-                                    </Button>
-                                    <UserBlocker
-                                        userUuid={user.uuid}
-                                        currentStatus={user.is_active}
-                                        getAndUpdateStatus={getUserList}
-                                    />
-                                </div>
-                            </td>
-                        </tr>
+                        <>
+                            <tr key={user.uuid}>
+                                <td>{user.name}</td>
+                                <td>{user.surname}</td>
+                                <td>{user.birth_year}</td>
+                                <td>
+                                    {user.role}
+                                    {userUuid === user.uuid && (
+                                        <UserRoleUpdater
+                                            userUuid={user.uuid}
+                                            currentRole={user.role}
+                                            handleCancel={handleCancel}
+                                            getAndUpdateRoles={getUserList}
+                                        />
+                                    )}
+                                </td>
+                                {/* Action buttons for larger screens */}
+                                <td className="d-none d-lg-table-cell">
+                                    <div className="d-flex gap-2">
+                                        <Button
+                                            variant="outline-success"
+                                            onClick={() => navigate(`/profile/${user.uuid}`)}
+                                        >
+                                            {t('adminManageUsersPage.userDetails')}
+                                        </Button>
+                                        <Button
+                                            variant="outline-warning"
+                                            onClick={() => handleUpdateClick(user.uuid)}
+                                        >
+                                            {t('adminManageUsersPage.updateRole')}
+                                        </Button>
+                                        <UserBlocker
+                                            userUuid={user.uuid}
+                                            currentStatus={user.is_active}
+                                            getAndUpdateStatus={getUserList}
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                            {/* Actions buttons for smaller screens */}
+                            <tr className="d-lg-none">
+                                <td colSpan="5">
+                                    <div className="d-flex gap-2 flex-row justify-content-center">
+                                        <Button
+                                            variant="outline-success"
+                                            onClick={() => navigate(`/profile/${user.uuid}`)}
+                                        >
+                                            {t('adminManageUsersPage.userDetails')}
+                                        </Button>
+                                        <Button
+                                            variant="outline-warning"
+                                            onClick={() => handleUpdateClick(user.uuid)}
+                                        >
+                                            {t('adminManageUsersPage.updateRole')}</Button>
+                                        <UserBlocker
+                                            userUuid={user.uuid}
+                                            currentStatus={user.is_active}
+                                            getAndUpdateStatus={getUserList}
+                                        />
+                                    </div>
+                                </td>
+                            </tr>
+                        </>
                     ))}
                     </tbody>
                 </Table>
                 <div className="pagination-controls-container d-flex justify-content-center">
-                    <Pagination totalPages={totalPages} onPageChange={handlePageChange} />
+                    <Pagination totalPages={totalPages} onPageChange={handlePageChange}/>
                 </div>
             </Container>
         </>
