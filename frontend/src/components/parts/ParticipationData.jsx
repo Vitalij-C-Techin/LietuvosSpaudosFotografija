@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Button, Container, Row } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 const ParticipationData = () => {
   const { t } = useTranslation();
@@ -17,6 +19,11 @@ const ParticipationData = () => {
     <Container>
       <Row className="justify-content-center">
         <Card style={{ width: '18rem' }}>
+          <DropdownButton id="dropdown-item-button" title="Categories">
+            <Dropdown.Item as="button">Category1</Dropdown.Item>
+            <Dropdown.Item as="button">Category2</Dropdown.Item>
+            <Dropdown.Item as="button">Category3</Dropdown.Item>
+          </DropdownButton>
           <div {...getRootProps()} style={{ cursor: 'pointer' }}>
             <input {...getInputProps()} />
             <Card.Img
