@@ -7,32 +7,51 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 const ParticipationData = () => {
   const { t } = useTranslation();
+  const [tempPhotos, setTempPhotos] = useState([]);
   const [photos, setPhotos] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const onDrop = (acceptedFiles) => {
-    const newPhotos = acceptedFiles.map(file => ({
+    const newTempPhotos = acceptedFiles.map(file => ({
       file,
-      url: URL.createObjectURL(file)
+      url: URL.createObjectURL(file),
+      category: selectedCategory
     }));
-    setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
+    setTempPhotos(prevTempPhotos => [...prevTempPhotos, ...newTempPhotos]);
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*' });
+
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
+
+  const handleSubmit = () => {
+    const photosToAdd = tempPhotos.filter(photo => photo.category === selectedCategory);
+    setPhotos(prevPhotos => [...prevPhotos, ...photosToAdd]);
+    setTempPhotos([]);
+  };
 
   return (
     <Container>
       <Row className="justify-content-center">
         <Card style={{ width: '18rem' }}>
-          <DropdownButton variant="secondary" id="dropdown-item-button" title="Categories">
-            <Dropdown.Item as="button">Category1</Dropdown.Item>
-            <Dropdown.Item as="button">Category2</Dropdown.Item>
-            <Dropdown.Item as="button">Category3</Dropdown.Item>
+          <DropdownButton variant="secondary" id="dropdown-item-button" title={selectedCategory || "Categories"}>
+            <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category1')}>
+              Category1
+            </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category2')}>
+              Category2
+            </Dropdown.Item>
+            <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category3')}>
+              Category3
+            </Dropdown.Item>
           </DropdownButton>
           <div {...getRootProps()} style={{ cursor: 'pointer' }}>
             <input {...getInputProps()} />
             <Card.Img
               variant="top"
-              src={photos.length > 0 ? photos[photos.length - 1].url : 'holder.js/100px180'}
+              src={tempPhotos.length > 0 ? tempPhotos[tempPhotos.length - 1].url : 'holder.js/100px180'}
             />
           </div>
           <Card.Body>
@@ -49,14 +68,16 @@ const ParticipationData = () => {
                 </Button>
               </Col>
               <Col>
-                <Button variant="secondary">Submit</Button>
+                <Button variant="secondary" onClick={handleSubmit}>
+                  Submit
+                </Button>
               </Col>
             </Row>
           </Card.Body>
         </Card>
       </Row>
       <Row className="mt-3 justify-content-center">
-        {photos.map((photo, index) => (
+        {selectedCategory && photos.filter(photo => photo.category === selectedCategory).map((photo, index) => (
           <Col key={index} className="mb-3" xs={6} md={4} lg={3}>
             <Image src={photo.url} thumbnail />
           </Col>
