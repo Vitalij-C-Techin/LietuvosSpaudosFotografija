@@ -5,6 +5,9 @@ import { useDropzone } from 'react-dropzone';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 
+// Placeholder image URL
+const placeholderImage = 'https://content.hostgator.com/img/weebly_image_sample.png';
+
 const ParticipationData = () => {
   const { t } = useTranslation();
   const [tempPhotos, setTempPhotos] = useState([]);
@@ -63,7 +66,7 @@ const ParticipationData = () => {
             <input {...getInputProps()} />
             <Card.Img
               variant="top"
-              src={tempPhotos.length > 0 ? tempPhotos[tempPhotos.length - 1].url : 'holder.js/100px180'}
+              src={tempPhotos.length > 0 ? tempPhotos[tempPhotos.length - 1].url : placeholderImage}
             />
           </div>
           <Card.Body>
