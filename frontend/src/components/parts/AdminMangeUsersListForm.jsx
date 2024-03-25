@@ -10,6 +10,7 @@ import Config from "../config/Config.js";
 import UserRoleUpdater from "./UserRoleUpdater.jsx";
 import UserBlocker from "./UserBlocker.jsx";
 import Pagination from '../parts/Pagination';
+import React from 'react';
 
 const AdminMangeUsersListForm = () => {
     const [t] = useTranslation();
@@ -82,8 +83,8 @@ const AdminMangeUsersListForm = () => {
                     </tr>
                     </thead>
                     <tbody>{userList.map((user) => (
-                        <>
-                            <tr key={user.uuid}>
+                        <React.Fragment key={user.uuid}>
+                            <tr>
                                 <td>{user.name}</td>
                                 <td>{user.surname}</td>
                                 <td>{user.birth_year}</td>
@@ -144,7 +145,7 @@ const AdminMangeUsersListForm = () => {
                                     </div>
                                 </td>
                             </tr>
-                        </>
+                        </React.Fragment>
                     ))}
                     </tbody>
                 </Table>

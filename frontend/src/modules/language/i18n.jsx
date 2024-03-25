@@ -18,7 +18,7 @@ i18n
             dropDownMenuItem1: 'Home',
             dropDownMenuItem2: 'Login',
             dropDownMenuItem3: 'Profile',
-            dropDownMenuItem4: 'My Competitions',
+            dropDownMenuItem4: 'My competitions',
             dropDownMenuItem5: 'Competitions to evaluate',
             dropDownMenuItem6: 'Manage users',
             dropDownMenuItem7: 'Manage competitions',
