@@ -65,6 +65,21 @@ const AdminMangeUsersListForm = () => {
         setPage(value - 1);
     };
 
+    const getRoleDisplayName = (role) => {
+        switch(role) {
+            case 'JURY':
+                return t('adminManageUsersPage.jury');
+            case 'USER':
+                return t('adminManageUsersPage.user');
+            case 'MODERATOR':
+                return t('adminManageUsersPage.moderator');
+            case 'ADMIN':
+                return t('adminManageUsersPage.admin');
+            default:
+                return role;
+        }
+    };
+
     return (
         <>
             {isLoading && <LoadingMessage/>}
@@ -89,7 +104,7 @@ const AdminMangeUsersListForm = () => {
                                 <td>{user.surname}</td>
                                 <td>{user.birth_year}</td>
                                 <td>
-                                    {user.role}
+                                    {getRoleDisplayName(user.role)}
                                     {userUuid === user.uuid && (
                                         <UserRoleUpdater
                                             userUuid={user.uuid}

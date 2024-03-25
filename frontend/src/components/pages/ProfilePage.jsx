@@ -10,6 +10,21 @@ const ProfilePage = () => {
   const { t } = useTranslation();
   const { getUserData, isLoggedIn } = useAuth();
 
+  const getRoleDisplayName = (role) => {
+    switch(role) {
+      case 'JURY':
+        return t('adminManageUsersPage.jury');
+      case 'USER':
+        return t('adminManageUsersPage.user');
+      case 'MODERATOR':
+        return t('adminManageUsersPage.moderator');
+      case 'ADMIN':
+        return t('adminManageUsersPage.admin');
+      default:
+        return role;
+    }
+  };
+
   return (
     <>
       <Container className="profile-page-container">
@@ -33,7 +48,7 @@ const ProfilePage = () => {
           <IsAuthenticated>
             {!!getUserData() && (
               <Col xs="12" md="6">
-                <p className="profile-role">{getUserData().role}</p>
+                <p className="profile-role">{getRoleDisplayName(getUserData().role)}</p>
               </Col>
             )}
           </IsAuthenticated>
