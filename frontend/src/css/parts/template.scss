@@ -17,11 +17,11 @@
     }
 
     &:active {
-        background-color: black;
+        background-color: black !important;
 
-        border: solid medium black;
+        border: solid medium black !important;
 
-        color: white;
+        color: white !important;
     }
 }
 

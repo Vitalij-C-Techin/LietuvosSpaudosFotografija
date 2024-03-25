@@ -3,6 +3,8 @@ const Config = {
 
     apiDomain: 'http://localhost:8080',
 
+    imagePlaceHolder: '/src/tmp/placeholder-500.jpg',
+
     endpoints: {
         auth: {
             registration: '/api/v1/register',
@@ -22,7 +24,12 @@ const Config = {
             userParticipate: '/api/v1/competition/user/participate/{page}'
         },
         users: {
-            adminAllUsers: ({page, size, sortBy, direction}) =>
+            adminAllUsers: ({
+                    page,
+                    size,
+                    sortBy,
+                    direction
+                }) =>
                 `/api/v1/admin/users?page=${page}&size=${size}&sortBy=${sortBy}&direction=${direction}`,
             addUser: '/api/v1/admin/register/user',
             addJury: '/api/v1/admin/register/jury',
@@ -38,6 +45,10 @@ const Config = {
         userDetailsEdit: {
             getByUuid: '/api/v1/user/{uuid}',
             updateByUuid: '/api/v1/user/{uuid}/profile'
+        },
+        jury: {
+            getSingle: '/api/v1/jury/{uuid}',
+            getAll: '/api/v1/jury/all/{page}'
         },
         photo: {
             add: '/api/v1/photo',
