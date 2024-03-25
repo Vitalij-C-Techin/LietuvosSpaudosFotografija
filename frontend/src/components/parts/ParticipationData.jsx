@@ -14,13 +14,14 @@ const ParticipationData = () => {
   const [photos, setPhotos] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [modalImage, setModalImage] = useState(null);
+  const [modalData, setModalData] = useState({ image: null, description: '' });
 
   const onDrop = (acceptedFiles) => {
     const newTempPhotos = acceptedFiles.map(file => ({
       file,
       url: URL.createObjectURL(file),
-      category: selectedCategory
+      category: selectedCategory,
+      description: ''
     }));
     setTempPhotos(prevTempPhotos => [...prevTempPhotos, ...newTempPhotos]);
   };
@@ -37,14 +38,14 @@ const ParticipationData = () => {
     setTempPhotos([]);
   };
 
-  const handleImageClick = (imageUrl) => {
-    setModalImage(imageUrl);
+  const handleImageClick = (imageUrl, description) => {
+    setModalData({ image: imageUrl, description });
     setShowModal(true);
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setModalImage(null);
+    setModalData({ image: null, description: '' });
   };
 
   return (
@@ -72,7 +73,19 @@ const ParticipationData = () => {
           <Card.Body>
             <Card.Title>{t('Description')}</Card.Title>
             <Card.Text>
-            <Form.Control as="textarea" rows={3} />
+            <Form.Control
+              as="textarea"
+              rows={3}
+              value={tempPhotos.length > 0 ? tempPhotos[tempPhotos.length - 1].description : ''}
+              onChange={(e) => {
+                const newDescription = e.target.value;
+                setTempPhotos(prevTempPhotos => {
+                  const updatedTempPhotos = [...prevTempPhotos];
+                  updatedTempPhotos[updatedTempPhotos.length - 1].description = newDescription;
+                  return updatedTempPhotos;
+                });
+              }}
+            />
             </Card.Text>
             <Row>
               <Col>
@@ -92,7 +105,7 @@ const ParticipationData = () => {
       <Row className="mt-3 justify-content-center">
         {selectedCategory && photos.filter(photo => photo.category === selectedCategory).map((photo, index) => (
           <Col key={index} className="mb-3" xs={6} md={4} lg={3}>
-            <Image src={photo.url} thumbnail onClick={() => handleImageClick(photo.url)} />
+            <Image src={photo.url} thumbnail onClick={() => handleImageClick(photo.url, photo.description)} />
           </Col>
         ))}
       </Row>
@@ -101,7 +114,8 @@ const ParticipationData = () => {
           <Modal.Title>View Image</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {modalImage && <Image src={modalImage} fluid />}
+          {modalData.image && <Image src={modalData.image} fluid />}
+          <p>{modalData.description}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModal}>
