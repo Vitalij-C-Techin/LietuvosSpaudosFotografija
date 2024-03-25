@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Button, Container, Row } from 'react-bootstrap';
+import { Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -19,7 +19,7 @@ const ParticipationData = () => {
     <Container>
       <Row className="justify-content-center">
         <Card style={{ width: '18rem' }}>
-          <DropdownButton id="dropdown-item-button" title="Categories">
+          <DropdownButton variant="secondary" id="dropdown-item-button" title="Categories">
             <Dropdown.Item as="button">Category1</Dropdown.Item>
             <Dropdown.Item as="button">Category2</Dropdown.Item>
             <Dropdown.Item as="button">Category3</Dropdown.Item>
@@ -38,9 +38,16 @@ const ParticipationData = () => {
                 "Some quick example text to build on the card title and make up the bulk of the card's content."
               )}
             </Card.Text>
-            <Button {...getRootProps()} variant="primary">
-              Upload
-            </Button>
+            <Row>
+              <Col>
+                <Button {...getRootProps()} variant="secondary">
+                  Upload
+                </Button>
+              </Col>
+              <Col>
+                <Button variant="secondary">Submit</Button>
+              </Col>
+            </Row>
           </Card.Body>
         </Card>
       </Row>
