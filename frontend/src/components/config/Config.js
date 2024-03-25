@@ -14,6 +14,8 @@ const Config = {
             pending: '/api/v1/participation/all/pending/{page}'
         },
         competitions: {
+            create: '/api/v1/competition',
+            edit: '/api/v1/competition/{uuid}',
             adminAll: '/api/v1/competition/all/{page}',
             active: '/api/v1/competition/all/active/{page}',
             userActive: '/api/v1/competition/user/{page}',
@@ -36,6 +38,11 @@ const Config = {
         userDetailsEdit: {
             getByUuid: '/api/v1/user/{uuid}',
             updateByUuid: '/api/v1/user/{uuid}/profile'
+        },
+        photo: {
+            add: '/api/v1/photo',
+            manage: '/api/v1/photo/{uuid}',
+            storage: 'photo/{filename}'
         }
     }
 };
