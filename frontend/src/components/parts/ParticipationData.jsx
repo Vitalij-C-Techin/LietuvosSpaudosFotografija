@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Button, Container, Row, Col } from 'react-bootstrap';
+import { Card, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
-import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const ParticipationData = () => {
   const { t } = useTranslation();
-  const [photo, setPhoto] = useState(null);
+  const [photos, setPhotos] = useState([]);
 
   const onDrop = (acceptedFiles) => {
-    setPhoto(acceptedFiles[0]);
+    const newPhotos = acceptedFiles.map(file => ({
+      file,
+      url: URL.createObjectURL(file)
+    }));
+    setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*' });
@@ -28,7 +32,7 @@ const ParticipationData = () => {
             <input {...getInputProps()} />
             <Card.Img
               variant="top"
-              src={photo ? URL.createObjectURL(photo) : 'holder.js/100px180'}
+              src={photos.length > 0 ? photos[photos.length - 1].url : 'holder.js/100px180'}
             />
           </div>
           <Card.Body>
@@ -50,6 +54,13 @@ const ParticipationData = () => {
             </Row>
           </Card.Body>
         </Card>
+      </Row>
+      <Row className="mt-3 justify-content-center">
+        {photos.map((photo, index) => (
+          <Col key={index} className="mb-3" xs={6} md={4} lg={3}>
+            <Image src={photo.url} thumbnail />
+          </Col>
+        ))}
       </Row>
     </Container>
   );
