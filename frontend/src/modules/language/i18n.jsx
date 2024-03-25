@@ -216,7 +216,7 @@ i18n
             created: 'Created',
             userDetails: 'Details',
             blockUser: 'Block',
-            updateRole:'Update role',
+            updateRole: 'Update role',
             unblockUser: 'Unblock',
             previous: 'Previous',
             next: 'Next',
@@ -226,7 +226,6 @@ i18n
             of: 'of',
             save: 'Save',
             cancel: 'Cancel'
-
           },
           notificationMessages: {
             loading: 'Loading',
@@ -295,6 +294,11 @@ i18n
             single: 'Single',
             series: 'Series',
             photoLimit: 'Photo limit'
+          },
+          juryPage: {
+            competitionList: 'Competition list',
+            competitionTitle: 'Competition',
+            categoryListTitle: 'Categories',
           }
         }
       },
@@ -504,7 +508,7 @@ i18n
             created: 'Sukurta',
             userDetails: 'Peržiūrėti',
             blockUser: 'Blokuoti',
-            updateRole:'Keisti rolę',
+            updateRole: 'Keisti rolę',
             unblockUser: 'Atblokuoti',
             previous: 'Ankstesnis',
             next: 'Sekantis',
@@ -582,6 +586,11 @@ i18n
             single: 'Viena nuotrauka',
             series: 'Nuotraukų serija',
             photoLimit: 'Nuotraukų kiekis'
+          },
+          juryPage: {
+            competitionList: 'Konkursų sąrašas',
+            competitionTitle: 'Konkursas',
+            categoryListTitle: 'Kategorijos'
           }
         }
       }
