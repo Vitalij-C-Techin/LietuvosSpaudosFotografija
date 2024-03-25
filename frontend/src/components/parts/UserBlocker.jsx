@@ -30,10 +30,6 @@ const UserBlocker = ({userUuid, currentStatus, getAndUpdateStatus}) => {
             .catch((error) => console.error(error));
     };
 
-    const handleCloseModal = () => {
-        setShowModal(false);
-    }
-
     return (
         <>
             {status ?

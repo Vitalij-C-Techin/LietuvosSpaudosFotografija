@@ -1,10 +1,8 @@
-import { useTransition } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { Button } from 'react-bootstrap';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { Authentication, IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication';
+import {useAuth} from '../context/AuthContext';
+import {Button, Col, Container, Row} from 'react-bootstrap';
+import {NavLink} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
+import {IsAuthenticated, IsNotAuthenticated} from '../utils/Authentication';
 
 const ProfilePage = () => {
   const { t } = useTranslation();
