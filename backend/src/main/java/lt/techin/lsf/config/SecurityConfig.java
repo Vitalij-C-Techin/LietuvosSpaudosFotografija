@@ -30,8 +30,9 @@ public class SecurityConfig {
             "api/v1/logout",
             "api/v1/forget-password",
             "api/v1/change-password",
+            // TODO move to not public endpoints
             "api/v1/evaluation",
-            "api/v1/add-photo"
+            "/api/v1/submission/**"
     };
     private final String[] publicPutEndpoints = {
 
