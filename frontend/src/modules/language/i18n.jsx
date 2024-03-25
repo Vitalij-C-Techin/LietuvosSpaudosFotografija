@@ -240,7 +240,8 @@ i18n
             participate: 'Participate',
             registrationSuccess: 'Registration successful',
             continue: 'Continue',
-            updated: 'Data updated'
+            updated: 'Data updated',
+            sent: 'Request sent successfully'
           },
           editcomp: {
             valid: 'Please fill out the form before saving.',
@@ -532,7 +533,8 @@ i18n
             participate: 'Dalyvauti',
             registrationSuccess: 'Registracija sėkminga',
             continue: 'Tęsti',
-            updated: 'Duomenys atnaujinti'
+            updated: 'Duomenys atnaujinti',
+            sent: 'Užklausa išsiųsta sėkmingai'
           },
           editcomp: {
             valid: 'Užpildikyte forma prieš išsaugant',
