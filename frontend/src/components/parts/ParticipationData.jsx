@@ -48,9 +48,9 @@ const ParticipationData = () => {
   };
 
   return (
-    <Container>
+    <Container className='participation-data-container'>
       <Row className="justify-content-center">
-        <Card style={{ width: '18rem' }}>
+        <Card>
           <DropdownButton variant="secondary" id="dropdown-item-button" title={selectedCategory || "Categories"}>
             <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category1')}>
               Category1
