@@ -6,58 +6,48 @@ import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
+import { BrowserRouter as Router, Route, useParams } from 'react-router-dom';
 
 const CompetitionPage = () => {
-  const [images, setImages] = useState([
-    {
-      original: 'https://picsum.photos/id/1018/1000/600/',
-      description: '1',
-      isLiked: false
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '2',
-      isLiked: true
-    },
-    {
-      original: 'https://picsum.photos/id/1019/1000/600/',
-      description: '3',
-      isLiked: false
-    },
-    {
-      original: 'https://picsum.photos/id/1018/1000/600/',
-      description: '4',
-      isLiked: false
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '5',
-      isLiked: false
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '6',
-      isLiked: true
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '7',
-      isLiked: true
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '8',
-      isLiked: false
-    },
-    {
-      original: 'https://picsum.photos/id/1015/1000/600/',
-      description: '9',
-      isLiked: true
-    }
-  ]);
-
-  const { t } = useTranslation();
+  const { comp_uuid, category_uuid } = useParams();
   const { getUserData } = useAuth();
+  console.log('Competition UUID: ' + comp_uuid);
+  const { getToken } = useAuth();
+  const token = getToken();
+  const [images, setImages] = useState([]);
+  const { t, i18n } = useTranslation();
+  let lang = i18n.language;
+  console.log('Current Language:', lang);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://localhost:8080/api/v1/submission/competition/${comp_uuid}/category/${category_uuid}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        const fetchedImages = response.data.map((image) => {
+          return {
+            original: 'http://localhost:8080/photo/' + image.uuid + '.jpeg',
+            thumbnail: 'http://localhost:8080/photo/' + image.uuid + '-small.jpeg',
+
+            description: image.description,
+            desc1: lang === 'en' ? image.description_en : image.description,
+            name: image.name
+          };
+        });
+        setImages(fetchedImages);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [comp_uuid, category_uuid, token]);
+
   const juryId = getUserData().uuid;
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -159,7 +149,8 @@ const CompetitionPage = () => {
         {images.map((image, index) => (
           <Col key={index} xl="4" className="my-3">
             <Card>
-              <Card.Img thumbnail src={image.original} onClick={() => handleImageClick(index)} />
+              <Card.Img thumbnail src={image.thumbnail} onClick={() => handleImageClick(index)} />
+              <h1>{image.desc1}</h1>
               {/* <Image
                 src={image.original}
                 rounded

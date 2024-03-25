@@ -62,7 +62,10 @@ function App() {
               <Route path="/admin-create-user" element={<AdminCreateUserPage />} />
             </Route>
             <Route element={<Authorization allowedRoles={'JURY'} />}>
-              <Route path="/competition" element={<CompetitionPage />} />
+              <Route
+                path="/competition/:comp_uuid/category/:category_uuid"
+                element={<CompetitionPage />}
+              />
             </Route>
 
             <Route path="/*" element={<ErrorPage />} />
