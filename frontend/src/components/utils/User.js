@@ -20,6 +20,6 @@ export default class User {
     }
 
     getAdminUrl() {
-        return "/prfile/" + this.getUuid();
+        return "/profile/" + this.getUuid();
     }
 }
