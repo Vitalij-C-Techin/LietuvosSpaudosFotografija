@@ -38,9 +38,6 @@ public class PhotoItemRecord {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "position")
-    private int position;
-
 
     /* --- */
 

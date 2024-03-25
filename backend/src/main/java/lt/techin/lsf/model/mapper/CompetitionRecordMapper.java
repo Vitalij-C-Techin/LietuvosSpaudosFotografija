@@ -15,6 +15,7 @@ public class CompetitionRecordMapper {
                 .endDate(competitionRequest.getEndDate())
                 .status(competitionRequest.getStatus())
                 .visibility(competitionRequest.getVisibility())
+                .imageUuid(competitionRequest.getImageUuid())
                 .build();
     }
 }
