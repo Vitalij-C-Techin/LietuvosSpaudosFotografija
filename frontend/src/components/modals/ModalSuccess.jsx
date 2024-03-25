@@ -7,7 +7,7 @@ const ModalSentRequestSuccess = ({show, handleClose, customMessage}) => {
 
     return (
         <>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} data-testid="modal-success">
                 <Modal.Header>
                     <Modal.Title>{t(customMessage)}</Modal.Title>
                 </Modal.Header>
