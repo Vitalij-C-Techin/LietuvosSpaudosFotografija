@@ -5,13 +5,16 @@ import lt.techin.lsf.model.requests.CreateAlbumRequest;
 import lt.techin.lsf.model.requests.UpdateAlbumRequest;
 import lt.techin.lsf.persistance.AlbumRepository;
 import lt.techin.lsf.persistance.PhotoRepository;
+import lt.techin.lsf.persistance.SubmissionRepository;
 import lt.techin.lsf.persistance.model.AlbumRecord;
 import lt.techin.lsf.persistance.model.PhotoRecord;
+import lt.techin.lsf.persistance.model.SubmissionRecord;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,7 +23,7 @@ public class AlbumService {
 
     private final AlbumRepository albumRepository;
     private final PhotoRepository photoRepository;
-
+    private final SubmissionRepository submissionRepository;
     private final PhotoService photoService;
 
     public AlbumRecord createAlbum(
@@ -31,7 +34,6 @@ public class AlbumService {
         }
 
         AlbumRecord album = AlbumRecord.builder()
-                .submissionUuid(request.getSubmissionUuid())
                 .nameLt(request.getNameLt())
                 .nameEn(request.getNameEn())
                 .descriptionLt(request.getDescriptionLt())
@@ -39,7 +41,15 @@ public class AlbumService {
                 .type(request.getType())
                 .status(request.getStatus())
                 .build();
-
+        // ar naudoti optional?
+        Optional<SubmissionRecord> submissionOptional = submissionRepository.findById(request.getSubmissionUuid());
+        if (submissionOptional.isPresent()) {
+            SubmissionRecord submissionRecord = submissionOptional.get();
+            album.setSubmission(submissionRecord);
+        } else {
+            // kaip cia geriau parodyti klaida?
+            System.out.println("Submission not found");
+        }
         return albumRepository.save(album);
     }
 
@@ -56,8 +66,16 @@ public class AlbumService {
         if (null == album) {
             return null;
         }
-
-        album.setSubmissionUuid(request.getSubmissionUuid());
+        // updeitina albuma su naujais duomenimis
+        Optional<SubmissionRecord> submissionOptional = submissionRepository.findById(request.getSubmissionUuid());
+        if (submissionOptional.isPresent()) {
+            SubmissionRecord submissionRecord = submissionOptional.get();
+            album.setSubmission(submissionRecord);
+        } else {
+            System.out.println("Submission not found");
+        }
+        // buvo taip
+//        album.setSubmissionUuid(request.getSubmissionUuid());
         album.setNameLt(request.getNameLt());
         album.setNameEn(request.getNameEn());
         album.setDescriptionLt(request.getDescriptionLt());
