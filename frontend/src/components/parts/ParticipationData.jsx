@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Button, Container, Row, Col, Image, Modal } from 'react-bootstrap';
+import { Card, Button, Container, Row, Col, Image, Modal, Form } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -70,11 +70,9 @@ const ParticipationData = () => {
             />
           </div>
           <Card.Body>
-            <Card.Title>{t('Card Title')}</Card.Title>
+            <Card.Title>{t('Description')}</Card.Title>
             <Card.Text>
-              {t(
-                "Some quick example text to build on the card title and make up the bulk of the card's content."
-              )}
+            <Form.Control as="textarea" rows={3} />
             </Card.Text>
             <Row>
               <Col>
