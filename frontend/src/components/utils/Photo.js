@@ -6,6 +6,14 @@ class Photo {
     }
 
     findPhotoItemByType(type){
+        if(!this.data){
+            return false;
+        }
+
+        if(!this.data.photoItemList){
+            return false;
+        }
+
         return this.data.photoItemList.find((e) => {
             if (e.type === type) {
                 return true;
@@ -16,17 +24,29 @@ class Photo {
     getPhotoSourceUrl() {
         const photoItem = this.findPhotoItemByType('source');
 
+        if(!photoItem){
+            return false;
+        }
+
         return Photo.prepareUrl(photoItem.name);
     }
 
     getPhotoLargeUrl() {
         const photoItem = this.findPhotoItemByType('large');
 
+        if(!photoItem){
+            return false;
+        }
+
         return Photo.prepareUrl(photoItem.name);
     }
 
     getPhotoSmallUrl() {
         const photoItem = this.findPhotoItemByType('small');
+
+        if(!photoItem){
+            return false;
+        }
 
         return Photo.prepareUrl(photoItem.name);
     }

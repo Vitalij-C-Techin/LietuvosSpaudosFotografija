@@ -12,6 +12,7 @@ import Config from '../config/Config';
 import axios from 'axios';
 import Competition from '../utils/Competition';
 import { useAuth } from '../context/AuthContext';
+import Photo from '../utils/Photo';
 
 function HomePage() {
   const { t } = useTranslation();
@@ -148,6 +149,7 @@ const CompetitionSignle = ({ competition, imageSize }) => {
   const navigate = useNavigate();
 
   const c = new Competition(competition);
+  const p = new Photo(competition.photo);
 
   const onParticipate = () => {
     if (isLoggedIn()) {
@@ -164,7 +166,7 @@ const CompetitionSignle = ({ competition, imageSize }) => {
       <Card.Body>
         <Row className="justify-content-center">
           <Col xs="" md={4} lg={2} className="card-image-container">
-            <Image src={imagePlaceHolder} />
+            <Image src={p.getPhotoSmallUrl() || imagePlaceHolder} width="100%" />
           </Col>
           <Col>
             <Card.Title>{c.getName()}</Card.Title>

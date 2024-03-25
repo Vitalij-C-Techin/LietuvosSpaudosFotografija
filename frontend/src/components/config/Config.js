@@ -15,6 +15,7 @@ const Config = {
         },
         competitions: {
             create: '/api/v1/competition',
+            edit: '/api/v1/competition/{uuid}',
             adminAll: '/api/v1/competition/all/{page}',
             active: '/api/v1/competition/all/active/{page}',
             userActive: '/api/v1/competition/user/{page}',

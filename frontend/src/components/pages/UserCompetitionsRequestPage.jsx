@@ -167,28 +167,23 @@ const CompetitionList = ({ competitions, onDetails }) => {
 };
 
 const CompetitionSingle = ({ competition, onDetails }) => {
-  const com = new Competition(competition.competition);
+  const com = new Competition(competition);
 
-  const categoryList = competition.categories.map((categoryData, i) => {
+  const categoryList = competition.category_list.map((categoryData, i) => {
     const category = new Category(categoryData);
 
     return <div key={i}>{category.getName()}</div>;
   });
 
   const handleOnDetails = () => {
-    onDetails({
-      ...competition.competition,
-      categories: competition.categories
-    });
+    onDetails(competition);
   };
 
   return (
     <tr>
       <td className="col-4">
         {com.getName()}
-        <div>
-          {com.getStartDate()} - {com.getEndDate()}
-        </div>
+        <div>{com.getActiveDates()}</div>
       </td>
       <td className="col-12">{categoryList}</td>
       <td>

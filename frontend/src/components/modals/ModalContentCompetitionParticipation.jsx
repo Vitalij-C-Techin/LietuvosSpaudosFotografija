@@ -10,8 +10,8 @@ const ModalContentCompetitionParticipation = ({ competition, onParticipate }) =>
 
   let categoryList;
 
-  if (!!competition.categories && !!competition.categories.length) {
-    categoryList = competition.categories.map((categoryData, i) => {
+  if (!!competition.category_list && !!competition.category_list.length) {
+    categoryList = competition.category_list.map((categoryData, i) => {
       const category = new Category(categoryData);
 
       return <li key={i}>{category.getName()}</li>;
