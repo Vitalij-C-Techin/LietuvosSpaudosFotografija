@@ -51,7 +51,7 @@ const ParticipationData = () => {
   return (
     <Container className='participation-data-container'>
       <Row className="justify-content-center">
-        <Card>
+          <Col xs="12">
           <DropdownButton variant="secondary" id="dropdown-item-button" title={selectedCategory || "Categories"}>
             <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category1')}>
               Category1
@@ -63,6 +63,8 @@ const ParticipationData = () => {
               Category3
             </Dropdown.Item>
           </DropdownButton>
+          </Col>
+          <Card>
           <div {...getRootProps()} style={{ cursor: 'pointer' }}>
             <input {...getInputProps()} />
             <Card.Img
