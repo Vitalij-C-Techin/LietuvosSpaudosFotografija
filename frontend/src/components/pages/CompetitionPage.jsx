@@ -27,7 +27,7 @@ const CompetitionPage = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${Config.apiDomain}/api/v1/competition/${comp_uuid}/category/${category_uuid}`, {
+      .get(`${Config.apiDomain}/api/v1/jury/${comp_uuid}/category/${category_uuid}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

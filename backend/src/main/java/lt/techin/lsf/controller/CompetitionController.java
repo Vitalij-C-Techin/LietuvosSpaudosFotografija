@@ -80,16 +80,4 @@ public class CompetitionController {
         return competitionService.getUserNotParticipatedCompetitionsWithPagination(page);
     }
 
-    @GetMapping("/jury/{page}")
-    public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(
-            @PathVariable int page) {
-        return competitionService.getJuryActiveCompetitionsWithPagination(page);
-    }
-
-    @GetMapping("/{comp_uuid}/category/{category_uuid}")
-    public ResponseEntity<List<PhotoRecordResponse>> getAllSubmissions(@PathVariable UUID comp_uuid,
-            @PathVariable UUID category_uuid) {
-        return ResponseEntity
-                .ok(competitionService.getAllPhotoRecordsForCompetitionAndCategory(comp_uuid, category_uuid));
-    }
 }
