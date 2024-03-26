@@ -12,14 +12,14 @@ import Competition from '../utils/Competition';
 import Photo from '../utils/Photo';
 import Category from '../utils/Category';
 
-const imagePlaceHolder = '/src/tmp/placeholder-500.jpg';
+let UUID = 0;
 
 const JuryCompetitionPage = () => {
   const params = useParams();
   const { getTokenHeader } = useAuth();
   const [t] = useTranslation();
 
-  const competitionUuid = params.uuid;
+  const competitionUuid = (UUID = params.uuid);
 
   const [competition, setCompetition] = useState(null);
 
@@ -56,8 +56,6 @@ const JuryCompetitionPage = () => {
     axios
       .get(url, cfg)
       .then((response) => {
-        console.log('Response', response.data);
-
         setCompetition(response.data);
       })
       .catch((error) => {
@@ -166,7 +164,7 @@ const CategorySingle = ({ category }) => {
   const c = new Category(category);
 
   const handleSelect = () => {
-    navigate('/jury-category/' + c.getUuid());
+    navigate('/jury-competition/' + UUID + '/category/' + c.getUuid());
   };
 
   return (
