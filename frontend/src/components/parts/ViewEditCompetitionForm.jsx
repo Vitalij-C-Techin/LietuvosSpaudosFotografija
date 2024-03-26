@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import Config from '../config/Config';
+import Photo from '../utils/Photo';
 
 const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
   const navigate = useNavigate();
@@ -28,38 +30,63 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    const fetchCompetitionData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:8080/api/v1/competition/${uuid}`, {
-          headers: getTokenHeader()
-        });
-        const competitionData = response.data;
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          name_en: competitionData.data.name_en || '',
-          name_lt: competitionData.data.name_lt || '',
-          description_en: competitionData.data.description_en || '',
-          description_lt: competitionData.data.description_lt || '',
-          start_date: competitionData.data.start_date || '',
-          end_date: competitionData.data.end_date || '',
-          status: competitionData.data.status || '',
-          visibility: competitionData.data.visibility || '',
-          photo_limit: competitionData.data.photo_limit || ''
-        }));
+    let url = Config.apiDomain + Config.endpoints.competitions.edit;
+    url = url.replace('{uuid}', uuid);
 
-        const categoriesResponse = await axios.get(
-          `http://localhost:8080/api/v1/competition/${uuid}/categories`,
-          { headers: getTokenHeader() }
-        );
-
-        const categoriesData = categoriesResponse.data;
-        setCategories([...categoriesData]);
-      } catch (error) {
-        alert(t('editcomp.error2'), error);
-      }
-    };
-    fetchCompetitionData();
+    axios
+      .get(url, {
+        headers: getTokenHeader()
+      })
+      .then((response) => {
+        setFormData(response.data.data);
+        setCategories(response.data.data.category_list);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }, [uuid, getTokenHeader, useCallback(modalHandleOpenCreateCategory)]);
+
+  const uploadImage = async (file) => {
+    if (!!!file) {
+      return false;
+    }
+
+    let imageData = false;
+
+    const url = Config.apiDomain + Config.endpoints.photo.add;
+
+    const data = new FormData();
+    data.append('image', file, file.name);
+
+    await axios
+      .post(url, data, {
+        headers: {
+          'Content-Type': `multipart/form-data`,
+          ...getTokenHeader()
+        }
+      })
+      .then((response) => {
+        imageData = response.data;
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
+    return imageData;
+  };
+
+  const getImage = () => {
+    if (selectedFile) {
+      return URL.createObjectURL(selectedFile);
+    }
+
+    const url = new Photo(formData.photo).getPhotoSmallUrl();
+    if (!!url) {
+      return url;
+    }
+
+    return imagePlaceHolder;
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -81,35 +108,51 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
     }
   };
 
-  console.log(formData);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    const allowedTypes = ['image/jpg'];
-    if (file) {
-      if (!allowedTypes.includes(file.type)) {
-        setSelectedFile(file);
-        setPhotoUploadError(t('editcomp.allowedTypes'));
-      } else {
-        setSelectedFile(file);
-        setPhotoUploadError('');
-      }
-    } else {
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
+    if (!file) {
       setPhotoUploadError('');
-      setSelectedFile(null);
+
+      return;
     }
-    setIsFormChanged(true);
+
+    if (!allowedTypes.includes(file.type)) {
+      setSelectedFile(null);
+      setPhotoUploadError(t('editcomp.allowedTypes'));
+
+      return;
+    }
+
+    setSelectedFile(file);
+    setPhotoUploadError('');
   };
 
   const confirmSave = async () => {
-    try {
-      await axios.put(`http://localhost:8080/api/v1/competition/${uuid}`, formData, {
-        headers: getTokenHeader()
-      });
-      navigate('/admin-competitions-list');
-    } catch (error) {
-      alert(t('editcomp.error3'), error);
+    const data = formData;
+
+    const imageReponse = await uploadImage(selectedFile);
+    if (!!imageReponse) {
+      data.photo = imageReponse;
+      data.image_uuid = imageReponse.uuid;
     }
+
+    let url = Config.apiDomain + Config.endpoints.competitions.edit;
+    url = url.replace('{uuid}', uuid);
+
+    axios
+      .put(url, data, {
+        headers: getTokenHeader()
+      })
+      .then((response) => {
+        navigate('/admin-competitions-list');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
+
   const handleSave = async () => {
     if (new Date(formData.end_date) < new Date(formData.start_date)) {
       alert(t('editcomp.dateAllert'));
@@ -119,14 +162,19 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
   };
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`http://localhost:8080/api/v1/competition/${uuid}`, {
+    let url = Config.apiDomain + Config.endpoints.competitions.edit;
+    url = url.replace('{uuid}', uuid);
+
+    axios
+      .delete(url, {
         headers: getTokenHeader()
+      })
+      .then(() => {
+        navigate('/admin-competitions-list');
+      })
+      .catch((error) => {
+        console.log('Error:', error);
       });
-      navigate('/admin-competitions-list');
-    } catch (error) {
-      alert(t('editcomp.error4'), error);
-    }
   };
 
   const handleCategoryOpen = (categoryUUID) => {
@@ -233,10 +281,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
               <Row className="container-image-row">
                 <Col md="4" xl="6">
                   <Container className="image-container mb-3">
-                    <Image
-                      src={selectedFile ? URL.createObjectURL(selectedFile) : imagePlaceHolder}
-                      rounded
-                    />
+                    <Image src={getImage()} rounded />
                   </Container>
                 </Col>
                 <Col>
