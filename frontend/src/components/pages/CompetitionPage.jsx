@@ -21,14 +21,11 @@ const CompetitionPage = () => {
 
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:8080/api/v1/submission/competition/${comp_uuid}/category/${category_uuid}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+      .get(`http://localhost:8080/api/v1/competition/${comp_uuid}/category/${category_uuid}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
-      )
+      })
       .then((response) => {
         console.log(response.data);
         const fetchedImages = response.data.map((image) => {

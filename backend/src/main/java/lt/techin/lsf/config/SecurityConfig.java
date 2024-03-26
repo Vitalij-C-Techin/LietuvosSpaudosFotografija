@@ -30,9 +30,6 @@ public class SecurityConfig {
             "api/v1/logout",
             "api/v1/forget-password",
             "api/v1/change-password",
-            // TODO move to not public endpoints
-            "api/v1/evaluation",
-            "/api/v1/submission/**"
     };
     private final String[] publicPutEndpoints = {
 
@@ -80,6 +77,12 @@ public class SecurityConfig {
                                     "api/v1/category/**",
                                     "api/v1/admin/**"
                             ).hasAnyAuthority("MODERATOR", "ADMIN");
+
+                            //Jury
+                            request.requestMatchers(
+                                    "api/v1/competition/{comp_uuid}/category/{category_uuid}",
+                                    "api/v1/evaluation"
+                            ).hasAnyAuthority("JURY");
 
                             request.anyRequest().authenticated();
                         }

@@ -30,11 +30,11 @@ public class SubmissionController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/competition/{comp_uuid}/category/{category_uuid}")
-    public ResponseEntity<List<PhotoRecordResponse>> getAllSubmissions(@PathVariable UUID comp_uuid,
-                                                                       @PathVariable UUID category_uuid) {
-        List<PhotoRecordResponse> photoUuids = submissionRepository.findPhotoRecordsByCompetitionUuidAndCategoryUuid(comp_uuid, category_uuid);
-        return ResponseEntity.ok(photoUuids);
-    }
+//    @GetMapping("/competition/{comp_uuid}/category/{category_uuid}")
+//    public ResponseEntity<List<PhotoRecordResponse>> getAllSubmissions(@PathVariable UUID comp_uuid,
+//                                                                       @PathVariable UUID category_uuid) {
+//        List<PhotoRecordResponse> photoUuids = submissionRepository.findPhotoRecordsByCompetitionUuidAndCategoryUuid(comp_uuid, category_uuid);
+//        return ResponseEntity.ok(photoUuids);
+//    }
 
 }
