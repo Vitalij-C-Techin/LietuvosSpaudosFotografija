@@ -16,98 +16,72 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final String[] publicGetEndpoints = {
-            "photo/{filename}",
+        private final AuthenticationProvider authenticationProvider;
+        private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-            "api/v1/competition/all/active/{page}",
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+                http
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(request -> {
+                                        // Public
+                                        request.requestMatchers(
+                                                        HttpMethod.GET,
+                                                        "photo/{filename}",
 
-            "swagger-ui/**", // Swagger
-            "v3/api-docs/**" // Swagger
-    };
-    private final String[] publicPostEndpoints = {
-            "api/v1/register",
-            "api/v1/login",
-            "api/v1/logout",
-            "api/v1/forget-password",
-            "api/v1/change-password",
-    };
-    private final String[] publicPutEndpoints = {
+                                                        "api/v1/competition/all/active/{page}",
 
-    };
-    private final String[] publicDeleteEndpoints = {
+                                                        "swagger-ui/**", // Swagger
+                                                        "v3/api-docs/**" // Swagger
+                                        )
+                                                        .permitAll();
+                                        request.requestMatchers(
+                                                        HttpMethod.POST,
+                                                        "api/v1/register",
+                                                        "api/v1/login",
+                                                        "api/v1/logout",
+                                                        "api/v1/forget-password",
+                                                        "api/v1/change-password")
+                                                        .permitAll();
 
-    };
+                                        // User, Moderator, Admin
+                                        request.requestMatchers(
+                                                        "api/v1/participation",
+                                                        "api/v1/participation/{uui}",
 
-    private final AuthenticationProvider authenticationProvider;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+                                                        "api/v1/competition/user/{page}",
+                                                        "api/v1/competition/user/participate/{page}",
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> {
-                            //Public
-                            request.requestMatchers(
-                                            HttpMethod.GET,
-                                            "photo/{filename}",
+                                                        "api/v1/album**").hasAnyAuthority("USER", "MODERATOR", "ADMIN");
 
-                                            "api/v1/competition/all/active/{page}",
+                                        // Jury
+                                        request.requestMatchers(
+                                                        "api/v1/jury/all/{page}",
+                                                        "api/v1/jury/{uuid}",
+                                                        "api/v1/competition/{comp_uuid}/category/{category_uuid}",
+                                                        "api/v1/evaluation").hasAnyAuthority("JURY");
 
-                                            "swagger-ui/**", // Swagger
-                                            "v3/api-docs/**" // Swagger
-                                    )
-                                    .permitAll();
-                            request.requestMatchers(
-                                            HttpMethod.POST,
-                                            "api/v1/register",
-                                            "api/v1/login",
-                                            "api/v1/logout",
-                                            "api/v1/forget-password",
-                                            "api/v1/change-password"
-                                    )
-                                    .permitAll();
+                                        // Moderator, Admin
+                                        request.requestMatchers(
+                                                        "api/v1/participation",
+                                                        "api/v1/participation/{uuid}",
+                                                        "api/v1/participation/all/pending/{page}",
 
-                            //User, Moderator, Admin
-                            request.requestMatchers(
-                                    "api/v1/participation",
-                                    "api/v1/participation/{uui}",
+                                                        "api/v1/competition",
+                                                        "api/v1/competition/{uuid}",
+                                                        "api/v1/competition/all/{page}",
+                                                        "api/v1/competition/{uuid}/categories",
 
-                                    "api/v1/competition/user/{page}",
-                                    "api/v1/competition/user/participate/{page}",
+                                                        "api/v1/category/**",
+                                                        "api/v1/admin/**").hasAnyAuthority("MODERATOR", "ADMIN");
 
-                                    "api/v1/album**"
-                            ).hasAnyAuthority("USER", "MODERATOR", "ADMIN");
+                                        request.anyRequest().authenticated();
+                                })
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .authenticationProvider(authenticationProvider)
+                                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-                            //Jury
-                            request.requestMatchers(
-                                    "api/v1/jury/all/{page}",
-                                    "api/v1/jury/{uuid}",
-                                    "api/v1/competition/{comp_uuid}/category/{category_uuid}",
-                                    "api/v1/evaluation"
-                                    ).hasAnyAuthority("JURY");
-
-                            //Moderator, Admin
-                            request.requestMatchers(
-                                    "api/v1/participation",
-                                    "api/v1/participation/{uuid}",
-                                    "api/v1/participation/all/pending/{page}",
-
-                                    "api/v1/competition",
-                                    "api/v1/competition/{uuid}",
-                                    "api/v1/competition/all/{page}",
-                                    "api/v1/competition/{uuid}/categories",
-
-                                    "api/v1/category/**",
-                                    "api/v1/admin/**"
-                            ).hasAnyAuthority("MODERATOR", "ADMIN");
-
-                            request.anyRequest().authenticated();
-                        }
-                )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
+                return http.build();
+        }
 }
