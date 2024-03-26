@@ -81,7 +81,9 @@ public class SecurityConfig {
                             //Jury
                             request.requestMatchers(
                                     "api/v1/jury/all/{page}",
-                                    "api/v1/jury/{uuid}"
+                                    "api/v1/jury/{uuid}",
+                                    "api/v1/competition/{comp_uuid}/category/{category_uuid}",
+                                    "api/v1/evaluation"
                                     ).hasAnyAuthority("JURY");
 
                             //Moderator, Admin
@@ -98,12 +100,6 @@ public class SecurityConfig {
                                     "api/v1/category/**",
                                     "api/v1/admin/**"
                             ).hasAnyAuthority("MODERATOR", "ADMIN");
-
-                            //Jury
-                            request.requestMatchers(
-                                    "api/v1/competition/{comp_uuid}/category/{category_uuid}",
-                                    "api/v1/evaluation"
-                            ).hasAnyAuthority("JURY");
 
                             request.anyRequest().authenticated();
                         }

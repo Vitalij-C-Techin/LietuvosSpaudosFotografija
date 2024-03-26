@@ -19,7 +19,7 @@ const CompetitionPage = () => {
   const token = getToken();
   const [images, setImages] = useState([]);
   const { t, i18n } = useTranslation();
-  let lang = i18n.language;
+  const lang = i18n.language;
   const juryId = getUserData().uuid;
 
   console.log('Current Language:', lang);
@@ -33,7 +33,6 @@ const CompetitionPage = () => {
         }
       })
       .then((response) => {
-        console.log(response.data);
         const fetchedImages = response.data.map((image) => {
           return {
             original: `${Config.apiDomain}/photo/${image.uuid}.jpeg`,
