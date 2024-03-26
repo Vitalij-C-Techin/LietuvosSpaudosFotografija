@@ -15,12 +15,13 @@ const CompetitionPage = () => {
   const { getUserData } = useAuth();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  console.log('Competition UUID: ' + comp_uuid);
   const { getToken } = useAuth();
   const token = getToken();
   const [images, setImages] = useState([]);
   const { t, i18n } = useTranslation();
   let lang = i18n.language;
+  const juryId = getUserData().uuid;
+
   console.log('Current Language:', lang);
 
   useEffect(() => {
@@ -37,8 +38,11 @@ const CompetitionPage = () => {
           return {
             original: `${Config.apiDomain}/photo/${image.uuid}.jpeg`,
             thumbnail: `${Config.apiDomain}/photo/${image.uuid}-small.jpeg`,
-            description: lang === 'en' ? image.description_en : image.description_lt,
-            name: lang === 'en' ? image.name_en : image.name_lt
+            description_lt: image.description_lt,
+            description_en: image.description_en,
+            name_lt: image.name_lt,
+            name_en: image.name_en,
+            submissionId: image.uuid
           };
         });
         setImages(fetchedImages);
@@ -49,8 +53,6 @@ const CompetitionPage = () => {
       })
       .finally(() => setLoading(false));
   }, [comp_uuid, category_uuid, token]);
-
-  const juryId = getUserData().uuid;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -157,7 +159,7 @@ const CompetitionPage = () => {
         {images.map((image, index) => (
           <Col key={index} xl="2" className="my-3">
             <Card>
-              <Card.Header>{image.name}</Card.Header>
+              <Card.Header>{lang === 'en' ? image.name_en : image.name_lt}</Card.Header>
               <Card.Img
                 thumbnail
                 src={image.thumbnail}
@@ -165,10 +167,9 @@ const CompetitionPage = () => {
                 alt={image.name}
               />
               <Card body>
-                <Card body>{image.description}</Card>
+                <Card body>{lang === 'en' ? image.description_en : image.description_lt}</Card>
               </Card>
               <Button variant="outline-light">
-                {' '}
                 <Card.Text>
                   <span role="img" aria-label="like">
                     👍
