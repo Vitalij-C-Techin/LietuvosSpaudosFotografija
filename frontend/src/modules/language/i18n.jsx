@@ -18,11 +18,11 @@ i18n
             dropDownMenuItem1: 'Home',
             dropDownMenuItem2: 'Login',
             dropDownMenuItem3: 'Profile',
-            dropDownMenuItem4: 'Competition list(user)',
-            dropDownMenuItem5: 'Competition list for evaluation(jury)',
-            dropDownMenuItem6: 'Manage users(admin)',
-            dropDownMenuItem7: 'Manage competitions(admin)',
-            dropDownMenuItem8: 'Manage categories(admin)',
+            dropDownMenuItem4: 'My competitions',
+            dropDownMenuItem5: 'Competitions to evaluate',
+            dropDownMenuItem6: 'Manage users',
+            dropDownMenuItem7: 'Manage competitions',
+            dropDownMenuItem8: 'Manage categories',
             dropDownMenuItem9: 'Support',
             dropDownMenuItem10: 'Change Language',
             dropDownMenuItem11: 'Logout',
@@ -216,7 +216,7 @@ i18n
             created: 'Created',
             userDetails: 'Details',
             blockUser: 'Block',
-            updateRole:'Update role',
+            updateRole: 'Update role',
             unblockUser: 'Unblock',
             previous: 'Previous',
             next: 'Next',
@@ -226,7 +226,6 @@ i18n
             of: 'of',
             save: 'Save',
             cancel: 'Cancel'
-
           },
           notificationMessages: {
             loading: 'Loading',
@@ -241,7 +240,8 @@ i18n
             participate: 'Participate',
             registrationSuccess: 'Registration successful',
             continue: 'Continue',
-            updated: 'Data updated'
+            updated: 'Data updated',
+            sent: 'Request sent successfully'
           },
           editcomp: {
             valid: 'Please fill out the form before saving.',
@@ -295,6 +295,11 @@ i18n
             single: 'Single',
             series: 'Series',
             photoLimit: 'Photo limit'
+          },
+          juryPage: {
+            competitionList: 'Competition list',
+            competitionTitle: 'Competition',
+            categoryListTitle: 'Categories',
           }
         }
       },
@@ -304,11 +309,11 @@ i18n
             dropDownMenuItem1: 'Pradžia',
             dropDownMenuItem2: 'Prisijungti',
             dropDownMenuItem3: 'Profilis',
-            dropDownMenuItem4: 'Konkursų sąrašas(vartotojas)',
-            dropDownMenuItem5: 'Konkursų sąrašas vertinimui (žiuri)',
-            dropDownMenuItem6: 'Tvarkyti naudotojus (administratorius)',
-            dropDownMenuItem7: 'Tvarkyti konkursus (administratorius)',
-            dropDownMenuItem8: 'Tvarkyti kategorijas (administratorius)',
+            dropDownMenuItem4: 'Mano konkursai',
+            dropDownMenuItem5: 'Konkursai vertinimui',
+            dropDownMenuItem6: 'Tvarkyti naudotojus',
+            dropDownMenuItem7: 'Tvarkyti konkursus',
+            dropDownMenuItem8: 'Tvarkyti kategorijas',
             dropDownMenuItem9: 'Pagalba',
             dropDownMenuItem10: 'Keisti kalbą',
             dropDownMenuItem11: 'Atsijungti',
@@ -504,7 +509,7 @@ i18n
             created: 'Sukurta',
             userDetails: 'Peržiūrėti',
             blockUser: 'Blokuoti',
-            updateRole:'Keisti rolę',
+            updateRole: 'Keisti rolę',
             unblockUser: 'Atblokuoti',
             previous: 'Ankstesnis',
             next: 'Sekantis',
@@ -528,7 +533,8 @@ i18n
             participate: 'Dalyvauti',
             registrationSuccess: 'Registracija sėkminga',
             continue: 'Tęsti',
-            updated: 'Duomenys atnaujinti'
+            updated: 'Duomenys atnaujinti',
+            sent: 'Užklausa išsiųsta sėkmingai'
           },
           editcomp: {
             valid: 'Užpildikyte forma prieš išsaugant',
@@ -582,6 +588,11 @@ i18n
             single: 'Viena nuotrauka',
             series: 'Nuotraukų serija',
             photoLimit: 'Nuotraukų kiekis'
+          },
+          juryPage: {
+            competitionList: 'Konkursų sąrašas',
+            competitionTitle: 'Konkursas',
+            categoryListTitle: 'Kategorijos'
           }
         }
       }

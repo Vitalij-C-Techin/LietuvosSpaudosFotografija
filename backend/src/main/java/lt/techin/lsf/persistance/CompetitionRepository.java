@@ -63,7 +63,7 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
     @Query("SELECT c " +
             "FROM CompetitionRecord c " +
             "WHERE c.endDate < CURRENT_TIMESTAMP " +
-            //"AND c.status = 'EVALUATES' " + //TODO
+            "AND c.status != 'FINISHED' " +
             "AND c.visibility = 'PUBLIC' "
     )
     Page<CompetitionRecord> findJuryActiveCompetitions(Pageable pageable);

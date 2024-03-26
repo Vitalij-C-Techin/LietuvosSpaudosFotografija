@@ -4,7 +4,6 @@ import Config from '../config/Config.js';
 import {useTranslation} from "react-i18next";
 import {useAuth} from "../context/AuthContext.jsx";
 import {Button} from "react-bootstrap";
-import ModalRoleUpdateSuccess from "../modals/ModalRoleUpdateSuccess.jsx";
 
 const UserBlocker = ({userUuid, currentStatus, getAndUpdateStatus}) => {
     const [t] = useTranslation();
@@ -30,10 +29,6 @@ const UserBlocker = ({userUuid, currentStatus, getAndUpdateStatus}) => {
             })
             .catch((error) => console.error(error));
     };
-
-    const handleCloseModal = () => {
-        setShowModal(false);
-    }
 
     return (
         <>

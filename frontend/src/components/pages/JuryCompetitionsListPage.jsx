@@ -11,9 +11,8 @@ import { useAuth } from '../context/AuthContext';
 import Competition from '../utils/Competition';
 import Pagination from '../parts/Pagination';
 import Photo from '../utils/Photo';
-import { IsAuthenticatedWithRole } from '../utils/Authentication';
 
-const AdminCompetitionsListPage = () => {
+const JuryCompetitionsListPage = () => {
   const [t] = useTranslation();
 
   const { getTokenHeader } = useAuth();
@@ -32,7 +31,7 @@ const AdminCompetitionsListPage = () => {
   useEffect(() => {
     setIsLoading(true);
 
-    let url = Config.apiDomain + Config.endpoints.competitions.adminAll;
+    let url = Config.apiDomain + Config.endpoints.jury.getAll;
     url = url.replace('{page}', competitionsPage);
 
     const cfg = {
@@ -55,7 +54,7 @@ const AdminCompetitionsListPage = () => {
         setCompetitions(null);
       })
       .catch((error) => {
-        console.error('Error: ', error);
+        console.log('Error:', error);
 
         setCompetitions(null);
       })
@@ -68,11 +67,9 @@ const AdminCompetitionsListPage = () => {
     <>
       <Container className="justify-content-xl-center my-5">
         <Card className="image-header-text">
-          <h3>{t('adminCompetitionPage.title')}</h3>
+          <h3>{t('juryPage.competitionList')}</h3>
         </Card>
       </Container>
-
-      <ActionList />
 
       {!!isLoading && <LoadingMessage />}
 
@@ -105,7 +102,7 @@ const CompetitionSingle = ({ competition }) => {
   const p = new Photo(competition.photo);
 
   const handleView = () => {
-    navigate('/admin-competition-edit/' + c.getUuid());
+    navigate('/jury-competition/' + c.getUuid());
   };
 
   return (
@@ -135,38 +132,4 @@ const CompetitionSingle = ({ competition }) => {
   );
 };
 
-const ActionList = () => {
-  const navigate = useNavigate();
-  const [t] = useTranslation();
-
-  const handleViewRequest = () => {
-    navigate('/admin-user-participation-requests');
-  };
-
-  const handleCreateCompetition = () => {
-    navigate('/create-competition');
-  };
-
-  return (
-    <>
-      <Container className="justify-content-xl-center my-3">
-        <Row className="justify-content-end gap-2">
-          <Col xs="12" lg="3">
-            <Button className="lsf-button w-100" onClick={handleViewRequest}>
-              {t('adminCompetitionPage.viewParticipantRequest')}
-            </Button>
-          </Col>
-          <IsAuthenticatedWithRole allowedRoles={['ADMIN']}>
-            <Col xs="12" lg="3">
-              <Button className="lsf-button w-100" onClick={handleCreateCompetition}>
-                {t('adminCompetitionPage.createCompetition')}
-              </Button>
-            </Col>
-          </IsAuthenticatedWithRole>
-        </Row>
-      </Container>
-    </>
-  );
-};
-
-export default AdminCompetitionsListPage;
+export default JuryCompetitionsListPage;

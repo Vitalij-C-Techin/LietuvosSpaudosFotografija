@@ -5,12 +5,12 @@ class Photo {
         this.data = data;
     }
 
-    findPhotoItemByType(type){
-        if(!this.data){
+    findPhotoItemByType(type) {
+        if (!this.data) {
             return false;
         }
 
-        if(!this.data.photoItemList){
+        if (!this.data.photoItemList) {
             return false;
         }
 
@@ -24,8 +24,8 @@ class Photo {
     getPhotoSourceUrl() {
         const photoItem = this.findPhotoItemByType('source');
 
-        if(!photoItem){
-            return false;
+        if (!photoItem) {
+            return Config.imagePlaceHolder;
         }
 
         return Photo.prepareUrl(photoItem.name);
@@ -34,8 +34,8 @@ class Photo {
     getPhotoLargeUrl() {
         const photoItem = this.findPhotoItemByType('large');
 
-        if(!photoItem){
-            return false;
+        if (!photoItem) {
+            return Config.imagePlaceHolder;
         }
 
         return Photo.prepareUrl(photoItem.name);
@@ -44,8 +44,8 @@ class Photo {
     getPhotoSmallUrl() {
         const photoItem = this.findPhotoItemByType('small');
 
-        if(!photoItem){
-            return false;
+        if (!photoItem) {
+            return Config.imagePlaceHolder;
         }
 
         return Photo.prepareUrl(photoItem.name);

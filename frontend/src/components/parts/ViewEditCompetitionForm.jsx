@@ -36,8 +36,6 @@ const ViewEditCompetitionForm = ({ uuid }) => {
         headers: getTokenHeader()
       })
       .then((response) => {
-        console.log('Response data', response.data.data);
-
         setFormData(response.data.data);
       })
       .catch((error) => {
@@ -136,8 +134,6 @@ const ViewEditCompetitionForm = ({ uuid }) => {
       data.photo = imageReponse;
       data.image_uuid = imageReponse.uuid;
     }
-
-    console.log("Data save", data);
 
     let url = Config.apiDomain + Config.endpoints.competitions.edit;
     url = url.replace('{uuid}', uuid);

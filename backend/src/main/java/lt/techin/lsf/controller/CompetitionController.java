@@ -85,11 +85,4 @@ public class CompetitionController {
     ) {
         return competitionService.getUserNotParticipatedCompetitionsWithPagination(page);
     }
-
-    @GetMapping("/jury/{page}")
-    public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(
-            @PathVariable int page
-    ) {
-        return competitionService.getJuryActiveCompetitionsWithPagination(page);
-    }
 }

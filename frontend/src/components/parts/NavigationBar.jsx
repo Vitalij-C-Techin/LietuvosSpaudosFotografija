@@ -2,14 +2,17 @@ import React from 'react';
 import LanguageSwitch from './LanguageSwitch.jsx';
 import '../../modules/language/i18n.jsx';
 import { useTranslation } from 'react-i18next';
-import { NavLink, Link } from 'react-router-dom';
-import { Nav, Navbar, Dropdown } from 'react-bootstrap';
+import { Link, NavLink } from 'react-router-dom';
+import { Dropdown, Nav, Navbar } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext.jsx';
-import { IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication.jsx';
+import {
+  IsAuthenticated,
+  IsAuthenticatedWithRole,
+  IsNotAuthenticated
+} from '../utils/Authentication.jsx';
 
 const NavigationBar = () => {
   const { logout, getRole } = useAuth();
-  const userRole = getRole();
   const { t } = useTranslation();
 
   return (
@@ -42,41 +45,45 @@ const NavigationBar = () => {
               <Dropdown.Item as={NavLink} to="/profile">
                 {t('landingPage.dropDownMenuItem3')}
               </Dropdown.Item>
-
               <Dropdown.Item as={Link} to="/" onClick={logout}>
                 {t('landingPage.dropDownMenuItem11')}
               </Dropdown.Item>
+            </IsAuthenticated>
 
+            <IsAuthenticatedWithRole allowedRoles={['USER', 'ADMIN', 'MODERATOR']}>
               <Dropdown.Divider />
               <Dropdown.Item as={NavLink} to="/user-competition-list">
                 {t('landingPage.dropDownMenuItem4')}
               </Dropdown.Item>
-              <Dropdown.Divider />
+            </IsAuthenticatedWithRole>
 
-              <Dropdown.Item to="#jury-competition">
+            <IsAuthenticatedWithRole allowedRoles={['JURY']}>
+              <Dropdown.Divider />
+              <Dropdown.Item as={NavLink} to="/jury-competition-list">
                 {t('landingPage.dropDownMenuItem5')}
               </Dropdown.Item>
+            </IsAuthenticatedWithRole>
 
-              {userRole === 'ADMIN' && (
-                <>
-                  <Dropdown.Divider />
-                  <Dropdown.Item as={NavLink} to="/admin-manage-users">
-                    {t('landingPage.dropDownMenuItem6')}
-                  </Dropdown.Item>
-                  <Dropdown.Item as={NavLink} to="/admin-competitions-list">
-                    {t('landingPage.dropDownMenuItem7')}
-                  </Dropdown.Item>
-                  <Dropdown.Item to="#admin-category-dashboard">
-                    {t('landingPage.dropDownMenuItem8')}
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item as={NavLink} to="/admin-user-participation-requests">
-                    {t('landingPage.dropDownMenuItem13')}
-                  </Dropdown.Item>
-                </>
-              )}
-              
-            </IsAuthenticated>
+            <IsAuthenticatedWithRole allowedRoles={['MODERATOR', 'ADMIN']}>
+              <Dropdown.Divider />
+              <Dropdown.Item as={NavLink} to="/admin-user-participation-requests">
+                {t('landingPage.dropDownMenuItem13')}
+              </Dropdown.Item>
+            </IsAuthenticatedWithRole>
+
+            <IsAuthenticatedWithRole allowedRoles={['ADMIN']}>
+              <Dropdown.Divider />
+              <Dropdown.Item as={NavLink} to="/admin-manage-users">
+                {t('landingPage.dropDownMenuItem6')}
+              </Dropdown.Item>
+            </IsAuthenticatedWithRole>
+
+            <IsAuthenticatedWithRole allowedRoles={['MODERATOR', 'ADMIN']}>
+              <Dropdown.Item as={NavLink} to="/admin-competitions-list">
+                {t('landingPage.dropDownMenuItem7')}
+              </Dropdown.Item>
+            </IsAuthenticatedWithRole>
+
             <Dropdown.Divider />
 
             <LanguageSwitch data-testid="change-language-menu-item" />

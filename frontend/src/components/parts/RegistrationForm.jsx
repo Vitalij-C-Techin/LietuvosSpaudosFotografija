@@ -8,7 +8,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {ErrorMessage} from '@hookform/error-message';
 import {useNavigate} from 'react-router-dom';
 import Config from '../config/Config';
-import ModalRegistrationSuccess from "../modals/ModalRegistrationSuccess.jsx";
+import ModalSuccess from "../modals/ModalSuccess.jsx";
 
 const RegistrationForm = () => {
     const {t, i18n} = useTranslation();
@@ -446,7 +446,7 @@ const RegistrationForm = () => {
                     </Col>
                 </Row>
             </Container>
-            <ModalRegistrationSuccess show={showModal} handleClose={closeModal}/>
+            <ModalSuccess show={showModal} handleClose={closeModal} customMessage={'modal.registrationSuccess'}/>
         </>
     );
 };

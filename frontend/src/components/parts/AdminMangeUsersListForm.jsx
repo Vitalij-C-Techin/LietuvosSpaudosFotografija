@@ -10,6 +10,7 @@ import Config from "../config/Config.js";
 import UserRoleUpdater from "./UserRoleUpdater.jsx";
 import UserBlocker from "./UserBlocker.jsx";
 import Pagination from '../parts/Pagination';
+import React from 'react';
 
 const AdminMangeUsersListForm = () => {
     const [t] = useTranslation();
@@ -64,6 +65,21 @@ const AdminMangeUsersListForm = () => {
         setPage(value - 1);
     };
 
+    const getRoleDisplayName = (role) => {
+        switch(role) {
+            case 'JURY':
+                return t('adminManageUsersPage.jury');
+            case 'USER':
+                return t('adminManageUsersPage.user');
+            case 'MODERATOR':
+                return t('adminManageUsersPage.moderator');
+            case 'ADMIN':
+                return t('adminManageUsersPage.admin');
+            default:
+                return role;
+        }
+    };
+
     return (
         <>
             {isLoading && <LoadingMessage/>}
@@ -82,13 +98,13 @@ const AdminMangeUsersListForm = () => {
                     </tr>
                     </thead>
                     <tbody>{userList.map((user) => (
-                        <>
-                            <tr key={user.uuid}>
+                        <React.Fragment key={user.uuid}>
+                            <tr>
                                 <td>{user.name}</td>
                                 <td>{user.surname}</td>
                                 <td>{user.birth_year}</td>
                                 <td>
-                                    {user.role}
+                                    {getRoleDisplayName(user.role)}
                                     {userUuid === user.uuid && (
                                         <UserRoleUpdater
                                             userUuid={user.uuid}
@@ -144,7 +160,7 @@ const AdminMangeUsersListForm = () => {
                                     </div>
                                 </td>
                             </tr>
-                        </>
+                        </React.Fragment>
                     ))}
                     </tbody>
                 </Table>

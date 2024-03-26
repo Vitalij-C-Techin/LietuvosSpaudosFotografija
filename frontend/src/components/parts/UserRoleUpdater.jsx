@@ -4,7 +4,7 @@ import Config from '../config/Config.js';
 import {useTranslation} from "react-i18next";
 import {useAuth} from "../context/AuthContext.jsx";
 import {Button} from "react-bootstrap";
-import ModalRoleUpdateSuccess from "../modals/ModalRoleUpdateSuccess.jsx";
+import ModalSuccess from "../modals/ModalSuccess.jsx";
 
 const UserRoleUpdater = ({userUuid, currentRole, handleCancel, getAndUpdateRoles}) => {
     const [t] = useTranslation();
@@ -75,7 +75,7 @@ const UserRoleUpdater = ({userUuid, currentRole, handleCancel, getAndUpdateRoles
                     <span>{t('adminManageUsersPage.cancel')}</span>
                 </Button>
             </div>
-            <ModalRoleUpdateSuccess show={showModal} handleClose={handleCloseModal}/>
+            <ModalSuccess show={showModal} handleClose={handleCloseModal} customMessage={'modal.updated'}/>
         </>
     );
 };
