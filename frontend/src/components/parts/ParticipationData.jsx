@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Button, Container, Row, Col, Image, Modal, Form } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
@@ -18,6 +18,11 @@ const ParticipationData = () => {
   const maxUploadsPerCategory = 3; // Maximum uploads per category
   const maxTotalUploads = 9; // Maximum total uploads across all categories
 
+  useEffect(() => {
+    // Clear temp photos when category changes
+    setTempPhotos({});
+  }, [selectedCategory]);
+
   const onDrop = (acceptedFiles) => {
     if (!selectedCategory) {
       alert('Please select a category.');
@@ -29,17 +34,22 @@ const ParticipationData = () => {
       return;
     }
 
-    if (Object.keys(tempPhotos).reduce((total, category) => total + (tempPhotos[category]?.length || 0), 0) >= maxTotalUploads) {
+    if (
+      Object.keys(tempPhotos).reduce(
+        (total, category) => total + (tempPhotos[category]?.length || 0),
+        0
+      ) >= maxTotalUploads
+    ) {
       alert(`Maximum total uploads (${maxTotalUploads}) reached.`);
       return;
     }
 
-    const newTempPhotos = acceptedFiles.map(file => ({
+    const newTempPhotos = acceptedFiles.map((file) => ({
       file,
       url: URL.createObjectURL(file),
       description: ''
     }));
-    setTempPhotos(prevTempPhotos => ({
+    setTempPhotos((prevTempPhotos) => ({
       ...prevTempPhotos,
       [selectedCategory]: [...(prevTempPhotos[selectedCategory] || []), ...newTempPhotos]
     }));
@@ -57,11 +67,11 @@ const ParticipationData = () => {
       alert(`Maximum uploads (${maxUploadsPerCategory}) reached for this category.`);
       return;
     }
-    setPhotos(prevPhotos => ({
+    setPhotos((prevPhotos) => ({
       ...prevPhotos,
       [selectedCategory]: [...(prevPhotos[selectedCategory] || []), ...photosToAdd]
     }));
-    setTempPhotos(prevTempPhotos => {
+    setTempPhotos((prevTempPhotos) => {
       const newTempPhotos = { ...prevTempPhotos };
       delete newTempPhotos[selectedCategory];
       return newTempPhotos;
@@ -79,10 +89,14 @@ const ParticipationData = () => {
   };
 
   return (
-    <Container className='participation-data-container'>
+    <Container className="participation-data-container">
       <Row className="justify-content-center">
         <Col xs="12">
-          <DropdownButton variant="secondary" id="dropdown-item-button" title={selectedCategory || "Categories"}>
+          <DropdownButton
+            variant="secondary"
+            id="dropdown-item-button"
+            title={selectedCategory || 'Categories'}
+          >
             <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category1')}>
               Category1
             </Dropdown.Item>
@@ -99,7 +113,11 @@ const ParticipationData = () => {
             <input {...getInputProps()} />
             <Card.Img
               variant="top"
-              src={tempPhotos[selectedCategory]?.length > 0 ? tempPhotos[selectedCategory][tempPhotos[selectedCategory].length - 1].url : placeholderImage}
+              src={
+                tempPhotos[selectedCategory]?.length > 0
+                  ? tempPhotos[selectedCategory][tempPhotos[selectedCategory].length - 1].url
+                  : placeholderImage
+              }
             />
           </div>
           <Card.Body>
@@ -108,10 +126,15 @@ const ParticipationData = () => {
               <Form.Control
                 as="textarea"
                 rows={3}
-                value={tempPhotos[selectedCategory]?.length > 0 ? tempPhotos[selectedCategory][tempPhotos[selectedCategory].length - 1].description : ''}
+                value={
+                  tempPhotos[selectedCategory]?.length > 0
+                    ? tempPhotos[selectedCategory][tempPhotos[selectedCategory].length - 1]
+                        .description
+                    : ''
+                }
                 onChange={(e) => {
                   const newDescription = e.target.value;
-                  setTempPhotos(prevTempPhotos => ({
+                  setTempPhotos((prevTempPhotos) => ({
                     ...prevTempPhotos,
                     [selectedCategory]: prevTempPhotos[selectedCategory].map((photo, index) => {
                       if (index === prevTempPhotos[selectedCategory].length - 1) {
@@ -123,7 +146,7 @@ const ParticipationData = () => {
                 }}
               />
             </Card.Text>
-            <Row className='upload-submit-buttons'>
+            <Row className="upload-submit-buttons">
               <Col xs="12">
                 <Button
                   {...getRootProps()}
@@ -131,7 +154,10 @@ const ParticipationData = () => {
                   disabled={
                     !selectedCategory ||
                     (tempPhotos[selectedCategory]?.length || 0) >= maxUploadsPerCategory ||
-                    Object.keys(tempPhotos).reduce((total, category) => total + (tempPhotos[category]?.length || 0), 0) >= maxTotalUploads
+                    Object.keys(tempPhotos).reduce(
+                      (total, category) => total + (tempPhotos[category]?.length || 0),
+                      0
+                    ) >= maxTotalUploads
                   }
                 >
                   Upload
@@ -147,16 +173,26 @@ const ParticipationData = () => {
         </Card>
       </Row>
       <Row className="mt-3 justify-content-center">
-        {selectedCategory && (photos[selectedCategory] || []).map((photo, index) => (
-          <Col key={index} className="mb-3" xs={6} md={4} lg={3}>
-            <Image src={photo.url} thumbnail onClick={() => handleImageClick(photo.url, photo.description)} />
-          </Col>
-        ))}
-        {selectedCategory && (tempPhotos[selectedCategory] || []).map((photo, index) => (
-          <Col key={`temp-${index}`} className="mb-3" xs={6} md={4} lg={3}>
-            <Image src={photo.url} thumbnail onClick={() => handleImageClick(photo.url, photo.description)} />
-          </Col>
-        ))}
+        {selectedCategory &&
+          (photos[selectedCategory] || []).map((photo, index) => (
+            <Col key={index} className="mb-3" xs={6} md={4} lg={3}>
+              <Image
+                src={photo.url}
+                thumbnail
+                onClick={() => handleImageClick(photo.url, photo.description)}
+              />
+            </Col>
+          ))}
+        {selectedCategory &&
+          (tempPhotos[selectedCategory] || []).map((photo, index) => (
+            <Col key={`temp-${index}`} className="mb-3" xs={6} md={4} lg={3}>
+              <Image
+                src={photo.url}
+                thumbnail
+                onClick={() => handleImageClick(photo.url, photo.description)}
+              />
+            </Col>
+          ))}
       </Row>
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton>
