@@ -13,6 +13,7 @@ import axios from 'axios';
 import Competition from '../utils/Competition';
 import { useAuth } from '../context/AuthContext';
 import Photo from '../utils/Photo';
+import { IsNotAuthenticated } from '../utils/Authentication';
 
 function HomePage() {
   const { t } = useTranslation();
@@ -92,29 +93,32 @@ function HomePage() {
             </div>
           </Carousel.Item>
         </Carousel>
-        <Card className="carousel-buttons">
-          <Row className="justify-content-center">
-            <Col xs="12" sm="10" md="8" lg="2">
-              <Button
-                variant="secondary"
-                className="btn-lg custom-button-width"
-                onClick={navigateToLoginPage}
-              >
-                {t('loginPage.login')}
-              </Button>
-            </Col>
-            <Col lg="2"></Col>
-            <Col xs="12" sm="10" md="8" lg="2">
-              <Button
-                variant="secondary"
-                className="btn-lg custom-button-width"
-                onClick={navigateToRegistrationPage}
-              >
-                {t('loginPage.register')}
-              </Button>
-            </Col>
-          </Row>
-        </Card>
+        
+        <IsNotAuthenticated>
+          <Card className="carousel-buttons">
+            <Row className="justify-content-center">
+              <Col xs="12" sm="10" md="8" lg="2">
+                <Button
+                  variant="secondary"
+                  className="btn-lg custom-button-width"
+                  onClick={navigateToLoginPage}
+                >
+                  {t('loginPage.login')}
+                </Button>
+              </Col>
+              <Col lg="2"></Col>
+              <Col xs="12" sm="10" md="8" lg="2">
+                <Button
+                  variant="secondary"
+                  className="btn-lg custom-button-width"
+                  onClick={navigateToRegistrationPage}
+                >
+                  {t('loginPage.register')}
+                </Button>
+              </Col>
+            </Row>
+          </Card>
+        </IsNotAuthenticated>
 
         {!!!isLoading && !!competitions && (
           <CompetitionList competitions={competitions} imageSize={imageSize} />

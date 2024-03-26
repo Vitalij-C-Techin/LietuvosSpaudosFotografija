@@ -40,8 +40,10 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
     @Query("SELECT c " +
             "FROM CompetitionRecord c " +
             "JOIN ParticipationRequestRecord r ON c.uuid = r.competitionUuid " +
+
             "WHERE r.userUuid = :userUuid " +
             "AND r.status = 'PERMIT' " +
+
             "AND c.startDate < CURRENT_TIMESTAMP " +
             "AND c.endDate > CURRENT_TIMESTAMP " +
             "AND c.visibility = 'PUBLIC' "
@@ -50,10 +52,9 @@ public interface CompetitionRepository extends JpaRepository<CompetitionRecord, 
 
     @Query("SELECT c " +
             "FROM CompetitionRecord c " +
-            "LEFT JOIN ParticipationRequestRecord r ON c.uuid = r.competitionUuid " +
-            "WHERE r.userUuid != :userUuid " +
-            "OR r.userUuid IS NULL " +
-            "AND r.userUuid IS NULL " +
+            "LEFT JOIN ParticipationRequestRecord r ON c.uuid = r.competitionUuid AND r.userUuid = :userUuid " +
+            "WHERE r.competitionUuid IS NULL " +
+
             "AND c.startDate < CURRENT_TIMESTAMP " +
             "AND c.endDate > CURRENT_TIMESTAMP " +
             "AND c.visibility = 'PUBLIC' "
