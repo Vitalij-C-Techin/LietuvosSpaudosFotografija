@@ -19,12 +19,16 @@ import ErrorPage from './components/pages/ErrorPage.jsx';
 import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import CompetitionManagementPage from './components/pages/adminPages/CompetitionManagementPage.jsx';
 
-import { Authorization } from './components/utils/Authorization.jsx';
+import { Authorization, IsLogged, IsNotLogged } from './components/utils/Authorization.jsx';
 import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx';
-import AdminManageUsersPage from './components/pages/AdminManageUsersPage.jsx';
-import AdminCreateUserPage from './components/pages/AdminCreateUserPage.jsx';
+import AdminManageUsersPage from './components/pages/adminPages/AdminManageUsersPage.jsx';
+import AdminCreateUserPage from './components/pages/adminPages/AdminCreateUserPage.jsx';
 import CreateCompetition from './components/pages/adminPages/CreateCompetitionPage.jsx';
 import CompetitionPage from './components/pages/CompetitionPage.jsx';
+import AdminManageUsersProfilePage from './components/pages/adminPages/AdminMangeUsersProfilePage.jsx';
+import JuryCompetitionsListPage from './components/pages/JuryCompetitionsListPage.jsx';
+import JuryCompetitionPage from './components/pages/JuryCompetitionPage.jsx';
+import JuryCategoryPage from './components/pages/JuryCategoryPage.jsx';
 
 function App() {
   return (
@@ -35,33 +39,52 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
 
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/registration" element={<RegistrationPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/change-password" element={<PasswordChangePage />} />
+            <Route element={<IsNotLogged />}>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/registration" element={<RegistrationPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/change-password" element={<PasswordChangePage />} />
+            </Route>
 
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/profile/:uuid" element={<ProfilePage />} />
-            <Route path="/profile/edit" element={<UserDetailsUpdatePage />} />
+            <Route element={<IsLogged />}>
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/profile/edit" element={<UserDetailsUpdatePage />} />
+            </Route>
 
-            <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
-            <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
+            <Route element={<Authorization allowedRoles={['MODERATOR', 'ADMIN']} />}>
+              <Route path="/profile/:uuid" element={<AdminManageUsersProfilePage />} />
+            </Route>
 
-            <Route element={<Authorization allowedRoles={'ADMIN'} />}>
+            <Route element={<Authorization allowedRoles={['USER', 'MODERATOR', 'ADMIN']} />}>
+              <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
+              <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
+            </Route>
+
+            <Route element={<Authorization allowedRoles={['JURY']} />}>
+              <Route path="/jury-competition-list" element={<JuryCompetitionsListPage />} />
+              <Route path="/jury-competition/:uuid" element={<JuryCompetitionPage />} />
+              <Route path="/jury-category/:uuid" element={<JuryCategoryPage />} />
+            </Route>
+
+            <Route element={<Authorization allowedRoles={['ADMIN', 'MODERATOR']} />}>
               <Route path="/admin-competitions-list" element={<AdminCompetitionsListPage />} />
-
-              <Route path="/create-competition" element={<CreateCompetition />} />
               <Route path="/admin-competition-edit/:uuid" element={<CompetitionManagementPage />} />
-
               <Route
                 path="/admin-user-participation-requests"
                 element={<AdminUserParticipationRequestPage />}
               />
+            </Route>
 
+            <Route element={<Authorization allowedRoles={['ADMIN']} />}>
+              <Route path="/create-competition" element={<CreateCompetition />} />
               <Route path="/admin-manage-users" element={<AdminManageUsersPage />} />
               <Route path="/admin-create-user" element={<AdminCreateUserPage />} />
             </Route>
-            <Route element={<Authorization allowedRoles={'JURY'} />}>
+
+            {
+              //TODO
+            }
+            <Route element={<Authorization allowedRoles={['JURY']} />}>
               <Route
                 path="/competition/:comp_uuid/category/:category_uuid"
                 element={<CompetitionPage />}

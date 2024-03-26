@@ -1,16 +1,15 @@
-import {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {useTranslation} from "react-i18next";
 
-const ModalRegistrationSuccess = ({show, handleClose}) => {
+const ModalSentRequestSuccess = ({show, handleClose, customMessage}) => {
     const {t} = useTranslation();
 
     return (
         <>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} data-testid="modal-success">
                 <Modal.Header>
-                    <Modal.Title>{t('modal.registrationSuccess')}</Modal.Title>
+                    <Modal.Title>{t(customMessage)}</Modal.Title>
                 </Modal.Header>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
@@ -22,4 +21,4 @@ const ModalRegistrationSuccess = ({show, handleClose}) => {
     );
 }
 
-export default ModalRegistrationSuccess;
+export default ModalSentRequestSuccess;

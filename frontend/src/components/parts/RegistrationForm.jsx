@@ -8,7 +8,7 @@ import {Controller, useForm} from 'react-hook-form';
 import {ErrorMessage} from '@hookform/error-message';
 import {useNavigate} from 'react-router-dom';
 import Config from '../config/Config';
-import ModalRegistrationSuccess from "../modals/ModalRegistrationSuccess.jsx";
+import ModalSuccess from "../modals/ModalSuccess.jsx";
 
 const RegistrationForm = () => {
     const {t, i18n} = useTranslation();
@@ -57,8 +57,6 @@ const RegistrationForm = () => {
                     const {message} = error.response.data;
                     if (message === 'User exists') {
                         setEmailError(t('registrationPage.emailError'));
-                    } else if (message === 'User not registered') {
-                        setDataSaveError(t('registrationPage.dataSaveError'));
                     }
                 } else {
                     setDataSaveError(t('registrationPage.dataSaveError'));
@@ -448,7 +446,7 @@ const RegistrationForm = () => {
                     </Col>
                 </Row>
             </Container>
-            {showModal && (<ModalRegistrationSuccess show={showModal} handleClose={closeModal}/>)}
+            <ModalSuccess show={showModal} handleClose={closeModal} customMessage={'modal.registrationSuccess'}/>
         </>
     );
 };

@@ -9,6 +9,7 @@ import lombok.*;
 import lt.techin.lsf.model.Competition;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -49,4 +50,7 @@ public class UpdateCompetitionRequest {
 
     @NotBlank(message = "Field cannot be empty")
     public Competition.Visibility visibility;
+
+    @JsonProperty("image_uuid")
+    public UUID imageUuid;
 }

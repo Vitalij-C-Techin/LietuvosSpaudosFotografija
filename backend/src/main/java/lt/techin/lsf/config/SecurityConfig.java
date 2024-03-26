@@ -47,10 +47,25 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
                             //Public
-                            request.requestMatchers(HttpMethod.GET, publicGetEndpoints).permitAll();
-                            request.requestMatchers(HttpMethod.POST, publicPostEndpoints).permitAll();
-                            request.requestMatchers(HttpMethod.PUT, publicPutEndpoints).permitAll();
-                            request.requestMatchers(HttpMethod.DELETE, publicDeleteEndpoints).permitAll();
+                            request.requestMatchers(
+                                            HttpMethod.GET,
+                                            "photo/{filename}",
+
+                                            "api/v1/competition/all/active/{page}",
+
+                                            "swagger-ui/**", // Swagger
+                                            "v3/api-docs/**" // Swagger
+                                    )
+                                    .permitAll();
+                            request.requestMatchers(
+                                            HttpMethod.POST,
+                                            "api/v1/register",
+                                            "api/v1/login",
+                                            "api/v1/logout",
+                                            "api/v1/forget-password",
+                                            "api/v1/change-password"
+                                    )
+                                    .permitAll();
 
                             //User, Moderator, Admin
                             request.requestMatchers(
@@ -62,6 +77,12 @@ public class SecurityConfig {
 
                                     "api/v1/album**"
                             ).hasAnyAuthority("USER", "MODERATOR", "ADMIN");
+
+                            //Jury
+                            request.requestMatchers(
+                                    "api/v1/jury/all/{page}",
+                                    "api/v1/jury/{uuid}"
+                                    ).hasAnyAuthority("JURY");
 
                             //Moderator, Admin
                             request.requestMatchers(

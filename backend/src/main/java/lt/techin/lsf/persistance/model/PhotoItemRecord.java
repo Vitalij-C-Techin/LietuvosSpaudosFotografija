@@ -38,15 +38,12 @@ public class PhotoItemRecord {
     @Column(name = "type")
     private String type;
 
-    @Column(name = "position")
-    private int position;
-
 
     /* --- */
 
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "photo_uuid")
     private PhotoRecord photo;
 }

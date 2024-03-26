@@ -18,15 +18,16 @@ i18n
             dropDownMenuItem1: 'Home',
             dropDownMenuItem2: 'Login',
             dropDownMenuItem3: 'Profile',
-            dropDownMenuItem4: 'Competition list(user)',
-            dropDownMenuItem5: 'Competition list for evaluation(jury)',
-            dropDownMenuItem6: 'Manage users(admin)',
-            dropDownMenuItem7: 'Manage competitions(admin)',
-            dropDownMenuItem8: 'Manage categories(admin)',
+            dropDownMenuItem4: 'My competitions',
+            dropDownMenuItem5: 'Competitions to evaluate',
+            dropDownMenuItem6: 'Manage users',
+            dropDownMenuItem7: 'Manage competitions',
+            dropDownMenuItem8: 'Manage categories',
             dropDownMenuItem9: 'Support',
             dropDownMenuItem10: 'Change Language',
             dropDownMenuItem11: 'Logout',
-            dropDownMenuItem12: 'Register'
+            dropDownMenuItem12: 'Register',
+            dropDownMenuItem13: 'Participation requests'
           },
           layoutPage: {
             imageHeaderText: 'WINNERS OF PREVIOUS COMPETITIONS'
@@ -132,8 +133,12 @@ i18n
             birthYear: 'Birth year',
             phoneNumber: 'Phone number',
             media: 'Media',
+            isActive: 'Status',
+            blocked: 'Blocked',
+            unblocked: 'Active',
             createdAt: 'Created at',
-            editProfile: 'Edit Profile'
+            editProfile: 'Edit Profile',
+            noMedia: 'Freelancer'
           },
           userCompetitionPage: {
             title: 'My Competitions',
@@ -201,7 +206,26 @@ i18n
             moderator: 'Moderator',
             user: 'User',
             jury: 'Jury',
-            button: 'REGISTER'
+            button: 'REGISTER',
+            name: 'Name',
+            surname: 'Surname',
+            birthYear: 'Birth year',
+            email: 'Email',
+            phone: 'Phone number',
+            mediaName: 'Media name',
+            created: 'Created',
+            userDetails: 'Details',
+            blockUser: 'Block',
+            updateRole: 'Update role',
+            unblockUser: 'Unblock',
+            previous: 'Previous',
+            next: 'Next',
+            first: 'First',
+            last: 'Last',
+            page: 'Page',
+            of: 'of',
+            save: 'Save',
+            cancel: 'Cancel'
           },
           notificationMessages: {
             loading: 'Loading',
@@ -215,7 +239,9 @@ i18n
             competitionCategories: 'Categories',
             participate: 'Participate',
             registrationSuccess: 'Registration successful',
-            continue: 'Continue'
+            continue: 'Continue',
+            updated: 'Data updated',
+            sent: 'Request sent successfully'
           },
           editcomp: {
             valid: 'Please fill out the form before saving.',
@@ -269,6 +295,11 @@ i18n
             single: 'Single',
             series: 'Series',
             photoLimit: 'Photo limit'
+          },
+          juryPage: {
+            competitionList: 'Competition list',
+            competitionTitle: 'Competition',
+            categoryListTitle: 'Categories',
           }
         }
       },
@@ -278,15 +309,16 @@ i18n
             dropDownMenuItem1: 'Pradžia',
             dropDownMenuItem2: 'Prisijungti',
             dropDownMenuItem3: 'Profilis',
-            dropDownMenuItem4: 'Konkursų sąrašas(vartotojas)',
-            dropDownMenuItem5: 'Konkursų sąrašas vertinimui (žiuri)',
-            dropDownMenuItem6: 'Tvarkyti naudotojus (administratorius)',
-            dropDownMenuItem7: 'Tvarkyti konkursus (administratorius)',
-            dropDownMenuItem8: 'Tvarkyti kategorijas (administratorius)',
+            dropDownMenuItem4: 'Mano konkursai',
+            dropDownMenuItem5: 'Konkursai vertinimui',
+            dropDownMenuItem6: 'Tvarkyti naudotojus',
+            dropDownMenuItem7: 'Tvarkyti konkursus',
+            dropDownMenuItem8: 'Tvarkyti kategorijas',
             dropDownMenuItem9: 'Pagalba',
             dropDownMenuItem10: 'Keisti kalbą',
             dropDownMenuItem11: 'Atsijungti',
-            dropDownMenuItem12: 'Registruotis'
+            dropDownMenuItem12: 'Registruotis',
+            dropDownMenuItem13: 'Dalyvavimo užklausos'
           },
           layoutPage: {
             imageHeaderText: 'PRAEITŲ KONKURSŲ NUGALĖTOJAI'
@@ -393,8 +425,12 @@ i18n
             birthYear: 'Gimimo metai',
             phoneNumber: 'Telefono numeris',
             media: 'Žiniasklaida',
+            isActive: 'Statusas',
+            blocked: 'Užblokuotas',
+            unblocked: 'Aktyvus',
             createdAt: 'Sukurta',
-            editProfile: 'Redaguoti profilį'
+            editProfile: 'Redaguoti profilį',
+            noMedia: 'Laisvai samdomas'
           },
           userCompetitionPage: {
             title: 'Mano konkursai',
@@ -463,7 +499,26 @@ i18n
             moderator: 'Moderatorius',
             user: 'Naudotojas',
             jury: 'Vertintojas',
-            button: 'REGISTRUOTI'
+            button: 'REGISTRUOTI',
+            name: 'Vardas',
+            surname: 'Pavardė',
+            birthYear: 'Gimimo metai',
+            email: 'El. paštas',
+            phone: 'Telefono numeris',
+            mediaName: 'Atstovaujama žiniasklaida',
+            created: 'Sukurta',
+            userDetails: 'Peržiūrėti',
+            blockUser: 'Blokuoti',
+            updateRole: 'Keisti rolę',
+            unblockUser: 'Atblokuoti',
+            previous: 'Ankstesnis',
+            next: 'Sekantis',
+            first: 'Pirmas',
+            last: 'Paskutinis',
+            page: 'Puslapis',
+            of: 'iš',
+            save: 'Išsaugoti',
+            cancel: 'Atšaukti'
           },
           notificationMessages: {
             loading: 'Vyksta duomenų įkėlimas',
@@ -477,7 +532,9 @@ i18n
             competitionCategories: 'Kategorijos',
             participate: 'Dalyvauti',
             registrationSuccess: 'Registracija sėkminga',
-            continue: 'Tęsti'
+            continue: 'Tęsti',
+            updated: 'Duomenys atnaujinti',
+            sent: 'Užklausa išsiųsta sėkmingai'
           },
           editcomp: {
             valid: 'Užpildikyte forma prieš išsaugant',
@@ -531,6 +588,11 @@ i18n
             single: 'Viena nuotrauka',
             series: 'Nuotraukų serija',
             photoLimit: 'Nuotraukų kiekis'
+          },
+          juryPage: {
+            competitionList: 'Konkursų sąrašas',
+            competitionTitle: 'Konkursas',
+            categoryListTitle: 'Kategorijos'
           }
         }
       }

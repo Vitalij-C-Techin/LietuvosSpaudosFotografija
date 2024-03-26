@@ -94,6 +94,7 @@ public class CompetitionService {
         record.setEndDate(competitionData.getEndDate());
         record.setStatus(competitionData.getStatus());
         record.setVisibility(competitionData.getVisibility());
+        record.setImageUuid(competitionData.getImageUuid());
 
         return new Competition(
                 competitionRepository.save(record)
@@ -138,15 +139,11 @@ public class CompetitionService {
         );
     }
 
-    public Page<CompetitionWithCategoriesResponse> getUserNotParticipatedCompetitionsWithPagination(int page) {
+    public Page<CompetitionRecord> getUserNotParticipatedCompetitionsWithPagination(int page) {
         return competitionRepository.findUserParticipateCompetitions(
                 authenticationService.getAuthenticatedUser().getUuid(),
                 PageRequest.of(page, recordsPerPage)
-        ).map(c -> {
-            return CompetitionWithCategoriesResponse.builder()
-                    .competition(c)
-                    .build();
-        });
+        );
     }
 
     public Page<CompetitionRecord> getJuryActiveCompetitionsWithPagination(int page) {

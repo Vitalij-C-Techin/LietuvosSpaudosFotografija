@@ -1,6 +1,7 @@
 package lt.techin.lsf.model.requests;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lt.techin.lsf.validator.ValidEmailConstraint;
@@ -9,6 +10,7 @@ import lt.techin.lsf.validator.ValidPasswordConstraint;
 import lt.techin.lsf.validator.ValidSurnameConstraint;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminRegisterJuryRequest {

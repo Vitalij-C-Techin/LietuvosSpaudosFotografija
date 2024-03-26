@@ -1,15 +1,17 @@
 package lt.techin.lsf.model.requests;
 
-import jakarta.validation.constraints.AssertTrue;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lt.techin.lsf.validator.ValidBooleanValueConstraint;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminUpdateUserIsActiveRequest {
 
-    @AssertTrue(message = "field must hold value true or false")
-    private boolean isActive;
+    @ValidBooleanValueConstraint
+    @JsonProperty("is_active")
+    private Boolean isActive;
 }

@@ -8,7 +8,7 @@ import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import {ErrorMessage} from "@hookform/error-message";
 import PhoneInput, {isValidPhoneNumber} from "react-phone-number-input";
 import {useAuth} from "../context/AuthContext.jsx";
-import ModalRegistrationSuccess from "../modals/ModalRegistrationSuccess.jsx";
+import ModalSuccess from "../modals/ModalSuccess.jsx";
 
 const AdminCreateUserForm = () => {
     const {t, i18n} = useTranslation();
@@ -83,8 +83,6 @@ const AdminCreateUserForm = () => {
                     const {message} = error.response.data;
                     if (message === 'User exists') {
                         setEmailError(t('registrationPage.emailError'));
-                    } else if (message === 'User not registered') {
-                        setDataSaveError(t('registrationPage.dataSaveError'));
                     }
                 } else {
                     setDataSaveError(t('registrationPage.dataSaveError'));
@@ -483,7 +481,7 @@ const AdminCreateUserForm = () => {
                     </Col>
                 </Row>
             </Container>
-            {showModal && (<ModalRegistrationSuccess show={showModal} handleClose={closeModal}/>)}
+            <ModalSuccess show={showModal} handleClose={closeModal} customMessage={'modal.registrationSuccess'}/>
         </>
     );
 };

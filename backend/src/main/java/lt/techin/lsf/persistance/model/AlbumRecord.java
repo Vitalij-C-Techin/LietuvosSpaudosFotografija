@@ -52,9 +52,7 @@ public class AlbumRecord {
 
     @OneToMany(
             mappedBy = "album",
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = CascadeType.ALL
     )
     private Set<PhotoRecord> photoList = new HashSet<>();
 

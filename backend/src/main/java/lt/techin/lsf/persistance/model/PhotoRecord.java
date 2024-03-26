@@ -47,23 +47,18 @@ public class PhotoRecord {
     /* --- */
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "album_uuid")
     private AlbumRecord album;
 
-    @OneToMany(mappedBy = "photo", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "photo", cascade = CascadeType.ALL)
     private Set<PhotoItemRecord> photoItemList = new HashSet<>();
 
     public void addPhotoItem(PhotoItemRecord photoItem) {
-        Set<PhotoItemRecord> photoItemList = getPhotoItemList();
-
         if (null == photoItemList) {
             photoItemList = new HashSet<>();
         }
 
         photoItemList.add(photoItem);
-
-        photoItem.setPhoto(this);
-        setPhotoItemList(photoItemList);
     }
 }

@@ -12,29 +12,29 @@ export default class Competition {
     getName() {
         switch (i18n.language) {
             case "en":
-                return this.data.nameEn;
+                return this.data.name_en;
             case "lt":
             default:
-                return this.data.nameLt;
+                return this.data.name_lt;
         }
     }
 
     getDescription() {
         switch (i18n.language) {
             case "en":
-                return this.data.descriptionEn;
+                return this.data.description_en;
             case "lt":
             default:
-                return this.data.descriptionLt;
+                return this.data.description_lt;
         }
     }
 
     getStartDate() {
-        return Competition.formatDate(this.data.startDate);
+        return Competition.formatDate(this.data.start_date);
     }
 
     getEndDate() {
-        return Competition.formatDate(this.data.endDate);
+        return Competition.formatDate(this.data.end_date);
     }
 
     getActiveDates() {

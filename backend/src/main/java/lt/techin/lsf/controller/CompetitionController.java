@@ -5,7 +5,6 @@ import lt.techin.lsf.model.Category;
 import lt.techin.lsf.model.Competition;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
-import lt.techin.lsf.model.response.CompetitionWithCategoriesResponse;
 import lt.techin.lsf.model.response.CreateCompetitionResponse;
 import lt.techin.lsf.model.response.PhotoRecordResponse;
 import lt.techin.lsf.persistance.SubmissionRepository;
@@ -76,7 +75,7 @@ public class CompetitionController {
     }
 
     @GetMapping("/user/participate/{page}")
-    public Page<CompetitionWithCategoriesResponse> getUserParticipateCompetitionsWithPagination(
+    public Page<CompetitionRecord> getUserParticipateCompetitionsWithPagination(
             @PathVariable int page) {
         return competitionService.getUserNotParticipatedCompetitionsWithPagination(page);
     }

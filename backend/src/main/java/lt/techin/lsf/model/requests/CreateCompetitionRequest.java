@@ -10,6 +10,7 @@ import lt.techin.lsf.model.Competition;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -51,6 +52,9 @@ public class CreateCompetitionRequest {
 
     @NotBlank (message = "Field cannot be empty")
     public Competition.Visibility visibility;
+
+    @JsonProperty("image_uuid")
+    public UUID imageUuid;
 
     public List<CategoryRequest> categories;
 }

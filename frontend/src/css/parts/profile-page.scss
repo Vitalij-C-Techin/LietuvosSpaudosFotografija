@@ -1,0 +1,134 @@
+.profile-page-container {
+  text-align: center;
+
+  h3 {
+    margin: 2rem 0rem 1rem 0rem;
+    font-size: 3rem;
+  }
+  .profile-divider,
+  .profile-divider-media-top {
+    height: 0.2rem;
+    background-color: black;
+    width: auto;
+    margin: 0px 50px 0px 50px;
+  }
+  .profile-name {
+    margin-bottom: 0.25rem;
+  }
+  .profile-name,
+  .profile-lastname {
+    font-size: 1.5rem;
+  }
+  .profile-name-lastname-row {
+    margin-top: 1rem;
+  }
+  .profile-id,
+  .profile-create-date {
+    font-size: 0.8rem;
+  }
+
+  .profile-footer {
+    margin: 2rem 0rem 1rem 0rem;
+    text-align: center;
+  }
+  .profile-media {
+    margin: 1rem 0rem 1rem 0rem;
+  }
+
+  .profile-bottom-button {
+    font-size: 1.2rem;
+    border-radius: 0%;
+    border: solid;
+    border-width: medium;
+    border-color: black;
+    color: white;
+    background-color: black;
+    width: 100%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .profile-bottom-button:hover, .profile-top-button:hover {
+    background-color: white;
+    border-color: black;
+    color: black;
+  }
+
+  .profile-top-button {
+    display: none;
+  }
+
+
+  .profile-btn-column-container{
+    display:none;
+  }
+
+
+  @media only screen and (min-width: 768px) {
+    text-align: left;
+    padding: auto;
+    margin: auto;
+    width: 50%;
+
+    .profile-header {
+      position: relative;
+    }
+
+    .profile-role {
+      position: absolute;
+      bottom: 0;
+      right: 2rem;
+    }
+    .profile-bottom-button {
+      display: none;
+    }
+    .profile-top-button {
+      display: block;
+      font-size: 1.2rem;
+      border-radius: 0%;
+      border: solid;
+      border-width: medium;
+      border-color: black;
+      color: white;
+      background-color: black;
+      height: auto;
+      width: auto;
+      margin-top: 3rem;
+      margin-bottom: 0.5rem;
+      position:absolute;
+      top:0px;
+      right: 0px;
+    }
+  
+    .profile-divider-media-bottom,
+    .profile-divider {
+      height: 0.2rem;
+      background-color: black;
+      width: auto;
+      margin: 0px 0px 0px 0px;
+    }
+
+    .profile-divider-media-top {
+      display: none;
+    }
+    .profile-about-column{
+      padding-left: 10%;
+    }
+
+    .profile-btn-column-container{
+      display: block;
+      position: relative;
+      height: 100px;
+    }
+    
+  }
+  @media only screen and (min-width: 992px) {
+    width: 40%;
+
+    .profile-footer {
+      margin: 2rem 0rem 1rem 0rem;
+      text-align: center;
+    }
+  
+  }
+}
