@@ -96,7 +96,7 @@ const ParticipationData = () => {
               }}
             />
             </Card.Text>
-            <Row>
+            <Row className='upload-submit-buttons'>
               <Col xs="12">
                 <Button 
                   {...getRootProps()} 
