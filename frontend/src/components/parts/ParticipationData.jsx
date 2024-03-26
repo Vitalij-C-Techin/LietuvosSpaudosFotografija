@@ -10,27 +10,39 @@ const placeholderImage = 'https://content.hostgator.com/img/weebly_image_sample.
 
 const ParticipationData = () => {
   const { t } = useTranslation();
-  const [tempPhotos, setTempPhotos] = useState([]);
-  const [photos, setPhotos] = useState([]);
+  const [tempPhotos, setTempPhotos] = useState({});
+  const [photos, setPhotos] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({ image: null, description: '' });
   const maxUploadsPerCategory = 3; // Maximum uploads per category
+  const maxTotalUploads = 9; // Maximum total uploads across all categories
 
   const onDrop = (acceptedFiles) => {
-    if (tempPhotos.filter(photo => photo.category === selectedCategory).length >= maxUploadsPerCategory) {
-      // Alert the user or provide some indication that the limit has been reached
+    if (!selectedCategory) {
+      alert('Please select a category.');
+      return;
+    }
+
+    if ((tempPhotos[selectedCategory]?.length || 0) >= maxUploadsPerCategory) {
       alert(`Maximum uploads (${maxUploadsPerCategory}) reached for this category.`);
+      return;
+    }
+
+    if (Object.keys(tempPhotos).reduce((total, category) => total + (tempPhotos[category]?.length || 0), 0) >= maxTotalUploads) {
+      alert(`Maximum total uploads (${maxTotalUploads}) reached.`);
       return;
     }
 
     const newTempPhotos = acceptedFiles.map(file => ({
       file,
       url: URL.createObjectURL(file),
-      category: selectedCategory,
       description: ''
     }));
-    setTempPhotos(prevTempPhotos => [...prevTempPhotos, ...newTempPhotos]);
+    setTempPhotos(prevTempPhotos => ({
+      ...prevTempPhotos,
+      [selectedCategory]: [...(prevTempPhotos[selectedCategory] || []), ...newTempPhotos]
+    }));
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*' });
@@ -40,9 +52,20 @@ const ParticipationData = () => {
   };
 
   const handleSubmit = () => {
-    const photosToAdd = tempPhotos.filter(photo => photo.category === selectedCategory);
-    setPhotos(prevPhotos => [...prevPhotos, ...photosToAdd]);
-    setTempPhotos([]);
+    const photosToAdd = tempPhotos[selectedCategory] || [];
+    if ((photos[selectedCategory]?.length || 0) + photosToAdd.length > maxUploadsPerCategory) {
+      alert(`Maximum uploads (${maxUploadsPerCategory}) reached for this category.`);
+      return;
+    }
+    setPhotos(prevPhotos => ({
+      ...prevPhotos,
+      [selectedCategory]: [...(prevPhotos[selectedCategory] || []), ...photosToAdd]
+    }));
+    setTempPhotos(prevTempPhotos => {
+      const newTempPhotos = { ...prevTempPhotos };
+      delete newTempPhotos[selectedCategory];
+      return newTempPhotos;
+    });
   };
 
   const handleImageClick = (imageUrl, description) => {
@@ -58,7 +81,7 @@ const ParticipationData = () => {
   return (
     <Container className='participation-data-container'>
       <Row className="justify-content-center">
-          <Col xs="12">
+        <Col xs="12">
           <DropdownButton variant="secondary" id="dropdown-item-button" title={selectedCategory || "Categories"}>
             <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category1')}>
               Category1
@@ -70,39 +93,45 @@ const ParticipationData = () => {
               Category3
             </Dropdown.Item>
           </DropdownButton>
-          </Col>
-          <Card>
+        </Col>
+        <Card>
           <div {...getRootProps()} style={{ cursor: 'pointer' }}>
             <input {...getInputProps()} />
             <Card.Img
               variant="top"
-              src={tempPhotos.length > 0 ? tempPhotos[tempPhotos.length - 1].url : placeholderImage}
+              src={tempPhotos[selectedCategory]?.length > 0 ? tempPhotos[selectedCategory][tempPhotos[selectedCategory].length - 1].url : placeholderImage}
             />
           </div>
           <Card.Body>
             <Card.Title>{t('Description')}</Card.Title>
             <Card.Text>
-            <Form.Control
-              as="textarea"
-              rows={3}
-              value={tempPhotos.length > 0 ? tempPhotos[tempPhotos.length - 1].description : ''}
-              onChange={(e) => {
-                const newDescription = e.target.value;
-                setTempPhotos(prevTempPhotos => {
-                  const updatedTempPhotos = [...prevTempPhotos];
-                  updatedTempPhotos[updatedTempPhotos.length - 1].description = newDescription;
-                  return updatedTempPhotos;
-                });
-              }}
-            />
+              <Form.Control
+                as="textarea"
+                rows={3}
+                value={tempPhotos[selectedCategory]?.length > 0 ? tempPhotos[selectedCategory][tempPhotos[selectedCategory].length - 1].description : ''}
+                onChange={(e) => {
+                  const newDescription = e.target.value;
+                  setTempPhotos(prevTempPhotos => ({
+                    ...prevTempPhotos,
+                    [selectedCategory]: prevTempPhotos[selectedCategory].map((photo, index) => {
+                      if (index === prevTempPhotos[selectedCategory].length - 1) {
+                        return { ...photo, description: newDescription };
+                      }
+                      return photo;
+                    })
+                  }));
+                }}
+              />
             </Card.Text>
             <Row className='upload-submit-buttons'>
               <Col xs="12">
-                <Button 
-                  {...getRootProps()} 
-                  variant="secondary" 
+                <Button
+                  {...getRootProps()}
+                  variant="secondary"
                   disabled={
-                    tempPhotos.filter(photo => photo.category === selectedCategory).length >= maxUploadsPerCategory
+                    !selectedCategory ||
+                    (tempPhotos[selectedCategory]?.length || 0) >= maxUploadsPerCategory ||
+                    Object.keys(tempPhotos).reduce((total, category) => total + (tempPhotos[category]?.length || 0), 0) >= maxTotalUploads
                   }
                 >
                   Upload
@@ -118,8 +147,13 @@ const ParticipationData = () => {
         </Card>
       </Row>
       <Row className="mt-3 justify-content-center">
-        {selectedCategory && photos.filter(photo => photo.category === selectedCategory).map((photo, index) => (
+        {selectedCategory && (photos[selectedCategory] || []).map((photo, index) => (
           <Col key={index} className="mb-3" xs={6} md={4} lg={3}>
+            <Image src={photo.url} thumbnail onClick={() => handleImageClick(photo.url, photo.description)} />
+          </Col>
+        ))}
+        {selectedCategory && (tempPhotos[selectedCategory] || []).map((photo, index) => (
+          <Col key={`temp-${index}`} className="mb-3" xs={6} md={4} lg={3}>
             <Image src={photo.url} thumbnail onClick={() => handleImageClick(photo.url, photo.description)} />
           </Col>
         ))}
