@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
-import ModalCategory from '../modals/ModalCategory';
-import ModalCreateCategory from '../modals/ModalCreateCategory';
-import ModalCancelCreation from '../modals/ModalCancelCreation';
-import ModalSaveCreateCompetition from '../modals/ModalSaveCreateCompetition';
+import ModalCreateCategory from '../modals/category/ModalCreateCategory';
+import ModalCancelCreation from '../modals/competition/ModalCancelCreation';
+import ModalSaveCreateCompetition from '../modals/competition/ModalSaveCreateCompetition';
 import { useTranslation } from 'react-i18next';
 import { json, useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
@@ -14,17 +13,15 @@ import Config from '../config/Config';
 const CreateCompetitionForm = () => {
   const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
   const [modalShowAddCategory, setModalShowAddCategory] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [modalShowCancelCreation, setModalShowCancelCreation] = useState(false);
   const [modalShowCreateCompetition, setModalShowCreateCompetition] = useState(false);
-
   const [photoUploaderror, setUploadPhotoError] = useState('');
   const [photoLimitError, setPhotoLimitError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
-
-  const [t] = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const { getTokenHeader } = useAuth();
-
   const [formData, setFormData] = useState({
     end_date: '',
     photo_limit: '',
@@ -60,7 +57,7 @@ const CreateCompetitionForm = () => {
         imageData = response.data;
       })
       .catch((error) => {
-        console.error('Error:', error);
+        alert('Error:', error);
       });
 
     return imageData;
@@ -78,8 +75,13 @@ const CreateCompetitionForm = () => {
     setModalShowCreateCompetition(true);
   };
 
+  const handleCreateCategory = (categoryData) => {
+    setCategories([...categories, categoryData]);
+    setModalShowCreateCategory(false);
+  };
+
   const confirmSave = async () => {
-    const data = formData;
+    const data = { ...formData, categories: categories };
 
     const imageReponse = await uploadImage(selectedFile);
     if (!!imageReponse) {
@@ -112,11 +114,11 @@ const CreateCompetitionForm = () => {
       'description_lt',
       'description_en'
     ];
-
     for (const field of requiredFields) {
-      return !!data[field];
+      if (!data[field]) {
+        return false;
+      }
     }
-
     return true;
   };
 
@@ -169,14 +171,6 @@ const CreateCompetitionForm = () => {
     setModalShowCreateCategory(false);
   };
 
-  const modalHandleOpenAddCategory = () => {
-    setModalShowAddCategory(true);
-  };
-
-  const modalHandleCloseAddCategory = () => {
-    setModalShowAddCategory(false);
-  };
-
   const modalHadleOpenCancelCreation = () => {
     setModalShowCancelCreation(true);
   };
@@ -187,6 +181,24 @@ const CreateCompetitionForm = () => {
 
   const modalHandleCloseCreateCompetition = () => {
     setModalShowCreateCompetition(false);
+  };
+
+  const maxLengthCheck = (event) => {
+    let date = event.target.value;
+    if (date) {
+      let dateArr = date.split('-');
+      if (dateArr[0] && dateArr[0].length > 4) {
+        dateArr[0] = dateArr[0].substr(0, 4);
+        date = dateArr.join('-');
+        event.target.value = date;
+      }
+      if (date.length === 4) {
+        const nextInput = event.target.nextElementSibling;
+        if (nextInput && nextInput.tagName === 'INPUT') {
+          nextInput.focus();
+        }
+      }
+    }
   };
 
   return (
@@ -314,10 +326,10 @@ const CreateCompetitionForm = () => {
                     onChange={handleInputChange}
                   >
                     <option value=""></option>
-                    <option value="COMING">{t('editcomp.coming')}</option>
-                    <option value="EVALUATES">{t('editcomp.evaluates')}</option>
-                    <option value="GOING">{t('editcomp.going')}</option>
-                    <option value="FINISHED">{t('editcomp.finished')}</option>
+                    <option value="coming">{t('editcomp.coming')}</option>
+                    <option value="evaluates">{t('editcomp.evaluates')}</option>
+                    <option value="going">{t('editcomp.going')}</option>
+                    <option value="finished">{t('editcomp.finished')}</option>
                   </Form.Select>
                 </Col>
                 <Col xs="12" md="4">
@@ -329,8 +341,8 @@ const CreateCompetitionForm = () => {
                     onChange={handleInputChange}
                   >
                     <option value=""></option>
-                    <option value="PUBLIC">{t('editcomp.public')}</option>
-                    <option value="PRIVATE">{t('editcomp.private')}</option>
+                    <option value="public">{t('editcomp.public')}</option>
+                    <option value="private">{t('editcomp.private')}</option>
                   </Form.Select>
                 </Col>
               </Row>
@@ -343,6 +355,7 @@ const CreateCompetitionForm = () => {
                     name="start_date"
                     value={formData.start_date}
                     onChange={handleInputChange}
+                    onInput={maxLengthCheck}
                   />
                 </Col>
                 <Col>
@@ -353,6 +366,7 @@ const CreateCompetitionForm = () => {
                     name="end_date"
                     value={formData.end_date}
                     onChange={handleInputChange}
+                    onInput={maxLengthCheck}
                   />
                 </Col>
               </Row>
@@ -365,18 +379,22 @@ const CreateCompetitionForm = () => {
                 <Col xs="6" xl="8" className="justify-content-xl-center py-3">
                   <Container className="pt-3">
                     <h2>{t('editcomp.Addcategory')}</h2>
+                    {categories.map((category, index) => (
+                      <div key={index}>
+                        <Form.Label>
+                          {i18n.language === 'en'
+                            ? category.category_name_en
+                            : category.category_name_lt}
+                        </Form.Label>
+                      </div>
+                    ))}
                   </Container>
                 </Col>
                 <Col xs="6" xl="4" className="justify-content-xl-center">
                   <Row>
                     <Col xl="12">
                       <Button variant="secondary" onClick={modalHandleOpenCreateCategory}>
-                        {t('modalCategory.titleAdd')}
-                      </Button>
-                    </Col>
-                    <Col xl="12">
-                      <Button variant="secondary" onClick={modalHandleOpenAddCategory}>
-                        {t('modalCategory.titleEdit')}
+                        {t('modalCreate.titleCreate')}
                       </Button>
                     </Col>
                   </Row>
@@ -386,10 +404,7 @@ const CreateCompetitionForm = () => {
               <ModalCreateCategory
                 showModal={modalShowCreateCategory}
                 onClose={modalHandleCloseCreateCategory}
-              />
-              <ModalCategory
-                showModal={modalShowAddCategory}
-                onClose={modalHandleCloseAddCategory}
+                onCreateCategory={handleCreateCategory}
               />
               <ModalCancelCreation
                 showModal={modalShowCancelCreation}
