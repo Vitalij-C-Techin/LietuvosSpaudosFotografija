@@ -81,7 +81,7 @@ const CreateCompetitionForm = () => {
   };
 
   const confirmSave = async () => {
-    const data = formData;
+    const data = { ...formData, categories: categories };
 
     const imageReponse = await uploadImage(selectedFile);
     if (!!imageReponse) {
