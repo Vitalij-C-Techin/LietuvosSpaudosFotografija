@@ -12,31 +12,18 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PhotoRecordResponse {
     private UUID uuid;
-    @JsonProperty("name")
+    @JsonProperty("name_lt")
     private String nameLt;
     @JsonProperty("name_en")
     private String nameEn;
-    @JsonProperty("description")
+    @JsonProperty("description_lt")
     private String descriptionLt;
     @JsonProperty("description_en")
     private String descriptionEn;
     private int position;
-    @JsonProperty("original")
-    private String originalImgUrl;
-    @JsonProperty("thumbnail")
-    private String thumbnailImgUrl;
+    @JsonProperty("submission_id")
+    private UUID submissionUuid;
 
-
-    public PhotoRecordResponse(UUID uuid, String nameLt, String nameEn, String descriptionLt, String descriptionEn, int position) {
-        this.uuid = uuid;
-        this.nameLt = nameLt;
-        this.nameEn = nameEn;
-        this.descriptionLt = descriptionLt;
-        this.descriptionEn = descriptionEn;
-        this.position = position;
-        this.originalImgUrl = "http://localhost:8080/photo/" + uuid + ".jpeg";
-        this.thumbnailImgUrl = "http://localhost:8080/photo/" + uuid + "-small.jpeg";
-    }
 
 
 }

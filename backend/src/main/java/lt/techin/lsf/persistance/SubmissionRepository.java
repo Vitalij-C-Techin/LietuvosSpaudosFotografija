@@ -13,6 +13,7 @@ import java.util.UUID;
 @Repository
 public interface SubmissionRepository extends JpaRepository<SubmissionRecord, UUID>
 {
-    @Query("SELECT new lt.techin.lsf.model.response.PhotoRecordResponse(p.uuid, p.nameLt, p.nameEn, p.descriptionLt, p.descriptionEn, p.position) FROM AlbumRecord a JOIN a.photoList p WHERE a.submission.competitionUuid = :competitionUuid AND a.submission.categoryUuid = :categoryUuid")
+    @Query("SELECT new lt.techin.lsf.model.response.PhotoRecordResponse(p.uuid, p.nameLt, p.nameEn, p.descriptionLt, p.descriptionEn, p.position," +
+            " a.submission.uuid) FROM AlbumRecord a JOIN a.photoList p WHERE a.submission.competitionUuid = :competitionUuid AND a.submission.categoryUuid = :categoryUuid")
     List<PhotoRecordResponse> findPhotoRecordsByCompetitionUuidAndCategoryUuid(@Param("competitionUuid") UUID competitionUuid, @Param("categoryUuid") UUID categoryUuid);
 }
