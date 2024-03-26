@@ -32,6 +32,21 @@ const AdminManageUsersProfilePage = () => {
             .catch((error) => console.error(error));
     }, []);
 
+    const getRoleDisplayName = (role) => {
+        switch(role) {
+            case 'JURY':
+                return t('adminManageUsersPage.jury');
+            case 'USER':
+                return t('adminManageUsersPage.user');
+            case 'MODERATOR':
+                return t('adminManageUsersPage.moderator');
+            case 'ADMIN':
+                return t('adminManageUsersPage.admin');
+            default:
+                return role;
+        }
+    };
+
     return (
         <>
             {isLoading && <LoadingMessage/>}
@@ -44,7 +59,7 @@ const AdminManageUsersProfilePage = () => {
                     </Col>
                     {userData && (
                         <Col xs="12" md="6">
-                            <p className="profile-role">{userData.role}</p>
+                            <p className="profile-role">{getRoleDisplayName(userData.role)}</p>
                         </Col>
                     )}
                 </Row>

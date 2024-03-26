@@ -1,14 +1,27 @@
-import { useTransition } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { Button } from 'react-bootstrap';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { Authentication, IsAuthenticated, IsNotAuthenticated } from '../utils/Authentication';
+import {useAuth} from '../context/AuthContext';
+import {Button, Col, Container, Row} from 'react-bootstrap';
+import {NavLink} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
+import {IsAuthenticated, IsNotAuthenticated} from '../utils/Authentication';
 
 const ProfilePage = () => {
   const { t } = useTranslation();
   const { getUserData, isLoggedIn } = useAuth();
+
+  const getRoleDisplayName = (role) => {
+    switch(role) {
+      case 'JURY':
+        return t('adminManageUsersPage.jury');
+      case 'USER':
+        return t('adminManageUsersPage.user');
+      case 'MODERATOR':
+        return t('adminManageUsersPage.moderator');
+      case 'ADMIN':
+        return t('adminManageUsersPage.admin');
+      default:
+        return role;
+    }
+  };
 
   return (
     <>
@@ -33,7 +46,7 @@ const ProfilePage = () => {
           <IsAuthenticated>
             {!!getUserData() && (
               <Col xs="12" md="6">
-                <p className="profile-role">{getUserData().role}</p>
+                <p className="profile-role">{getRoleDisplayName(getUserData().role)}</p>
               </Col>
             )}
           </IsAuthenticated>

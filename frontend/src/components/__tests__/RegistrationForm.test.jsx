@@ -225,7 +225,9 @@ describe('RegistrationForm', () => {
 
         await waitFor(() => {
             expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/api/v1/register', formData);
-            expect(global.alert).toHaveBeenCalledWith(i18n.t('registrationPage.registerSuccessful'));
+            expect(screen.getByTestId('modal-success')).toBeInTheDocument();
+        }).then(() => {
+            fireEvent.click(screen.getByText(i18n.t('modal.continue')));
             expect(mockedUsedNavigate).toHaveBeenCalledWith('/login');
         });
     });
