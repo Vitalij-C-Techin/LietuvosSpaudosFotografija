@@ -88,6 +88,18 @@ const ParticipationData = () => {
     setModalData({ image: null, description: '' });
   };
 
+  const removePhoto = (category, index, isTempPhoto) => {
+    if (isTempPhoto) {
+      const updatedTempPhotos = { ...tempPhotos };
+      updatedTempPhotos[category] = tempPhotos[category].filter((_, i) => i !== index);
+      setTempPhotos(updatedTempPhotos);
+    } else {
+      const updatedPhotos = { ...photos };
+      updatedPhotos[category] = photos[category].filter((_, i) => i !== index);
+      setPhotos(updatedPhotos);
+    }
+  };
+
   return (
     <Container className="participation-data-container">
       <Row className="justify-content-center">
@@ -173,24 +185,44 @@ const ParticipationData = () => {
         </Card>
       </Row>
       <Row className="mt-3 justify-content-center">
-        {selectedCategory &&
-          (photos[selectedCategory] || []).map((photo, index) => (
-            <Col key={index} className="mb-3" xs={6} md={4} lg={3}>
+        {(photos[selectedCategory] || []).map((photo, index) => (
+          <Col key={index} className="mb-3" xs={6} md={4} lg={3}>
+            <div style={{ position: 'relative' }}>
               <Image
                 src={photo.url}
                 thumbnail
                 onClick={() => handleImageClick(photo.url, photo.description)}
               />
-            </Col>
-          ))}
+
+              <Button
+                variant="danger"
+                size="sm"
+                style={{ position: 'absolute', top: 0, left: 0 }}
+                onClick={() => removePhoto(selectedCategory, index)}
+              >
+                X
+              </Button>
+            </div>
+          </Col>
+        ))}
         {selectedCategory &&
           (tempPhotos[selectedCategory] || []).map((photo, index) => (
             <Col key={`temp-${index}`} className="mb-3" xs={6} md={4} lg={3}>
-              <Image
-                src={photo.url}
-                thumbnail
-                onClick={() => handleImageClick(photo.url, photo.description)}
-              />
+              <div style={{ position: 'relative' }}>
+                <Image
+                  src={photo.url}
+                  thumbnail
+                  onClick={() => handleImageClick(photo.url, photo.description)}
+                />
+                <Button
+                  variant="danger"
+                  size="sm"
+                  style={{ position: 'absolute', top: 0, left: 0 }}
+                  onClick={() => removePhoto(selectedCategory, index, true)}
+                >
+                  X
+                </Button>
+              </div>
             </Col>
           ))}
       </Row>
