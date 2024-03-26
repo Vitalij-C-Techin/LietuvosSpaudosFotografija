@@ -1,5 +1,6 @@
 package lt.techin.lsf.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.model.requests.CreateAlbumRequest;
 import lt.techin.lsf.model.requests.UpdateAlbumRequest;
@@ -9,6 +10,7 @@ import lt.techin.lsf.persistance.SubmissionRepository;
 import lt.techin.lsf.persistance.model.AlbumRecord;
 import lt.techin.lsf.persistance.model.PhotoRecord;
 import lt.techin.lsf.persistance.model.SubmissionRecord;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,14 +43,13 @@ public class AlbumService {
                 .type(request.getType())
                 .status(request.getStatus())
                 .build();
-        // ar naudoti optional?
+
         Optional<SubmissionRecord> submissionOptional = submissionRepository.findById(request.getSubmissionUuid());
         if (submissionOptional.isPresent()) {
             SubmissionRecord submissionRecord = submissionOptional.get();
             album.setSubmission(submissionRecord);
         } else {
-            // kaip cia geriau parodyti klaida?
-            System.out.println("Submission not found");
+            throw new EntityNotFoundException("Submission not found.");
         }
         return albumRepository.save(album);
     }
@@ -66,16 +67,15 @@ public class AlbumService {
         if (null == album) {
             return null;
         }
-        // updeitina albuma su naujais duomenimis
+
         Optional<SubmissionRecord> submissionOptional = submissionRepository.findById(request.getSubmissionUuid());
         if (submissionOptional.isPresent()) {
             SubmissionRecord submissionRecord = submissionOptional.get();
             album.setSubmission(submissionRecord);
         } else {
-            System.out.println("Submission not found");
+            throw new EntityNotFoundException("Submission not found.");
         }
-        // buvo taip
-//        album.setSubmissionUuid(request.getSubmissionUuid());
+
         album.setNameLt(request.getNameLt());
         album.setNameEn(request.getNameEn());
         album.setDescriptionLt(request.getDescriptionLt());
