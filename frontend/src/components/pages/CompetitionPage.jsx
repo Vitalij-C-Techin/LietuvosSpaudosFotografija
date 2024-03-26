@@ -1,16 +1,20 @@
 import { useState, useRef, useEffect } from 'react';
-import { Container, Image, Col, Row, Card, Pagination, Button } from 'react-bootstrap';
+import { Container, Image, Col, Row, Card, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import imagePlaceHolder from '../../images/image.jpg';
 import ImageGallery from 'react-image-gallery';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { Spinner } from 'react-bootstrap';
+import Config from '../config/Config';
 
 const CompetitionPage = () => {
   const { comp_uuid, category_uuid } = useParams();
   const { getUserData } = useAuth();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   console.log('Competition UUID: ' + comp_uuid);
   const { getToken } = useAuth();
   const token = getToken();
@@ -20,8 +24,9 @@ const CompetitionPage = () => {
   console.log('Current Language:', lang);
 
   useEffect(() => {
+    setLoading(true);
     axios
-      .get(`http://localhost:8080/api/v1/competition/${comp_uuid}/category/${category_uuid}`, {
+      .get(`${Config.apiDomain}/api/v1/competition/${comp_uuid}/category/${category_uuid}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -30,19 +35,19 @@ const CompetitionPage = () => {
         console.log(response.data);
         const fetchedImages = response.data.map((image) => {
           return {
-            original: 'http://localhost:8080/photo/' + image.uuid + '.jpeg',
-            thumbnail: 'http://localhost:8080/photo/' + image.uuid + '-small.jpeg',
-
-            description: image.description,
-            desc1: lang === 'en' ? image.description_en : image.description,
-            name: image.name
+            original: `${Config.apiDomain}/photo/${image.uuid}.jpeg`,
+            thumbnail: `${Config.apiDomain}/photo/${image.uuid}-small.jpeg`,
+            description: lang === 'en' ? image.description_en : image.description_lt,
+            name: lang === 'en' ? image.name_en : image.name_lt
           };
         });
         setImages(fetchedImages);
       })
       .catch((error) => {
         console.log(error);
-      });
+        setError('Failed to fetch data');
+      })
+      .finally(() => setLoading(false));
   }, [comp_uuid, category_uuid, token]);
 
   const juryId = getUserData().uuid;
@@ -142,20 +147,25 @@ const CompetitionPage = () => {
         </Row>
       </Container>
       <div className="divider"></div>
+      {loading ? (
+        <div className="d-flex justify-content-center mt-5">
+          <Spinner animation="border" />
+        </div>
+      ) : null}
+      <div>{error && <p>{error}</p>}</div>
       <Row className="mx-1">
         {images.map((image, index) => (
-          <Col key={index} xl="4" className="my-3">
+          <Col key={index} xl="2" className="my-3">
             <Card>
-              <Card.Img thumbnail src={image.thumbnail} onClick={() => handleImageClick(index)} />
-              <h1>{image.desc1}</h1>
-              {/* <Image
-                src={image.original}
-                rounded
-                style={{ width: '100%', height: 'auto' }}
+              <Card.Header>{image.name}</Card.Header>
+              <Card.Img
+                thumbnail
+                src={image.thumbnail}
                 onClick={() => handleImageClick(index)}
-              /> */}
+                alt={image.name}
+              />
               <Card body>
-                <Card body>This is some text within a card body.</Card>
+                <Card body>{image.description}</Card>
               </Card>
               <Button variant="outline-light">
                 {' '}
