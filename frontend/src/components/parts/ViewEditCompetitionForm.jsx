@@ -1,89 +1,65 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Container, Card, Image, Button, Form, Col, Row } from 'react-bootstrap';
-import ModalCategory from '../modals/ModalCategory';
-import ModalCreateCategory from '../modals/ModalCreateCategory';
-import ModalDeleteCompetition from '../modals/ModalDeleteCompetition';
-import ModalSaveCreateCompetition from '../modals/ModalSaveCreateCompetition';
+import ModalEditCategory from '../modals/category/ModalEditCategory';
+import ModalDeleteCompetition from '../modals/competition/ModalDeleteCompetition';
+import ModalSaveCreateCompetition from '../modals/competition/ModalSaveCreateCompetition';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import Config from '../config/Config';
-import Photo from '../utils/Photo';
 
-const ViewEditCompetitionForm = ({ uuid }) => {
-  const { t } = useTranslation();
+const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
   const navigate = useNavigate();
 
-  const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
-  const [modalShowAddCategory, setModalShowAddCategory] = useState(false);
+  const [modalShowEditCategory, setModalShowEditCategory] = useState(false);
   const [modalShowDeleteCompetition, setModalShowDeleteCompetition] = useState(false);
   const [modalShowCreateCompetition, setModalShowCreateCompetition] = useState(false);
+
+  const [categories, setCategories] = useState([]);
+  const [selectedCategoryUUID, setSelectedCategoryUUID] = useState(null);
+
   const [isFormChanged, setIsFormChanged] = useState(false);
+  const { t, i18n } = useTranslation();
   const [photoLimitError, setPhotoLimitError] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
-  const [photoUploadError, setPhotoUploadError] = useState('');
+  const [photoUploaderror, setPhotoUploadError] = useState('');
   const { getTokenHeader } = useAuth();
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
-    let url = Config.apiDomain + Config.endpoints.competitions.edit;
-    url = url.replace('{uuid}', uuid);
+    const fetchCompetitionData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/v1/competition/${uuid}`, {
+          headers: getTokenHeader()
+        });
+        const competitionData = response.data;
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          name_en: competitionData.data.name_en || '',
+          name_lt: competitionData.data.name_lt || '',
+          description_en: competitionData.data.description_en || '',
+          description_lt: competitionData.data.description_lt || '',
+          start_date: competitionData.data.start_date || '',
+          end_date: competitionData.data.end_date || '',
+          status: competitionData.data.status || '',
+          visibility: competitionData.data.visibility || '',
+          photo_limit: competitionData.data.photo_limit || ''
+        }));
 
-    axios
-      .get(url, {
-        headers: getTokenHeader()
-      })
-      .then((response) => {
-        setFormData(response.data.data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, [uuid]);
+        const categoriesResponse = await axios.get(
+          `http://localhost:8080/api/v1/competition/${uuid}/categories`,
+          { headers: getTokenHeader() }
+        );
 
-  const uploadImage = async (file) => {
-    if (!!!file) {
-      return false;
-    }
-
-    let imageData = false;
-
-    const url = Config.apiDomain + Config.endpoints.photo.add;
-
-    const data = new FormData();
-    data.append('image', file, file.name);
-
-    await axios
-      .post(url, data, {
-        headers: {
-          'Content-Type': `multipart/form-data`,
-          ...getTokenHeader()
-        }
-      })
-      .then((response) => {
-        imageData = response.data;
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-
-    return imageData;
-  };
-
-  const getImage = () => {
-    if (selectedFile) {
-      return URL.createObjectURL(selectedFile);
-    }
-
-    const url = new Photo(formData.photo).getPhotoSmallUrl();
-    if (!!url) {
-      return url;
-    }
-
-    return imagePlaceHolder;
-  };
+        const categoriesData = categoriesResponse.data;
+        setCategories([...categoriesData]);
+      } catch (error) {
+        alert(t('editcomp.error2'), error);
+      }
+    };
+    fetchCompetitionData();
+  }, [uuid, getTokenHeader, useCallback(modalHandleOpenCreateCategory)]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -105,94 +81,87 @@ const ViewEditCompetitionForm = ({ uuid }) => {
     }
   };
 
+  console.log(formData);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-
-    if (!file) {
+    const allowedTypes = ['image/jpg'];
+    if (file) {
+      if (!allowedTypes.includes(file.type)) {
+        setSelectedFile(file);
+        setPhotoUploadError(t('editcomp.allowedTypes'));
+      } else {
+        setSelectedFile(file);
+        setPhotoUploadError('');
+      }
+    } else {
       setPhotoUploadError('');
-
-      return;
-    }
-
-    if (!allowedTypes.includes(file.type)) {
       setSelectedFile(null);
-      setPhotoUploadError(t('editcomp.allowedTypes'));
-
-      return;
     }
-
-    setSelectedFile(file);
-    setPhotoUploadError('');
+    setIsFormChanged(true);
   };
 
   const confirmSave = async () => {
-    const data = formData;
-
-    const imageReponse = await uploadImage(selectedFile);
-    if (!!imageReponse) {
-      data.photo = imageReponse;
-      data.image_uuid = imageReponse.uuid;
-    }
-
-    let url = Config.apiDomain + Config.endpoints.competitions.edit;
-    url = url.replace('{uuid}', uuid);
-
-    axios
-      .put(url, data, {
+    try {
+      await axios.put(`http://localhost:8080/api/v1/competition/${uuid}`, formData, {
         headers: getTokenHeader()
-      })
-      .then((response) => {
-        navigate('/admin-competitions-list');
-      })
-      .catch((error) => {
-        console.error('Error:', error);
       });
+      navigate('/admin-competitions-list');
+    } catch (error) {
+      alert(t('editcomp.error3'), error);
+    }
   };
-
   const handleSave = async () => {
     if (new Date(formData.end_date) < new Date(formData.start_date)) {
       alert(t('editcomp.dateAllert'));
       return;
     }
-
     setModalShowCreateCompetition(true);
   };
 
   const handleDelete = async () => {
-    let url = Config.apiDomain + Config.endpoints.competitions.edit;
-    url = url.replace('{uuid}', uuid);
-
-    axios
-      .delete(url, {
+    try {
+      await axios.delete(`http://localhost:8080/api/v1/competition/${uuid}`, {
         headers: getTokenHeader()
-      })
-      .then(() => {
-        navigate('/admin-competitions-list');
-      })
-      .catch((error) => {
-        console.log('Error:', error);
       });
+      navigate('/admin-competitions-list');
+    } catch (error) {
+      alert(t('editcomp.error4'), error);
+    }
+  };
+
+  const handleCategoryOpen = (categoryUUID) => {
+    setModalShowEditCategory(true);
+    setSelectedCategoryUUID(categoryUUID);
+  };
+
+  const handleCategoryChange = async (updatedCategoryUUID, updatedCategoryData) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/api/v1/category/${updatedCategoryUUID}`,
+        updatedCategoryData,
+        {
+          headers: getTokenHeader()
+        }
+      );
+      const updatedCategory = response.data;
+      setCategories((prevCategories) =>
+        prevCategories.map((category) =>
+          category.uuid === updatedCategoryUUID ? updatedCategory : category
+        )
+      );
+    } catch (error) {
+      alert(t('editcomp.error'), error);
+    }
+  };
+
+  const updateCategoriesAfterDelete = (deletedCategoryUUID) => {
+    setCategories((prevCategories) =>
+      prevCategories.filter((category) => category.uuid !== deletedCategoryUUID)
+    );
   };
 
   const deleteCompetition = async () => {
     setModalShowDeleteCompetition(true);
-  };
-
-  const modalHandleOpenCreateCategory = () => {
-    setModalShowCreateCategory(true);
-  };
-
-  const modalHandleCloseCreateCategory = () => {
-    setModalShowCreateCategory(false);
-  };
-
-  const modalHandleOpenAddCategory = () => {
-    setModalShowAddCategory(true);
-  };
-
-  const modalHandleCloseAddCategory = () => {
-    setModalShowAddCategory(false);
   };
 
   const modalHandelOpenDeleteCompetition = () => {
@@ -205,6 +174,26 @@ const ViewEditCompetitionForm = ({ uuid }) => {
 
   const modalHandleCloseCreateCompetition = () => {
     setModalShowCreateCompetition(false);
+  };
+
+  const modalHandleOpenEditCategory = () => {
+    setModalShowEditCategory(true);
+  };
+
+  const modalHandleCloseEditCategory = () => {
+    setModalShowEditCategory(false);
+  };
+
+  const maxLengthCheck = (event) => {
+    let date = event.target.value;
+    if (date) {
+      let dateArr = date.split('-');
+      if (dateArr[0] && dateArr[0].length > 4) {
+        dateArr[0] = dateArr[0].substr(0, 4);
+        date = dateArr.join('-');
+        event.target.value = date;
+      }
+    }
   };
 
   return (
@@ -244,7 +233,10 @@ const ViewEditCompetitionForm = ({ uuid }) => {
               <Row className="container-image-row">
                 <Col md="4" xl="6">
                   <Container className="image-container mb-3">
-                    <Image src={getImage()} rounded />
+                    <Image
+                      src={selectedFile ? URL.createObjectURL(selectedFile) : imagePlaceHolder}
+                      rounded
+                    />
                   </Container>
                 </Col>
                 <Col>
@@ -271,7 +263,7 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                     </Col>
                     <Col xs={{ order: 'first' }} xl={{ order: 'last', span: 12 }}>
                       <Row>
-                        {photoUploadError && <p className="text-danger">{photoUploadError}</p>}
+                        {photoUploaderror && <p className="text-danger">{photoUploaderror}</p>}
                         <Form.Group controlId="formFile">
                           <Form.Label>{t('editcomp.compPicButton')}</Form.Label>
                           <Form.Control type="file" onChange={handleFileChange} />
@@ -307,11 +299,11 @@ const ViewEditCompetitionForm = ({ uuid }) => {
               </Row>
               <Row className="competition-selections-row">
                 <Col xs="12" md="4">
-                  <Form.Label htmlFor="photo_limit">{t('editcomp.Plimit')}</Form.Label>
+                  <Form.Label htmlFor={`photo_limit_${uuid}`}>{t('editcomp.Plimit')}</Form.Label>
 
                   <Form.Control
                     name="photo_limit"
-                    id="photo_limit"
+                    id={`photo_limit_${uuid}`}
                     value={formData.photo_limit || ''}
                     onChange={handleInputChange}
                     type="number"
@@ -358,6 +350,7 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                     name="start_date"
                     value={formData.start_date || ''}
                     onChange={handleInputChange}
+                    onInput={maxLengthCheck}
                   />
                 </Col>
                 <Col>
@@ -368,6 +361,7 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                     name="end_date"
                     value={formData.end_date || ''}
                     onChange={handleInputChange}
+                    onInput={maxLengthCheck}
                   />
                 </Col>
               </Row>
@@ -380,31 +374,33 @@ const ViewEditCompetitionForm = ({ uuid }) => {
                 <Col xs="6" xl="8" className="justify-content-xl-center py-3">
                   <Container className="pt-3">
                     <h2>{t('editcomp.Addcategory')}</h2>
+                    {categories.map((category) => (
+                      <div key={category.uuid} onClick={() => handleCategoryOpen(category.uuid)}>
+                        <Form.Label>
+                          {i18n.language === 'en' ? category.nameEn : category.nameLt}
+                        </Form.Label>
+                      </div>
+                    ))}
                   </Container>
                 </Col>
                 <Col xs="6" xl="4" className="justify-content-xl-center">
                   <Row>
                     <Col xl="12">
                       <Button variant="secondary" onClick={modalHandleOpenCreateCategory}>
-                        {t('modalCategory.titleAdd')}
+                        {t('modalCreate.titleCreate')}
                       </Button>
                     </Col>
-                    <Col xl="12">
-                      <Button variant="secondary" onClick={modalHandleOpenAddCategory}>
-                        {t('modalCategory.titleEdit')}
-                      </Button>
-                    </Col>
+                    <Col xl="12"></Col>
                   </Row>
                 </Col>
               </Row>
               <div className="divider"></div>
-              <ModalCreateCategory
-                showModal={modalShowCreateCategory}
-                onClose={modalHandleCloseCreateCategory}
-              />
-              <ModalCategory
-                showModal={modalShowAddCategory}
-                onClose={modalHandleCloseAddCategory}
+              <ModalEditCategory
+                showModal={modalShowEditCategory}
+                onClose={modalHandleCloseEditCategory}
+                selectedCategoryUUID={selectedCategoryUUID}
+                handleCategoryChange={handleCategoryChange}
+                updateCategoriesAfterDelete={updateCategoriesAfterDelete}
               />
               <ModalDeleteCompetition
                 showModal={modalShowDeleteCompetition}

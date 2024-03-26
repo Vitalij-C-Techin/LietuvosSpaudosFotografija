@@ -1,9 +1,35 @@
 import ViewEditCompetitionForm from '../../parts/ViewEditCompetitionForm';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import ModalCreateCategory from '../../modals/category/ModalCreateCategory';
 
 const CompetitionManagementPage = () => {
   const { uuid } = useParams();
+  const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
 
-  return <ViewEditCompetitionForm uuid={uuid} />;
+  const modalHandleOpenCreateCategory = () => {
+    setModalShowCreateCategory(true);
+  };
+
+  const modalHandleCloseCreateCategory = () => {
+    setModalShowCreateCategory(false);
+  };
+
+  const isEditView = !!uuid;
+
+  return (
+    <>
+      <ViewEditCompetitionForm
+        uuid={uuid}
+        modalHandleOpenCreateCategory={modalHandleOpenCreateCategory}
+      />
+      <ModalCreateCategory
+        showModal={modalShowCreateCategory}
+        onClose={() => modalHandleCloseCreateCategory()}
+        uuid={uuid}
+        isEditView={isEditView}
+      />
+    </>
+  );
 };
 export default CompetitionManagementPage;
