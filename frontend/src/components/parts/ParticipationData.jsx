@@ -15,8 +15,15 @@ const ParticipationData = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState({ image: null, description: '' });
+  const maxUploadsPerCategory = 3; // Maximum uploads per category
 
   const onDrop = (acceptedFiles) => {
+    if (tempPhotos.filter(photo => photo.category === selectedCategory).length >= maxUploadsPerCategory) {
+      // Alert the user or provide some indication that the limit has been reached
+      alert(`Maximum uploads (${maxUploadsPerCategory}) reached for this category.`);
+      return;
+    }
+
     const newTempPhotos = acceptedFiles.map(file => ({
       file,
       url: URL.createObjectURL(file),
@@ -91,7 +98,13 @@ const ParticipationData = () => {
             </Card.Text>
             <Row>
               <Col xs="12">
-                <Button {...getRootProps()} variant="secondary">
+                <Button 
+                  {...getRootProps()} 
+                  variant="secondary" 
+                  disabled={
+                    tempPhotos.filter(photo => photo.category === selectedCategory).length >= maxUploadsPerCategory
+                  }
+                >
                   Upload
                 </Button>
               </Col>
