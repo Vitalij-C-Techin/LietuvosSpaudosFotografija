@@ -4,10 +4,11 @@ import ModalCreateCategory from '../modals/category/ModalCreateCategory';
 import ModalCancelCreation from '../modals/competition/ModalCancelCreation';
 import ModalSaveCreateCompetition from '../modals/competition/ModalSaveCreateCompetition';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import imagePlaceHolder from '../../images/image.jpg';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
+import Config from '../config/Config';
 
 const CreateCompetitionForm = () => {
   const [modalShowCreateCategory, setModalShowCreateCategory] = useState(false);
@@ -33,9 +34,33 @@ const CreateCompetitionForm = () => {
     description_en: ''
   });
 
-  const handleCreateCategory = (categoryData) => {
-    setCategories([...categories, categoryData]);
-    setModalShowCreateCategory(false);
+  const uploadImage = async (file) => {
+    if (!!!file) {
+      return false;
+    }
+
+    let imageData = false;
+
+    const url = Config.apiDomain + Config.endpoints.photo.add;
+
+    const data = new FormData();
+    data.append('image', file, file.name);
+
+    await axios
+      .post(url, data, {
+        headers: {
+          'Content-Type': `multipart/form-data`,
+          ...getTokenHeader()
+        }
+      })
+      .then((response) => {
+        imageData = response.data;
+      })
+      .catch((error) => {
+        alert('Error:', error);
+      });
+
+    return imageData;
   };
 
   const handleSave = async () => {
@@ -50,16 +75,31 @@ const CreateCompetitionForm = () => {
     setModalShowCreateCompetition(true);
   };
 
+  const handleCreateCategory = (categoryData) => {
+    setCategories([...categories, categoryData]);
+    setModalShowCreateCategory(false);
+  };
+
   const confirmSave = async () => {
-    try {
-      const competitionData = { ...formData, categories: categories };
-      await axios.post('http://localhost:8080/api/v1/competition', competitionData, {
-        headers: getTokenHeader()
-      });
-      navigate('/admin-competitions-list');
-    } catch (error) {
-      alert(t('editcompt.error1'));
+    const data = formData;
+
+    const imageReponse = await uploadImage(selectedFile);
+    if (!!imageReponse) {
+      data.image_uuid = imageReponse.uuid;
     }
+
+    const url = Config.apiDomain + Config.endpoints.competitions.create;
+
+    axios
+      .post(url, data, {
+        headers: getTokenHeader()
+      })
+      .then((response) => {
+        navigate('/admin-competitions-list');
+      })
+      .catch((error) => {
+        alert(t('editcompt.error1'));
+      });
   };
 
   const isFormDataValid = (data) => {
@@ -105,18 +145,22 @@ const CreateCompetitionForm = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if (file) {
-      if (!allowedTypes.includes(file.type)) {
-        setSelectedFile(file);
-        setUploadPhotoError(t('editcomp.allowedTypes'));
-      } else {
-        setSelectedFile(file);
-        setUploadPhotoError('');
-      }
-    } else {
+
+    if (!file) {
       setUploadPhotoError('');
-      setSelectedFile(null);
+
+      return;
     }
+
+    if (!allowedTypes.includes(file.type)) {
+      setSelectedFile(null);
+      setUploadPhotoError(t('editcomp.allowedTypes'));
+
+      return;
+    }
+
+    setSelectedFile(file);
+    setUploadPhotoError('');
   };
 
   const modalHandleOpenCreateCategory = () => {
