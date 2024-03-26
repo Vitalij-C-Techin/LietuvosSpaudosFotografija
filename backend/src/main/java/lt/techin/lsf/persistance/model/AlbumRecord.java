@@ -21,9 +21,9 @@ public class AlbumRecord {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
-    @Column(name = "submission_uuid")
-    @JsonProperty("submission_uuid")
-    private UUID submissionUuid;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "submission_uuid", referencedColumnName = "uuid")
+    private SubmissionRecord submission;
 
     @JsonProperty("name_lt")
     @Column(name = "name_lt")
@@ -46,7 +46,6 @@ public class AlbumRecord {
 
     @Column(name = "status")
     private String status;
-
 
     /* --- */
 

@@ -1,11 +1,14 @@
 package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
+import lt.techin.lsf.model.response.PhotoRecordResponse;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import lt.techin.lsf.service.CompetitionService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -27,5 +30,12 @@ public class JuryController {
             @PathVariable int page
     ) {
         return competitionService.getJuryActiveCompetitionsWithPagination(page);
+    }
+
+    @GetMapping("/{comp_uuid}/category/{category_uuid}")
+    public ResponseEntity<List<PhotoRecordResponse>> getAllSubmissions(@PathVariable UUID comp_uuid,
+                                                                       @PathVariable UUID category_uuid) {
+        return ResponseEntity
+                .ok(competitionService.getAllPhotoRecordsForCompetitionAndCategory(comp_uuid, category_uuid));
     }
 }

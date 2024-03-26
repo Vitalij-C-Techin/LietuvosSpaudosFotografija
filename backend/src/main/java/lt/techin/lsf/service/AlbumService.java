@@ -1,17 +1,22 @@
 package lt.techin.lsf.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.model.requests.CreateAlbumRequest;
 import lt.techin.lsf.model.requests.UpdateAlbumRequest;
 import lt.techin.lsf.persistance.AlbumRepository;
 import lt.techin.lsf.persistance.PhotoRepository;
+import lt.techin.lsf.persistance.SubmissionRepository;
 import lt.techin.lsf.persistance.model.AlbumRecord;
 import lt.techin.lsf.persistance.model.PhotoRecord;
+import lt.techin.lsf.persistance.model.SubmissionRecord;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,7 +25,7 @@ public class AlbumService {
 
     private final AlbumRepository albumRepository;
     private final PhotoRepository photoRepository;
-
+    private final SubmissionRepository submissionRepository;
     private final PhotoService photoService;
 
     public AlbumRecord createAlbum(
@@ -31,7 +36,6 @@ public class AlbumService {
         }
 
         AlbumRecord album = AlbumRecord.builder()
-                .submissionUuid(request.getSubmissionUuid())
                 .nameLt(request.getNameLt())
                 .nameEn(request.getNameEn())
                 .descriptionLt(request.getDescriptionLt())
@@ -40,6 +44,13 @@ public class AlbumService {
                 .status(request.getStatus())
                 .build();
 
+        Optional<SubmissionRecord> submissionOptional = submissionRepository.findById(request.getSubmissionUuid());
+        if (submissionOptional.isPresent()) {
+            SubmissionRecord submissionRecord = submissionOptional.get();
+            album.setSubmission(submissionRecord);
+        } else {
+            throw new EntityNotFoundException("Submission not found.");
+        }
         return albumRepository.save(album);
     }
 
@@ -57,7 +68,14 @@ public class AlbumService {
             return null;
         }
 
-        album.setSubmissionUuid(request.getSubmissionUuid());
+        Optional<SubmissionRecord> submissionOptional = submissionRepository.findById(request.getSubmissionUuid());
+        if (submissionOptional.isPresent()) {
+            SubmissionRecord submissionRecord = submissionOptional.get();
+            album.setSubmission(submissionRecord);
+        } else {
+            throw new EntityNotFoundException("Submission not found.");
+        }
+
         album.setNameLt(request.getNameLt());
         album.setNameEn(request.getNameEn());
         album.setDescriptionLt(request.getDescriptionLt());

@@ -44,20 +44,14 @@ public class PhotoRecord {
     @Column(name = "stage")
     private String stage;
 
-
     /* --- */
-
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "album_uuid")
     private AlbumRecord album;
 
-
-    @OneToMany(
-            mappedBy = "photo",
-            cascade = CascadeType.ALL
-    )
+    @OneToMany(mappedBy = "photo", cascade = CascadeType.ALL)
     private Set<PhotoItemRecord> photoItemList = new HashSet<>();
 
     public void addPhotoItem(PhotoItemRecord photoItem) {
@@ -68,5 +62,3 @@ public class PhotoRecord {
         photoItemList.add(photoItem);
     }
 }
-
-
