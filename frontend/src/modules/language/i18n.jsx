@@ -240,6 +240,8 @@ i18n
             participate: 'Participate',
             registrationSuccess: 'Registration successful',
             continue: 'Continue',
+            updated: 'Data updated',
+            sent: "Request sent successfully",
             confirmDeleteMessage: 'Are you sure you want to delete category',
             confirmUpdateMessage: 'Are you sure you want to save changes',
             confirmTitle: 'Confirmation'
@@ -548,6 +550,8 @@ i18n
             participate: 'Dalyvauti',
             registrationSuccess: 'Registracija sėkminga',
             continue: 'Tęsti',
+            updated: 'Duomenys atnaujinti',
+            sent: 'Užklausa išsiųsta sėkmingai',
             confirmDeleteMessage: 'Ar jus tikrai norite ištrinti kategorija',
             confirmUpdateMessage: 'Ar jus tikrai norite išsaugoti pakeitimus',
             confirmTitle: 'Patvirtinimas'
