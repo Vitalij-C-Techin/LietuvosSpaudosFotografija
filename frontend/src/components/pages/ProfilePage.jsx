@@ -90,7 +90,8 @@ const ProfilePage = () => {
                 <div className="profile-divider-media-top"></div>
                 <Col xs="12">
                   <p className="profile-media">
-                    {t('profile.media')}: {getUserData().media_name ?? t('profile.noMedia')}
+                    {t('profile.media')}: {getUserData().media_name !== null
+                  && getUserData().media_name !== '' ? getUserData().media_name : t('profile.noMedia')}
                   </p>
                 </Col>
               </Col>

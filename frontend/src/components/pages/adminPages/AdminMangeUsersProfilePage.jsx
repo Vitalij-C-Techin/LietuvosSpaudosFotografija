@@ -93,7 +93,8 @@ const AdminManageUsersProfilePage = () => {
                             </Col>
                             <Col xs="12">
                                 <p className="profile-media">
-                                    {t('profile.media')}: {userData.media_name ?? t('profile.noMedia')}
+                                    {t('profile.media')}: {userData.media_name !== null
+                                    && userData.media_name !== '' ? userData.media_name : t('profile.noMedia')}
                                 </p>
                             </Col>
                             <div className="profile-divider-media-top"></div>
