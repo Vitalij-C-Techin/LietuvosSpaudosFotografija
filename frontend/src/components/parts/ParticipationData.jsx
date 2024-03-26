@@ -90,12 +90,12 @@ const ParticipationData = () => {
             />
             </Card.Text>
             <Row>
-              <Col>
+              <Col xs="12">
                 <Button {...getRootProps()} variant="secondary">
                   Upload
                 </Button>
               </Col>
-              <Col>
+              <Col xs="12">
                 <Button variant="secondary" onClick={handleSubmit}>
                   Submit
                 </Button>
