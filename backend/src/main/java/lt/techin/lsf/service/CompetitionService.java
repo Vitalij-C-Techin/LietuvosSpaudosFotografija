@@ -11,12 +11,16 @@ import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
 import lt.techin.lsf.model.response.CompetitionWithCategoriesResponse;
 import lt.techin.lsf.model.response.CreateCompetitionResponse;
+import lt.techin.lsf.model.response.PhotoRecordResponse;
 import lt.techin.lsf.persistance.CompetitionRepository;
+import lt.techin.lsf.persistance.SubmissionRepository;
 import lt.techin.lsf.persistance.model.CategoryRecord;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +34,7 @@ public class CompetitionService {
 
     private final AuthenticationService authenticationService;
     private final CategoryService categoryService;
+    private final SubmissionRepository submissionRepository;
 
     public CreateCompetitionResponse createCompetition(CreateCompetitionRequest competitionData) {
         if (hasCompetition(competitionData)) {
@@ -149,5 +154,14 @@ public class CompetitionService {
         return competitionRepository
                 .findById(uuid)
                 .orElseThrow(() -> new EntityNotFoundException("Competition not found."));
+    }
+
+    public List<PhotoRecordResponse> getAllPhotoRecordsForCompetitionAndCategory(UUID comp_uuid, UUID category_uuid) {
+        List<PhotoRecordResponse> photoRecords = submissionRepository.
+                findPhotoRecordsByCompetitionUuidAndCategoryUuid(comp_uuid, category_uuid);
+        if (photoRecords.isEmpty()) {
+            throw new EntityNotFoundException("Photos not found.");
+        }
+        return photoRecords;
     }
 }

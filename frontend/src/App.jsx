@@ -63,7 +63,10 @@ function App() {
             <Route element={<Authorization allowedRoles={['JURY']} />}>
               <Route path="/jury-competition-list" element={<JuryCompetitionsListPage />} />
               <Route path="/jury-competition/:uuid" element={<JuryCompetitionPage />} />
-              <Route path="/jury-category/:uuid" element={<JuryCategoryPage />} />
+              <Route
+                path="/jury-competition/:comp_uuid/category/:category_uuid"
+                element={<CompetitionPage />}
+              />
             </Route>
 
             <Route element={<Authorization allowedRoles={['ADMIN', 'MODERATOR']} />}>
@@ -79,13 +82,6 @@ function App() {
               <Route path="/create-competition" element={<CreateCompetition />} />
               <Route path="/admin-manage-users" element={<AdminManageUsersPage />} />
               <Route path="/admin-create-user" element={<AdminCreateUserPage />} />
-            </Route>
-
-            {
-              //TODO
-            }
-            <Route element={<Authorization allowedRoles={['JURY']} />}>
-              <Route path="/competition" element={<CompetitionPage />} />
             </Route>
 
             <Route path="/*" element={<ErrorPage />} />

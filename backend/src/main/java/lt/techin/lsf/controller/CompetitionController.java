@@ -6,9 +6,12 @@ import lt.techin.lsf.model.Competition;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
 import lt.techin.lsf.model.response.CreateCompetitionResponse;
+import lt.techin.lsf.model.response.PhotoRecordResponse;
+import lt.techin.lsf.persistance.SubmissionRepository;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import lt.techin.lsf.service.CompetitionService;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,66 +26,58 @@ public class CompetitionController {
 
     @PostMapping
     public CreateCompetitionResponse createCompetition(
-            @RequestBody CreateCompetitionRequest competition
-    ) {
+            @RequestBody CreateCompetitionRequest competition) {
         return competitionService.createCompetition(competition);
     }
 
     @DeleteMapping("/{uuid}")
     public void deleteCompetition(
-            @PathVariable UUID uuid
-    ) {
+            @PathVariable UUID uuid) {
         competitionService.deleteCompetition(uuid);
     }
 
     @GetMapping("/{uuid}")
     public Competition getCompetition(
-            @PathVariable UUID uuid
-    ) {
+            @PathVariable UUID uuid) {
         return competitionService.getCompetition(uuid);
     }
 
     @PutMapping("/{uuid}")
     public Competition updateCompetition(
             @PathVariable UUID uuid,
-            @RequestBody UpdateCompetitionRequest data
-    ) {
+            @RequestBody UpdateCompetitionRequest data) {
         return competitionService.updateCompetition(uuid, data);
     }
 
     @GetMapping("/{uuid}/categories")
     public List<Category> getCompetitionCategories(
-            @PathVariable UUID uuid
-    ) {
+            @PathVariable UUID uuid) {
         CompetitionRecord competitionRecord = competitionService.getCompetitionByUuid(uuid);
         return competitionService.getCompetitionWithCategories(competitionRecord);
     }
 
     @GetMapping("/all/{page}")
     public Page<CompetitionRecord> getAdminAllCompetitionsWithPagination(
-            @PathVariable int page
-    ) {
+            @PathVariable int page) {
         return competitionService.getAllCompetitionsWithPagination(page);
     }
 
     @GetMapping("/all/active/{page}")
     public Page<CompetitionRecord> getActiveCompetitionsWithPagination(
-            @PathVariable int page
-    ) {
+            @PathVariable int page) {
         return competitionService.getActiveCompetitionsWithPagination(page);
     }
 
     @GetMapping("/user/{page}")
     public Page<CompetitionRecord> getUserActiveCompetitionsWithPagination(
-            @PathVariable int page
-    ) {
+            @PathVariable int page) {
         return competitionService.getUserCompetitionsWithPagination(page);
     }
 
     @GetMapping("/user/participate/{page}")
     public Page<CompetitionRecord> getUserParticipateCompetitionsWithPagination(
-            @PathVariable int page
-    ) {
+            @PathVariable int page) {
         return competitionService.getUserNotParticipatedCompetitionsWithPagination(page);
     }
+
 }
