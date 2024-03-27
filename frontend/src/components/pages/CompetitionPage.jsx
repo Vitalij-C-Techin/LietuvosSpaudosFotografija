@@ -2,30 +2,30 @@ import { useState, useRef, useEffect } from 'react';
 import { Container, Image, Col, Row, Card, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import imagePlaceHolder from '../../images/image.jpg';
-import ImageGallery from 'react-image-gallery';
+import ImageGallery from 'react-image-gallery'; // Add this line
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import Config from '../config/Config';
+import LikeIcon from '../parts/thumbs-up-like-11260.png';
+import Competition from '../utils/Competition';
+import Photo from '../utils/Photo';
 
 const CompetitionPage = () => {
   const { comp_uuid, category_uuid } = useParams();
-  const { getUserData } = useAuth();
+  const { getUserData, getTokenHeader } = useAuth();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { getToken } = useAuth();
   const token = getToken();
   const [images, setImages] = useState([]);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const lang = i18n.language;
   const juryId = getUserData().uuid;
   const [evaluationList, setEvaluationList] = useState([]);
-
-  console.log('Evaluation List:', evaluationList);
-
-  console.log('Current Language:', lang);
+  const [competition, setCompetition] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -57,6 +57,33 @@ const CompetitionPage = () => {
       })
       .finally(() => setLoading(false));
   }, [comp_uuid, category_uuid, token]);
+
+  useEffect(() => {
+    setLoading(true);
+
+    let url = Config.apiDomain + Config.endpoints.jury.getSingle;
+    url = url.replace('{uuid}', comp_uuid);
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .get(url, cfg)
+      .then((response) => {
+        setCompetition(response.data);
+      })
+      .catch((error) => {
+        console.error('Error: ', error);
+
+        setCompetition(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -97,12 +124,11 @@ const CompetitionPage = () => {
         }
       )
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
         fetchEvaluationList();
       })
       .catch((error) => {
         console.log(error);
+        setError('Failed to fetch data');
       });
   };
 
@@ -127,6 +153,7 @@ const CompetitionPage = () => {
     setClickedImageIndex(index);
     setCurrentIndex(index);
   };
+
   const evaluationIds = evaluationList.map((item) => item.uuid);
 
   const renderCustomControls = () => {
@@ -143,7 +170,7 @@ const CompetitionPage = () => {
             onClick={handleButtonClick}
             className="image-gallery-icon"
           >
-            👍
+            <Image src={LikeIcon} alt="My Icon" style={{ width: '20px', height: '20px' }} />
           </Button>
         ) : (
           <Button
@@ -151,7 +178,7 @@ const CompetitionPage = () => {
             onClick={handleButtonClick}
             className="image-gallery-icon"
           >
-            no likes
+            Like
           </Button>
         )}
       </>
@@ -165,14 +192,8 @@ const CompetitionPage = () => {
           <Col xxl="2" xl="2" lg="2" md="3" sm="3" className="d-flex justify-content-center">
             <Image src={imagePlaceHolder} rounded style={{ width: '100%', height: 'auto' }} />
           </Col>
-
-          <Col>
-            <h4>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum ut facilis nihil aut
-              laudantium id fuga iure exercitationem qui enim optio culpa aperiam debitis modi quis
-              cumque non, illo cum!
-            </h4>
-          </Col>
+          <Col>{/* <h4>{competition && competition.getDescription()}</h4> */}</Col>
+          <Col>{/* <h4>{c.getDescription()}</h4> */}</Col>
         </Row>
       </Container>
       <div className="divider"></div>
@@ -186,14 +207,8 @@ const CompetitionPage = () => {
         {images.map((image, index) => (
           <Col key={index} xl="2" className="my-3">
             <Card>
-              <Card.Header>
-                {lang === 'en' ? image.name_en : image.name_lt} {image.imageId}
-                <div>
-                  {evaluationIds.includes(image.imageId) ? ' (Evaluated)' : ' (Not Evaluated)'}
-                </div>
-              </Card.Header>
+              <Card.Header>{lang === 'en' ? image.name_en : image.name_lt}</Card.Header>
               <Card.Img
-                thumbnail
                 src={image.thumbnail}
                 onClick={() => handleImageClick(index)}
                 alt={image.name}
@@ -205,7 +220,11 @@ const CompetitionPage = () => {
                 variant="outline-secondary"
                 onClick={() => onImageLike(image.imageId, image.submissionId)}
               >
-                👍
+                {evaluationIds.includes(image.imageId) ? (
+                  <Image src={LikeIcon} alt="My Icon" style={{ width: '20px', height: '20px' }} />
+                ) : (
+                  'Like'
+                )}
               </Button>
             </Card>
           </Col>

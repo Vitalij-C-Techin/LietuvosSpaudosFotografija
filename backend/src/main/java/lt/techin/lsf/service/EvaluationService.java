@@ -10,7 +10,6 @@ import lt.techin.lsf.persistance.PhotoRepository;
 import lt.techin.lsf.persistance.model.EvaluationRecord;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -31,43 +30,43 @@ public class EvaluationService {
         if (existingRecord != null) {
             evaluationRepository.delete(existingRecord);
         } else {
-            EvaluationRecord record = EvaluationRecord.builder()
-                    .juryId(evaluationRequest.getJuryUuid())
-                    .submissionId(evaluationRequest.getSubmissionUuid())
-                    .photoRecord(photoRepository.findByUuid(evaluationRequest.getPhotoUuid()))
-                    .albumId(evaluationRequest.getAlbumUuid())
-                    .liked(evaluationRequest.isLiked())
-                    .build()
-                    .setupNewEvaluation();
-
+            EvaluationRecord record = createNewEvaluationRecord(evaluationRequest);
             evaluationRepository.save(record);
             if (record.getPhotoRecord() == null) {
-                return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 
         return new ResponseEntity<>(getEvaluationResponses(), HttpStatus.OK);
     }
 
+    private EvaluationRecord createNewEvaluationRecord(EvaluationRequest evaluationRequest) {
+        return EvaluationRecord.builder()
+                .juryId(evaluationRequest.getJuryUuid())
+                .submissionId(evaluationRequest.getSubmissionUuid())
+                .photoRecord(photoRepository.findByUuid(evaluationRequest.getPhotoUuid()))
+                .albumId(evaluationRequest.getAlbumUuid())
+                .liked(evaluationRequest.isLiked())
+                .build()
+                .setupNewEvaluation();
+    }
+
     public List<EvaluationResponse> getEvaluationResponses() {
         return evaluationRepository.findAll().stream()
-                .map(evalRecord -> {
-                    EvaluationResponse res = new EvaluationResponse();
-                    res.setUuid(evalRecord.getUuid());
-                    res.setJuryId(evalRecord.getJuryId());
-                    return res;
-                })
+                .map(this::createEvaluationResponse)
                 .collect(Collectors.toList());
+    }
+
+    private EvaluationResponse createEvaluationResponse(EvaluationRecord evalRecord) {
+        EvaluationResponse res = new EvaluationResponse();
+        res.setUuid(evalRecord.getUuid());
+        res.setJuryId(evalRecord.getJuryId());
+        return res;
     }
 
     public List<EvaluationResponse> getEvaluationsByJury(UUID juryId) {
         return evaluationRepository.findByJuryId(juryId).stream()
-                .map(evalRecord -> {
-                    EvaluationResponse res = new EvaluationResponse();
-                    res.setUuid(evalRecord.getPhotoRecord().getUuid()); // get image UUID
-                    res.setJuryId(evalRecord.getJuryId());
-                    return res;
-                })
+                .map(this::createEvaluationResponse)
                 .collect(Collectors.toList());
     }
 }
