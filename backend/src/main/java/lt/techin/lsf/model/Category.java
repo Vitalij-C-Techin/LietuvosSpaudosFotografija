@@ -1,13 +1,13 @@
 package lt.techin.lsf.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Getter
+@Setter
 @Builder
+@RequiredArgsConstructor
 @AllArgsConstructor
 public class Category {
     private UUID uuid;
@@ -17,6 +17,5 @@ public class Category {
     private String descriptionEn;
     private String albumType;
     private int photoLimit;
-    private String isPreset;
     private UUID competitionUuid;
 }

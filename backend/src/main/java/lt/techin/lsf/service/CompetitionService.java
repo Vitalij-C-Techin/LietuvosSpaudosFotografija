@@ -9,7 +9,6 @@ import lt.techin.lsf.model.mapper.CategoryMapper;
 import lt.techin.lsf.model.mapper.CompetitionRecordMapper;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
-import lt.techin.lsf.model.response.CompetitionWithCategoriesResponse;
 import lt.techin.lsf.model.response.CreateCompetitionResponse;
 import lt.techin.lsf.model.response.PhotoRecordResponse;
 import lt.techin.lsf.persistance.CompetitionRepository;
@@ -18,9 +17,7 @@ import lt.techin.lsf.persistance.model.CategoryRecord;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.UUID;
@@ -103,7 +100,7 @@ public class CompetitionService {
 
     public Competition getCompetition(UUID uuid) {
         return new Competition(
-                competitionRepository.findByUuid(uuid)
+                getCompetitionByUuid(uuid)
         );
     }
 
