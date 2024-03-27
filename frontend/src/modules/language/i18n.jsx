@@ -241,7 +241,7 @@ i18n
             registrationSuccess: 'Registration successful',
             continue: 'Continue',
             updated: 'Data updated',
-            sent: "Request sent successfully",
+            sent: 'Request sent successfully',
             confirmDeleteMessage: 'Are you sure you want to delete category',
             confirmUpdateMessage: 'Are you sure you want to save changes',
             confirmTitle: 'Confirmation'
@@ -317,6 +317,12 @@ i18n
             competitionList: 'Competition list',
             competitionTitle: 'Competition',
             categoryListTitle: 'Categories'
+          },
+          userCategoryEdit: {
+            title: 'Photo upload',
+            upload: 'Upload',
+            myPhotos: 'My Photos',
+            doubleClickToRemovePhoto: "Double click to remove photo"
           }
         }
       },
@@ -637,6 +643,12 @@ i18n
             competitionList: 'Konkursų sąrašas',
             competitionTitle: 'Konkursas',
             categoryListTitle: 'Kategorijos'
+          },
+          userCategoryEdit: {
+            title: 'Nuotraukų įkėlimas',
+            upload: 'Įkelti',
+            myPhotos: 'Mano nuotraukos',
+            doubleClickToRemovePhoto: "Dukart spustelėkite, kad pašalinti nuotrauką"
           }
         }
       }
