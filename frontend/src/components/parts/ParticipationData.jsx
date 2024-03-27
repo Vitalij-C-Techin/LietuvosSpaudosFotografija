@@ -67,8 +67,8 @@ const ParticipationData = () => {
   //       const response = await axios.get(
   //         `http://localhost:8080/api/v1/category/`
   //       );
-  //       console.log('Fetched categories:', response.data); 
-  //       setCategories(response.data); 
+  //       console.log('Fetched categories:', response.data);
+  //       setCategories(response.data);
   //     } catch (error) {
   //       console.error('Error fetching categories:', error);
   //     }
@@ -80,7 +80,7 @@ const ParticipationData = () => {
   useEffect(() => {
     let url = Config.apiDomain + Config.endpoints.competitions.edit;
     url = url.replace('{uuid}', '04b54a6c-cd59-4c48-8329-0af2610621b8');
-    
+
     axios
       .get(url, {
         headers: getTokenHeader()
@@ -149,7 +149,9 @@ const ParticipationData = () => {
             {categories.map((category) => (
               <Dropdown.Item
                 key={category.uuid}
-                onClick={() => handleCategorySelect(category.name)}
+                onClick={() =>
+                  handleCategorySelect(i18n.language === 'en' ? category.nameEn : category.nameLt)
+                }
               >
                 {i18n.language === 'en' ? category.nameEn : category.nameLt}
               </Dropdown.Item>
