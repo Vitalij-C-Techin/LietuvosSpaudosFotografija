@@ -35,13 +35,14 @@ const CompetitionPage = () => {
       .then((response) => {
         const fetchedImages = response.data.map((image) => {
           return {
+            imageId: image.uuid,
             original: `${Config.apiDomain}/photo/${image.uuid}.jpeg`,
             thumbnail: `${Config.apiDomain}/photo/${image.uuid}-small.jpeg`,
             description_lt: image.description_lt,
             description_en: image.description_en,
             name_lt: image.name_lt,
             name_en: image.name_en,
-            submissionId: image.uuid
+            submissionId: image.submission_id
           };
         });
         setImages(fetchedImages);
@@ -55,20 +56,22 @@ const CompetitionPage = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const onImageLike = (imageId) => {
-    console.log(juryId);
-    console.log('Image liked', imageId, images[imageId].isLiked);
-    const liked = true;
-    const submissionId = imageId;
-    const updatedImages = images.map((image, index) => {
-      if (index === imageId) {
-        return { ...image, isLiked: true };
-      }
-      return image;
-    });
-    setImages(updatedImages);
+  const onImageLike = (imageId, submissionId) => {
     axios
-      .post('http://localhost:8080/api/v1/evaluation', { juryId, liked, submissionId })
+      .post(
+        `${Config.apiDomain}/api/v1/evaluation`,
+        {
+          jury_uuid: juryId,
+          liked: true,
+          photo_uuid: imageId,
+          submission_uuid: submissionId
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
       .then((response) => {
         console.log(response);
       })
@@ -83,7 +86,6 @@ const CompetitionPage = () => {
 
   useEffect(() => {
     if (showGallery) {
-      console.log('now here');
       toggleFullScreenRef.current && toggleFullScreenRef.current.fullScreen();
     }
   }, [showGallery]);
@@ -104,9 +106,8 @@ const CompetitionPage = () => {
     const handleButtonClick = () => {
       const currentIndex = toggleFullScreenRef.current.getCurrentIndex();
       onImageLike(currentIndex);
-      console.log('Custom button clicked!', currentIndex);
+      setClickedImageIndex(currentIndex);
     };
-
     return (
       <>
         {images[currentIndex].isLiked ? (
@@ -158,7 +159,9 @@ const CompetitionPage = () => {
         {images.map((image, index) => (
           <Col key={index} xl="2" className="my-3">
             <Card>
-              <Card.Header>{lang === 'en' ? image.name_en : image.name_lt}</Card.Header>
+              <Card.Header>
+                {lang === 'en' ? image.name_en : image.name_lt} {image.imageId}
+              </Card.Header>
               <Card.Img
                 thumbnail
                 src={image.thumbnail}
@@ -168,12 +171,11 @@ const CompetitionPage = () => {
               <Card body>
                 <Card body>{lang === 'en' ? image.description_en : image.description_lt}</Card>
               </Card>
-              <Button variant="outline-light">
-                <Card.Text>
-                  <span role="img" aria-label="like">
-                    👍
-                  </span>
-                </Card.Text>
+              <Button
+                variant="outline-secondary"
+                onClick={() => onImageLike(image.imageId, image.submissionId)}
+              >
+                👍
               </Button>
             </Card>
           </Col>

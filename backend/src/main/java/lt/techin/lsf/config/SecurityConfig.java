@@ -59,7 +59,8 @@ public class SecurityConfig {
                             //Jury
                             request.requestMatchers(
                                     "api/v1/jury/all/{page}",
-                                    "api/v1/jury/{uuid}"
+                                    "api/v1/jury/{uuid}",
+                                    "api/v1/evaluation"
                             ).hasAnyAuthority("JURY");
 
                             //Moderator, Admin
