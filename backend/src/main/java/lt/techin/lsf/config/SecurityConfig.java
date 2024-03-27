@@ -35,6 +35,7 @@ public class SecurityConfig {
                                             "v3/api-docs/**" // Swagger
                                     )
                                     .permitAll();
+
                             request.requestMatchers(
                                             HttpMethod.POST,
                                             "api/v1/register",

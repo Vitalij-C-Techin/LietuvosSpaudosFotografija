@@ -1,9 +1,9 @@
-import {I18nextProvider} from 'react-i18next';
+import { I18nextProvider } from 'react-i18next';
 import i18n from './modules/language/i18n.jsx';
 
-import {AuthProvider} from './components/context/AuthContext.jsx';
+import { AuthProvider } from './components/context/AuthContext.jsx';
 
-import {Route, Routes} from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import NavigationBar from './components/parts/NavigationBar.jsx';
 import HomePage from './components/pages/HomePage';
@@ -19,7 +19,7 @@ import ErrorPage from './components/pages/ErrorPage.jsx';
 import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import CompetitionManagementPage from './components/pages/adminPages/CompetitionManagementPage.jsx';
 
-import {Authorization, IsLogged, IsNotLogged} from './components/utils/Authorization.jsx';
+import { Authorization, IsLogged, IsNotLogged } from './components/utils/Authorization.jsx';
 import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx';
 import AdminManageUsersPage from './components/pages/adminPages/AdminManageUsersPage.jsx';
 import AdminCreateUserPage from './components/pages/adminPages/AdminCreateUserPage.jsx';
@@ -28,7 +28,8 @@ import CompetitionPage from './components/pages/CompetitionPage.jsx';
 import AdminManageUsersProfilePage from './components/pages/adminPages/AdminMangeUsersProfilePage.jsx';
 import JuryCompetitionsListPage from './components/pages/JuryCompetitionsListPage.jsx';
 import JuryCompetitionPage from './components/pages/JuryCompetitionPage.jsx';
-import ParticipationData from './components/parts/ParticipationData.jsx';
+import UserCompetitionPage from './components/pages/UserCompetitionPage.jsx';
+import UserCategoryPage from './components/pages/UserCategoryPage.jsx';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
           <NavigationBar />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/participation-data" element={<ParticipationData />} />
+
             <Route element={<IsNotLogged />}>
               <Route path="/login" element={<LoginPage />} />
               <Route path="/registration" element={<RegistrationPage />} />
@@ -56,8 +57,10 @@ function App() {
             </Route>
 
             <Route element={<Authorization allowedRoles={['USER', 'MODERATOR', 'ADMIN']} />}>
-              <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
               <Route path="/user-competition-request" element={<UserCompetitionsRequestPage />} />
+              <Route path="/user-competition-list" element={<UserCompetitionsListPage />} />
+              <Route path="/user-competition/:uuid" element={<UserCompetitionPage />} />
+              <Route path="/user-category/:uuid" element={<UserCategoryPage />} />
             </Route>
 
             <Route element={<Authorization allowedRoles={['JURY']} />}>
@@ -85,7 +88,6 @@ function App() {
             </Route>
 
             <Route path="/*" element={<ErrorPage />} />
-           
           </Routes>
         </AuthProvider>
       </I18nextProvider>

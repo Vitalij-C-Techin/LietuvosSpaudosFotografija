@@ -10,8 +10,10 @@ import Config from '../config/Config';
 // Placeholder image URL
 const placeholderImage = 'https://content.hostgator.com/img/weebly_image_sample.png';
 
-const ParticipationData = () => {
-  const { t, i18n } = useTranslation();
+//todo;
+
+const UserCategoryPage = () => {
+  const [t, i18n] = useTranslation();
   const { getTokenHeader } = useAuth();
   const [tempPhotos, setTempPhotos] = useState({});
   const [photos, setPhotos] = useState({});
@@ -284,4 +286,4 @@ const ParticipationData = () => {
   );
 };
 
-export default ParticipationData;
+export default UserCategoryPage;
