@@ -2,6 +2,7 @@ package lt.techin.lsf.controller;
 
 import lombok.RequiredArgsConstructor;
 import lt.techin.lsf.model.requests.EvaluationRequest;
+import lt.techin.lsf.model.response.EvaluationResponse;
 import lt.techin.lsf.persistance.EvaluationRepository;
 import lt.techin.lsf.persistance.PhotoRepository;
 import lt.techin.lsf.persistance.model.EvaluationRecord;
@@ -21,9 +22,7 @@ public class EvaluationController {
 
 
     @PostMapping("/evaluation")
-    public  ResponseEntity<List<EvaluationRecord>> evaluate(@RequestBody EvaluationRequest evaluationRequest) {
-        System.out.println(evaluationRequest.getJuryUuid());
-        System.out.println("Evaluation received");
+    public  ResponseEntity<List<EvaluationResponse>> evaluate(@RequestBody EvaluationRequest evaluationRequest) {
         return evaluationService.evaluate(evaluationRequest);
     }
 

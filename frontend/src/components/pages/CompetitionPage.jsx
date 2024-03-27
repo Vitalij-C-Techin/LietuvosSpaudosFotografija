@@ -21,6 +21,7 @@ const CompetitionPage = () => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const juryId = getUserData().uuid;
+  const [evaluationList, setEvaluationList] = useState([]);
 
   console.log('Current Language:', lang);
 
@@ -73,7 +74,16 @@ const CompetitionPage = () => {
         }
       )
       .then((response) => {
+        setEvaluationList(response.data);
         console.log(response);
+        console.log(response.data);
+        console.log('balala,', evaluationList);
+        console.log('Search results:');
+        response.data.forEach((image) => {
+          // Perform your search logic here using image values
+          // For example, if you want to search for a specific name
+          console.log('Found:', image);
+        });
       })
       .catch((error) => {
         console.log(error);
