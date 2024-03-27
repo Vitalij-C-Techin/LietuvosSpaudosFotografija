@@ -63,7 +63,7 @@ const UserCategoryPage = () => {
     setIsUploading(true);
 
     for (let i = 0; i < tmpPhotos.length; i++) {
-      await requestPhotoUpload(tmpPhotos[0]);
+      await requestPhotoUpload(tmpPhotos[i]);
     }
 
     setIsUploading(false);
