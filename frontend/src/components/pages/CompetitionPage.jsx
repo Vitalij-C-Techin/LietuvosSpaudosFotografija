@@ -18,11 +18,10 @@ const CompetitionPage = () => {
   const { getToken } = useAuth();
   const token = getToken();
   const [images, setImages] = useState([]);
+  const { getTokenHeader } = useAuth();
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const juryId = getUserData().uuid;
-
-  console.log('Current Language:', lang);
 
   useEffect(() => {
     setLoading(true);
@@ -62,13 +61,18 @@ const CompetitionPage = () => {
     const submissionId = imageId;
     const updatedImages = images.map((image, index) => {
       if (index === imageId) {
-        return { ...image, isLiked: true };
+        return { ...image, isLiked: true, likesCount: image.likesCount + 1 };
       }
       return image;
     });
     setImages(updatedImages);
     axios
-      .post('http://localhost:8080/api/v1/evaluation', { juryId, liked, submissionId })
+      .post('http://localhost:8080/api/v1/evaluation', {
+        juryId,
+        liked,
+        submissionId,
+        headers: getTokenHeader()
+      })
       .then((response) => {
         console.log(response);
       })
@@ -130,6 +134,14 @@ const CompetitionPage = () => {
     );
   };
 
+  const clearLikes = () => {
+    const confirmClear = window.confirm(t('competitionPage.confirmHide'));
+    if (confirmClear) {
+      const updatedImages = images.filter((image) => image.likesCount > 0);
+      setImages(updatedImages);
+    }
+  };
+
   return (
     <Container className="competition-container my-2">
       <Container>
@@ -145,6 +157,9 @@ const CompetitionPage = () => {
               cumque non, illo cum!
             </h4>
           </Col>
+          <Button variant="primary" onClick={clearLikes}>
+            {t('competitionPage.clearLikes')}
+          </Button>
         </Row>
       </Container>
       <div className="divider"></div>
@@ -170,6 +185,7 @@ const CompetitionPage = () => {
               </Card>
               <Button variant="outline-light">
                 <Card.Text>
+                  {image.likesCount}
                   <span role="img" aria-label="like">
                     👍
                   </span>
