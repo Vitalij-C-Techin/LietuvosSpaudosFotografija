@@ -10,7 +10,6 @@ import lt.techin.lsf.persistance.SubmissionRepository;
 import lt.techin.lsf.persistance.model.AlbumRecord;
 import lt.techin.lsf.persistance.model.PhotoRecord;
 import lt.techin.lsf.persistance.model.SubmissionRecord;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
