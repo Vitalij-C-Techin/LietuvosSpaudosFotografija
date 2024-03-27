@@ -57,6 +57,9 @@ const Config = {
             add: '/api/v1/photo',
             manage: '/api/v1/photo/{uuid}',
             storage: 'photo/{filename}'
+        },
+        album: {
+            addPhoto: '/api/v1/album/{uuid}/add'
         }
     }
 };
