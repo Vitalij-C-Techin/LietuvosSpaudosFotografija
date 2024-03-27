@@ -28,6 +28,7 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
   const [photoUploaderror, setPhotoUploadError] = useState('');
   const { getTokenHeader } = useAuth();
   const [formData, setFormData] = useState({});
+  const [competitionStatus, setCompetitionStatus] = useState(formData.status || '');
 
   useEffect(() => {
     let url = Config.apiDomain + Config.endpoints.competitions.edit;
@@ -45,6 +46,36 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
         console.error('Error:', error);
       });
   }, [uuid, getTokenHeader, useCallback(modalHandleOpenCreateCategory)]);
+
+  useEffect(() => {
+    if (formData) {
+      const currentDate = new Date();
+      const startDate = new Date(formData.start_date);
+      const endDate = new Date(formData.end_date);
+
+      if (
+        formData.visibility === 'PUBLIC' &&
+        formData.status === 'COMING' &&
+        startDate <= currentDate
+      ) {
+        setCompetitionStatus('GOING');
+        setFormData((prevState) => ({
+          ...prevState,
+          status: 'GOING'
+        }));
+        updateStatusInDatabase('GOING');
+      }
+
+      if (endDate <= currentDate) {
+        setCompetitionStatus('ENDED');
+        setFormData((prevState) => ({
+          ...prevState,
+          status: 'ENDED'
+        }));
+        updateStatusInDatabase('ENDED');
+      }
+    }
+  }, [formData]);
 
   const uploadImage = async (file) => {
     if (!!!file) {
@@ -367,8 +398,8 @@ const ViewEditCompetitionForm = ({ uuid, modalHandleOpenCreateCategory }) => {
                   >
                     <option value=""></option>
                     <option value="COMING">{t('editcomp.coming')}</option>
-                    <option value="EVALUATES">{t('editcomp.evaluates')}</option>
                     <option value="GOING">{t('editcomp.going')}</option>
+                    <option value="EVALUATES">{t('editcomp.evaluates')}</option>
                     <option value="FINISHED">{t('editcomp.finished')}</option>
                   </Form.Select>
                 </Col>

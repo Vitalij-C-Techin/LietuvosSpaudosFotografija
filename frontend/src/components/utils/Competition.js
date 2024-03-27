@@ -1,68 +1,60 @@
-import i18n from "../../modules/language/i18n";
+import i18n from '../../modules/language/i18n';
 
 export default class Competition {
-    constructor(data) {
-        this.data = data;
-    }
+  constructor(data) {
+    this.data = data;
+  }
 
-    getUuid() {
-        return this.data.uuid;
-    }
+  getUuid() {
+    return this.data.uuid;
+  }
 
-    getName() {
-        switch (i18n.language) {
-            case "en":
-                return this.data.name_en;
-            case "lt":
-            default:
-                return this.data.name_lt;
-        }
-    }
+  getName() {
+    return this.data[`name_${i18n.language}`];
+  }
 
-    getDescription() {
-        switch (i18n.language) {
-            case "en":
-                return this.data.description_en;
-            case "lt":
-            default:
-                return this.data.description_lt;
-        }
-    }
+  getDescription() {
+    return this.data[`description_${i18n.language}`];
+  }
 
-    getStartDate() {
-        return Competition.formatDate(this.data.start_date);
-    }
+  getStatus() {
+    return this.data.status;
+  }
 
-    getEndDate() {
-        return Competition.formatDate(this.data.end_date);
-    }
+  getStartDate() {
+    return Competition.formatDate(this.data.start_date);
+  }
 
-    getActiveDates() {
-        return this.getStartDate() + " - " + this.getEndDate();
-    }
+  getEndDate() {
+    return Competition.formatDate(this.data.end_date);
+  }
 
-    static formatDate(date) {
-        const d = new Date(date);
+  getActiveDates() {
+    return this.getStartDate() + ' - ' + this.getEndDate();
+  }
 
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
+  static formatDate(date) {
+    const d = new Date(date);
 
-        return d.getFullYear() + "." + month + '.' + day;
-    }
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
 
-    static formatDateTime(date) {
-        const d = new Date(date);
+    return d.getFullYear() + '.' + month + '.' + day;
+  }
 
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
+  static formatDateTime(date) {
+    const d = new Date(date);
 
-        const hours = String(d.getHours()).padStart(2, '0');
-        const minutes = String(d.getMinutes()).padStart(2, '0');
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
 
-        return d.getFullYear() + "." + month + '.' + day + ' ' + hours + ":" + minutes;
-    }
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
 
-    getAdminUrl() {
-        return "/admin-competition-edit/" + this.getUuid();
-    }
+    return d.getFullYear() + '.' + month + '.' + day + ' ' + hours + ':' + minutes;
+  }
+
+  getAdminUrl() {
+    return '/admin-competition-edit/' + this.getUuid();
+  }
 }
