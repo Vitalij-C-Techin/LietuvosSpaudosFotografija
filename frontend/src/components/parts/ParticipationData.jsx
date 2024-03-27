@@ -4,12 +4,15 @@ import { Card, Button, Container, Row, Col, Image, Modal, Form } from 'react-boo
 import { useDropzone } from 'react-dropzone';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
-
+import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+import Config from '../config/Config';
 // Placeholder image URL
 const placeholderImage = 'https://content.hostgator.com/img/weebly_image_sample.png';
 
 const ParticipationData = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const { getTokenHeader } = useAuth();
   const [tempPhotos, setTempPhotos] = useState({});
   const [photos, setPhotos] = useState({});
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -17,6 +20,7 @@ const ParticipationData = () => {
   const [modalData, setModalData] = useState({ image: null, description: '' });
   const maxUploadsPerCategory = 3; // Maximum uploads per category
   const maxTotalUploads = 9; // Maximum total uploads across all categories
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     // Clear temp photos when category changes
@@ -56,6 +60,39 @@ const ParticipationData = () => {
   };
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop, accept: 'image/*' });
+
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:8080/api/v1/category/`
+  //       );
+  //       console.log('Fetched categories:', response.data); 
+  //       setCategories(response.data); 
+  //     } catch (error) {
+  //       console.error('Error fetching categories:', error);
+  //     }
+  //   };
+
+  //   fetchCategories();
+  // }, []);
+
+  useEffect(() => {
+    let url = Config.apiDomain + Config.endpoints.competitions.edit;
+    url = url.replace('{uuid}', '04b54a6c-cd59-4c48-8329-0af2610621b8');
+    
+    axios
+      .get(url, {
+        headers: getTokenHeader()
+      })
+      .then((response) => {
+        console.log(response.data.data.category_list);
+        setCategories(response.data.data.category_list);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
@@ -109,15 +146,14 @@ const ParticipationData = () => {
             id="dropdown-item-button"
             title={selectedCategory || 'Categories'}
           >
-            <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category1')}>
-              Category1
-            </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category2')}>
-              Category2
-            </Dropdown.Item>
-            <Dropdown.Item as="button" onClick={() => handleCategorySelect('Category3')}>
-              Category3
-            </Dropdown.Item>
+            {categories.map((category) => (
+              <Dropdown.Item
+                key={category.uuid}
+                onClick={() => handleCategorySelect(category.name)}
+              >
+                {i18n.language === 'en' ? category.nameEn : category.nameLt}
+              </Dropdown.Item>
+            ))}
           </DropdownButton>
         </Col>
         <Card>
