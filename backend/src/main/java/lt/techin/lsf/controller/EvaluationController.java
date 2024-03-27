@@ -26,5 +26,5 @@ public class EvaluationController {
         System.out.println("Evaluation received");
         return evaluationService.evaluate(evaluationRequest);
     }
-    
+
 }
