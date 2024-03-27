@@ -108,11 +108,12 @@ const CompetitionList = ({ competitions }) => {
 
 const CompetitionSingle = ({ competition }) => {
   const [t] = useTranslation();
+  const navigate = useNavigate();
 
   const c = new Competition(competition);
 
   const handleSelect = () => {
-    console.log('Handle Info');
+    navigate('/user-competition/' + c.getUuid());
   };
 
   return (

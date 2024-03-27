@@ -2,11 +2,16 @@
 
 ## Setup project
 
+### Svarbu!
+Diegimo instrukcija randasi: repozitorija/Documentation/LietuvosSpaudosFotografija-instrukcija-degimas.pdf
+
 ### Required software
 
-- Java (Version 21)
+- Git (Version 2.40.0)
 - PostgreSQL (Version 16)
-- NPM (Version 10.2)
+- JDK (Version 21)
+- Maven (Version 3.9)
+- Node.js (Version 20.10)
 
 ### Setup order
 
