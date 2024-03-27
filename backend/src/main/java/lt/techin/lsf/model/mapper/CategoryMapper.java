@@ -14,7 +14,6 @@ public class CategoryMapper {
                 .descriptionEn(categoryRecord.getDescriptionEn())
                 .albumType(categoryRecord.getAlbumType())
                 .photoLimit(categoryRecord.getPhotoLimit())
-                .isPreset(categoryRecord.getIsPreset())
                 .competitionUuid(categoryRecord.getCompetitionRecord().getUuid())
                 .build();
     }
