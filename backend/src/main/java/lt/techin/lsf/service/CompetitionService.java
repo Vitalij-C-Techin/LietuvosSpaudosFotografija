@@ -100,7 +100,7 @@ public class CompetitionService {
 
     public Competition getCompetition(UUID uuid) {
         return new Competition(
-                competitionRepository.findByUuid(uuid)
+                getCompetitionByUuid(uuid)
         );
     }
 
