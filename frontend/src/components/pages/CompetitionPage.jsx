@@ -183,9 +183,14 @@ const CompetitionPage = () => {
               <Card body>
                 <Card body>{lang === 'en' ? image.description_en : image.description_lt}</Card>
               </Card>
-              <Button variant="outline-light">
+              <Button
+                variant="outline-light"
+                onClick={() => {
+                  onImageLike(index);
+                }}
+              >
                 <Card.Text>
-                  {image.likesCount}
+                  Likes:{image.likesCount || 0}
                   <span role="img" aria-label="like">
                     👍
                   </span>
