@@ -105,7 +105,7 @@ const CompetitionPage = () => {
   const renderCustomControls = () => {
     const handleButtonClick = () => {
       const currentIndex = toggleFullScreenRef.current.getCurrentIndex();
-      onImageLike(currentIndex);
+      onImageLike(images[currentIndex].imageId, images[currentIndex].submissionId);
       setClickedImageIndex(currentIndex);
     };
     return (
