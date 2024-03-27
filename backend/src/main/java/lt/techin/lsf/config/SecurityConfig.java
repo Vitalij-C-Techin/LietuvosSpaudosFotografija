@@ -35,6 +35,7 @@ public class SecurityConfig {
                                             "v3/api-docs/**" // Swagger
                                     )
                                     .permitAll();
+
                             request.requestMatchers(
                                             HttpMethod.POST,
                                             "api/v1/register",
@@ -52,6 +53,8 @@ public class SecurityConfig {
 
                                     "api/v1/competition/user/{page}",
                                     "api/v1/competition/user/participate/{page}",
+
+                                    "api/v1/submission/{uuid}",
 
                                     "api/v1/album**"
                             ).hasAnyAuthority("USER", "MODERATOR", "ADMIN");
