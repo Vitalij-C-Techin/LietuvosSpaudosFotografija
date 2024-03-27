@@ -41,6 +41,7 @@ const CompetitionPage = () => {
             imageId: image.uuid,
             original: `${Config.apiDomain}/photo/${image.uuid}.jpeg`,
             thumbnail: `${Config.apiDomain}/photo/${image.uuid}-small.jpeg`,
+            description: lang === 'en' ? image.description_en : image.description_lt,
             description_lt: image.description_lt,
             description_en: image.description_en,
             name_lt: image.name_lt,
@@ -68,10 +69,10 @@ const CompetitionPage = () => {
       })
       .then((response) => {
         setEvaluationList(response.data);
-        console.log('from fresh' + response.data);
       })
       .catch((error) => {
         console.log(error);
+        setError('Failed to fetch data');
       });
   };
 
@@ -126,6 +127,7 @@ const CompetitionPage = () => {
     setClickedImageIndex(index);
     setCurrentIndex(index);
   };
+  const evaluationIds = evaluationList.map((item) => item.uuid);
 
   const renderCustomControls = () => {
     const handleButtonClick = () => {
@@ -135,7 +137,7 @@ const CompetitionPage = () => {
     };
     return (
       <>
-        {images[currentIndex].isLiked ? (
+        {evaluationIds.includes(images[currentIndex].imageId) ? (
           <Button
             variant="outline-secondary"
             onClick={handleButtonClick}
@@ -155,6 +157,7 @@ const CompetitionPage = () => {
       </>
     );
   };
+
   return (
     <Container className="competition-container my-2">
       <Container>
@@ -185,6 +188,9 @@ const CompetitionPage = () => {
             <Card>
               <Card.Header>
                 {lang === 'en' ? image.name_en : image.name_lt} {image.imageId}
+                <div>
+                  {evaluationIds.includes(image.imageId) ? ' (Evaluated)' : ' (Not Evaluated)'}
+                </div>
               </Card.Header>
               <Card.Img
                 thumbnail

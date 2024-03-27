@@ -64,7 +64,7 @@ public class EvaluationService {
         return evaluationRepository.findByJuryId(juryId).stream()
                 .map(evalRecord -> {
                     EvaluationResponse res = new EvaluationResponse();
-                    res.setUuid(evalRecord.getUuid());
+                    res.setUuid(evalRecord.getPhotoRecord().getUuid()); // get image UUID
                     res.setJuryId(evalRecord.getJuryId());
                     return res;
                 })
