@@ -6,12 +6,9 @@ import lt.techin.lsf.model.Competition;
 import lt.techin.lsf.model.requests.CreateCompetitionRequest;
 import lt.techin.lsf.model.requests.UpdateCompetitionRequest;
 import lt.techin.lsf.model.response.CreateCompetitionResponse;
-import lt.techin.lsf.model.response.PhotoRecordResponse;
-import lt.techin.lsf.persistance.SubmissionRepository;
 import lt.techin.lsf.persistance.model.CompetitionRecord;
 import lt.techin.lsf.service.CompetitionService;
 import org.springframework.data.domain.Page;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
