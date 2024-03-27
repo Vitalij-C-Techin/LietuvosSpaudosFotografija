@@ -69,11 +69,13 @@ const UserCategoryPage = () => {
     setIsUploading(false);
   };
 
+  const onDrop = (files) => {
+    addTmpPhoto(files);
+  };
+
   const requestPhotoUpload = async (file) => {
     let url = Config.apiDomain + Config.endpoints.album.addPhoto;
     url = url.replace('{uuid}', album.uuid);
-
-    console.log('Upload');
 
     let formData = new FormData();
     formData.append('image', file);
@@ -124,8 +126,6 @@ const UserCategoryPage = () => {
         headers: getTokenHeader()
       })
       .then((response) => {
-        console.log('Response: ', response.data);
-
         setSubmission(response.data.submission);
 
         const album = response.data.albums[0] || null;
@@ -148,12 +148,6 @@ const UserCategoryPage = () => {
     requestData();
   }, []);
 
-  const onDrop = (files) => {
-    console.log('Dropped', files);
-
-    addTmpPhoto(files);
-  };
-
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
     multiple: true,
@@ -168,7 +162,7 @@ const UserCategoryPage = () => {
     <>
       <Container className="justify-content-xl-center my-5">
         <Card className="image-header-text">
-          <h3>{t('userCompetitionPage.competitionName')}</h3>
+          <h3>{t('userCategoryEdit.title')}</h3>
         </Card>
       </Container>
 
@@ -183,7 +177,7 @@ const UserCategoryPage = () => {
         <>
           <Container className="justify-content-xl-center my-3">
             <Button className="lsf-button w-100" onClick={uploadTmpPhotos}>
-              Upload
+              {t('userCategoryEdit.upload')}
             </Button>
           </Container>
         </>
@@ -191,11 +185,15 @@ const UserCategoryPage = () => {
 
       <Container className="justify-content-xl-center my-5">
         <Card className="image-header-text">
-          <h3>{t('userCompetitionPage.competitionName')}</h3>
+          <h3>{t('userCategoryEdit.myPhotos')}</h3>
         </Card>
       </Container>
 
       <MyPhotoList photos={photos} removePhoto={removePhoto} />
+
+      <Container className="justify-content-xl-center my-5">
+        <p>{t('userCategoryEdit.doubleClickToRemovePhoto')}</p>
+      </Container>
     </>
   );
 };
@@ -237,8 +235,6 @@ const MyPhoto = ({ photo, removePhoto }) => {
 const UploadPhotoList = ({ photos, removePhoto }) => {
   const [t, i18n] = useTranslation();
 
-  console.log('Upload list', photos);
-
   if (!!!photos.length) {
     return;
   }
@@ -258,14 +254,12 @@ const UploadPhotoList = ({ photos, removePhoto }) => {
 
 const UploadPhoto = ({ photo, removePhoto }) => {
   const onClick = () => {
-    console.log('Click photo');
-
     removePhoto(photo);
   };
 
   return (
     <Col xs={6} md={4} xl={3}>
-      <Image src={URL.createObjectURL(photo)} className="lst-photo" onClick={onClick} />
+      <Image src={URL.createObjectURL(photo)} className="lst-photo" onDoubleClick={onClick} />
     </Col>
   );
 };
