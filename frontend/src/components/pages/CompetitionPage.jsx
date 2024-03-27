@@ -23,6 +23,8 @@ const CompetitionPage = () => {
   const juryId = getUserData().uuid;
   const [evaluationList, setEvaluationList] = useState([]);
 
+  console.log('Evaluation List:', evaluationList);
+
   console.log('Current Language:', lang);
 
   useEffect(() => {
@@ -57,6 +59,26 @@ const CompetitionPage = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  const fetchEvaluationList = () => {
+    axios
+      .get(`${Config.apiDomain}/api/v1/evaluation/jury/${juryId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        setEvaluationList(response.data);
+        console.log('from fresh' + response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchEvaluationList();
+  }, [token]);
+
   const onImageLike = (imageId, submissionId) => {
     axios
       .post(
@@ -74,16 +96,9 @@ const CompetitionPage = () => {
         }
       )
       .then((response) => {
-        setEvaluationList(response.data);
         console.log(response);
         console.log(response.data);
-        console.log('balala,', evaluationList);
-        console.log('Search results:');
-        response.data.forEach((image) => {
-          // Perform your search logic here using image values
-          // For example, if you want to search for a specific name
-          console.log('Found:', image);
-        });
+        fetchEvaluationList();
       })
       .catch((error) => {
         console.log(error);
@@ -140,7 +155,6 @@ const CompetitionPage = () => {
       </>
     );
   };
-
   return (
     <Container className="competition-container my-2">
       <Container>

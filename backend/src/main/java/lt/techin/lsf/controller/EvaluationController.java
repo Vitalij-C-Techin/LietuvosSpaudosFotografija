@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -26,4 +27,8 @@ public class EvaluationController {
         return evaluationService.evaluate(evaluationRequest);
     }
 
+    @GetMapping("/evaluation/jury/{juryId}")
+    public List<EvaluationResponse> getEvaluationsByJury(@PathVariable UUID juryId) {
+        return evaluationService.getEvaluationsByJury(juryId);
+    }
 }
