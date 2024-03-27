@@ -54,6 +54,8 @@ public class SecurityConfig {
                                     "api/v1/competition/user/{page}",
                                     "api/v1/competition/user/participate/{page}",
 
+                                    "api/v1/submission/{uuid}",
+
                                     "api/v1/album**"
                             ).hasAnyAuthority("USER", "MODERATOR", "ADMIN");
 

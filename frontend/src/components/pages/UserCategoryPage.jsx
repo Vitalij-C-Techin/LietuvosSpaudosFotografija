@@ -7,10 +7,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import Config from '../config/Config';
-// Placeholder image URL
+import { useParams } from 'react-router';
+
 const placeholderImage = 'https://content.hostgator.com/img/weebly_image_sample.png';
 
-//todo;
 
 const UserCategoryPage = () => {
   const [t, i18n] = useTranslation();
@@ -23,6 +23,11 @@ const UserCategoryPage = () => {
   const maxUploadsPerCategory = 3; // Maximum uploads per category
   const maxTotalUploads = 9; // Maximum total uploads across all categories
   const [categories, setCategories] = useState([]);
+
+  const params = useParams();
+  const uuid = params.uuid;
+
+  console.log(uuid);
 
   useEffect(() => {
     // Clear temp photos when category changes
@@ -80,9 +85,8 @@ const UserCategoryPage = () => {
   // }, []);
 
   useEffect(() => {
-    let url = Config.apiDomain + Config.endpoints.competitions.edit;
-    //using competitions.edit endpoint with specific comp UUID to get list of categories, needs to be changed
-    url = url.replace('{uuid}', '04b54a6c-cd59-4c48-8329-0af2610621b8');
+    let url = Config.apiDomain + Config.endpoints.submission.get;
+    url = url.replace('{uuid}', uuid);
 
     axios
       .get(url, {

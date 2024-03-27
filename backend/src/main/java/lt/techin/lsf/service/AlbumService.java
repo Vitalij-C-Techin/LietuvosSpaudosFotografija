@@ -159,4 +159,12 @@ public class AlbumService {
     ) {
         return addPhoto(getAlbum(uuid), files);
     }
+
+    public List<AlbumRecord> getAlbumBySubmission(UUID uuid){
+        return albumRepository.findBySubmissionUuid(uuid);
+    }
+
+    public AlbumRecord saveAlbum(AlbumRecord album){
+        return albumRepository.save(album);
+    }
 }

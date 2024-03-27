@@ -23,6 +23,9 @@ const Config = {
             userActive: '/api/v1/competition/user/{page}',
             userParticipate: '/api/v1/competition/user/participate/{page}'
         },
+        submission: {
+            get: '/api/v1/submission/{uuid}'
+        },
         users: {
             adminAllUsers: ({
                     page,
