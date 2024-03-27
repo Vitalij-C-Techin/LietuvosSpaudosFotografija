@@ -21,11 +21,10 @@ public class EvaluationController {
 
 
     @PostMapping("/evaluation")
-    public ResponseEntity<String> evaluate(@RequestBody EvaluationRequest evaluationRequest) {
+    public  ResponseEntity<List<EvaluationRecord>> evaluate(@RequestBody EvaluationRequest evaluationRequest) {
         System.out.println(evaluationRequest.getJuryUuid());
         System.out.println("Evaluation received");
         return evaluationService.evaluate(evaluationRequest);
     }
-
-
+    
 }

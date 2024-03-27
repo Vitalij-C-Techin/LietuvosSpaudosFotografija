@@ -9,6 +9,9 @@ import lt.techin.lsf.persistance.PhotoRepository;
 import lt.techin.lsf.persistance.model.EvaluationRecord;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @AllArgsConstructor
 @Getter
@@ -18,7 +21,7 @@ public class EvaluationService {
 
     private final EvaluationRepository evaluationRepository;
     private final PhotoRepository photoRepository;
-    public ResponseEntity<String> evaluate(EvaluationRequest evaluationRequest) {
+    public ResponseEntity<List<EvaluationRecord>> evaluate(EvaluationRequest evaluationRequest) {
         EvaluationRecord existingRecord = evaluationRepository.findByJuryIdAndPhotoRecord_Uuid(
                 evaluationRequest.getJuryUuid(),
                 evaluationRequest.getPhotoUuid()
@@ -26,7 +29,8 @@ public class EvaluationService {
 
         if (existingRecord != null) {
             evaluationRepository.delete(existingRecord);
-            return new ResponseEntity<>("Photo removed successfully", HttpStatus.OK);
+            List<EvaluationRecord> evaluations = evaluationRepository.findAll();
+            return new ResponseEntity<>(evaluations, HttpStatus.OK);
         }
 
         EvaluationRecord record = EvaluationRecord.builder()
@@ -41,9 +45,11 @@ public class EvaluationService {
         evaluationRepository.save(record);
 
         if (record.getPhotoRecord() != null) {
-            return new ResponseEntity<>("Photo saved successfully", HttpStatus.OK);
+            List<EvaluationRecord> evaluations = evaluationRepository.findAll();
+            return new ResponseEntity<>(evaluations, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Error saving photo", HttpStatus.INTERNAL_SERVER_ERROR);
+            List<EvaluationRecord> evaluations = new ArrayList<>();
+            return new ResponseEntity<>(evaluations, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
