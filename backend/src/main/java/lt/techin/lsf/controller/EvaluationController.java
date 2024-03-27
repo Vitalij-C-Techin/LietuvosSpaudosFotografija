@@ -7,6 +7,7 @@ import lt.techin.lsf.persistance.PhotoRepository;
 import lt.techin.lsf.persistance.model.EvaluationRecord;
 import lt.techin.lsf.persistance.model.PhotoRecord;
 import lt.techin.lsf.service.EvaluationService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,11 +21,10 @@ public class EvaluationController {
 
 
     @PostMapping("/evaluation")
-    public void evaluate(@RequestBody EvaluationRequest evaluationRequest) {
+    public ResponseEntity<String> evaluate(@RequestBody EvaluationRequest evaluationRequest) {
         System.out.println(evaluationRequest.getJuryUuid());
         System.out.println("Evaluation received");
-         evaluationService.evaluate(evaluationRequest);
-        System.out.println("Evaluation saved");
+        return evaluationService.evaluate(evaluationRequest);
     }
 
 
