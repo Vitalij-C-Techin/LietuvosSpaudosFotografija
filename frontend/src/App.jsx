@@ -1,9 +1,9 @@
-import { I18nextProvider } from 'react-i18next';
+import {I18nextProvider} from 'react-i18next';
 import i18n from './modules/language/i18n.jsx';
 
-import { AuthProvider } from './components/context/AuthContext.jsx';
+import {AuthProvider} from './components/context/AuthContext.jsx';
 
-import { Route, Routes } from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 
 import NavigationBar from './components/parts/NavigationBar.jsx';
 import HomePage from './components/pages/HomePage';
@@ -19,7 +19,7 @@ import ErrorPage from './components/pages/ErrorPage.jsx';
 import PasswordChangePage from './components/pages/PasswordChangePage.jsx';
 import CompetitionManagementPage from './components/pages/adminPages/CompetitionManagementPage.jsx';
 
-import { Authorization, IsLogged, IsNotLogged } from './components/utils/Authorization.jsx';
+import {Authorization, IsLogged, IsNotLogged} from './components/utils/Authorization.jsx';
 import UserDetailsUpdatePage from './components/pages/UserDetailsUpdatePage.jsx';
 import AdminManageUsersPage from './components/pages/adminPages/AdminManageUsersPage.jsx';
 import AdminCreateUserPage from './components/pages/adminPages/AdminCreateUserPage.jsx';
@@ -28,7 +28,6 @@ import CompetitionPage from './components/pages/CompetitionPage.jsx';
 import AdminManageUsersProfilePage from './components/pages/adminPages/AdminMangeUsersProfilePage.jsx';
 import JuryCompetitionsListPage from './components/pages/JuryCompetitionsListPage.jsx';
 import JuryCompetitionPage from './components/pages/JuryCompetitionPage.jsx';
-import JuryCategoryPage from './components/pages/JuryCategoryPage.jsx';
 import ParticipationData from './components/parts/ParticipationData.jsx';
 
 function App() {

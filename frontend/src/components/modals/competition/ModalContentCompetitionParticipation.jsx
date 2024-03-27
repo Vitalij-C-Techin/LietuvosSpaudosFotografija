@@ -1,7 +1,7 @@
 import { Container, Card, Row, Col, Image, Button, Table, Modal } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import Competition from '../utils/Competition';
-import Category from '../utils/Category';
+import Competition from '../../utils/Competition';
+import Category from '../../utils/Category';
 
 const ModalContentCompetitionParticipation = ({ competition, onParticipate }) => {
   const [t] = useTranslation();
