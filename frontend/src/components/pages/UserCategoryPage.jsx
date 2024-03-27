@@ -30,29 +30,33 @@ const UserCategoryPage = () => {
   const [isUploading, setIsUploading] = useState(false);
 
   const addPhoto = (photo) => {
-    setPhotos([...photos, photo]);
+    setPhotos((list) => {
+      return [...list, photo];
+    });
   };
 
   const removePhoto = (photo) => {
-    setPhotos(
-      photos.filter((p) => {
+    setPhotos((list) => {
+      return list.filter((p) => {
         return p.uuid != photo.uuid;
-      })
-    );
+      });
+    });
 
     requestPhotoDelete(photo);
   };
 
   const addTmpPhoto = (photos) => {
-    setTmpPhotos([...tmpPhotos, ...photos]);
+    setTmpPhotos((list) => {
+      return [...list, ...photos];
+    });
   };
 
   const removeTmpPhoto = (file) => {
-    setTmpPhotos(
-      tmpPhotos.filter((p) => {
+    setTmpPhotos((list) => {
+      return list.filter((p) => {
         return p.name != file.name;
-      })
-    );
+      });
+    });
   };
 
   const removeTmpPhotos = () => {
@@ -62,8 +66,10 @@ const UserCategoryPage = () => {
   const uploadTmpPhotos = async () => {
     setIsUploading(true);
 
-    for (let i = 0; i < tmpPhotos.length; i++) {
-      await requestPhotoUpload(tmpPhotos[i]);
+    const images = [...tmpPhotos];
+
+    for (let i = 0; i < images.length; i++) {
+      await requestPhotoUpload(images[i]);
     }
 
     setIsUploading(false);
