@@ -79,6 +79,7 @@ const ParticipationData = () => {
 
   useEffect(() => {
     let url = Config.apiDomain + Config.endpoints.competitions.edit;
+    //using competitions.edit endpoint with specific comp UUID to get list of categories, needs to be changed
     url = url.replace('{uuid}', '04b54a6c-cd59-4c48-8329-0af2610621b8');
 
     axios
@@ -150,6 +151,7 @@ const ParticipationData = () => {
               <Dropdown.Item
                 key={category.uuid}
                 onClick={() =>
+                  //temporeraly using this translation method, does not work all the time
                   handleCategorySelect(i18n.language === 'en' ? category.nameEn : category.nameLt)
                 }
               >
