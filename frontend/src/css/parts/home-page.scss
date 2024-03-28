@@ -1,0 +1,174 @@
+.custom-button-width {
+  width: 100%;
+}
+
+.container {
+  font-family: "Montserrat", sans-serif;
+}
+
+.contest {
+  padding: 1rem;
+}
+
+.card {
+  border: none !important;
+  .contest{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+  }
+}
+
+.image-header-text {
+
+  h3 {
+    text-align: center;
+    padding: 0.5em;
+    width: 100%;
+    background: rgb(0, 0, 0);
+    border-radius: 0%;
+    color: white;
+  }
+
+}
+
+
+.carousel-buttons {
+  button {
+    border-radius: 0%;
+    border: solid ;
+    border-width: medium ;
+    border-color: black;
+    color: black ;
+    background-color: white;
+    margin-top: 2rem;
+  }
+  button:hover {
+    background-color: black ;
+    border-color: white ;
+    color: white ;
+  }
+}
+
+
+
+.contest-card{
+  button{
+  font-size: 12px;
+  font-weight: 600;
+  width: 100%;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+
+
+  }
+  button:hover {
+    background-color: white ;
+    border-color: white ;
+    color: black ;
+  }
+
+  .competition-end{
+    font-weight: 600;
+
+  }
+}
+
+.divider{
+  background:black;
+  height: 1vh;
+  width:auto;
+}
+
+@media screen and (min-width: 992px) { 
+
+  .contest {
+    padding: 1rem;
+    margin-left: 6rem;
+  }
+  .image-header-text {
+
+    h3 {
+      text-align: left;
+      padding: 0.5em;
+      width: fit-content;
+      background: rgb(0, 0, 0) ;
+      border-radius: 0% ;
+      color: white ;
+      position: relative;
+      bottom: -2rem;
+      left: 5rem;
+      z-index: 1;
+    }
+  
+  }
+  
+  
+  .carousel-buttons {
+    button {
+      border-radius: 0%;
+      border: solid ;
+      border-width: medium ;
+      border-color: black;
+      color: black ;
+      background-color: white;
+      position: relative;
+      top: -3.5rem;
+    }
+    button:hover {
+      background-color: black ;
+      border-color: white ;
+      color: white ;
+    }
+  }
+  
+  
+  
+  .carousel-container{
+    height:80vh;
+    overflow: hidden;
+    object-fit: contain;
+  }
+  .contest-card{
+    button{
+      font-size: 12px;
+      font-weight: 600;
+      width: 10rem;
+      border-radius: 0%;
+      border: solid;
+      border-width: medium;
+      border-color: black;
+      color: white;
+      background-color: black;
+      position: absolute;
+      right: 1rem;
+      z-index: 1;
+  
+  
+    }
+    button:hover {
+      background-color: white ;
+      border-color: white ;
+      color: black ;
+    }
+  
+    .competition-end{
+      font-weight: 600;
+  
+    }
+  }
+  
+  .divider{
+    background: black;
+    margin-left: 5rem;
+    height: 1vh;
+    width: 110vh;
+  }
+  
+  
+  
+  
+}

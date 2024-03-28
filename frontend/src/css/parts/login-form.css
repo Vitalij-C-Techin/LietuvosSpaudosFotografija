@@ -1,0 +1,33 @@
+.form-container {
+  font-family: "Montserrat", sans-serif;
+}
+.form-container h2 {
+  font-weight: 700;
+}
+.form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+.form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.form-container input {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
+}
+.form-container a {
+  text-decoration: none;
+  color: gray;
+}
+.form-container a:hover {
+  color: black;
+}/*# sourceMappingURL=login-form.css.map */

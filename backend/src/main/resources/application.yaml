@@ -2,11 +2,15 @@ logging:
   level:
     root: WARN
     lt.techin: DEBUG
-    org.springframework.security: WARN
+    org.springframework.security: DEBUG
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
   jackson:
-    defaultPropertyInclusion: non-null
+    #defaultPropertyInclusion: non-null
     deserialization:
       failOnUnknownProperties: false
     mapper:

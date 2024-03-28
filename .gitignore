@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 node_modules/
+tmp/
+storage/
 
 ### STS ###
 .apt_generated
@@ -32,3 +34,26 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Jest ###
+coverage
+frontend/coverage/clover.xml
+frontend/coverage/coverage-final.json
+frontend/coverage/lcov.info
+frontend/coverage/lcov-report/base.css
+frontend/coverage/lcov-report/block-navigation.js
+frontend/coverage/lcov-report/favicon.png
+frontend/coverage/lcov-report/index.html
+frontend/coverage/lcov-report/prettify.css
+frontend/coverage/lcov-report/prettify.js
+frontend/coverage/lcov-report/sort-arrow-sprite.png
+frontend/coverage/lcov-report/sorter.js
+frontend/coverage/lcov-report/src/i18n.jsx.html
+frontend/coverage/lcov-report/src/index.html
+frontend/coverage/lcov-report/src/components/index.html
+frontend/coverage/lcov-report/src/components/language-switch.jsx.html
+frontend/coverage/lcov-report/src/components/Navbar/index.html
+frontend/coverage/lcov-report/src/components/Navbar/NavigationBar.jsx.html
+
+backend/src/main/resources/credentials.yaml
+backend/src/main/resources/credentials.yaml

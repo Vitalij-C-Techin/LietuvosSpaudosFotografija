@@ -1,0 +1,415 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;1,500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,700;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,600&display=swap");
+.lsf-button {
+  background-color: black;
+  border: solid medium black;
+  border-radius: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+}
+.lsf-button:hover {
+  background-color: white;
+  border: solid medium black;
+  color: black;
+}
+.lsf-button:active {
+  background-color: black;
+  border: solid medium black;
+  color: white;
+}
+
+.lsf-image-cover {
+  display: inline-block;
+  width: 100%;
+  max-height: 200px;
+  aspect-ratio: 1;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.lsf-table {
+  border: solid medium black;
+}
+.lsf-table > tbody > tr {
+  width: 100%;
+}
+.lsf-table > tbody > tr td {
+  height: 100%;
+  border: none;
+}
+.lsf-table > tbody > tr td a {
+  color: black;
+}
+
+.lsf-modal-info {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+.lsf-modal-info .modal-content {
+  border: solid medium black;
+  border-radius: 0;
+}
+.lsf-modal-info .modal-content > .modal-header > .btn-close {
+  opacity: 1;
+}
+
+.form-container {
+  font-family: "Montserrat", sans-serif;
+}
+.form-container h2 {
+  font-weight: 700;
+}
+.form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+.form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.form-container input {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
+}
+.form-container a {
+  text-decoration: none;
+  color: gray;
+}
+.form-container a:hover {
+  color: black;
+}
+
+.custom-button-width {
+  width: 100%;
+}
+
+.container {
+  font-family: "Montserrat", sans-serif;
+}
+
+.contest {
+  padding: 1rem;
+}
+
+.card {
+  border: none !important;
+}
+.card .contest {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+}
+
+.image-header-text h3 {
+  text-align: center;
+  padding: 0.5em;
+  width: 100%;
+  background: rgb(0, 0, 0);
+  border-radius: 0%;
+  color: white;
+}
+
+.carousel-buttons button {
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: black;
+  background-color: white;
+  margin-top: 2rem;
+}
+.carousel-buttons button:hover {
+  background-color: black;
+  border-color: white;
+  color: white;
+}
+
+.contest-card button {
+  font-size: 12px;
+  font-weight: 600;
+  width: 100%;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+}
+.contest-card button:hover {
+  background-color: white;
+  border-color: white;
+  color: black;
+}
+.contest-card .competition-end {
+  font-weight: 600;
+}
+
+.divider {
+  background: black;
+  height: 1vh;
+  width: auto;
+}
+
+@media screen and (min-width: 992px) {
+  .contest {
+    padding: 1rem;
+    margin-left: 6rem;
+  }
+  .image-header-text h3 {
+    text-align: left;
+    padding: 0.5em;
+    width: -moz-fit-content;
+    width: fit-content;
+    background: rgb(0, 0, 0);
+    border-radius: 0%;
+    color: white;
+    position: relative;
+    bottom: -2rem;
+    left: 5rem;
+    z-index: 1;
+  }
+  .carousel-buttons button {
+    border-radius: 0%;
+    border: solid;
+    border-width: medium;
+    border-color: black;
+    color: black;
+    background-color: white;
+    position: relative;
+    top: -3.5rem;
+  }
+  .carousel-buttons button:hover {
+    background-color: black;
+    border-color: white;
+    color: white;
+  }
+  .carousel-container {
+    height: 80vh;
+    overflow: hidden;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  .contest-card button {
+    font-size: 12px;
+    font-weight: 600;
+    width: 10rem;
+    border-radius: 0%;
+    border: solid;
+    border-width: medium;
+    border-color: black;
+    color: white;
+    background-color: black;
+    position: absolute;
+    right: 1rem;
+    z-index: 1;
+  }
+  .contest-card button:hover {
+    background-color: white;
+    border-color: white;
+    color: black;
+  }
+  .contest-card .competition-end {
+    font-weight: 600;
+  }
+  .divider {
+    background: black;
+    margin-left: 5rem;
+    height: 1vh;
+    width: 110vh;
+  }
+}
+.dropdown-toggle:after {
+  display: none;
+}
+
+.nav-dropdown-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+nav .dropdown-menu {
+  border-radius: 0%;
+  border: solid 1px rgba(0, 0, 0, 0.175);
+}
+nav .dropdown-item.active {
+  background-color: transparent;
+  outline: none;
+  background-color: black;
+  color: white;
+}
+nav .dropdown-item:focus {
+  background-color: transparent;
+  outline: none;
+  color: black;
+}
+nav button {
+  border: none !important;
+}
+
+.registration-form-container {
+  font-family: "Montserrat", sans-serif;
+}
+.registration-form-container h2 {
+  font-weight: 700;
+}
+.registration-form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+.registration-form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.registration-form-container input, .registration-form-container .form-check-input {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
+}
+.registration-form-container .PhoneInputInput {
+  padding: 6px;
+  border: solid;
+  border-color: black;
+}
+.registration-form-container input:focus,
+.registration-form-container textarea:focus,
+.registration-form-container select:focus,
+.registration-form-container .PhoneInputInput:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(131, 130, 130);
+  border-color: rgb(206, 203, 203);
+}
+.registration-form-container .form-check-input:checked {
+  background-color: gray;
+  border-color: rgb(206, 203, 203);
+  border-radius: 0%;
+}
+.registration-form-container select {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
+}
+
+.fpassword-form-container {
+  font-family: "Montserrat", sans-serif;
+}
+.fpassword-form-container h2 {
+  font-weight: 700;
+}
+.fpassword-form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+.fpassword-form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.fpassword-form-container input {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
+}
+
+.lsf-admin-competition-card > div {
+  border: solid medium black;
+}
+
+.password-change-form-container {
+  font-family: "Montserrat", sans-serif;
+}
+.password-change-form-container h2 {
+  font-weight: 700;
+}
+.password-change-form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+.password-change-form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.password-change-form-container input,
+.password-change-form-container select {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
+}
+
+.registration-form-container {
+  font-family: "Montserrat", sans-serif;
+}
+.registration-form-container h2 {
+  font-weight: 700;
+}
+.registration-form-container button {
+  font-size: 12px;
+  border-radius: 0%;
+  border: solid;
+  border-width: medium;
+  border-color: black;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+.registration-form-container button:hover {
+  background-color: white;
+  border-color: black;
+  color: black;
+}
+.registration-form-container input, .registration-form-container .form-check-input {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
+}
+.registration-form-container .PhoneInputInput {
+  padding: 6px;
+  border: solid;
+  border-color: black;
+}
+.registration-form-container input:focus,
+.registration-form-container textarea:focus,
+.registration-form-container select:focus,
+.registration-form-container .PhoneInputInput:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgb(131, 130, 130);
+  border-color: rgb(206, 203, 203);
+}
+.registration-form-container .form-check-input:checked {
+  background-color: gray;
+  border-color: rgb(206, 203, 203);
+  border-radius: 0%;
+}
+.registration-form-container select {
+  border-radius: 0%;
+  border-color: black;
+  border-width: 0.2em;
+}/*# sourceMappingURL=style.css.map */
