@@ -2,27 +2,30 @@ import { useState, useRef, useEffect } from 'react';
 import { Container, Image, Col, Row, Card, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import imagePlaceHolder from '../../images/image.jpg';
-import ImageGallery from 'react-image-gallery';
+import ImageGallery from 'react-image-gallery'; // Add this line
 import 'react-image-gallery/styles/css/image-gallery.css';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import Config from '../config/Config';
+import LikeIcon from '../parts/thumbs-up-like-11260.png';
+import Competition from '../utils/Competition';
+import Photo from '../utils/Photo';
 
 const CompetitionPage = () => {
   const { comp_uuid, category_uuid } = useParams();
-  const { getUserData } = useAuth();
+  const { getUserData, getTokenHeader } = useAuth();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const { getToken } = useAuth();
   const token = getToken();
   const [images, setImages] = useState([]);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const lang = i18n.language;
   const juryId = getUserData().uuid;
-
-  console.log('Current Language:', lang);
+  const [evaluationList, setEvaluationList] = useState([]);
+  const [competition, setCompetition] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -35,13 +38,15 @@ const CompetitionPage = () => {
       .then((response) => {
         const fetchedImages = response.data.map((image) => {
           return {
+            imageId: image.uuid,
             original: `${Config.apiDomain}/photo/${image.uuid}.jpeg`,
             thumbnail: `${Config.apiDomain}/photo/${image.uuid}-small.jpeg`,
+            description: lang === 'en' ? image.description_en : image.description_lt,
             description_lt: image.description_lt,
             description_en: image.description_en,
             name_lt: image.name_lt,
             name_en: image.name_en,
-            submissionId: image.uuid
+            submissionId: image.submission_id
           };
         });
         setImages(fetchedImages);
@@ -53,27 +58,77 @@ const CompetitionPage = () => {
       .finally(() => setLoading(false));
   }, [comp_uuid, category_uuid, token]);
 
+  useEffect(() => {
+    setLoading(true);
+
+    let url = Config.apiDomain + Config.endpoints.jury.getSingle;
+    url = url.replace('{uuid}', comp_uuid);
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .get(url, cfg)
+      .then((response) => {
+        setCompetition(response.data);
+      })
+      .catch((error) => {
+        console.error('Error: ', error);
+
+        setCompetition(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const onImageLike = (imageId) => {
-    console.log(juryId);
-    console.log('Image liked', imageId, images[imageId].isLiked);
-    const liked = true;
-    const submissionId = imageId;
-    const updatedImages = images.map((image, index) => {
-      if (index === imageId) {
-        return { ...image, isLiked: true };
-      }
-      return image;
-    });
-    setImages(updatedImages);
+  const fetchEvaluationList = () => {
     axios
-      .post('http://localhost:8080/api/v1/evaluation', { juryId, liked, submissionId })
+      .get(`${Config.apiDomain}/api/v1/evaluation/jury/${juryId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then((response) => {
-        console.log(response);
+        setEvaluationList(response.data);
       })
       .catch((error) => {
         console.log(error);
+        setError('Failed to fetch data');
+      });
+  };
+
+  useEffect(() => {
+    fetchEvaluationList();
+  }, [token]);
+
+  const onImageLike = (imageId, submissionId) => {
+    axios
+      .post(
+        `${Config.apiDomain}/api/v1/evaluation`,
+        {
+          jury_uuid: juryId,
+          liked: true,
+          photo_uuid: imageId,
+          submission_uuid: submissionId
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      .then((response) => {
+        fetchEvaluationList();
+      })
+      .catch((error) => {
+        console.log(error);
+        setError('Failed to fetch data');
       });
   };
 
@@ -83,7 +138,6 @@ const CompetitionPage = () => {
 
   useEffect(() => {
     if (showGallery) {
-      console.log('now here');
       toggleFullScreenRef.current && toggleFullScreenRef.current.fullScreen();
     }
   }, [showGallery]);
@@ -100,22 +154,23 @@ const CompetitionPage = () => {
     setCurrentIndex(index);
   };
 
+  const evaluationIds = evaluationList.map((item) => item.uuid);
+
   const renderCustomControls = () => {
     const handleButtonClick = () => {
       const currentIndex = toggleFullScreenRef.current.getCurrentIndex();
-      onImageLike(currentIndex);
-      console.log('Custom button clicked!', currentIndex);
+      onImageLike(images[currentIndex].imageId, images[currentIndex].submissionId);
+      setClickedImageIndex(currentIndex);
     };
-
     return (
       <>
-        {images[currentIndex].isLiked ? (
+        {evaluationIds.includes(images[currentIndex].imageId) ? (
           <Button
             variant="outline-secondary"
             onClick={handleButtonClick}
             className="image-gallery-icon"
           >
-            👍
+            <Image src={LikeIcon} alt="My Icon" style={{ width: '20px', height: '20px' }} />
           </Button>
         ) : (
           <Button
@@ -123,7 +178,7 @@ const CompetitionPage = () => {
             onClick={handleButtonClick}
             className="image-gallery-icon"
           >
-            no likes
+            Like
           </Button>
         )}
       </>
@@ -137,14 +192,8 @@ const CompetitionPage = () => {
           <Col xxl="2" xl="2" lg="2" md="3" sm="3" className="d-flex justify-content-center">
             <Image src={imagePlaceHolder} rounded style={{ width: '100%', height: 'auto' }} />
           </Col>
-
-          <Col>
-            <h4>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum ut facilis nihil aut
-              laudantium id fuga iure exercitationem qui enim optio culpa aperiam debitis modi quis
-              cumque non, illo cum!
-            </h4>
-          </Col>
+          <Col>{/* <h4>{competition && competition.getDescription()}</h4> */}</Col>
+          <Col>{/* <h4>{c.getDescription()}</h4> */}</Col>
         </Row>
       </Container>
       <div className="divider"></div>
@@ -160,7 +209,6 @@ const CompetitionPage = () => {
             <Card>
               <Card.Header>{lang === 'en' ? image.name_en : image.name_lt}</Card.Header>
               <Card.Img
-                thumbnail
                 src={image.thumbnail}
                 onClick={() => handleImageClick(index)}
                 alt={image.name}
@@ -168,12 +216,15 @@ const CompetitionPage = () => {
               <Card body>
                 <Card body>{lang === 'en' ? image.description_en : image.description_lt}</Card>
               </Card>
-              <Button variant="outline-light">
-                <Card.Text>
-                  <span role="img" aria-label="like">
-                    👍
-                  </span>
-                </Card.Text>
+              <Button
+                variant="outline-secondary"
+                onClick={() => onImageLike(image.imageId, image.submissionId)}
+              >
+                {evaluationIds.includes(image.imageId) ? (
+                  <Image src={LikeIcon} alt="My Icon" style={{ width: '20px', height: '20px' }} />
+                ) : (
+                  'Like'
+                )}
               </Button>
             </Card>
           </Col>

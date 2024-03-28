@@ -24,7 +24,6 @@ public class EmailMessage {
                 <p>To reset your password, please click on the following link:</p>
                 <p><a href="[Reset Password Link]">Reset Password Link</a></p>
                 <p>If the link does not work, please copy and paste the following URL into your web browser:</p>
-                <p>[URL]</p>
                 <p>Once you have reset your password, you can log in to your account using your new password.</p>
                 <p>If you have any questions or need further assistance, please do not hesitate to contact our support team at [Support Email].</p>
                 <p>Thank you,</p>
