@@ -25,13 +25,16 @@ public class EvaluationRecord {
     private UUID juryId;
 
     @Column(name = "submission_id")
-    private int submissionId;
+    private UUID submissionId;
 
     @Column(name = "created_at")
     private Timestamp createdAt;
 
     @Column(name = "liked")
     private boolean liked;
+
+    @Column(name = "album_id")
+    private UUID albumId;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "photo_id")
@@ -45,15 +48,13 @@ public class EvaluationRecord {
         return this;
     }
 
-    private EvaluationRecord setCreatedAtNow() {
+    private void setCreatedAtNow() {
         createdAt = new Timestamp(System.currentTimeMillis());
 
-        return this;
     }
 
-    public EvaluationRecord setGeneratedUuid() {
+    public void setGeneratedUuid() {
         uuid = UUID.randomUUID();
 
-        return this;
     }
 }
