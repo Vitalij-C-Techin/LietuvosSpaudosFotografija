@@ -19,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -159,6 +160,7 @@ public class CompetitionService {
         if (photoRecords.isEmpty()) {
             throw new EntityNotFoundException("Photos not found.");
         }
+        Collections.shuffle(photoRecords);
         return photoRecords;
     }
 }
