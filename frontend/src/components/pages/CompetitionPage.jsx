@@ -28,37 +28,7 @@ const CompetitionPage = () => {
   const [competition, setCompetition] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${Config.apiDomain}/api/v1/jury/${comp_uuid}/category/${category_uuid}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then((response) => {
-        const fetchedImages = response.data.map((image) => {
-          return {
-            imageId: image.uuid,
-            original: `${Config.apiDomain}/photo/${image.uuid}.jpeg`,
-            thumbnail: `${Config.apiDomain}/photo/${image.uuid}-small.jpeg`,
-            description: lang === 'en' ? image.description_en : image.description_lt,
-            description_lt: image.description_lt,
-            description_en: image.description_en,
-            name_lt: image.name_lt,
-            name_en: image.name_en,
-            submissionId: image.submission_id
-          };
-        });
-        setImages(fetchedImages);
-      })
-      .catch((error) => {
-        console.log(error);
-        setError('Failed to fetch data');
-      })
-      .finally(() => setLoading(false));
-  }, [comp_uuid, category_uuid, token]);
-
-  useEffect(() => {
+    console.log('Competition UUID: ', comp_uuid);
     setLoading(true);
 
     let url = Config.apiDomain + Config.endpoints.jury.getSingle;
@@ -92,6 +62,37 @@ const CompetitionPage = () => {
         setLoading(false);
       });
   }, []);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${Config.apiDomain}/api/v1/jury/${comp_uuid}/category/${category_uuid}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        const fetchedImages = response.data.map((image) => {
+          return {
+            imageId: image.uuid,
+            original: `${Config.apiDomain}/photo/${image.uuid}.jpeg`,
+            thumbnail: `${Config.apiDomain}/photo/${image.uuid}-small.jpeg`,
+            description: lang === 'en' ? image.description_en : image.description_lt,
+            description_lt: image.description_lt,
+            description_en: image.description_en,
+            name_lt: image.name_lt,
+            name_en: image.name_en,
+            submissionId: image.submission_id
+          };
+        });
+        setImages(fetchedImages);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError('Failed to fetch data');
+      })
+      .finally(() => setLoading(false));
+  }, [comp_uuid, category_uuid, token]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -198,10 +199,16 @@ const CompetitionPage = () => {
       <Container>
         <Row>
           <Col xxl="2" xl="2" lg="2" md="3" sm="3" className="d-flex justify-content-center">
-            <Image src={competition.photo} rounded style={{ width: '100%', height: 'auto' }} />
+            <Image
+              src={competition && competition.photo}
+              rounded
+              style={{ width: '100%', height: 'auto' }}
+            />
           </Col>
           <Col>
-            <h4>{lang === 'en' ? competition.description_en : competition.description_lt}</h4>
+            {competition ? (
+              <h4>{lang === 'en' ? competition.description_en : competition.description_lt}</h4>
+            ) : null}
           </Col>
           <Col>{/* <h4>{c.getDescription()}</h4> */}</Col>
         </Row>
