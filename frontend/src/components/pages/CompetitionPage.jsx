@@ -28,6 +28,42 @@ const CompetitionPage = () => {
   const [competition, setCompetition] = useState(null);
 
   useEffect(() => {
+    console.log('Competition UUID: ', comp_uuid);
+    setLoading(true);
+
+    let url = Config.apiDomain + Config.endpoints.jury.getSingle;
+    url = url.replace('{uuid}', comp_uuid);
+
+    const cfg = {
+      headers: {
+        ...(getTokenHeader() || {})
+      }
+    };
+
+    axios
+      .get(url, cfg)
+      .then((response) => {
+        console.log('Competition Info: ', response.data);
+        const competitionInfo = {
+          name_en: response.data.name_en,
+          name_lt: response.data.name_lt,
+          description_en: response.data.description_en,
+          description_lt: response.data.description_lt,
+          photo: `${Config.apiDomain}/photo/${response.data.image_uuid}-small.jpeg`
+        };
+        setCompetition(competitionInfo);
+        console.log('here', competitionInfo);
+      })
+      .catch((error) => {
+        console.error('Error: ', error);
+        setCompetition(null);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
     axios
       .get(`${Config.apiDomain}/api/v1/jury/${comp_uuid}/category/${category_uuid}`, {
@@ -57,33 +93,6 @@ const CompetitionPage = () => {
       })
       .finally(() => setLoading(false));
   }, [comp_uuid, category_uuid, token]);
-
-  useEffect(() => {
-    setLoading(true);
-
-    let url = Config.apiDomain + Config.endpoints.jury.getSingle;
-    url = url.replace('{uuid}', comp_uuid);
-
-    const cfg = {
-      headers: {
-        ...(getTokenHeader() || {})
-      }
-    };
-
-    axios
-      .get(url, cfg)
-      .then((response) => {
-        setCompetition(response.data);
-      })
-      .catch((error) => {
-        console.error('Error: ', error);
-
-        setCompetition(null);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -190,9 +199,17 @@ const CompetitionPage = () => {
       <Container>
         <Row>
           <Col xxl="2" xl="2" lg="2" md="3" sm="3" className="d-flex justify-content-center">
-            <Image src={imagePlaceHolder} rounded style={{ width: '100%', height: 'auto' }} />
+            <Image
+              src={competition && competition.photo}
+              rounded
+              style={{ width: '100%', height: 'auto' }}
+            />
           </Col>
-          <Col>{/* <h4>{competition && competition.getDescription()}</h4> */}</Col>
+          <Col>
+            {competition ? (
+              <h4>{lang === 'en' ? competition.description_en : competition.description_lt}</h4>
+            ) : null}
+          </Col>
           <Col>{/* <h4>{c.getDescription()}</h4> */}</Col>
         </Row>
       </Container>
